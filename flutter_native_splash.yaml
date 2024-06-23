@@ -1,0 +1,24 @@
+flutter_native_splash:
+  # IOS and Android 11 and below
+  color: "#171823"
+  image: assets/images/splash_screen_logo.png
+  branding: assets/images/splash_screen_branding.png
+
+  # Android 12 and above
+  android_12:
+    color: "#171823"
+    image: assets/images/splash_screen_logo.png
+    branding: assets/images/splash_screen_branding.png
+
+  # Enable web support
+  android: true
+  ios: true
+  web: true
+
+  # Configure web
+  color_web: "#171823"
+  image_web: assets/images/splash_screen_logo.png
+  branding_web: assets/images/splash_screen_branding.png
+
+  # Hide the notification bar.
+  fullscreen: true
