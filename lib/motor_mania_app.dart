@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:motor_mania/core/config/routing/app_router.dart';
-import 'package:motor_mania/core/config/routing/routes.dart';
-import 'package:motor_mania/core/config/theme/app_theme.dart';
+
+import 'core/config/routing/app_router.dart';
+import 'core/config/routing/routes.dart';
+import 'core/config/theme/app_theme.dart';
 
 class MotorManiaApp extends StatelessWidget {
   const MotorManiaApp({super.key});

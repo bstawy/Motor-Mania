@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:motor_mania/core/config/text/text_styles.dart';
-import 'package:motor_mania/core/config/theme/colors_manager.dart';
-import 'package:motor_mania/core/widgets/custom_material_button.dart';
+
+import '../../core/config/text/text_styles.dart';
+import '../../core/config/theme/colors_manager.dart';
+import '../../core/widgets/custom_material_button.dart';
 
 class OnBoardingScreens extends StatefulWidget {
   const OnBoardingScreens({super.key});
