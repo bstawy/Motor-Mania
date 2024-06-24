@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../features/on_boarding/on_boarding_screens.dart';
+import 'no_route_defined_widget.dart';
 import 'routes.dart';
 
 class AppRouter {
@@ -10,11 +11,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const OnBoardingScreens());
       default:
         return MaterialPageRoute(
-          builder: (_) => Scaffold(
-            body: Center(
-              child: Text('No route defined for ${settings.name}'),
-            ),
-          ),
+          builder: (_) => NoRouteDefinedWidget(settings: settings),
         );
     }
   }
