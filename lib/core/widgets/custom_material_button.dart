@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 
 import '../config/text/text_styles.dart';
 import '../config/theme/colors_manager.dart';
@@ -11,7 +12,7 @@ class CustomMaterialButton extends StatelessWidget {
   final Color? backgroundColor, borderColor;
   final double? borderWidth;
   final TextStyle? titleStyle;
-  final Widget? child;
+  final Widget? prefixIcon;
   final bool enabled;
   final bool loading;
   final VoidCallback onClicked;
@@ -29,7 +30,7 @@ class CustomMaterialButton extends StatelessWidget {
     this.borderWidth,
     this.elevation,
     this.titleStyle,
-    this.child,
+    this.prefixIcon,
     this.enabled = true,
     this.loading = false,
   });
@@ -42,11 +43,12 @@ class CustomMaterialButton extends StatelessWidget {
           onClicked();
         }
       },
+      enableFeedback: enabled && !loading,
       height: height ?? 56.h,
       minWidth: width ?? double.maxFinite,
-      elevation: elevation,
+      elevation: elevation ?? 0,
       padding: padding,
-      color: loading
+      color: loading || !enabled
           ? (backgroundColor ?? ColorsManager.grey).withOpacity(0.5)
           : (backgroundColor ?? ColorsManager.darkkBlue),
       shape: RoundedRectangleBorder(
@@ -60,10 +62,22 @@ class CustomMaterialButton extends StatelessWidget {
           ? const CircularProgressIndicator(
               color: Colors.white,
             )
-          : Text(
-              title ?? "Continue",
-              style: titleStyle ?? TextStyles.font16WhiteSemiBold,
-            ),
+          : prefixIcon != null
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    prefixIcon!,
+                    Gap(8.w),
+                    Text(
+                      title ?? "Continue",
+                      style: titleStyle ?? TextStyles.font16WhiteSemiBold,
+                    ),
+                  ],
+                )
+              : Text(
+                  title ?? "Continue",
+                  style: titleStyle ?? TextStyles.font16WhiteSemiBold,
+                ),
     );
   }
 }

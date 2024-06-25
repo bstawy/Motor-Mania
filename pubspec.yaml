@@ -14,6 +14,7 @@ dependencies:
     sdk: flutter
   flutter_native_splash: ^2.4.0
   flutter_screenutil: ^5.9.3
+  flutter_svg: ^2.0.10+1
   gap: ^3.0.1
 
 dev_dependencies:
@@ -28,6 +29,7 @@ flutter:
   assets:
     - assets/fonts/
     - assets/images/
+    - assets/icons/
 
   fonts:
     - family: Montserrat
