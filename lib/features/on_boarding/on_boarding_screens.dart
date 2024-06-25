@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../core/config/routing/routes.dart';
 import '../../core/config/text/text_styles.dart';
 import '../../core/config/theme/colors_manager.dart';
+import '../../core/helpers/extensions/extensions.dart';
 import '../../core/widgets/custom_material_button.dart';
 
 class OnBoardingScreens extends StatefulWidget {
@@ -69,7 +71,7 @@ class _OnBoardingScreensState extends State<OnBoardingScreens> {
     return CustomMaterialButton(
       onClicked: () {
         if (isLastPage()) {
-          // TODO: Navigate to the login screen
+          context.pushNamed(Routes.loginScreen);
         } else {
           setState(() {
             _currentPage++;
