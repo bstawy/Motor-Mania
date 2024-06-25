@@ -1,0 +1,155 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gap/gap.dart';
+
+import '../../../../core/config/text/text_styles.dart';
+import '../../../../core/config/theme/colors_manager.dart';
+import '../../../../core/helpers/validators.dart';
+import '../../../../core/widgets/custom_material_button.dart';
+import '../../widgets/form_text_field.dart';
+import '../../widgets/password_validations.dart';
+import 'dont_have_an_account.dart';
+
+class LoginForm extends StatefulWidget {
+  const LoginForm({super.key});
+
+  @override
+  State<LoginForm> createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm> {
+  final _formKey = GlobalKey<FormState>();
+  late TextEditingController _emailController;
+  late TextEditingController _passwordController;
+
+  bool hasLowerCase = false;
+  bool hasUpperCase = false;
+  bool hasSpecialCharacter = false;
+  bool hasNumber = false;
+  bool hasMinLength = false;
+
+  bool logging = false;
+
+  void setupPasswordControllerListener() {
+    _passwordController.addListener(() {
+      setState(() {
+        hasLowerCase = Validators.hasLowerCase(_passwordController.text);
+        hasUpperCase = Validators.hasUpperCase(_passwordController.text);
+        hasSpecialCharacter =
+            Validators.hasSpecialCharacter(_passwordController.text);
+        hasNumber = Validators.hasNumber(_passwordController.text);
+        hasMinLength = Validators.hasMinLength(_passwordController.text);
+      });
+    });
+  }
+
+  bool isPasswordValidate() {
+    return hasLowerCase &&
+        hasUpperCase &&
+        hasSpecialCharacter &&
+        hasNumber &&
+        hasMinLength;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _emailController = TextEditingController();
+    _passwordController = TextEditingController();
+    setupPasswordControllerListener();
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          FormTextField(
+            controller: _emailController,
+            title: "Email",
+            hint: "Enter your email",
+            validator: (value) => Validators.validateEmail(value),
+          ),
+          Gap(16.h),
+          FormTextField(
+            controller: _passwordController,
+            title: "Password",
+            hint: "Enter your password",
+            isPassword: true,
+            scrollPadding: 300.h,
+            validator: (value) => Validators.validatePassword(value),
+          ),
+          Gap(16.h),
+          Visibility(
+            visible: _passwordController.text.isNotEmpty,
+            child: PasswordValidations(
+              isPasswordEmpty: _passwordController.text.isEmpty,
+              hasLowerCase: hasLowerCase,
+              hasUpperCase: hasUpperCase,
+              hasSpecialCharacters: hasSpecialCharacter,
+              hasNumber: hasNumber,
+              hasMinLength: hasMinLength,
+            ),
+          ),
+          Gap(4.h),
+          Align(
+            alignment: Alignment.centerRight,
+            child: TextButton(
+              onPressed: () {
+                // TODO: Forget password screen
+              },
+              child: Text(
+                "Forget Password?",
+                style: TextStyles.font12DarkBlueRegular,
+              ),
+            ),
+          ),
+          Gap(16.h),
+          CustomMaterialButton(
+            onClicked: () {
+              login();
+            },
+            title: "Login",
+            backgroundColor: ColorsManager.red,
+            enabled: _passwordController.text.isEmpty || isPasswordValidate(),
+          ),
+          Gap(16.h),
+          CustomMaterialButton(
+            onClicked: () {},
+            title: "Sign Up With Google",
+            prefixIcon: SvgPicture.asset("assets/icons/login_google_icon.svg"),
+            backgroundColor: Colors.white,
+            titleStyle: TextStyles.font16DarkBlueMedium,
+          ),
+          Gap(16.h),
+          CustomMaterialButton(
+            onClicked: () {},
+            title: "Sign Up With Apple",
+            prefixIcon: SvgPicture.asset("assets/icons/login_apple_icon.svg"),
+            backgroundColor: Colors.white,
+            titleStyle: TextStyles.font16DarkBlueMedium,
+          ),
+          Gap(16.h),
+          const DontHaveAnAccount(),
+        ],
+      ),
+    );
+  }
+
+  void login() {
+    if (_formKey.currentState!.validate()) {
+      // TODO: Login user
+      debugPrint("=========================================");
+      debugPrint("login sucessfully");
+    }
+  }
+}
