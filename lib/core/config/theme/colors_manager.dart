@@ -5,4 +5,5 @@ class ColorsManager {
   static const Color grey = Color(0xFF828A89);
   static const Color lightGrey = Color(0xFFF9F9F9);
   static const Color red = Color(0xFFEF233C);
+  static const Color black = Color(0xFF212121);
 }
