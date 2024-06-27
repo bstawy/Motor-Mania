@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../core/config/theme/colors_manager.dart';
-import '../../../../core/helpers/validators.dart';
-import '../../../../core/widgets/custom_material_button.dart';
-import '../../widgets/form_text_field.dart';
-import '../../widgets/password_validations.dart';
+import '../../../../../core/config/theme/colors_manager.dart';
+import '../../../../../core/helpers/validators.dart';
+import '../../../../../core/networking/crud_manager.dart';
+import '../../../../../core/networking/dio/dio_factory.dart';
+import '../../../../../core/widgets/custom_material_button.dart';
+import '../../../widgets/form_text_field.dart';
+import '../../../widgets/password_validations.dart';
+import '../../data/models/register_request_body.dart';
+import '../../data/repos/register_repo.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({super.key});
@@ -118,12 +122,23 @@ class _RegisterFormState extends State<RegisterForm> {
     );
   }
 
-  void register() {
+  void register() async {
     if (_formKey.currentState!.validate()) {
       // TODO: register user
-      setState(() {
-        registering = true;
-      });
+
+      final requestBody = RegisterRequestBody(
+        name: _nameController.text,
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+
+      final dio = DioFactory.getFreeDio();
+      final registerRepo = RegisterRepo(CrudManager.getInstance(dio));
+
+      await registerRepo.registerUser(
+        requestBody,
+      );
+
       debugPrint("=========================================");
       debugPrint("registered sucessfully");
     }
