@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../core/config/text/text_styles.dart';
 import '../../../../core/config/theme/colors_manager.dart';
 import '../../../../core/helpers/validators.dart';
 import '../../../../core/widgets/custom_material_button.dart';
 import '../../widgets/form_text_field.dart';
 import '../../widgets/password_validations.dart';
 
-class LoginForm extends StatefulWidget {
-  const LoginForm({super.key});
+class RegisterForm extends StatefulWidget {
+  const RegisterForm({super.key});
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  State<RegisterForm> createState() => _RegisterFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
+  late TextEditingController _nameController;
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
 
@@ -27,7 +27,7 @@ class _LoginFormState extends State<LoginForm> {
   bool hasNumber = false;
   bool hasMinLength = false;
 
-  bool logging = false;
+  bool registering = false;
 
   void setupPasswordControllerListener() {
     _passwordController.addListener(() {
@@ -45,6 +45,7 @@ class _LoginFormState extends State<LoginForm> {
   @override
   void initState() {
     super.initState();
+    _nameController = TextEditingController();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
     setupPasswordControllerListener();
@@ -52,6 +53,7 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   void dispose() {
+    _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -63,6 +65,18 @@ class _LoginFormState extends State<LoginForm> {
       key: _formKey,
       child: Column(
         children: [
+          FormTextField(
+            controller: _nameController,
+            title: "Name",
+            hint: "Enter your name",
+            validator: (value) {
+              if (value!.isEmpty) {
+                return "Name is required";
+              }
+              return null;
+            },
+          ),
+          Gap(16.h),
           FormTextField(
             controller: _emailController,
             title: "Email",
@@ -90,41 +104,28 @@ class _LoginFormState extends State<LoginForm> {
               hasMinLength: hasMinLength,
             ),
           ),
-          Gap(4.h),
-          Align(
-            alignment: Alignment.centerRight,
-            child: TextButton(
-              onPressed: () {
-                // TODO: Forget password screen
-              },
-              child: Text(
-                "Forget Password?",
-                style: TextStyles.font12DarkBlueRegular,
-              ),
-            ),
-          ),
           Gap(16.h),
           CustomMaterialButton(
             onClicked: () {
-              login();
+              register();
             },
-            title: "Login",
+            title: "Register",
             backgroundColor: ColorsManager.red,
-            enabled: !logging,
+            enabled: !registering,
           ),
         ],
       ),
     );
   }
 
-  void login() {
+  void register() {
     if (_formKey.currentState!.validate()) {
+      // TODO: register user
       setState(() {
-        logging = true;
+        registering = true;
       });
-      // TODO: Login user
       debugPrint("=========================================");
-      debugPrint("login sucessfully");
+      debugPrint("registered sucessfully");
     }
   }
 }
