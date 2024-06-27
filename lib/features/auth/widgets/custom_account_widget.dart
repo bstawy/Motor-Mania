@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/config/text/text_styles.dart';
+import '../../../core/config/text/text_styles.dart';
 
-class DontHaveAnAccount extends StatelessWidget {
-  const DontHaveAnAccount({super.key});
+class CustomAccountWidget extends StatelessWidget {
+  final String text;
+  final String buttonText;
+  final VoidCallback onPressed;
+
+  const CustomAccountWidget({
+    super.key,
+    required this.text,
+    required this.buttonText,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -11,15 +20,13 @@ class DontHaveAnAccount extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          "Don't have an account? ",
+          text,
           style: TextStyles.font14GreyRegular,
         ),
         TextButton(
-          onPressed: () {
-            // TODO: Navigate to Sign up screen
-          },
+          onPressed: onPressed,
           child: Text(
-            "Sign Up",
+            buttonText,
             style: TextStyles.font14DarkBlueMedium,
           ),
         ),
