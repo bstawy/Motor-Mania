@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../features/auth/login/login_screen.dart';
-import '../../../features/auth/register/register_screen.dart';
+import '../../../features/auth/register/presentation/register_screen.dart';
 import '../../../features/on_boarding/on_boarding_screens.dart';
 import 'no_route_defined_widget.dart';
 import 'routes.dart';
