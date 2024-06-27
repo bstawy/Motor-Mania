@@ -42,14 +42,6 @@ class _RegisterFormState extends State<RegisterForm> {
     });
   }
 
-  bool isPasswordValidate() {
-    return hasLowerCase &&
-        hasUpperCase &&
-        hasSpecialCharacter &&
-        hasNumber &&
-        hasMinLength;
-  }
-
   @override
   void initState() {
     super.initState();
@@ -119,7 +111,7 @@ class _RegisterFormState extends State<RegisterForm> {
             },
             title: "Register",
             backgroundColor: ColorsManager.red,
-            enabled: _passwordController.text.isEmpty || isPasswordValidate(),
+            enabled: !registering,
           ),
         ],
       ),
@@ -129,6 +121,9 @@ class _RegisterFormState extends State<RegisterForm> {
   void register() {
     if (_formKey.currentState!.validate()) {
       // TODO: register user
+      setState(() {
+        registering = true;
+      });
       debugPrint("=========================================");
       debugPrint("registered sucessfully");
     }

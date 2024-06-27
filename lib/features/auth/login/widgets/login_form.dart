@@ -42,14 +42,6 @@ class _LoginFormState extends State<LoginForm> {
     });
   }
 
-  bool isPasswordValidate() {
-    return hasLowerCase &&
-        hasUpperCase &&
-        hasSpecialCharacter &&
-        hasNumber &&
-        hasMinLength;
-  }
-
   @override
   void initState() {
     super.initState();
@@ -118,7 +110,7 @@ class _LoginFormState extends State<LoginForm> {
             },
             title: "Login",
             backgroundColor: ColorsManager.red,
-            enabled: _passwordController.text.isEmpty || isPasswordValidate(),
+            enabled: !logging,
           ),
         ],
       ),
@@ -127,6 +119,9 @@ class _LoginFormState extends State<LoginForm> {
 
   void login() {
     if (_formKey.currentState!.validate()) {
+      setState(() {
+        logging = true;
+      });
       // TODO: Login user
       debugPrint("=========================================");
       debugPrint("login sucessfully");
