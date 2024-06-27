@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../core/config/text/text_styles.dart';
@@ -9,7 +8,6 @@ import '../../../../core/helpers/validators.dart';
 import '../../../../core/widgets/custom_material_button.dart';
 import '../../widgets/form_text_field.dart';
 import '../../widgets/password_validations.dart';
-import 'dont_have_an_account.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -122,24 +120,6 @@ class _LoginFormState extends State<LoginForm> {
             backgroundColor: ColorsManager.red,
             enabled: _passwordController.text.isEmpty || isPasswordValidate(),
           ),
-          Gap(16.h),
-          CustomMaterialButton(
-            onClicked: () {},
-            title: "Sign Up With Google",
-            prefixIcon: SvgPicture.asset("assets/icons/login_google_icon.svg"),
-            backgroundColor: Colors.white,
-            titleStyle: TextStyles.font16DarkBlueMedium,
-          ),
-          Gap(16.h),
-          CustomMaterialButton(
-            onClicked: () {},
-            title: "Sign Up With Apple",
-            prefixIcon: SvgPicture.asset("assets/icons/login_apple_icon.svg"),
-            backgroundColor: Colors.white,
-            titleStyle: TextStyles.font16DarkBlueMedium,
-          ),
-          Gap(16.h),
-          const DontHaveAnAccount(),
         ],
       ),
     );
