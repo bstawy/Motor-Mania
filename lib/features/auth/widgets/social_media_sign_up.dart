@@ -18,7 +18,7 @@ class SocialMediaSignUp extends StatelessWidget {
           title: "Sign Up With Google",
           prefixIcon: SvgPicture.asset("assets/icons/login_google_icon.svg"),
           backgroundColor: Colors.white,
-          titleStyle: TextStyles.font16DarkBlueMedium,
+          titleStyle: TextStyles.font16DarkBlueSemiBold,
         ),
         Gap(16.h),
         CustomMaterialButton(
@@ -26,7 +26,7 @@ class SocialMediaSignUp extends StatelessWidget {
           title: "Sign Up With Apple",
           prefixIcon: SvgPicture.asset("assets/icons/login_apple_icon.svg"),
           backgroundColor: Colors.white,
-          titleStyle: TextStyles.font16DarkBlueMedium,
+          titleStyle: TextStyles.font16DarkBlueSemiBold,
         ),
       ],
     );

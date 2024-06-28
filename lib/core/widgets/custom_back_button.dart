@@ -21,16 +21,25 @@ class CustomBackButton extends StatelessWidget {
     return Container(
       width: 48.r,
       height: 48.r,
-      padding: EdgeInsets.symmetric(horizontal: paddingValue ?? 12.r),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15.r),
       ),
       child: IconButton(
         onPressed: onPressed ?? () => Navigator.of(context).pop(),
-        icon: const Icon(
-          Icons.arrow_back_ios,
-          color: ColorsManager.darkkBlue,
+        style: ButtonStyle(
+          shape: WidgetStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(borderRadiusValue ?? 15.0.r),
+            ),
+          ),
+        ),
+        icon: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 12.0.r),
+          child: const Icon(
+            Icons.arrow_back_ios,
+            color: ColorsManager.darkkBlue,
+          ),
         ),
       ),
     );
