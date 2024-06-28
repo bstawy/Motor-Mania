@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-import '../constants/api_constants.dart';
+import '../../config/constants/api_constants.dart';
 import 'token_interceptor.dart';
 
 class DioFactory {
@@ -17,7 +17,7 @@ class DioFactory {
     if (_freeDio == null) {
       _freeDio = Dio();
       _freeDio!.options
-        ..baseUrl = ApiConstants.baseUrl
+        ..baseUrl = ApiConstants.localHostBaseUrl
         ..connectTimeout = timeOut
         ..receiveTimeout = timeOut;
       _addFreeDioInterceptors();
@@ -33,7 +33,7 @@ class DioFactory {
     if (_tokenDio == null) {
       _tokenDio = Dio();
       _tokenDio!.options
-        ..baseUrl = ApiConstants.baseUrl
+        ..baseUrl = ApiConstants.localHostBaseUrl
         ..connectTimeout = timeOut
         ..receiveTimeout = timeOut;
       _addTokenDioInterceptors();
