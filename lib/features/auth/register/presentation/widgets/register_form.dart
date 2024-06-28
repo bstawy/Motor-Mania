@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../../core/config/theme/colors_manager.dart';
+import '../../../../../core/helpers/extensions/extensions.dart';
 import '../../../../../core/helpers/validators.dart';
-import '../../../../../core/networking/crud_manager.dart';
-import '../../../../../core/networking/dio/dio_factory.dart';
 import '../../../../../core/widgets/custom_material_button.dart';
 import '../../../widgets/form_text_field.dart';
 import '../../../widgets/password_validations.dart';
-import '../../data/models/register_request_body.dart';
-import '../../data/repos/register_repo.dart';
+import '../../logic/register_cubit.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({super.key});
@@ -109,13 +108,47 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
           ),
           Gap(16.h),
-          CustomMaterialButton(
-            onClicked: () {
-              register();
+          BlocConsumer<RegisterCubit, RegisterState>(
+            bloc: context.read<RegisterCubit>(),
+            listener: (context, state) {
+              if (state is LoadingState) {
+                setState(() {
+                  registering = true;
+                });
+              } else if (state is SuccessState) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(state.message),
+                    backgroundColor: Colors.green,
+                  ),
+                );
+                context.pop();
+                setState(() {
+                  registering = false;
+                });
+              } else if (state is ErrorState) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(state.message[0]),
+                    backgroundColor: ColorsManager.red,
+                  ),
+                );
+                setState(() {
+                  registering = false;
+                });
+              }
             },
-            title: "Register",
-            backgroundColor: ColorsManager.red,
-            enabled: !registering,
+            builder: (context, state) {
+              return CustomMaterialButton(
+                onClicked: () {
+                  register();
+                },
+                title: "Register",
+                backgroundColor: ColorsManager.red,
+                enabled: !registering,
+                loading: registering,
+              );
+            },
           ),
         ],
       ),
@@ -124,23 +157,11 @@ class _RegisterFormState extends State<RegisterForm> {
 
   void register() async {
     if (_formKey.currentState!.validate()) {
-      // TODO: register user
-
-      final requestBody = RegisterRequestBody(
-        name: _nameController.text,
-        email: _emailController.text,
-        password: _passwordController.text,
-      );
-
-      final dio = DioFactory.getFreeDio();
-      final registerRepo = RegisterRepo(CrudManager.getInstance(dio));
-
-      await registerRepo.registerUser(
-        requestBody,
-      );
-
-      debugPrint("=========================================");
-      debugPrint("registered sucessfully");
+      context.read<RegisterCubit>().registerUser(
+            name: _nameController.text,
+            email: _emailController.text,
+            password: _passwordController.text,
+          );
     }
   }
 }
