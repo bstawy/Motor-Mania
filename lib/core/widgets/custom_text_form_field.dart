@@ -221,7 +221,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
               borderRadius:
                   BorderRadius.circular(widget.focusedBorderRadius ?? 32.r),
               borderSide: BorderSide(
-                color: widget.focusedBorderColor ?? ColorsManager.darkkBlue,
+                color: widget.focusedBorderColor ??
+                    ColorsManager.grey.withOpacity(0.5),
                 width: widget.focusedBorderWidth ?? 1.3,
               ),
             ),
