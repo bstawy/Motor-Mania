@@ -13,6 +13,6 @@ final class SuccessState extends RegisterState {
 }
 
 final class ErrorState extends RegisterState {
-  final List<String> message;
+  final String message;
   ErrorState(this.message);
 }

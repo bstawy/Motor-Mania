@@ -6,14 +6,14 @@ import '../data_sources/login_remote_data_source.dart';
 import '../models/login_request_body_model.dart';
 
 class LoginRepo {
-  final LoginRemoteDataSource dataSource;
+  final LoginRemoteDataSource _dataSource;
 
-  LoginRepo(this.dataSource);
+  LoginRepo(this._dataSource);
 
   Future<Either<String, String>> login(
       LoginRequestBodyModel requestBody) async {
     try {
-      final userData = await dataSource.login(requestBody);
+      final userData = await _dataSource.login(requestBody);
 
       if (userData.accessToken.isNotEmpty && userData.refreshToken.isNotEmpty) {
         SecureStorageFactory.getInstance().write(
