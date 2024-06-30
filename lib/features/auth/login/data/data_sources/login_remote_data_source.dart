@@ -4,13 +4,13 @@ import '../models/login_request_body_model.dart';
 import '../models/login_response_model.dart';
 
 class LoginRemoteDataSource {
-  final CrudManager crudManager;
+  final CrudManager _crudManager;
 
-  LoginRemoteDataSource(this.crudManager);
+  LoginRemoteDataSource(this._crudManager);
 
   Future<UserData> login(LoginRequestBodyModel requestBody) async {
     try {
-      final response = await crudManager.post(
+      final response = await _crudManager.post(
         EndPoints.login,
         body: requestBody.toJson(),
       );

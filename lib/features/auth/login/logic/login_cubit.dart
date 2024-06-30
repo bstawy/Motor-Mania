@@ -7,13 +7,13 @@ import '../data/repos/login_repo.dart';
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  final LoginRepo loginRepo;
-  LoginCubit(this.loginRepo) : super(InitialState());
+  final LoginRepo _loginRepo;
+  LoginCubit(this._loginRepo) : super(InitialState());
 
   Future<void> login(LoginRequestBodyModel requestBody) async {
     emit(LoadingState());
     try {
-      final response = await loginRepo.login(requestBody);
+      final response = await _loginRepo.login(requestBody);
       response.fold(
         (l) => emit(ErrorState(l)),
         (r) => emit(SuccessState(r)),
