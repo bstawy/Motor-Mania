@@ -1,4 +1,4 @@
-import 'package:either_dart/either.dart';
+import 'package:dartz/dartz.dart';
 
 import '../../../../../core/config/constants/api_constants.dart';
 import '../../../../../core/networking/crud_manager.dart';

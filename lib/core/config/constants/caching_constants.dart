@@ -1,7 +1,4 @@
-enum Token {
-  userToken("mytoken");
-
-  final String value;
-
-  const Token(this.value);
+class TokensConstants {
+  static const String accessToken = "access_token";
+  static const String refreshToken = "refresh_token";
 }

@@ -1,7 +1,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-class SecureStorage {
-  SecureStorage._();
+class SecureStorageFactory {
+  SecureStorageFactory._();
 
   static FlutterSecureStorage? _instance;
 
