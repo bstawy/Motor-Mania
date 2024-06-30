@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
@@ -8,6 +9,8 @@ import '../../../../core/helpers/validators.dart';
 import '../../../../core/widgets/custom_material_button.dart';
 import '../../widgets/form_text_field.dart';
 import '../../widgets/password_validations.dart';
+import '../data/models/login_request_body_model.dart';
+import '../logic/login_cubit.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -104,13 +107,37 @@ class _LoginFormState extends State<LoginForm> {
             ),
           ),
           Gap(16.h),
-          CustomMaterialButton(
-            onClicked: () {
-              login();
+          BlocConsumer<LoginCubit, LoginState>(
+            bloc: context.read<LoginCubit>(),
+            listener: (context, state) {
+              if (state is LoadingState) {
+                setState(() {
+                  logging = true;
+                });
+              } else if (state is SuccessState) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(state.message),
+                    backgroundColor: Colors.green,
+                  ),
+                );
+                // TODO: Navigate to home screen
+                setState(() {
+                  logging = false;
+                });
+              }
             },
-            title: "Login",
-            backgroundColor: ColorsManager.red,
-            enabled: !logging,
+            builder: (context, state) {
+              return CustomMaterialButton(
+                onClicked: () {
+                  login();
+                },
+                title: "Login",
+                backgroundColor: ColorsManager.red,
+                enabled: !logging,
+                loading: logging,
+              );
+            },
           ),
         ],
       ),
@@ -119,12 +146,11 @@ class _LoginFormState extends State<LoginForm> {
 
   void login() {
     if (_formKey.currentState!.validate()) {
-      setState(() {
-        logging = true;
-      });
-      // TODO: Login user
-      debugPrint("=========================================");
-      debugPrint("login sucessfully");
+      LoginRequestBodyModel requestBody = LoginRequestBodyModel(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+      context.read<LoginCubit>().login(requestBody);
     }
   }
 }
