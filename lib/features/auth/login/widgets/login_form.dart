@@ -115,6 +115,8 @@ class _LoginFormState extends State<LoginForm> {
                   logging = true;
                 });
               } else if (state is SuccessState) {
+                debugPrint("======================================");
+                debugPrint("Login response: Success");
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(state.message),
@@ -122,6 +124,16 @@ class _LoginFormState extends State<LoginForm> {
                   ),
                 );
                 // TODO: Navigate to home screen
+                setState(() {
+                  logging = false;
+                });
+              } else if (state is ErrorState) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(state.message),
+                    backgroundColor: Colors.red,
+                  ),
+                );
                 setState(() {
                   logging = false;
                 });
