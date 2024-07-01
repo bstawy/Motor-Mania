@@ -1,19 +1,19 @@
 class LoginResponseModel {
-  final String message;
-  final UserData data;
   final bool success;
+  final String message;
+  final UserData? data;
 
   LoginResponseModel({
-    required this.message,
-    required this.data,
     required this.success,
+    required this.message,
+    this.data,
   });
 
   factory LoginResponseModel.fromJson(Map<String, dynamic> json) {
     return LoginResponseModel(
-      message: json['message'],
-      data: UserData.fromJson(json['data']),
       success: json['success'],
+      message: json['message'],
+      data: json['data'] != null ? UserData.fromJson(json['data']) : null,
     );
   }
 }
@@ -29,8 +29,8 @@ class UserData {
 
   factory UserData.fromJson(Map<String, dynamic> json) {
     return UserData(
-      accessToken: json['access_token'],
-      refreshToken: json['refresh_token'],
+      accessToken: json['access_token'] ?? "",
+      refreshToken: json['refresh_token'] ?? "",
     );
   }
 }
