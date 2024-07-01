@@ -1,3 +1,5 @@
+import 'package:dartz/dartz.dart';
+
 import '../../../../../core/config/constants/api_constants.dart';
 import '../../../../../core/networking/crud_manager.dart';
 import '../models/login_request_body_model.dart';
@@ -8,24 +10,24 @@ class LoginRemoteDataSource {
 
   LoginRemoteDataSource(this._crudManager);
 
-  Future<UserData> login(LoginRequestBodyModel requestBody) async {
+  Future<Either<String, UserData>> login(
+      LoginRequestBodyModel requestBody) async {
     try {
       final response = await _crudManager.post(
         EndPoints.login,
         body: requestBody.toJson(),
+        tokenReq: false,
       );
 
-      if (response.statusCode == 200) {
-        final result = LoginResponseModel.fromJson(response.data);
+      final result = LoginResponseModel.fromJson(response.data);
 
-        if (result.status == true) {
-          return result.data;
-        }
-        throw Exception(result.message);
+      if (response.statusCode == 200 && result.success) {
+        return Right(result.data!);
       }
-      throw Exception('Failed to login user');
+
+      return Left(result.message);
     } catch (e) {
-      rethrow;
+      return Left(e.toString());
     }
   }
 }

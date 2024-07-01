@@ -19,7 +19,11 @@ class DioFactory {
       _freeDio!.options
         ..baseUrl = ApiConstants.localHostBaseUrl
         ..connectTimeout = timeOut
-        ..receiveTimeout = timeOut;
+        ..receiveTimeout = timeOut
+        ..validateStatus = (status) {
+          return status! <= 500;
+        };
+
       _addFreeDioInterceptors();
       return _freeDio!;
     } else {
@@ -35,7 +39,10 @@ class DioFactory {
       _tokenDio!.options
         ..baseUrl = ApiConstants.localHostBaseUrl
         ..connectTimeout = timeOut
-        ..receiveTimeout = timeOut;
+        ..receiveTimeout = timeOut
+        ..validateStatus = (status) {
+          return status! <= 500;
+        };
       _addTokenDioInterceptors();
       return _tokenDio!;
     } else {

@@ -1,3 +1,5 @@
+import 'package:dartz/dartz.dart';
+
 import '../../../../../core/config/constants/api_constants.dart';
 import '../../../../../core/networking/crud_manager.dart';
 import '../models/register_request_body.dart';
@@ -8,24 +10,24 @@ class RegisterRemoteDataSource {
 
   RegisterRemoteDataSource(this._crudManager);
 
-  Future<RegisterResponseModel> register(
+  Future<Either<String, RegisterResponseModel>> register(
       RegisterRequestBodyModel requestBody) async {
     try {
-      final response = await _crudManager.post(EndPoints.register,
-          body: requestBody.toJson());
+      final response = await _crudManager.post(
+        EndPoints.register,
+        body: requestBody.toJson(),
+        tokenReq: false,
+      );
 
-      if (response.statusCode == 200) {
-        final result = RegisterResponseModel.fromJson(response.data);
+      final result = RegisterResponseModel.fromJson(response.data);
 
-        if (result.status == true) {
-          return result;
-        }
-        throw Exception(result.message);
+      if (response.statusCode == 200 && result.success) {
+        return Right(result);
       }
 
-      throw Exception('Failed to register user');
+      return Left(result.message);
     } catch (e) {
-      rethrow;
+      return Left(e.toString());
     }
   }
 }

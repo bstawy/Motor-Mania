@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../features/auth/login/logic/login_cubit.dart';
-import '../../../features/auth/login/login_screen.dart';
+import '../../../features/auth/login/presentation/login_screen.dart';
 import '../../../features/auth/register/logic/register_cubit.dart';
 import '../../../features/auth/register/presentation/register_screen.dart';
 import '../../../features/on_boarding/on_boarding_screens.dart';
