@@ -16,7 +16,8 @@ class TokenInterceptor extends Interceptor {
     if (accessToken.isNotEmpty) {
       options.headers["Authorization"] = accessToken;
     } else {
-      throw Exception("Access Token is empty");
+      throw Exception(
+          "================================\nAccess Token is empty");
     }
 
     super.onRequest(options, handler);
