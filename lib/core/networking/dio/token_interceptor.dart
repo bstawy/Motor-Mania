@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:motor_mania/core/networking/dio/dio_factory.dart';
 
 import '../../caching/tokens_manager.dart';
 import '../../config/constants/api_constants.dart';
 import '../crud_manager.dart';
+import 'dio_factory.dart';
 
 class TokenInterceptor extends Interceptor {
   @override

@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:motor_mania/features/auth/register/data/data_sources/register_remote_data_source.dart';
 
 import '../../features/auth/login/data/data_sources/login_remote_data_source.dart';
 import '../../features/auth/login/data/repos/login_repo.dart';
 import '../../features/auth/login/logic/login_cubit.dart';
+import '../../features/auth/register/data/data_sources/register_remote_data_source.dart';
 import '../../features/auth/register/data/repos/register_repo.dart';
 import '../../features/auth/register/logic/register_cubit.dart';
 import '../networking/crud_manager.dart';
