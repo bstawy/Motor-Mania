@@ -12,14 +12,12 @@ class LoginCubit extends Cubit<LoginState> {
 
   Future<void> login(LoginRequestBodyModel requestBody) async {
     emit(LoadingState());
-    try {
-      final response = await _loginRepo.login(requestBody);
-      response.fold(
-        (l) => emit(ErrorState(l)),
-        (r) => emit(SuccessState(r)),
-      );
-    } catch (e) {
-      emit(ErrorState(e.toString()));
-    }
+
+    final response = await _loginRepo.login(requestBody);
+
+    response.fold(
+      (l) => emit(ErrorState(l)),
+      (r) => emit(SuccessState(r)),
+    );
   }
 }
