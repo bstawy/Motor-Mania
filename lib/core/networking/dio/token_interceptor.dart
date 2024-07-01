@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:motor_mania/core/networking/dio/dio_factory.dart';
 
 import '../../caching/tokens_manager.dart';
 import '../../config/constants/api_constants.dart';
@@ -30,16 +31,32 @@ class TokenInterceptor extends Interceptor {
       String refreshToken = await TokensManager.getRefreshToken() ?? "";
 
       if (refreshToken.isNotEmpty) {
-        await updateAccessToken(refreshToken);
+        if (await updateAccessToken(refreshToken)) {
+          final Dio dio = DioFactory.getFreeDio();
+
+          err.requestOptions.headers['Authorization'] =
+              TokensManager.getAccessToken();
+
+          final opts = Options(
+            method: err.requestOptions.method,
+            headers: err.requestOptions.headers,
+          );
+
+          await dio.request(
+            err.requestOptions.path,
+            options: opts,
+            data: err.requestOptions.data,
+            queryParameters: err.requestOptions.queryParameters,
+          );
+        }
       } else {
         await logout();
       }
     }
-
     super.onError(err, handler);
   }
 
-  Future<void> updateAccessToken(String refreshToken) async {
+  Future<bool> updateAccessToken(String refreshToken) async {
     final CrudManager crud = CrudManager.getInstance();
 
     final response = await crud
@@ -50,11 +67,15 @@ class TokenInterceptor extends Interceptor {
 
       if (data["status"] == true) {
         await TokensManager.setAccessToken(data["data"]["access_token"]);
+        await TokensManager.setRefreshToken(data["data"]["refresh_token"]);
+        return true;
       } else {
         await logout();
+        return false;
       }
     } else {
       await logout();
+      return false;
     }
   }
 
