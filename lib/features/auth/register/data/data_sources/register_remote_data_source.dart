@@ -17,7 +17,7 @@ class RegisterRemoteDataSource {
       if (response.statusCode == 200) {
         final result = RegisterResponseModel.fromJson(response.data);
 
-        if (result.status == true) {
+        if (result.success == true) {
           return result;
         }
         throw Exception(result.message);

@@ -18,7 +18,7 @@ class LoginRemoteDataSource {
       if (response.statusCode == 200) {
         final result = LoginResponseModel.fromJson(response.data);
 
-        if (result.status == true) {
+        if (result.success == true) {
           return result.data;
         }
         throw Exception(result.message);

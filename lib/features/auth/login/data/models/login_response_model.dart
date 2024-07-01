@@ -1,22 +1,19 @@
 class LoginResponseModel {
   final String message;
   final UserData data;
-  final bool status;
-  final int code;
+  final bool success;
 
   LoginResponseModel({
     required this.message,
     required this.data,
-    required this.status,
-    required this.code,
+    required this.success,
   });
 
   factory LoginResponseModel.fromJson(Map<String, dynamic> json) {
     return LoginResponseModel(
       message: json['message'],
       data: UserData.fromJson(json['data']),
-      status: json['status'],
-      code: json['code'],
+      success: json['success'],
     );
   }
 }
