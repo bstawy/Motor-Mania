@@ -12,6 +12,7 @@ class FormTextField extends StatelessWidget {
   final bool? isPassword;
   final String? Function(String?)? validator;
   final num? scrollPadding;
+  final TextInputAction? action;
 
   const FormTextField({
     super.key,
@@ -21,6 +22,7 @@ class FormTextField extends StatelessWidget {
     this.isPassword,
     this.validator,
     this.scrollPadding,
+    this.action,
   });
 
   @override
@@ -39,6 +41,7 @@ class FormTextField extends StatelessWidget {
           isPassword: isPassword,
           validator: validator,
           scrollPaddingValue: scrollPadding,
+          action: action,
         ),
       ],
     );

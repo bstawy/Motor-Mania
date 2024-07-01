@@ -13,7 +13,7 @@ class LoginResponseModel {
     return LoginResponseModel(
       success: json['success'],
       message: json['message'],
-      data: json['data'] != null ? UserData.fromJson(json['data']) : null,
+      data: json['data'] == [] ? null : UserData.fromJson(json['data']),
     );
   }
 }

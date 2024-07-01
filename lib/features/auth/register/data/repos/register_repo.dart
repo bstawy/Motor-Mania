@@ -9,12 +9,8 @@ class RegisterRepo {
 
   Future<Either<String, String>> registerUser(
       RegisterRequestBodyModel requestBody) async {
-    try {
-      final response = await _remoteDataSource.register(requestBody);
+    final response = await _remoteDataSource.register(requestBody);
 
-      return Right(response.message);
-    } catch (e) {
-      return Left(e.toString());
-    }
+    return response.fold((l) => Left(l), (r) => Right(r.message));
   }
 }

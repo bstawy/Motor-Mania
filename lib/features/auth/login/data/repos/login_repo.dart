@@ -14,9 +14,7 @@ class LoginRepo {
     final response = await _dataSource.login(requestBody);
 
     return response.fold(
-      (l) {
-        return Left(l);
-      },
+      (l) => Left(l),
       (userData) {
         if (userData.accessToken.isNotEmpty &&
             userData.refreshToken.isNotEmpty) {

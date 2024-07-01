@@ -94,6 +94,7 @@ class _RegisterFormState extends State<RegisterForm> {
             isPassword: true,
             scrollPadding: 300.h,
             validator: (value) => Validators.validatePassword(value),
+            action: TextInputAction.done,
           ),
           Gap(16.h),
           Visibility(

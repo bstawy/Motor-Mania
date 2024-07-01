@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:motor_mania/features/auth/register/data/data_sources/register_remote_data_source.dart';
 
 import '../../features/auth/login/data/data_sources/login_remote_data_source.dart';
 import '../../features/auth/login/data/repos/login_repo.dart';
@@ -22,6 +23,8 @@ Future<void> initGetIt() async {
       ));
 
   // Register
+  getIt.registerFactory<RegisterRemoteDataSource>(
+      () => RegisterRemoteDataSource(getIt()));
   getIt.registerFactory<RegisterRepo>(() => RegisterRepo(getIt()));
   getIt.registerFactory<RegisterCubit>(() => RegisterCubit(getIt()));
 
