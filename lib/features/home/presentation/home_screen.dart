@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
+import '../../../core/config/text/text_styles.dart';
+import '../../../core/helpers/extensions/extensions.dart';
 import 'widgets/categories_filter_widget.dart';
 import 'widgets/home_header.dart';
 import 'widgets/search_bar_widget.dart';
@@ -19,7 +21,13 @@ class HomeScreen extends StatelessWidget {
             children: [
               const HomeHeaderWidget(),
               Gap(40.h),
-              const CategoriesFilterWidget()
+              CategoriesFilterWidget(),
+              Gap(24.h),
+              Text(
+                "Best Sellers",
+                style: TextStyles.font20DarkBlueBold,
+              ).setHorizontalPadding(16.w),
+              Gap(8.h),
             ],
           ),
           Positioned(
