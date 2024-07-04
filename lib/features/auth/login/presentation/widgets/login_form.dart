@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:motor_mania/core/config/routing/routes.dart';
+import 'package:motor_mania/core/helpers/extensions/extensions.dart';
 
 import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors_manager.dart';
@@ -124,7 +126,8 @@ class _LoginFormState extends State<LoginForm> {
                     backgroundColor: Colors.green,
                   ),
                 );
-                // TODO: Navigate to home screen
+                context.pushNamedAndRemoveUntil(Routes.homeScreen,
+                    predicate: (route) => false);
                 setState(() {
                   logging = false;
                 });
