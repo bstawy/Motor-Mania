@@ -18,11 +18,13 @@ class CustomFilterChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return FilterChip(
       label: Text(
-        "Mechanic",
-        style: TextStyles.font10WhiteSemiBold,
+        title,
+        style: TextStyles.font10WhiteSemiBold.copyWith(
+          color: isSelected ? Colors.white : ColorsManager.darkkBlue,
+        ),
       ),
-      onSelected: (vakye) {},
-      selected: true,
+      onSelected: (value) {},
+      selected: isSelected,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(70.r),
       ),

@@ -7,7 +7,15 @@ import '../../../../core/helpers/extensions/extensions.dart';
 import 'custom_filter_chip_widget.dart';
 
 class CategoriesFilterWidget extends StatelessWidget {
-  const CategoriesFilterWidget({super.key});
+  CategoriesFilterWidget({super.key});
+
+  final List<String> categories = [
+    "Mechanic",
+    "Electrician",
+    "Plumber",
+    "Carpenter",
+    "Painter",
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +31,11 @@ class CategoriesFilterWidget extends StatelessWidget {
           height: 40.h,
           child: ListView.builder(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
-            itemCount: 5,
+            itemCount: categories.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
               return CustomFilterChip(
-                title: "Mechanic",
+                title: categories[index],
                 isSelected: index == 0,
               ).setOnlyPadding(0, 0, 4.w, 0);
             },
