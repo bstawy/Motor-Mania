@@ -33,6 +33,13 @@ class TextStyles {
     fontFamily: 'Montserrat',
   );
 
+  static TextStyle font16DarkBlueBold = TextStyle(
+    color: ColorsManager.darkkBlue,
+    fontSize: 16.sp,
+    fontWeight: FontWeightHelper.bold,
+    fontFamily: 'Montserrat',
+  );
+
   static TextStyle font16DarkBlueSemiBold = TextStyle(
     color: ColorsManager.darkkBlue,
     fontSize: 16.sp,
@@ -113,6 +120,34 @@ class TextStyles {
   static TextStyle font10WhiteMedium = TextStyle(
     color: Colors.white,
     fontSize: 10.sp,
+    fontWeight: FontWeightHelper.medium,
+    fontFamily: 'Montserrat',
+  );
+
+  static TextStyle font10DarkBlueRegular = TextStyle(
+    color: ColorsManager.darkkBlue,
+    fontSize: 10.sp,
+    fontWeight: FontWeightHelper.regular,
+    fontFamily: 'Montserrat',
+  );
+
+  static TextStyle font8LightGreyBold = TextStyle(
+    color: ColorsManager.lightGrey,
+    fontSize: 8.sp,
+    fontWeight: FontWeightHelper.bold,
+    fontFamily: 'Montserrat',
+  );
+
+  static TextStyle font8LightGreyRegular = TextStyle(
+    color: ColorsManager.lightGrey,
+    fontSize: 8.sp,
+    fontWeight: FontWeightHelper.regular,
+    fontFamily: 'Montserrat',
+  );
+
+  static TextStyle font7WhiteMedium = TextStyle(
+    color: Colors.white,
+    fontSize: 7.sp,
     fontWeight: FontWeightHelper.medium,
     fontFamily: 'Montserrat',
   );
