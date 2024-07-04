@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 
 import '../../../core/config/text/text_styles.dart';
 import '../../../core/helpers/extensions/extensions.dart';
+import 'widgets/best_seller_grid_view.dart';
 import 'widgets/categories_filter_widget.dart';
 import 'widgets/home_header.dart';
 import 'widgets/search_bar_widget.dart';
@@ -28,6 +29,7 @@ class HomeScreen extends StatelessWidget {
                 style: TextStyles.font20DarkBlueBold,
               ).setHorizontalPadding(16.w),
               Gap(8.h),
+              Expanded(child: BestSellerGridWidget()),
             ],
           ),
           Positioned(
