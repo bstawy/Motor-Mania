@@ -67,13 +67,12 @@ class _OnBoardingScreensState extends State<OnBoardingScreens> {
     );
   }
 
-  CustomMaterialButton buildOnBoardingButton() {
+  Widget buildOnBoardingButton() {
     return CustomMaterialButton(
       onClicked: () {
         if (isLastPage()) {
           // TODO: check if user previously login
-          //context.pushNamed(Routes.loginScreen);
-          context.pushNamed(Routes.homeScreen);
+          context.pushNamed(Routes.loginScreen);
         } else {
           setState(() {
             _currentPage++;

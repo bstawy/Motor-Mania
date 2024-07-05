@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
+import '../text/text_styles.dart';
+
 class NoRouteDefinedWidget extends StatelessWidget {
   final RouteSettings settings;
   const NoRouteDefinedWidget({super.key, required this.settings});
@@ -25,10 +27,7 @@ class NoRouteDefinedWidget extends StatelessWidget {
             Text(
               "No Route Defined for ${settings.name}",
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 18.sp,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyles.font20DarkBlueBold,
             ),
           ],
         ),

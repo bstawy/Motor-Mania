@@ -6,6 +6,7 @@ import '../../../features/auth/login/presentation/login_screen.dart';
 import '../../../features/auth/register/logic/register_cubit.dart';
 import '../../../features/auth/register/presentation/register_screen.dart';
 import '../../../features/home/presentation/home_screen.dart';
+import '../../../features/layout/layout_screen.dart';
 import '../../../features/on_boarding/on_boarding_screens.dart';
 import '../../di/dependency_injection.dart';
 import 'no_route_defined_widget.dart';
@@ -31,6 +32,11 @@ class AppRouter {
             create: (context) => getIt<RegisterCubit>(),
             child: const RegisterScreen(),
           ),
+        );
+
+      case Routes.layoutScreen:
+        return MaterialPageRoute(
+          builder: (_) => const LayoutScreen(),
         );
 
       case Routes.homeScreen:

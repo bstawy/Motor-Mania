@@ -24,8 +24,9 @@ class BestSellerGridWidget extends StatelessWidget {
         mainAxisSpacing: 8.h,
         mainAxisExtent: 220.h,
       ),
-      padding: EdgeInsets.only(bottom: 16.h),
-      physics: const ClampingScrollPhysics(),
+      shrinkWrap: true,
+      padding: EdgeInsets.zero,
+      physics: const NeverScrollableScrollPhysics(),
       itemCount: imagePaths.length,
       itemBuilder: (context, index) {
         return BestSellerGridItem(
