@@ -11,7 +11,6 @@ import '../../../../../core/helpers/validators.dart';
 import '../../../../../core/widgets/custom_material_button.dart';
 import '../../../widgets/form_text_field.dart';
 import '../../../widgets/password_validations.dart';
-import '../../data/models/login_request_body_model.dart';
 import '../../logic/login_cubit.dart';
 
 class LoginForm extends StatefulWidget {
@@ -146,7 +145,7 @@ class _LoginFormState extends State<LoginForm> {
             builder: (context, state) {
               return CustomMaterialButton(
                 onClicked: () {
-                  login();
+                  login(context);
                 },
                 title: "Login",
                 backgroundColor: ColorsManager.red,
@@ -160,13 +159,15 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
-  void login() {
-    if (_formKey.currentState!.validate()) {
-      LoginRequestBodyModel requestBody = LoginRequestBodyModel(
-        email: _emailController.text,
-        password: _passwordController.text,
-      );
-      context.read<LoginCubit>().login(requestBody);
-    }
+  void login(BuildContext context) {
+    context.pushNamedAndRemoveUntil(Routes.layoutScreen,
+        predicate: (_) => false);
+    // if (_formKey.currentState!.validate()) {
+    //   LoginRequestBodyModel requestBody = LoginRequestBodyModel(
+    //     email: _emailController.text,
+    //     password: _passwordController.text,
+    //   );
+    //   context.read<LoginCubit>().login(requestBody);
+    // }
   }
 }
