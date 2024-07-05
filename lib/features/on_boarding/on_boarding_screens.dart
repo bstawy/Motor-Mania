@@ -67,25 +67,32 @@ class _OnBoardingScreensState extends State<OnBoardingScreens> {
     );
   }
 
-  CustomMaterialButton buildOnBoardingButton() {
-    return CustomMaterialButton(
-      onClicked: () {
-        if (isLastPage()) {
-          // TODO: check if user previously login
-          //context.pushNamed(Routes.loginScreen);
-          context.pushNamed(Routes.homeScreen);
-        } else {
-          setState(() {
-            _currentPage++;
-          });
-        }
-      },
-      title: isLastPage() ? 'Get Started' : 'Next',
-      titleStyle: isLastPage()
-          ? TextStyles.font16WhiteSemiBold
-          : TextStyles.font16WhiteSemiBold.copyWith(color: ColorsManager.red),
-      backgroundColor: isLastPage() ? ColorsManager.red : Colors.white,
-      elevation: 0,
+  Widget buildOnBoardingButton() {
+    return Row(
+      children: [
+        Expanded(
+          child: CustomMaterialButton(
+            onClicked: () {
+              if (isLastPage()) {
+                // TODO: check if user previously login
+                //context.pushNamed(Routes.loginScreen);
+                context.pushNamed(Routes.layoutScreen);
+              } else {
+                setState(() {
+                  _currentPage++;
+                });
+              }
+            },
+            title: isLastPage() ? 'Get Started' : 'Next',
+            titleStyle: isLastPage()
+                ? TextStyles.font16WhiteSemiBold
+                : TextStyles.font16WhiteSemiBold
+                    .copyWith(color: ColorsManager.red),
+            backgroundColor: isLastPage() ? ColorsManager.red : Colors.white,
+            elevation: 0,
+          ),
+        ),
+      ],
     );
   }
 }
