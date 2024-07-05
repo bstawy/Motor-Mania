@@ -27,9 +27,13 @@ class HomeHeaderWidget extends StatelessWidget {
                 children: [
                   SvgPicture.asset("assets/icons/location_icon.svg"),
                   Gap(6.w),
-                  Text(
-                    "2972 Westheimer Rd. Santa Ana, Illinois 85486",
-                    style: TextStyles.font12LightGreyMedium,
+                  Expanded(
+                    child: Text(
+                      "2972 Westheimer Rd. Santa Ana, Illinois 85486",
+                      style: TextStyles.font12LightGreyMedium,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ],
               ),
