@@ -10,6 +10,7 @@ environment:
 
 dependencies:
   carousel_slider: ^4.2.1
+  colorful_safe_area: ^1.0.0
   cupertino_icons: ^1.0.6
   dartz: ^0.10.1
   dio: ^5.4.3+1
