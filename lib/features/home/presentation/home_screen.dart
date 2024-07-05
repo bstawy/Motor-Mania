@@ -33,7 +33,7 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
           Positioned(
-            top: 270.h,
+            top: 278.h,
             left: 0,
             right: 0,
             child: const SearchBarWidget(),
