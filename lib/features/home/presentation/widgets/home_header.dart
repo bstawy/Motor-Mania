@@ -28,7 +28,7 @@ class HomeHeaderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.only(top: 51.h, bottom: 90.h),
+      padding: EdgeInsets.only(top: 16.h, bottom: 90.h),
       color: ColorsManager.darkkBlue,
       child: Stack(
         children: [
