@@ -166,10 +166,10 @@ class TextStyles {
     fontFamily: 'Montserrat',
   );
 
-  static TextStyle font8LightGreyRegular = TextStyle(
+  static TextStyle font8LightGreyMedium = TextStyle(
     color: ColorsManager.lightGrey,
     fontSize: 8.sp,
-    fontWeight: FontWeightHelper.regular,
+    fontWeight: FontWeightHelper.medium,
     fontFamily: 'Montserrat',
   );
 
