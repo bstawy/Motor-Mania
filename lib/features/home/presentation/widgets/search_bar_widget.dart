@@ -4,40 +4,37 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../core/config/text/text_styles.dart';
+import '../../../../core/config/theme/colors_manager.dart';
 
 class SearchBarWidget extends StatelessWidget {
-  const SearchBarWidget({
-    super.key,
-  });
+  const SearchBarWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Search"),
-          ),
+          const SnackBar(content: Text("Search Bar")),
         );
       },
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 16.w),
-        padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 11.h),
-        height: 46.h,
+        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50.r),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.15),
-              blurRadius: 73,
-              offset: const Offset(0, 4),
-            ),
-          ],
+          borderRadius: BorderRadius.circular(15.r),
+          color: Colors.transparent,
+          border: Border.all(
+            color: ColorsManager.lightGrey,
+          ),
         ),
         child: Row(
           children: [
-            SvgPicture.asset("assets/icons/search_icon.svg"),
+            SvgPicture.asset(
+              "assets/icons/search_icon.svg",
+              colorFilter: const ColorFilter.mode(
+                ColorsManager.lightGrey,
+                BlendMode.srcIn,
+              ),
+            ),
             Gap(8.w),
             Text(
               "Search",
@@ -47,12 +44,16 @@ class SearchBarWidget extends StatelessWidget {
             InkWell(
               onTap: () {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("Barcode"),
-                  ),
+                  const SnackBar(content: Text("Barcode")),
                 );
               },
-              child: SvgPicture.asset("assets/icons/barcode_icon.svg"),
+              child: SvgPicture.asset(
+                "assets/icons/barcode_icon.svg",
+                colorFilter: const ColorFilter.mode(
+                  ColorsManager.lightGrey,
+                  BlendMode.srcIn,
+                ),
+              ),
             ),
           ],
         ),

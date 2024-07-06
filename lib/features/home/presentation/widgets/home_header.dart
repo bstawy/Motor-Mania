@@ -6,23 +6,37 @@ import 'package:gap/gap.dart';
 import '../../../../core/config/text/text_styles.dart';
 import '../../../../core/config/theme/colors_manager.dart';
 import '../../../../core/helpers/extensions/extensions.dart';
+import 'search_bar_widget.dart';
 
 class HomeHeaderWidget extends StatelessWidget {
   const HomeHeaderWidget({super.key});
+
+  Widget _buildLastPurchaseItem(String title) {
+    return Row(
+      children: [
+        SvgPicture.asset("assets/icons/checkmark_icon.svg"),
+        Gap(6.w),
+        Text(
+          title,
+          style: TextStyles.font12LightGreyMedium,
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(
-        vertical: 51.h,
-      ),
+      padding: EdgeInsets.only(top: 16.h, bottom: 90.h),
       color: ColorsManager.darkkBlue,
       child: Stack(
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const SearchBarWidget(),
+              Gap(12.h),
               Row(
                 children: [
                   SvgPicture.asset("assets/icons/location_icon.svg"),
@@ -53,27 +67,9 @@ class HomeHeaderWidget extends StatelessWidget {
                 style: TextStyles.font10LightGreySemiBold,
               ),
               Gap(8.h),
-              Row(
-                children: [
-                  SvgPicture.asset("assets/icons/checkmark_icon.svg"),
-                  Gap(6.w),
-                  Text(
-                    "ACDelco 480",
-                    style: TextStyles.font12LightGreyMedium,
-                  ),
-                ],
-              ),
+              _buildLastPurchaseItem("ACDelco 480"),
               Gap(6.h),
-              Row(
-                children: [
-                  SvgPicture.asset("assets/icons/checkmark_icon.svg"),
-                  Gap(6.w),
-                  Text(
-                    "Bridgestone Tyre",
-                    style: TextStyles.font12LightGreyMedium,
-                  ),
-                ],
-              ),
+              _buildLastPurchaseItem("Bridgestone Tyre"),
             ],
           ).setHorizontalPadding(16.w),
           Positioned(
