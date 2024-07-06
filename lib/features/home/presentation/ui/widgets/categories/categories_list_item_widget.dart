@@ -15,6 +15,7 @@ class CategoriesListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(12.r),
+      width: 70.w,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15.r),
@@ -30,6 +31,8 @@ class CategoriesListItem extends StatelessWidget {
           Text(
             category.name,
             style: TextStyles.font10DarkBlueMedium,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
         ],
       ),
