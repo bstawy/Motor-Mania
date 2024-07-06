@@ -12,7 +12,7 @@ class HomeListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 290.h,
+      height: 295.h,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         padding: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 16.h),

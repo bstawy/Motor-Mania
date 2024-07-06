@@ -8,14 +8,17 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
   final Widget? leading;
   final List<Widget>? actions;
-  final double? padding;
+  final double? topPadding, downPadding, rightPadding, leftPadding;
 
   const CustomAppBar({
     super.key,
     this.title,
     this.leading,
     this.actions,
-    this.padding,
+    this.topPadding,
+    this.downPadding,
+    this.rightPadding,
+    this.leftPadding,
   });
 
   @override
@@ -34,9 +37,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           : const SizedBox.shrink(),
       actions: actions,
       centerTitle: false,
-    ).setHorizontalPadding(padding ?? 0);
+    ).setOnlyPadding(topPadding ?? 8.h, downPadding ?? 0, rightPadding ?? 0,
+        leftPadding ?? 0);
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(58.0.h);
+  Size get preferredSize => Size.fromHeight(60.0.h);
 }

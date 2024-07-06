@@ -15,7 +15,7 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(padding: 24.w),
+      appBar: CustomAppBar(leftPadding: 24.w, rightPadding: 24.w),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(

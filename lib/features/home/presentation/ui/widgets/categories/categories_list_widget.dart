@@ -58,7 +58,7 @@ class CategoriesList extends StatelessWidget {
 
   Widget _buildCategoriesLoaded(CategoriesLoaded state) {
     return SizedBox(
-      height: 65.h,
+      height: 66.h,
       child: ListView.builder(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         itemCount: state.categories.length,
