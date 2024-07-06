@@ -17,7 +17,7 @@ class CrudManager {
     }
   }
 
-  Future<T> get<T>(
+  Future<Response> get(
     String endPoint, {
     Map<String, dynamic>? body,
     dynamic param,
@@ -31,13 +31,13 @@ class CrudManager {
         data: body,
         queryParameters: param,
       );
-      return response.data;
+      return response;
     } catch (e) {
       rethrow;
     }
   }
 
-  Future<Response> post<T>(
+  Future<Response> post(
     String endPoint, {
     Map<String, dynamic>? body,
     dynamic param,
