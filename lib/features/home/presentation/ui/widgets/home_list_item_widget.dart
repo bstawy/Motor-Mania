@@ -19,7 +19,7 @@ class HomeListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 167.w,
+      width: 150.w,
       padding: EdgeInsets.all(8.r),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -32,8 +32,8 @@ class HomeListItem extends StatelessWidget {
             children: [
               Gap(24.h),
               SizedBox(
-                width: 100.w,
-                height: 85.h,
+                width: 104.w,
+                height: 88.h,
                 child: Image.asset(product.imagePath),
               ),
               Gap(12.h),
@@ -42,7 +42,7 @@ class HomeListItem extends StatelessWidget {
                   SvgPicture.asset("assets/icons/star_icon.svg"),
                   Text(
                     "${product.rating} (${product.reviewCount})",
-                    style: TextStyles.font8LightGreyRegular,
+                    style: TextStyles.font8LightGreyMedium,
                   ),
                 ],
               ),
@@ -65,7 +65,7 @@ class HomeListItem extends StatelessWidget {
                     "\$${product.priceAfterDiscount}",
                     style: TextStyles.font16DarkBlueBold,
                   ),
-                  Gap(6.w),
+                  Gap(3.w),
                   Text(
                     "\$${product.price}",
                     style: TextStyles.font10LightGreyRegular.copyWith(
@@ -74,13 +74,13 @@ class HomeListItem extends StatelessWidget {
                   ),
                 ],
               ),
-              Gap(6.h),
+              Gap(3.h),
               Row(
                 children: [
                   SvgPicture.asset("assets/icons/verify_icon.svg"),
                   Text(
                     "Verified Seller",
-                    style: TextStyles.font8LightGreyBold.copyWith(
+                    style: TextStyles.font8LightGreyMedium.copyWith(
                       color: ColorsManager.darkkBlue,
                     ),
                   ),
@@ -114,13 +114,19 @@ class HomeListItem extends StatelessWidget {
             child: GestureDetector(
               onTap: () {},
               child: Container(
+                width: 28.r,
+                height: 28.r,
                 padding: EdgeInsets.all(6.r),
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   color: ColorsManager.lighterGrey,
                 ),
                 alignment: Alignment.center,
-                child: SvgPicture.asset("assets/icons/favorite_icon.svg"),
+                child: SvgPicture.asset(
+                  "assets/icons/favorite_icon.svg",
+                  width: 16.r,
+                  height: 16.r,
+                ),
               ),
             ),
           ),
