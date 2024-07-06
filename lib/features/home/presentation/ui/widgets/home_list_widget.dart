@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/helpers/extensions/extensions.dart';
-import '../../data/models/product_model.dart';
+import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../data/models/product_model.dart';
 import 'home_list_item_widget.dart';
 
 class HomeListWidget extends StatelessWidget {

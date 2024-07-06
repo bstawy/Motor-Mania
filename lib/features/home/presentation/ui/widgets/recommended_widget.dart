@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../core/config/text/text_styles.dart';
-import '../../../../core/helpers/extensions/extensions.dart';
-import '../../data/models/product_model.dart';
+import '../../../../../core/config/text/text_styles.dart';
+import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../data/models/product_model.dart';
 import 'home_list_widget.dart';
 
 class RecommendedWidget extends StatelessWidget {
