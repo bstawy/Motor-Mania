@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 import '../../core/config/text/text_styles.dart';
 import '../../core/config/theme/colors_manager.dart';
-import '../home/presentation/home_screen.dart';
+import '../../core/di/dependency_injection.dart';
+import '../home/presentation/logic/home_cubit.dart';
+import '../home/presentation/ui/home_screen.dart';
 
 class LayoutScreen extends StatelessWidget {
   const LayoutScreen({super.key});
@@ -44,7 +47,10 @@ class LayoutScreen extends StatelessWidget {
       navBarOverlap: const NavBarOverlap.none(),
       tabs: [
         _buildBottomNavBarItem(
-          screen: const HomeScreen(),
+          screen: BlocProvider<HomeCubit>(
+            create: (context) => getIt<HomeCubit>(),
+            child: const HomeScreen(),
+          ),
           iconPath: "assets/icons/bottom_nav_selected_home_icon.svg",
           inactiveIconPath: "assets/icons/bottom_nav_unselected_home_icon.svg",
           title: "Home",
