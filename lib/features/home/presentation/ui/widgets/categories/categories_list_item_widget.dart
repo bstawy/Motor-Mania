@@ -14,23 +14,23 @@ class CategoriesListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(12.r),
-      width: 70.w,
+      padding: EdgeInsets.symmetric(vertical: 13.h, horizontal: 8.w),
+      width: 71.w,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(15.r),
+        borderRadius: BorderRadius.circular(17.r),
       ),
       child: Column(
         children: [
           SvgPicture.network(
             category.imageUrl,
-            width: 24.w,
-            height: 24.h,
+            width: 27.w,
+            height: 27.h,
           ),
           Gap(2.h),
           Text(
             category.name,
-            style: TextStyles.font10DarkBlueMedium,
+            style: TextStyles.font12DarkBlueMedium,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),

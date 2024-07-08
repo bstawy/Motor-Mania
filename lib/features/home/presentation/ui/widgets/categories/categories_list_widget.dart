@@ -32,7 +32,7 @@ class CategoriesList extends StatelessWidget {
 
   Widget _buildCategoriesLoading() {
     return SizedBox(
-      height: 65.h,
+      height: 75.h,
       child: ListView.builder(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         itemCount: 5,
@@ -42,12 +42,12 @@ class CategoriesList extends StatelessWidget {
             baseColor: Colors.grey[300]!,
             highlightColor: Colors.white,
             child: Container(
-              height: 60.h,
-              width: 60.w,
-              padding: EdgeInsets.all(12.r),
+              height: 74.h,
+              width: 71.w,
+              padding: EdgeInsets.all(13.r),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(15.r),
+                borderRadius: BorderRadius.circular(17.r),
               ),
             ).setOnlyPadding(0, 0, 8.w, 0),
           );
@@ -58,7 +58,7 @@ class CategoriesList extends StatelessWidget {
 
   Widget _buildCategoriesLoaded(CategoriesLoaded state) {
     return SizedBox(
-      height: 66.h,
+      height: 75.h,
       child: ListView.builder(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         itemCount: state.categories.length,
