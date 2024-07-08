@@ -6,7 +6,7 @@ import '../../../features/auth/login/presentation/login_screen.dart';
 import '../../../features/auth/register/logic/register_cubit.dart';
 import '../../../features/auth/register/presentation/register_screen.dart';
 import '../../../features/layout/layout_screen.dart';
-import '../../../features/on_boarding/on_boarding_screens.dart';
+import '../../../features/on_boarding/on_boarding_screen.dart';
 import '../../di/dependency_injection.dart';
 import 'no_route_defined_widget.dart';
 import 'routes.dart';
@@ -15,7 +15,7 @@ class AppRouter {
   Route generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.onBoardingScreens:
-        return MaterialPageRoute(builder: (_) => const OnBoardingScreens());
+        return MaterialPageRoute(builder: (_) => const OnBoardingScreen());
 
       case Routes.loginScreen:
         return MaterialPageRoute(
