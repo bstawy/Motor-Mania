@@ -1,13 +1,15 @@
 import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
+import '../../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../../core/config/theme/colors_manager.dart';
 import 'widgets/best_sellers_widget.dart';
 import 'widgets/categories/categories_widget.dart';
-import 'widgets/home_header.dart';
+import 'widgets/home_header_widget.dart';
 import 'widgets/offers_widget.dart';
 import 'widgets/recommended_widget.dart';
 
@@ -16,6 +18,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isUserLogged = context.read<AppManagerCubit>().isUserLoggedIn;
+
     return Scaffold(
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
@@ -37,7 +41,7 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
                 Positioned(
-                  top: 285.h,
+                  top: isUserLogged ? 285.h : 80.h,
                   left: 0,
                   right: 0,
                   child: const OffersWidget(),
