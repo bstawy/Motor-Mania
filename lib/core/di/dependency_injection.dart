@@ -7,6 +7,12 @@ import '../../features/auth/login/logic/login_cubit.dart';
 import '../../features/auth/register/data/data_sources/register_remote_data_source.dart';
 import '../../features/auth/register/data/repos/register_repo.dart';
 import '../../features/auth/register/logic/register_cubit.dart';
+import '../../features/home/data/data_sources/categories_remote_data_source.dart';
+import '../../features/home/data/data_sources/data_sources_impl/categories_remote_data_source_impl.dart';
+import '../../features/home/data/repos_impl/categories_repo_impl.dart';
+import '../../features/home/domain/repos/categories_repo.dart';
+import '../../features/home/domain/use_cases/get_all_categories_use_case.dart';
+import '../../features/home/presentation/logic/home_cubit.dart';
 import '../networking/crud_manager.dart';
 import '../networking/dio/dio_factory.dart';
 
@@ -33,4 +39,12 @@ Future<void> initGetIt() async {
       () => LoginRemoteDataSource(getIt()));
   getIt.registerFactory<LoginRepo>(() => LoginRepo(getIt()));
   getIt.registerFactory<LoginCubit>(() => LoginCubit(getIt()));
+
+  // home
+  getIt.registerFactory<CategoriesRemoteDataSource>(
+      () => CategoriesRemoteDataSourceImpl(getIt()));
+  getIt.registerFactory<CategoriesRepo>(() => CategoriesRepoImpl(getIt()));
+  getIt.registerFactory<GetAllCategoriesUseCase>(
+      () => GetAllCategoriesUseCase(getIt()));
+  getIt.registerFactory<HomeCubit>(() => HomeCubit(getIt()));
 }

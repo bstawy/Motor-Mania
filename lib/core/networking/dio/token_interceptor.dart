@@ -12,9 +12,8 @@ class TokenInterceptor extends Interceptor {
     RequestInterceptorHandler handler,
   ) async {
     String accessToken = await TokensManager.getAccessToken() ?? "";
-
     if (accessToken.isNotEmpty) {
-      options.headers["Authorization"] = accessToken;
+      options.headers["Authorization"] = "Bearer $accessToken";
     } else {
       throw Exception(
           "================================\nAccess Token is empty");

@@ -71,7 +71,6 @@ class _OnBoardingScreensState extends State<OnBoardingScreens> {
     return CustomMaterialButton(
       onClicked: () {
         if (isLastPage()) {
-          // TODO: check if user previously login
           context.pushNamed(Routes.loginScreen);
         } else {
           setState(() {
