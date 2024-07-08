@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 import '../../core/config/text/text_styles.dart';
@@ -9,36 +8,10 @@ import '../../core/config/theme/colors_manager.dart';
 import '../../core/di/dependency_injection.dart';
 import '../home/presentation/logic/home_cubit.dart';
 import '../home/presentation/ui/home_screen.dart';
+import 'bottom_nav_bar_tab.dart';
 
 class LayoutScreen extends StatelessWidget {
   const LayoutScreen({super.key});
-
-  PersistentTabConfig _buildBottomNavBarItem({
-    required Widget screen,
-    required String iconPath,
-    required String inactiveIconPath,
-    required String title,
-  }) {
-    return PersistentTabConfig(
-      screen: screen,
-      item: ItemConfig(
-        title: title,
-        textStyle: TextStyles.font14RedSemiBold,
-        icon: SvgPicture.asset(
-          iconPath,
-          width: 24.w,
-          height: 24.h,
-        ),
-        inactiveIcon: SvgPicture.asset(
-          inactiveIconPath,
-          width: 24.w,
-          height: 24.h,
-        ),
-        activeForegroundColor: ColorsManager.red,
-        activeColorSecondary: Colors.white,
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +19,7 @@ class LayoutScreen extends StatelessWidget {
       navBarHeight: 70.h,
       navBarOverlap: const NavBarOverlap.none(),
       tabs: [
-        _buildBottomNavBarItem(
+        bottomNavBarTab(
           screen: BlocProvider<HomeCubit>(
             create: (context) => getIt<HomeCubit>(),
             child: const HomeScreen(),
@@ -55,7 +28,7 @@ class LayoutScreen extends StatelessWidget {
           inactiveIconPath: "assets/icons/bottom_nav_unselected_home_icon.svg",
           title: "Home",
         ),
-        _buildBottomNavBarItem(
+        bottomNavBarTab(
           screen: Scaffold(
             body: Center(
               child: Text(
@@ -69,7 +42,7 @@ class LayoutScreen extends StatelessWidget {
               "assets/icons/bottom_nav_unselected_favorite_icon.svg",
           title: "Favorites",
         ),
-        _buildBottomNavBarItem(
+        bottomNavBarTab(
           screen: Scaffold(
             body: Center(
               child: Text(
@@ -83,7 +56,7 @@ class LayoutScreen extends StatelessWidget {
               "assets/icons/bottom_nav_unselected_garage_icon.svg",
           title: "Garage",
         ),
-        _buildBottomNavBarItem(
+        bottomNavBarTab(
           screen: Scaffold(
             body: Center(
               child: Text(
@@ -96,7 +69,7 @@ class LayoutScreen extends StatelessWidget {
           inactiveIconPath: "assets/icons/bottom_nav_unselected_cart_icon.svg",
           title: "Cart",
         ),
-        _buildBottomNavBarItem(
+        bottomNavBarTab(
           screen: Scaffold(
             body: Center(
               child: Text(

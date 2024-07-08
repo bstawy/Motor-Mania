@@ -7,5 +7,5 @@ class EndPoints {
   static const String register = "auth/register.php";
   static const String login = "auth/login.php";
   static const String refreshToken = "auth/refresh_token.php";
-  static const String allCategories = "categories/allCategories.php";
+  static const String allCategories = "categories/getAllCategories.php";
 }

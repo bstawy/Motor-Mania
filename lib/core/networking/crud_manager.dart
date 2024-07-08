@@ -21,7 +21,7 @@ class CrudManager {
     String endPoint, {
     Map<String, dynamic>? body,
     dynamic param,
-    bool tokenReq = true,
+    bool tokenReq = false,
   }) async {
     try {
       final dio = tokenReq ? _tokenDio : _freeDio;
@@ -41,7 +41,7 @@ class CrudManager {
     String endPoint, {
     Map<String, dynamic>? body,
     dynamic param,
-    bool tokenReq = true,
+    bool tokenReq = false,
   }) async {
     try {
       final dio = tokenReq ? _tokenDio : _freeDio;

@@ -1,5 +1,5 @@
 class CategoryModel {
-  final String id;
+  final int id;
   final String name;
   final String imageUrl;
 
@@ -13,7 +13,7 @@ class CategoryModel {
     return CategoryModel(
       id: json['id'],
       name: json['name'],
-      imageUrl: json['imageUrl'],
+      imageUrl: json['image_url'],
     );
   }
 }

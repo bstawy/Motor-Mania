@@ -103,6 +103,13 @@ class TextStyles {
     fontFamily: 'Montserrat',
   );
 
+  static TextStyle font12DarkBlueMedium = TextStyle(
+    color: ColorsManager.darkkBlue,
+    fontSize: 12.sp,
+    fontWeight: FontWeightHelper.medium,
+    fontFamily: 'Montserrat',
+  );
+
   static TextStyle font12LightGreyMedium = TextStyle(
     color: ColorsManager.lightGrey,
     fontSize: 12.sp,
