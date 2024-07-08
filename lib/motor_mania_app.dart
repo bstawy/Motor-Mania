@@ -6,8 +6,7 @@ import 'core/config/routing/routes.dart';
 import 'core/config/theme/app_theme.dart';
 
 class MotorManiaApp extends StatelessWidget {
-  final String token;
-  const MotorManiaApp({super.key, required this.token});
+  const MotorManiaApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +17,7 @@ class MotorManiaApp extends StatelessWidget {
         title: 'Motor Mania',
         theme: AppTheme.lightThemeData,
         onGenerateRoute: AppRouter().generateRoute,
-        initialRoute:
-            token.isNotEmpty ? Routes.layoutScreen : Routes.onBoardingScreens,
+        initialRoute: Routes.onBoardingScreens,
       ),
     );
   }
