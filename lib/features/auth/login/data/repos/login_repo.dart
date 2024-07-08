@@ -16,10 +16,11 @@ class LoginRepo {
     return response.fold(
       (l) => Left(l),
       (userData) {
-        if (userData.accessToken.isNotEmpty &&
-            userData.refreshToken.isNotEmpty) {
-          TokensManager.setAccessToken(userData.accessToken);
-          TokensManager.setRefreshToken(userData.refreshToken);
+        final userTokens = userData.tokens;
+        if (userTokens.accessToken.isNotEmpty &&
+            userTokens.refreshToken.isNotEmpty) {
+          TokensManager.setAccessToken(userTokens.accessToken);
+          TokensManager.setRefreshToken(userTokens.refreshToken);
 
           return const Right('Login successful');
         }
