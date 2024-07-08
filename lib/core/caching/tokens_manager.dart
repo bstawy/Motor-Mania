@@ -23,4 +23,11 @@ class TokensManager {
     await SecureStorageFactory.getInstance()
         .write(key: TokensConstants.refreshToken, value: refreshToken);
   }
+
+  static Future<void> deleteTokens() async {
+    await SecureStorageFactory.getInstance()
+        .delete(key: TokensConstants.accessToken);
+    await SecureStorageFactory.getInstance()
+        .delete(key: TokensConstants.refreshToken);
+  }
 }
