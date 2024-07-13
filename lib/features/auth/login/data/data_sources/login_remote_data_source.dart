@@ -2,8 +2,9 @@ import 'package:dartz/dartz.dart';
 
 import '../../../../../core/config/constants/api_constants.dart';
 import '../../../../../core/networking/crud_manager.dart';
+import '../../../models/auth_response_model.dart';
+import '../../../models/user_data_model.dart';
 import '../models/login_request_body_model.dart';
-import '../models/login_response_model.dart';
 
 class LoginRemoteDataSource {
   final CrudManager _crudManager;
@@ -19,9 +20,9 @@ class LoginRemoteDataSource {
         tokenReq: false,
       );
 
-      final result = LoginResponseModel.fromJson(response.data);
+      final result = AuthResponseModel.fromJson(response.data);
 
-      if (response.statusCode == 200 && result.success) {
+      if (response.statusCode == 201 && result.success) {
         return Right(result.data!);
       }
 

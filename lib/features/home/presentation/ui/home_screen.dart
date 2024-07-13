@@ -35,9 +35,9 @@ class HomeScreen extends StatelessWidget {
                     Gap(95.h),
                     const CategoriesWidget(),
                     Gap(24.h),
-                    RecommendedWidget(),
+                    const RecommendedWidget(),
                     Gap(16.h),
-                    BestSellersWidget(),
+                    const BestSellersWidget(),
                   ],
                 ),
                 Positioned(

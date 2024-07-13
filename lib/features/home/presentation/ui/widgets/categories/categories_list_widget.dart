@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../domain/entities/category_entity.dart';
 import '../../../logic/home_cubit.dart';
 import 'categories_list_item_widget.dart';
 
@@ -14,11 +15,19 @@ class CategoriesList extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       bloc: context.read<HomeCubit>()..getAllCategories(),
+      buildWhen: (previous, current) {
+        if (current is CategoriesLoading ||
+            current is CategoriesLoaded ||
+            current is CategoriesError) {
+          return true;
+        }
+        return false;
+      },
       builder: (context, state) {
         if (state is CategoriesLoading) {
           return _buildCategoriesLoading();
         } else if (state is CategoriesLoaded) {
-          return _buildCategoriesLoaded(state);
+          return _buildCategoriesLoaded(state.categories);
         } else if (state is CategoriesError) {
           return Center(
             child: Text(state.message).setHorizontalPadding(16.w),
@@ -56,12 +65,12 @@ class CategoriesList extends StatelessWidget {
     );
   }
 
-  Widget _buildCategoriesLoaded(CategoriesLoaded state) {
+  Widget _buildCategoriesLoaded(List<Category> categories) {
     return SizedBox(
       height: 75.h,
       child: ListView.builder(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
-        itemCount: state.categories.length,
+        itemCount: categories.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           return GestureDetector(
@@ -70,13 +79,13 @@ class CategoriesList extends StatelessWidget {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(
-                    "${state.categories[index].name} tapped!",
+                    "${categories[index].name} tapped!",
                   ),
                 ),
               );
             },
             child: CategoriesListItem(
-              category: state.categories[index],
+              category: categories[index],
             ).setOnlyPadding(0, 0, 8.w, 0),
           );
         },

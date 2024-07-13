@@ -18,3 +18,17 @@ final class CategoriesError extends HomeState {
 
   CategoriesError(this.message);
 }
+
+final class ProductsLoading extends HomeState {}
+
+final class ProductsLoaded extends HomeState {
+  final List<ProductEntity> products;
+
+  ProductsLoaded(this.products);
+}
+
+final class ProductsError extends HomeState {
+  final String message;
+
+  ProductsError(this.message);
+}
