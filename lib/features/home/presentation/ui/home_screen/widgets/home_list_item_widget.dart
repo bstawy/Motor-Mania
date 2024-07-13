@@ -58,7 +58,7 @@ class HomeListItem extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               Text(
-                "Ferrari",
+                product.compatibleCars.first.brand,
                 style: TextStyles.font10DarkBlueRegular,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,

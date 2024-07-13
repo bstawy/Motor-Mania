@@ -108,7 +108,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
   Widget _buildCategoryProductsLoaded(List<ProductEntity> products) {
     return SizedBox(
-      height: 0.7.sh,
+      height: 0.70.sh,
       child: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
@@ -116,7 +116,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
           mainAxisSpacing: 8.h,
           childAspectRatio: 0.52.r,
         ),
-        padding: EdgeInsets.symmetric(vertical: 16.h),
+        padding: EdgeInsets.only(top: 16.h),
         itemCount: products.length,
         itemBuilder: (context, index) {
           return CategoryProductItemWidget(product: products[index]);

@@ -57,7 +57,7 @@ class CategoryProductItemWidget extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ).setHorizontalPadding(8.w),
               Text(
-                "Ferrari",
+                product.compatibleCars.first.brand,
                 style: TextStyles.font10DarkBlueRegular,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -106,13 +106,17 @@ class CategoryProductItemWidget extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 6.h),
                 decoration: BoxDecoration(
                   color: ColorsManager.red,
-                  borderRadius: BorderRadius.circular(50.r),
+                  borderRadius: BorderRadius.circular(10.r),
                 ),
                 alignment: Alignment.center,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SvgPicture.asset("assets/icons/cart_icon.svg"),
+                    SvgPicture.asset(
+                      "assets/icons/cart_icon.svg",
+                      width: 16.r,
+                      height: 16.r,
+                    ),
                     Gap(6.w),
                     Text(
                       "Add to cart",
