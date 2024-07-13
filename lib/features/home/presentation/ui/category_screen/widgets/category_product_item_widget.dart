@@ -16,6 +16,11 @@ class CategoryProductItemWidget extends StatelessWidget {
     required this.product,
   });
 
+  num calculatePriceAfterDiscount(num actualPrice, num discountPercentage) {
+    final discountPrice = actualPrice * (discountPercentage / 100);
+    return actualPrice - discountPrice;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,7 +39,7 @@ class CategoryProductItemWidget extends StatelessWidget {
               SizedBox(
                 height: 95.h,
                 child: Image.network(product.imageUrl),
-              ),
+              ).setHorizontalPadding(8.w),
               Gap(12.h),
               Row(
                 children: [
@@ -44,24 +49,24 @@ class CategoryProductItemWidget extends StatelessWidget {
                     style: TextStyles.font8LightGreyMedium,
                   ),
                 ],
-              ),
+              ).setHorizontalPadding(8.w),
               Text(
                 product.name,
                 style: TextStyles.font14DarkBlueBold,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-              ),
+              ).setHorizontalPadding(8.w),
               Text(
                 "Ferrari",
                 style: TextStyles.font10DarkBlueRegular,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-              ),
+              ).setHorizontalPadding(8.w),
               Gap(6.h),
               Row(
                 children: [
                   Text(
-                    "\$${(product.price * (product.discountPercentage / 100)).toStringAsFixed(2)}",
+                    "\$${calculatePriceAfterDiscount(product.price, product.discountPercentage).toStringAsFixed(2)}",
                     style: TextStyles.font14DarkBlueBold,
                   ),
                   Gap(6.w),
@@ -77,7 +82,7 @@ class CategoryProductItemWidget extends StatelessWidget {
                     style: TextStyles.font7RedSemiBold,
                   ),
                 ],
-              ),
+              ).setHorizontalPadding(8.w),
               Gap(6.h),
               Row(
                 children: [
@@ -94,7 +99,7 @@ class CategoryProductItemWidget extends StatelessWidget {
                     ),
                   ),
                 ],
-              ),
+              ).setHorizontalPadding(8.w),
               Gap(8.h),
               Container(
                 width: double.infinity,
@@ -115,9 +120,9 @@ class CategoryProductItemWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-              )
+              ).setHorizontalPadding(8.w),
             ],
-          ).setHorizontalPadding(16.w),
+          ),
           Positioned(
             right: 0,
             child: GestureDetector(
