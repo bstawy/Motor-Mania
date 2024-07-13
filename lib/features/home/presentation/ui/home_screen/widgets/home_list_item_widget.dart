@@ -16,6 +16,11 @@ class HomeListItem extends StatelessWidget {
     required this.product,
   });
 
+  num calculatePriceAfterDiscount(num actualPrice, num discountPercentage) {
+    final discountPrice = actualPrice * (discountPercentage / 100);
+    return actualPrice - discountPrice;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -62,8 +67,7 @@ class HomeListItem extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    (product.price * (product.discountPercentage / 100))
-                        .toStringAsFixed(2),
+                    "\$${calculatePriceAfterDiscount(product.price, product.discountPercentage).toStringAsFixed(2)}",
                     style: TextStyles.font16DarkBlueBold,
                   ),
                   Gap(6.w),
