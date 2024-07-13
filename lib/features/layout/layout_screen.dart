@@ -23,6 +23,7 @@ class LayoutScreen extends StatelessWidget {
     return PersistentTabView(
       navBarHeight: 70.h,
       navBarOverlap: const NavBarOverlap.none(),
+      handleAndroidBackButtonPress: false,
       tabs: [
         bottomNavBarTab(
           screen: BlocProvider<HomeCubit>(
