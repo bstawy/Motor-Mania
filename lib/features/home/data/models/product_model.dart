@@ -1,37 +1,54 @@
-class ProductModel {
-  final String name;
-  final String carModel;
-  final String description;
-  final String imagePath;
-  final double price;
-  final double priceAfterDiscount;
-  final double rating;
-  final int reviewCount;
-  final bool isNew;
+import '../../domain/entities/category_entity.dart';
+import '../../domain/entities/product_entity.dart';
 
+class ProductModel extends ProductEntity {
   ProductModel({
-    required this.name,
-    required this.carModel,
-    required this.description,
-    required this.imagePath,
-    required this.price,
-    required this.priceAfterDiscount,
-    required this.rating,
-    required this.reviewCount,
-    this.isNew = false,
+    required super.id,
+    required super.name,
+    required super.description,
+    required super.brandName,
+    required super.imageUrl,
+    required super.price,
+    required super.discountPercentage,
+    required super.amount,
+    required super.rating,
+    required super.reviewsCount,
+    required super.newProduct,
+    required super.freeDelivery,
+    required super.shippingInformation,
+    required super.sellers,
+    required super.categories,
+    required super.compatibleCars,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
+      id: json['id'],
       name: json['name'],
-      carModel: json['carName'],
       description: json['description'],
-      imagePath: json['imagePath'],
+      brandName: json['brand_name'],
+      imageUrl: json['image_url'],
       price: json['price'],
-      priceAfterDiscount: json['priceAfterDiscount'],
+      discountPercentage: json['discount_percentage'],
+      amount: json['amount'],
       rating: json['rating'],
-      reviewCount: json['reviewCount'],
-      isNew: json['isNew'],
+      reviewsCount: json['reviews_count'],
+      newProduct: json['new_product'],
+      freeDelivery: json['free_delivery'],
+      shippingInformation: json['shipping_information'],
+      sellers: json['sellers'] != null
+          ? (json['sellers'] as List).map((i) => Sellers.fromJson(i)).toList()
+          : [],
+      categories: json['categories'] != null
+          ? (json['categories'] as List)
+              .map((i) => Category.fromJson(i))
+              .toList()
+          : [],
+      compatibleCars: json['compatible_cars'] != null
+          ? (json['compatible_cars'] as List)
+              .map((i) => CompatibleCars.fromJson(i))
+              .toList()
+          : [],
     );
   }
 }
