@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../../../../../core/helpers/extensions/extensions.dart';
-import '../../../../domain/entities/category_entity.dart';
-import '../../../logic/home_cubit.dart';
+import '../../../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../domain/entities/category_entity.dart';
+import '../../../../logic/home_cubit.dart';
 import 'categories_list_item_widget.dart';
 
 class CategoriesList extends StatelessWidget {

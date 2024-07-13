@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../../core/config/text/text_styles.dart';
-import '../../../../domain/entities/category_entity.dart';
+import '../../../../../../../core/config/text/text_styles.dart';
+import '../../../../../domain/entities/category_entity.dart';
 
 class CategoriesListItem extends StatelessWidget {
   final Category category;
