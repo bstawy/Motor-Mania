@@ -6,10 +6,10 @@ import 'package:gap/gap.dart';
 import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors_manager.dart';
 import '../../../../../core/helpers/extensions/extensions.dart';
-import '../../../data/models/product_model.dart';
+import '../../../domain/entities/product_entity.dart';
 
 class HomeListItem extends StatelessWidget {
-  final ProductModel product;
+  final ProductEntity product;
 
   const HomeListItem({
     super.key,
@@ -34,14 +34,14 @@ class HomeListItem extends StatelessWidget {
               SizedBox(
                 width: 104.w,
                 height: 88.h,
-                child: Image.asset(product.imagePath),
+                child: Image.network(product.imageUrl),
               ),
               Gap(12.h),
               Row(
                 children: [
                   SvgPicture.asset("assets/icons/star_icon.svg"),
                   Text(
-                    "${product.rating} (${product.reviewCount})",
+                    "${product.rating} (${product.reviewsCount})",
                     style: TextStyles.font8LightGreyMedium,
                   ),
                 ],
@@ -53,7 +53,7 @@ class HomeListItem extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               Text(
-                product.carModel,
+                "Ferrari",
                 style: TextStyles.font10DarkBlueRegular,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -62,10 +62,11 @@ class HomeListItem extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    "\$${product.priceAfterDiscount}",
+                    (product.price * (product.discountPercentage / 100))
+                        .toStringAsFixed(2),
                     style: TextStyles.font16DarkBlueBold,
                   ),
-                  Gap(3.w),
+                  Gap(6.w),
                   Text(
                     "\$${product.price}",
                     style: TextStyles.font10LightGreyRegular.copyWith(
@@ -77,9 +78,14 @@ class HomeListItem extends StatelessWidget {
               Gap(3.h),
               Row(
                 children: [
-                  SvgPicture.asset("assets/icons/verify_icon.svg"),
+                  SvgPicture.asset(
+                    product.freeDelivery
+                        ? "assets/icons/free_delivery_filled_icon.svg"
+                        : "assets/icons/verify_icon.svg",
+                  ),
+                  Gap(4.w),
                   Text(
-                    "Verified Seller",
+                    product.freeDelivery ? "Free Delivery" : "Verified Seller",
                     style: TextStyles.font8LightGreyMedium.copyWith(
                       color: ColorsManager.darkkBlue,
                     ),
@@ -130,23 +136,26 @@ class HomeListItem extends StatelessWidget {
               ),
             ),
           ),
-          product.isNew
-              ? Positioned(
-                  left: 0,
-                  child: Container(
-                    padding: EdgeInsets.all(5.r),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50.r),
-                      color: ColorsManager.red,
-                    ),
-                    alignment: Alignment.center,
-                    child: Text(
-                      "NEW",
-                      style: TextStyles.font7WhiteMedium,
-                    ),
-                  ),
-                )
-              : const SizedBox(),
+          Visibility(
+            visible: product.newProduct || product.amount < 5,
+            child: Positioned(
+              left: 0,
+              child: Container(
+                padding: EdgeInsets.all(5.r),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50.r),
+                  color: product.newProduct
+                      ? ColorsManager.red
+                      : const Color(0xff171823),
+                ),
+                alignment: Alignment.center,
+                child: Text(
+                  product.newProduct ? "NEW" : "only ${product.amount} left",
+                  style: TextStyles.font7WhiteMedium,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );

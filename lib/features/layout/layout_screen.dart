@@ -3,9 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
+import '../../core/caching/tokens_manager.dart';
+import '../../core/config/app_manager/app_manager_cubit.dart';
+import '../../core/config/routing/routes.dart';
 import '../../core/config/text/text_styles.dart';
 import '../../core/config/theme/colors_manager.dart';
 import '../../core/di/dependency_injection.dart';
+import '../../core/helpers/extensions/extensions.dart';
+import '../../core/widgets/custom_material_button.dart';
 import '../home/presentation/logic/home_cubit.dart';
 import '../home/presentation/ui/home_screen.dart';
 import 'bottom_nav_bar_tab.dart';
@@ -72,10 +77,26 @@ class LayoutScreen extends StatelessWidget {
         bottomNavBarTab(
           screen: Scaffold(
             body: Center(
-              child: Text(
-                "Profile",
-                style: TextStyles.font20DarkBlueBold,
-              ),
+              child: context.read<AppManagerCubit>().isUserLoggedIn
+                  ? CustomMaterialButton(
+                      onClicked: () async {
+                        await TokensManager.deleteTokens();
+                        if (context.mounted) {
+                          context.read<AppManagerCubit>().checkUserLoggedIn();
+                          context.pushNamedAndRemoveUntil(Routes.layoutScreen,
+                              predicate: (route) => false);
+                        }
+                      },
+                      backgroundColor: ColorsManager.red,
+                      title: "Logout",
+                    ).setHorizontalPadding(60.w)
+                  : CustomMaterialButton(
+                      onClicked: () {
+                        context.pushNamed(Routes.loginScreen);
+                      },
+                      backgroundColor: ColorsManager.red,
+                      title: "Login",
+                    ).setHorizontalPadding(60.w),
             ),
           ),
           iconPath: "assets/icons/bottom_nav_selected_profile_icon.svg",

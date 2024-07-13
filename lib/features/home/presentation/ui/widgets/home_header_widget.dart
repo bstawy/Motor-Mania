@@ -62,6 +62,7 @@ class HomeHeaderWidget extends StatelessWidget {
 
   Widget _buildUserHeaderWidget() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
