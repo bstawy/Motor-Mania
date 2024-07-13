@@ -52,7 +52,7 @@ class CustomMaterialButton extends StatelessWidget {
           ? (backgroundColor ?? ColorsManager.grey).withOpacity(0.5)
           : (backgroundColor ?? ColorsManager.darkkBlue),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(borderRadius ?? 30.r),
+        borderRadius: BorderRadius.circular(borderRadius ?? 15.r),
         side: BorderSide(
           color: borderColor ?? Colors.transparent,
           width: borderWidth ?? 1.w,
