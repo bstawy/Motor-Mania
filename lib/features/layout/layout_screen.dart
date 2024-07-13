@@ -12,7 +12,7 @@ import '../../core/di/dependency_injection.dart';
 import '../../core/helpers/extensions/extensions.dart';
 import '../../core/widgets/custom_material_button.dart';
 import '../home/presentation/logic/home_cubit.dart';
-import '../home/presentation/ui/home_screen.dart';
+import '../home/presentation/ui/home_screen/home_screen.dart';
 import 'bottom_nav_bar_tab.dart';
 
 class LayoutScreen extends StatelessWidget {
