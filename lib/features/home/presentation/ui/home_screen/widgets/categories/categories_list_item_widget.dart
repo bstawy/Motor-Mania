@@ -3,7 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
+import '../../../../../../../core/config/routing/routes.dart';
 import '../../../../../../../core/config/text/text_styles.dart';
+import '../../../../../../../core/helpers/extensions/extensions.dart';
 import '../../../../../domain/entities/category_entity.dart';
 
 class CategoriesListItem extends StatelessWidget {
@@ -13,28 +15,33 @@ class CategoriesListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 13.h, horizontal: 8.w),
-      width: 71.w,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(17.r),
-      ),
-      child: Column(
-        children: [
-          SvgPicture.network(
-            category.imageUrl,
-            width: 27.w,
-            height: 27.h,
-          ),
-          Gap(2.h),
-          Text(
-            category.name,
-            style: TextStyles.font12DarkBlueMedium,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ],
+    return GestureDetector(
+      onTap: () {
+        context.pushNamed(Routes.categoryProductsScreen, arguments: category);
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 13.h, horizontal: 8.w),
+        width: 71.w,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(17.r),
+        ),
+        child: Column(
+          children: [
+            SvgPicture.network(
+              category.imageUrl,
+              width: 27.w,
+              height: 27.h,
+            ),
+            Gap(2.h),
+            Text(
+              category.name,
+              style: TextStyles.font12DarkBlueMedium,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
+        ),
       ),
     );
   }

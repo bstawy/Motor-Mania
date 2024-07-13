@@ -18,7 +18,7 @@ class HomeListWidget extends StatelessWidget {
         buildWhen: (previous, current) {
           if (current is ProductsLoading ||
               current is ProductsLoaded ||
-              current is ProductsError) {
+              current is ErrorState) {
             return true;
           }
           return false;
@@ -28,7 +28,7 @@ class HomeListWidget extends StatelessWidget {
             return _buildProductsLoading();
           } else if (state is ProductsLoaded) {
             return _buildProductsList(state.products);
-          } else if (state is ProductsError) {
+          } else if (state is ErrorState) {
             return Center(
               child: Text(state.message).setHorizontalPadding(16.w),
             );

@@ -18,7 +18,7 @@ class CategoriesList extends StatelessWidget {
       buildWhen: (previous, current) {
         if (current is CategoriesLoading ||
             current is CategoriesLoaded ||
-            current is CategoriesError) {
+            current is ErrorState) {
           return true;
         }
         return false;
@@ -28,7 +28,7 @@ class CategoriesList extends StatelessWidget {
           return _buildCategoriesLoading();
         } else if (state is CategoriesLoaded) {
           return _buildCategoriesLoaded(state.categories);
-        } else if (state is CategoriesError) {
+        } else if (state is ErrorState) {
           return Center(
             child: Text(state.message).setHorizontalPadding(16.w),
           );
