@@ -13,10 +13,10 @@ final class CategoriesLoaded extends HomeState {
   CategoriesLoaded(this.categories);
 }
 
-final class CategoriesError extends HomeState {
+final class ErrorState extends HomeState {
   final String message;
 
-  CategoriesError(this.message);
+  ErrorState(this.message);
 }
 
 final class ProductsLoading extends HomeState {}
@@ -27,8 +27,10 @@ final class ProductsLoaded extends HomeState {
   ProductsLoaded(this.products);
 }
 
-final class ProductsError extends HomeState {
-  final String message;
+final class CategoryProductsLoading extends HomeState {}
 
-  ProductsError(this.message);
+final class CategoryProductsLoaded extends HomeState {
+  final List<ProductEntity> products;
+
+  CategoryProductsLoaded(this.products);
 }
