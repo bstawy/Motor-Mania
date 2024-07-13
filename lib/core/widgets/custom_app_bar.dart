@@ -6,6 +6,7 @@ import 'custom_back_button.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
+  final TextStyle? titleStyle;
   final Widget? leading;
   final List<Widget>? actions;
   final double? topPadding, downPadding, rightPadding, leftPadding;
@@ -13,6 +14,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
     super.key,
     this.title,
+    this.titleStyle,
     this.leading,
     this.actions,
     this.topPadding,
@@ -29,10 +31,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: title != null
           ? Text(
               title!,
-              style: TextStyle(
-                fontSize: 24.sp,
-                fontWeight: FontWeight.bold,
-              ),
+              style: titleStyle ??
+                  TextStyle(
+                    fontSize: 24.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
             )
           : const SizedBox.shrink(),
       actions: actions,

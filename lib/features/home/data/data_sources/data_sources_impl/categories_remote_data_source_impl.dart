@@ -3,6 +3,7 @@ import 'package:dartz/dartz.dart';
 import '../../../../../core/config/constants/api_constants.dart';
 import '../../../../../core/networking/crud_manager.dart';
 import '../../models/all_categories_response_model.dart';
+import '../../models/all_products_response_model.dart';
 import '../categories_remote_data_source.dart';
 
 class CategoriesRemoteDataSourceImpl extends CategoriesRemoteDataSource {
@@ -19,6 +20,28 @@ class CategoriesRemoteDataSourceImpl extends CategoriesRemoteDataSource {
 
       if (response.statusCode == 200) {
         return Right(allCategories);
+      } else {
+        return Left(response.data['message']);
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  @override
+  Future<Either<String, AllProductsResponseModel>> getCategoryProducts(
+      int categoryId) async {
+    try {
+      final queryParams = {
+        'categoryId': categoryId,
+      };
+      final response = await _crudManager.get(EndPoints.categoryProducts,
+          params: queryParams);
+
+      final categoryProducts = AllProductsResponseModel.fromJson(response.data);
+
+      if (response.statusCode == 200) {
+        return Right(categoryProducts);
       } else {
         return Left(response.data['message']);
       }

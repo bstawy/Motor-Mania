@@ -3,10 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../core/config/text/text_styles.dart';
-import '../../../../../core/config/theme/colors_manager.dart';
-import '../../../../../core/helpers/extensions/extensions.dart';
-import '../../../domain/entities/product_entity.dart';
+import '../../../../../../core/config/text/text_styles.dart';
+import '../../../../../../core/config/theme/colors_manager.dart';
+import '../../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../domain/entities/product_entity.dart';
 
 class HomeListItem extends StatelessWidget {
   final ProductEntity product;
@@ -15,6 +15,11 @@ class HomeListItem extends StatelessWidget {
     super.key,
     required this.product,
   });
+
+  num calculatePriceAfterDiscount(num actualPrice, num discountPercentage) {
+    final discountPrice = actualPrice * (discountPercentage / 100);
+    return actualPrice - discountPrice;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +58,7 @@ class HomeListItem extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               Text(
-                "Ferrari",
+                product.compatibleCars.first.brand,
                 style: TextStyles.font10DarkBlueRegular,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -62,8 +67,7 @@ class HomeListItem extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    (product.price * (product.discountPercentage / 100))
-                        .toStringAsFixed(2),
+                    "\$${calculatePriceAfterDiscount(product.price, product.discountPercentage).toStringAsFixed(2)}",
                     style: TextStyles.font16DarkBlueBold,
                   ),
                   Gap(6.w),

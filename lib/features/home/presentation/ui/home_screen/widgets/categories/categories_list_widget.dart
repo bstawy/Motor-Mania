@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../../../../../core/helpers/extensions/extensions.dart';
-import '../../../../domain/entities/category_entity.dart';
-import '../../../logic/home_cubit.dart';
+import '../../../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../domain/entities/category_entity.dart';
+import '../../../../logic/home_cubit.dart';
 import 'categories_list_item_widget.dart';
 
 class CategoriesList extends StatelessWidget {
@@ -18,7 +18,7 @@ class CategoriesList extends StatelessWidget {
       buildWhen: (previous, current) {
         if (current is CategoriesLoading ||
             current is CategoriesLoaded ||
-            current is CategoriesError) {
+            current is ErrorState) {
           return true;
         }
         return false;
@@ -28,7 +28,7 @@ class CategoriesList extends StatelessWidget {
           return _buildCategoriesLoading();
         } else if (state is CategoriesLoaded) {
           return _buildCategoriesLoaded(state.categories);
-        } else if (state is CategoriesError) {
+        } else if (state is ErrorState) {
           return Center(
             child: Text(state.message).setHorizontalPadding(16.w),
           );
