@@ -20,7 +20,7 @@ class CrudManager {
   Future<Response> get(
     String endPoint, {
     Map<String, dynamic>? body,
-    dynamic param,
+    Map<String, dynamic>? params,
     bool tokenReq = false,
   }) async {
     try {
@@ -29,7 +29,7 @@ class CrudManager {
       final response = await dio!.get(
         endPoint,
         data: body,
-        queryParameters: param,
+        queryParameters: params,
       );
       return response;
     } catch (e) {
