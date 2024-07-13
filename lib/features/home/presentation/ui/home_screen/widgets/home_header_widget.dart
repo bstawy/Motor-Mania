@@ -8,7 +8,7 @@ import '../../../../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../../../../core/config/text/text_styles.dart';
 import '../../../../../../core/config/theme/colors_manager.dart';
 import '../../../../../../core/helpers/extensions/extensions.dart';
-import 'search_bar_widget.dart';
+import '../../../../../../core/widgets/search_bar_widget.dart';
 
 class HomeHeaderWidget extends StatelessWidget {
   const HomeHeaderWidget({super.key});
