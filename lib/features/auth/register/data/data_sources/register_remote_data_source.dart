@@ -1,33 +1,36 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 
 import '../../../../../core/config/constants/api_constants.dart';
 import '../../../../../core/networking/crud_manager.dart';
+import '../../../models/auth_response_model.dart';
+import '../../../models/user_data_model.dart';
 import '../models/register_request_body.dart';
-import '../models/register_response.dart';
 
 class RegisterRemoteDataSource {
   final CrudManager _crudManager;
 
   RegisterRemoteDataSource(this._crudManager);
 
-  Future<Either<String, RegisterResponseModel>> register(
+  Future<Either<String, UserData>> register(
       RegisterRequestBodyModel requestBody) async {
     try {
       final response = await _crudManager.post(
         EndPoints.register,
         body: requestBody.toJson(),
-        tokenReq: false,
       );
 
-      final result = RegisterResponseModel.fromJson(response.data);
+      final result = AuthResponseModel.fromJson(response.data);
 
-      if (response.statusCode == 200 && result.success) {
-        return Right(result);
+      if (response.statusCode == 201 && result.success) {
+        debugPrint("========================================");
+        debugPrint("RegisterRemoteDataSource: ${result.data}");
+        return Right(result.data!);
       }
 
       return Left(result.message);
     } catch (e) {
-      return Left(e.toString());
+      throw Exception(e);
     }
   }
 }
