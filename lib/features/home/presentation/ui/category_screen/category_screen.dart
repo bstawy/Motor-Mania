@@ -76,8 +76,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
   }
 
   Widget _buildCategoryProductsLoading() {
-    return SizedBox(
-      height: 0.7.sh,
+    return Expanded(
       child: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
@@ -107,8 +106,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
   }
 
   Widget _buildCategoryProductsLoaded(List<ProductEntity> products) {
-    return SizedBox(
-      height: 0.70.sh,
+    return Expanded(
       child: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
