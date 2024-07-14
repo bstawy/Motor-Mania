@@ -17,7 +17,6 @@ class LoginRemoteDataSource {
       final response = await _crudManager.post(
         EndPoints.login,
         body: requestBody.toJson(),
-        tokenReq: false,
       );
 
       final result = AuthResponseModel.fromJson(response.data);
