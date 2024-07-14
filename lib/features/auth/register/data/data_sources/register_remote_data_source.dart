@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
 
 import '../../../../../core/config/constants/api_constants.dart';
 import '../../../../../core/networking/crud_manager.dart';
@@ -23,8 +22,6 @@ class RegisterRemoteDataSource {
       final result = AuthResponseModel.fromJson(response.data);
 
       if (response.statusCode == 201 && result.success) {
-        debugPrint("========================================");
-        debugPrint("RegisterRemoteDataSource: ${result.data}");
         return Right(result.data!);
       }
 
