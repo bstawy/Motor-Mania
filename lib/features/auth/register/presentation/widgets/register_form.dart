@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:motor_mania/features/auth/register/data/models/register_request_body.dart';
 
 import '../../../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../../../core/config/routing/routes.dart';
@@ -12,6 +11,7 @@ import '../../../../../core/helpers/validators.dart';
 import '../../../../../core/widgets/custom_material_button.dart';
 import '../../../widgets/form_text_field.dart';
 import '../../../widgets/password_validations.dart';
+import '../../data/models/register_request_body.dart';
 import '../../logic/register_cubit.dart';
 
 class RegisterForm extends StatefulWidget {
@@ -120,7 +120,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   registering = true;
                 });
               } else if (state is SuccessState) {
-                context.read<AppManagerCubit>().checkUserLoggedIn();
+                context.read<AppManagerCubit>().logUserIn();
                 context.pushNamedAndRemoveUntil(Routes.layoutScreen,
                     predicate: (route) => false);
               } else if (state is ErrorState) {
