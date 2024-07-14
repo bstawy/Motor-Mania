@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:motor_mania/features/auth/register/data/models/register_request_body.dart';
 
+import '../../../../../core/config/app_manager/app_manager_cubit.dart';
+import '../../../../../core/config/routing/routes.dart';
 import '../../../../../core/config/theme/colors_manager.dart';
 import '../../../../../core/helpers/extensions/extensions.dart';
 import '../../../../../core/helpers/validators.dart';
@@ -117,20 +120,13 @@ class _RegisterFormState extends State<RegisterForm> {
                   registering = true;
                 });
               } else if (state is SuccessState) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(state.message),
-                    backgroundColor: Colors.green,
-                  ),
-                );
-                context.pop();
-                setState(() {
-                  registering = false;
-                });
+                context.read<AppManagerCubit>().checkUserLoggedIn();
+                context.pushNamedAndRemoveUntil(Routes.layoutScreen,
+                    predicate: (route) => false);
               } else if (state is ErrorState) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text(state.message[0]),
+                    content: Text(state.message),
                     backgroundColor: ColorsManager.red,
                   ),
                 );
@@ -158,11 +154,12 @@ class _RegisterFormState extends State<RegisterForm> {
 
   void register() async {
     if (_formKey.currentState!.validate()) {
-      context.read<RegisterCubit>().registerUser(
-            name: _nameController.text,
-            email: _emailController.text,
-            password: _passwordController.text,
-          );
+      final RegisterRequestBodyModel requestBody = RegisterRequestBodyModel(
+        name: _nameController.text,
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+      context.read<RegisterCubit>().registerUser(requestBody: requestBody);
     }
   }
 }
