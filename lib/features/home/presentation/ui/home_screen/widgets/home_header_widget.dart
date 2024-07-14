@@ -3,12 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../../../../core/config/text/text_styles.dart';
 import '../../../../../../core/config/theme/colors_manager.dart';
 import '../../../../../../core/helpers/extensions/extensions.dart';
 import '../../../../../../core/widgets/search_bar_widget.dart';
+import '../../../../domain/entities/car_entity.dart';
+import '../../../logic/home_cubit.dart';
 
 class HomeHeaderWidget extends StatelessWidget {
   const HomeHeaderWidget({super.key});
@@ -41,18 +44,53 @@ class HomeHeaderWidget extends StatelessWidget {
             children: [
               const SearchBarWidget(),
               Gap(12.h),
-              isUserLogged ? _buildUserHeaderWidget() : Container(),
+              isUserLogged ? _buildUserHeaderWidget(context) : Container(),
             ],
           ).setHorizontalPadding(16.w),
           isUserLogged
-              ? Positioned(
-                  right: -70,
-                  bottom: 0.h,
-                  child: Image.asset(
-                    "assets/images/home_header_car.png",
-                    width: 290.w,
-                    height: 130.h,
-                  ),
+              ? BlocBuilder<HomeCubit, HomeState>(
+                  bloc: context.read<HomeCubit>(),
+                  buildWhen: (previous, current) {
+                    if (current is UserCarLoading || current is UserCarLoaded) {
+                      return true;
+                    }
+                    return false;
+                  },
+                  builder: (context, state) {
+                    if (state is UserCarLoading) {
+                      return Positioned(
+                        right: 20,
+                        bottom: 0.h,
+                        child: Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.white,
+                          child: Container(
+                            height: 130.h,
+                            width: 200.w,
+                            padding: EdgeInsets.all(13.r),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(17.r),
+                            ),
+                          ),
+                        ),
+                      );
+                    } else if (state is UserCarLoaded) {
+                      final car = state.car;
+
+                      return Positioned(
+                        right: -70,
+                        bottom: 0.h,
+                        child: Image.network(
+                          car.imageUrl,
+                          width: 290.w,
+                          height: 130.h,
+                        ),
+                      );
+                    } else {
+                      return Container();
+                    }
+                  },
                 )
               : Container(),
         ],
@@ -60,7 +98,120 @@ class HomeHeaderWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildUserHeaderWidget() {
+  Widget _buildUserHeaderWidget(BuildContext context) {
+    return BlocBuilder<HomeCubit, HomeState>(
+      bloc: context.read<HomeCubit>()..getUserCar(),
+      buildWhen: (previous, current) {
+        if (current is UserCarLoading || current is UserCarLoaded) {
+          return true;
+        }
+        return false;
+      },
+      builder: (context, state) {
+        if (state is UserCarLoading) {
+          return _homeHeaderLoadingWidget();
+        } else if (state is UserCarLoaded) {
+          return _homeHeaderLoadedWidget(state.car);
+        } else {
+          return Container();
+        }
+      },
+    );
+  }
+
+  Widget _homeHeaderLoadingWidget() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Gap(4.h),
+        Shimmer.fromColors(
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.white,
+          child: Container(
+            height: 20.h,
+            width: double.infinity,
+            padding: EdgeInsets.all(13.r),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(17.r),
+            ),
+          ),
+        ),
+        Gap(16.h),
+        Shimmer.fromColors(
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.white,
+          child: Container(
+            height: 25.h,
+            width: 135.w,
+            padding: EdgeInsets.all(13.r),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(17.r),
+            ),
+          ),
+        ),
+        Gap(10.h),
+        Shimmer.fromColors(
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.white,
+          child: Container(
+            height: 25.h,
+            width: 125.w,
+            padding: EdgeInsets.all(13.r),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(17.r),
+            ),
+          ),
+        ),
+        Gap(30.h),
+        Shimmer.fromColors(
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.white,
+          child: Container(
+            height: 13.h,
+            width: 125.w,
+            padding: EdgeInsets.all(13.r),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(17.r),
+            ),
+          ),
+        ),
+        Gap(10.h),
+        Shimmer.fromColors(
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.white,
+          child: Container(
+            height: 13.h,
+            width: 125.w,
+            padding: EdgeInsets.all(13.r),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(17.r),
+            ),
+          ),
+        ),
+        Gap(8.h),
+        Shimmer.fromColors(
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.white,
+          child: Container(
+            height: 13.h,
+            width: 125.w,
+            padding: EdgeInsets.all(13.r),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(17.r),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _homeHeaderLoadedWidget(CarEntity car) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -80,7 +231,7 @@ class HomeHeaderWidget extends StatelessWidget {
         ),
         Gap(16.h),
         Text(
-          "BMW i8 2017",
+          "${car.brand} ${car.model} ${car.year}",
           style: TextStyles.font20WhiteBold,
         ),
         Gap(6.h),

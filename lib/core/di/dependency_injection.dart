@@ -10,14 +10,19 @@ import '../../features/auth/register/logic/register_cubit.dart';
 import '../../features/home/data/data_sources/categories_remote_data_source.dart';
 import '../../features/home/data/data_sources/data_sources_impl/categories_remote_data_source_impl.dart';
 import '../../features/home/data/data_sources/data_sources_impl/products_remote_data_source_impl.dart';
+import '../../features/home/data/data_sources/data_sources_impl/user_selected_car_remote_data_source_impl.dart';
 import '../../features/home/data/data_sources/products_remote_data_source.dart';
+import '../../features/home/data/data_sources/user_selected_car_remote_data_source.dart';
 import '../../features/home/data/repos_impl/categories_repo_impl.dart';
 import '../../features/home/data/repos_impl/products_repo_impl.dart';
+import '../../features/home/data/repos_impl/user_selected_car_repo_impl.dart';
 import '../../features/home/domain/repos/categories_repo.dart';
 import '../../features/home/domain/repos/products_repo.dart';
+import '../../features/home/domain/repos/user_selected_car_repo.dart';
 import '../../features/home/domain/use_cases/get_all_categories_use_case.dart';
 import '../../features/home/domain/use_cases/get_all_products_use_case.dart';
 import '../../features/home/domain/use_cases/get_category_products_use_case.dart';
+import '../../features/home/domain/use_cases/get_user_selected_car_use_case.dart';
 import '../../features/home/presentation/logic/home_cubit.dart';
 import '../networking/crud_manager.dart';
 import '../networking/dio/dio_factory.dart';
@@ -52,12 +57,22 @@ Future<void> initGetIt() async {
   getIt.registerFactory<CategoriesRepo>(() => CategoriesRepoImpl(getIt()));
   getIt.registerFactory<GetAllCategoriesUseCase>(
       () => GetAllCategoriesUseCase(getIt()));
+
   getIt.registerFactory<ProductsRemoteDataSource>(
       () => ProductsRemoteDataSourceImpl(getIt()));
   getIt.registerFactory<ProductsRepo>(() => ProductsRepoImpl(getIt()));
   getIt.registerFactory<GetAllProductsUseCase>(
       () => GetAllProductsUseCase(getIt()));
-  getIt.registerFactory<HomeCubit>(() => HomeCubit(getIt(), getIt(), getIt()));
+
+  getIt.registerFactory<UserSelectedCarRemoteDataSource>(
+      () => UserSelectedCarRemoteDataSourceImpl(getIt()));
+  getIt.registerFactory<UserSelectedCarRepo>(
+      () => UserSelectedCarRepoImpl(getIt()));
+  getIt.registerFactory<GetUserSelectedCarUseCase>(
+      () => GetUserSelectedCarUseCase(getIt()));
+
+  getIt.registerFactory<HomeCubit>(
+      () => HomeCubit(getIt(), getIt(), getIt(), getIt()));
 
   // CategoryProducts
   getIt.registerFactory<GetCategoryProductsUseCase>(
