@@ -22,6 +22,7 @@ import '../../features/home/domain/repos/user_selected_car_repo.dart';
 import '../../features/home/domain/use_cases/get_all_categories_use_case.dart';
 import '../../features/home/domain/use_cases/get_all_products_use_case.dart';
 import '../../features/home/domain/use_cases/get_category_products_use_case.dart';
+import '../../features/home/domain/use_cases/get_prodcut_details_use_case.dart';
 import '../../features/home/domain/use_cases/get_user_selected_car_use_case.dart';
 import '../../features/home/presentation/logic/home_cubit.dart';
 import '../networking/crud_manager.dart';
@@ -71,8 +72,11 @@ Future<void> initGetIt() async {
   getIt.registerFactory<GetUserSelectedCarUseCase>(
       () => GetUserSelectedCarUseCase(getIt()));
 
+  getIt.registerFactory<GetProdcutDetailsUseCase>(
+      () => GetProdcutDetailsUseCase(getIt()));
+
   getIt.registerFactory<HomeCubit>(
-      () => HomeCubit(getIt(), getIt(), getIt(), getIt()));
+      () => HomeCubit(getIt(), getIt(), getIt(), getIt(), getIt()));
 
   // CategoryProducts
   getIt.registerFactory<GetCategoryProductsUseCase>(
