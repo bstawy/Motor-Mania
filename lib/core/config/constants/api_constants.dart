@@ -11,4 +11,5 @@ class EndPoints {
   static const String allProducts = "products/getAllProducts.php";
   static const String categoryProducts = "categories/getCategoryProducts.php";
   static const String userSelectedCar = "cars/getUserSelectedCar.php";
+  static const String productDetails = "products/getProduct.php";
 }
