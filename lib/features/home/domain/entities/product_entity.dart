@@ -75,7 +75,7 @@ class Sellers {
   final String email;
   final String phone;
   final String address;
-  final String sellerRating;
+  final double sellerRating;
   final int partnershipDuration;
 
   Sellers({

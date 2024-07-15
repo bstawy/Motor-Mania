@@ -22,4 +22,9 @@ class ProductsRepoImpl extends ProductsRepo {
       },
     );
   }
+
+  @override
+  Future<Either<String, ProductEntity>> getProductDetails(int id) async {
+    return await _productsRemoteDataSource.getProductDetails(id);
+  }
 }
