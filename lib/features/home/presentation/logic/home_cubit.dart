@@ -7,6 +7,7 @@ import '../../domain/entities/product_entity.dart';
 import '../../domain/use_cases/get_all_categories_use_case.dart';
 import '../../domain/use_cases/get_all_products_use_case.dart';
 import '../../domain/use_cases/get_category_products_use_case.dart';
+import '../../domain/use_cases/get_prodcut_details_use_case.dart';
 import '../../domain/use_cases/get_user_selected_car_use_case.dart';
 
 part 'home_state.dart';
@@ -16,12 +17,14 @@ class HomeCubit extends Cubit<HomeState> {
   final GetAllCategoriesUseCase _getAllCategoriesUseCase;
   final GetAllProductsUseCase _getAllProductsUseCase;
   final GetCategoryProductsUseCase _getCategoryProductsUseCase;
+  final GetProdcutDetailsUseCase _getProdcutDetailsUseCase;
 
   HomeCubit(
     this._getUserSelectedCarUseCase,
     this._getAllCategoriesUseCase,
     this._getAllProductsUseCase,
     this._getCategoryProductsUseCase,
+    this._getProdcutDetailsUseCase,
   ) : super(HomeInitial());
 
   void getUserCar() {
@@ -31,6 +34,17 @@ class HomeCubit extends Cubit<HomeState> {
       response.fold(
         (error) => emit(ErrorState(error)),
         (car) => emit(UserCarLoaded(car)),
+      );
+    });
+  }
+
+  void getProductDetails(int id) {
+    emit(ProductDetailsLoading());
+
+    _getProdcutDetailsUseCase.execute(id).then((response) {
+      response.fold(
+        (error) => emit(ErrorState(error)),
+        (product) => emit(ProductDetailsLoaded(product)),
       );
     });
   }

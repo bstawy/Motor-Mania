@@ -42,3 +42,11 @@ final class CategoryProductsLoaded extends HomeState {
 
   CategoryProductsLoaded(this.products);
 }
+
+final class ProductDetailsLoading extends HomeState {}
+
+final class ProductDetailsLoaded extends HomeState {
+  final ProductEntity product;
+
+  ProductDetailsLoaded(this.product);
+}
