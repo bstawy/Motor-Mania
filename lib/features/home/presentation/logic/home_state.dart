@@ -13,32 +13,36 @@ final class UserCarLoaded extends HomeState {
   UserCarLoaded(this.car);
 }
 
+final class UserCarErrorState extends HomeState {
+  final ServerFailure failure;
+
+  UserCarErrorState(this.failure);
+}
+
 final class CategoriesLoading extends HomeState {}
 
 final class CategoriesLoaded extends HomeState {
-  final List<Category> categories;
+  final List<HomeCategoryEntity> categories;
 
   CategoriesLoaded(this.categories);
 }
 
-final class ErrorState extends HomeState {
-  final String message;
+final class CategoriesErrorState extends HomeState {
+  final ServerFailure failure;
 
-  ErrorState(this.message);
+  CategoriesErrorState(this.failure);
 }
 
 final class ProductsLoading extends HomeState {}
 
 final class ProductsLoaded extends HomeState {
-  final List<ProductEntity> products;
+  final List<HomeProductEntity> products;
 
   ProductsLoaded(this.products);
 }
 
-final class CategoryProductsLoading extends HomeState {}
+final class ProductsErrorState extends HomeState {
+  final ServerFailure failure;
 
-final class CategoryProductsLoaded extends HomeState {
-  final List<ProductEntity> products;
-
-  CategoryProductsLoaded(this.products);
+  ProductsErrorState(this.failure);
 }

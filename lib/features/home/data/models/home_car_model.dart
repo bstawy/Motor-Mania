@@ -7,7 +7,6 @@ class CarModel extends CarEntity {
     required super.model,
     required super.year,
     required super.imageUrl,
-    super.km,
   });
 
   factory CarModel.fromJson(Map<String, dynamic> json) {
@@ -17,11 +16,9 @@ class CarModel extends CarEntity {
       model: json['model'],
       year: json['year'],
       imageUrl: json['image_url'],
-      km: json['km'],
     );
   }
 
-  @override
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -29,7 +26,17 @@ class CarModel extends CarEntity {
       'model': model,
       'year': year,
       'image_url': imageUrl,
-      'km': km,
     };
+  }
+
+  CarEntity toEntity(int km) {
+    return CarEntity(
+      id: id,
+      brand: brand,
+      model: model,
+      year: year,
+      imageUrl: imageUrl,
+      km: km,
+    );
   }
 }

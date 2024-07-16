@@ -3,13 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../../../core/config/routing/routes.dart';
 import '../../../../../../../core/config/text/text_styles.dart';
-import '../../../../../../../core/helpers/extensions/extensions.dart';
 import '../../../../../domain/entities/category_entity.dart';
 
 class CategoriesListItem extends StatelessWidget {
-  final Category category;
+  final HomeCategoryEntity category;
 
   const CategoriesListItem({super.key, required this.category});
 
@@ -17,7 +15,8 @@ class CategoriesListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.pushNamed(Routes.categoryProductsScreen, arguments: category);
+        // TODO: navigate to category products screen
+        //context.pushNamed(Routes.categoryProductsScreen, arguments: category);
       },
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 13.h, horizontal: 8.w),
