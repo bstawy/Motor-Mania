@@ -7,6 +7,12 @@ import '../../features/auth/login/logic/login_cubit.dart';
 import '../../features/auth/register/data/data_sources/register_remote_data_source.dart';
 import '../../features/auth/register/data/repos/register_repo.dart';
 import '../../features/auth/register/logic/register_cubit.dart';
+import '../../features/category/data/data_sources/category_remote_data_source.dart';
+import '../../features/category/data/data_sources_impl/category_remote_data_source_impl.dart';
+import '../../features/category/data/repos_impl/category_repository_impl.dart';
+import '../../features/category/domain/repos/category_repository.dart';
+import '../../features/category/domain/use_cases/get_category_products_use_cases.dart';
+import '../../features/category/presentation/logic/category_cubit.dart';
 import '../../features/home/data/data_sources/home_remote_data_source.dart';
 import '../../features/home/data/data_sources_impl/home_remote_data_source_impl.dart';
 import '../../features/home/data/repos_impl/home_repo_impl.dart';
@@ -66,5 +72,18 @@ Future<void> initGetIt() async {
     ),
   );
 
+  // User
   getIt.registerFactory<UserCubit>(() => UserCubit(getIt()));
+
+  // Category
+  getIt.registerFactory<CategoryRemoteDataSource>(
+    () => CategoryRemoteDataSourceImpl(getIt()),
+  );
+  getIt.registerFactory<CategoryRepository>(
+    () => CategoryRepositoryImpl(getIt()),
+  );
+  getIt.registerFactory<GetCategoryProductsUseCases>(
+    () => GetCategoryProductsUseCases(getIt()),
+  );
+  getIt.registerFactory<CategoryCubit>(() => CategoryCubit(getIt()));
 }
