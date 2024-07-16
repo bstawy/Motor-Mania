@@ -5,8 +5,6 @@ import '../../../features/auth/login/logic/login_cubit.dart';
 import '../../../features/auth/login/presentation/login_screen.dart';
 import '../../../features/auth/register/logic/register_cubit.dart';
 import '../../../features/auth/register/presentation/register_screen.dart';
-import '../../../features/home/presentation/logic/home_cubit.dart';
-import '../../../features/home/presentation/ui/category_screen/category_screen.dart';
 import '../../../features/layout/layout_screen.dart';
 import '../../../features/on_boarding/on_boarding_screen.dart';
 import '../../di/dependency_injection.dart';
@@ -38,15 +36,6 @@ class AppRouter {
       case Routes.layoutScreen:
         return MaterialPageRoute(
           builder: (_) => const LayoutScreen(),
-        );
-
-      case Routes.categoryProductsScreen:
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider<HomeCubit>.value(
-            value: getIt<HomeCubit>(),
-            child: const CategoryScreen(),
-          ),
-          settings: settings,
         );
 
       default:

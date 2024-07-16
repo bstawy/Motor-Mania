@@ -9,7 +9,7 @@ class EndPoints {
   static const String refreshToken = "auth/refresh_token.php";
   static const String allCategories = "categories/allCategories.php";
   static const String allProducts = "products/getAllProducts.php";
-  static const String categoryProducts = "categories/getCategoryProducts.php";
+  static const String categoryProducts = "categories/categoryProducts.php";
   static const String userSelectedCar = "cars/getUserSelectedCar.php";
   static const String productDetails = "products/getProduct.php";
 }
