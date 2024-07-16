@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../../core/config/text/text_styles.dart';
-import '../../../../../../core/helpers/extensions/extensions.dart';
-import '../../../../../../core/widgets/search_bar_widget.dart';
-import 'offers_widget.dart';
+import '../../../../../core/config/text/text_styles.dart';
+import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../core/widgets/search_bar_widget.dart';
+import 'home_guest_offers_widget.dart';
 
 class HomeGuestUserHeaderWidget extends StatelessWidget {
   const HomeGuestUserHeaderWidget({super.key});

@@ -3,10 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../../core/config/text/text_styles.dart';
-import '../../../../../../core/config/theme/colors_manager.dart';
-import '../../../../../../core/helpers/extensions/extensions.dart';
-import '../../../../domain/entities/home_product_entity.dart';
+import '../../../../../core/config/text/text_styles.dart';
+import '../../../../../core/config/theme/colors_manager.dart';
+import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../home/domain/entities/home_product_entity.dart';
 
 class CategoryProductItemWidget extends StatelessWidget {
   final HomeProductEntity product;
@@ -71,14 +71,14 @@ class CategoryProductItemWidget extends StatelessWidget {
                   ),
                   Gap(6.w),
                   Text(
-                    "\$${product.price}",
+                    "\$${product.oldPrice?.toStringAsFixed(2)}",
                     style: TextStyles.font10LightGreyRegular.copyWith(
                       decoration: TextDecoration.lineThrough,
                     ),
                   ),
                   Gap(4.w),
                   Text(
-                    "$product% OFF",
+                    "${product.discountPercentage}% OFF",
                     style: TextStyles.font7RedSemiBold,
                   ),
                 ],

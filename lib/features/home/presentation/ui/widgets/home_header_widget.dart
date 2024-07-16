@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../../../core/config/app_manager/app_manager_cubit.dart';
-import '../../../../../../core/config/theme/colors_manager.dart';
-import '../../../../../../core/di/dependency_injection.dart';
-import '../../../logic/cubit/user_cubit.dart';
+import '../../../../../core/config/app_manager/app_manager_cubit.dart';
+import '../../../../../core/config/theme/colors_manager.dart';
+import '../../../../../core/di/dependency_injection.dart';
+import '../../logic/cubit/user_cubit.dart';
 import 'home_guest_user_header_widget.dart';
 import 'home_logged_user_header_widget.dart';
 

@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
-import '../../../../../../../core/config/text/text_styles.dart';
-import '../../../../../domain/entities/category_entity.dart';
+import '../../../../../core/config/text/text_styles.dart';
+import '../../../../../core/di/dependency_injection.dart';
+import '../../../../category/presentation/logic/category_cubit.dart';
+import '../../../../category/presentation/ui/category_screen.dart';
+import '../../../domain/entities/category_entity.dart';
 
 class CategoriesListItem extends StatelessWidget {
   final HomeCategoryEntity category;
@@ -15,8 +20,19 @@ class CategoriesListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // TODO: navigate to category products screen
-        //context.pushNamed(Routes.categoryProductsScreen, arguments: category);
+        pushScreen(
+          context,
+          screen: BlocProvider<CategoryCubit>(
+            create: (context) => getIt<CategoryCubit>(),
+            child: CategoryScreen(category: category),
+          ),
+          withNavBar: true,
+        );
+        // context.pushNamed(
+        //   Routes.categoryScreen,
+        //   arguments: category,
+        //   navigateWithNavBar: true,
+        // );
       },
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 13.h, horizontal: 8.w),

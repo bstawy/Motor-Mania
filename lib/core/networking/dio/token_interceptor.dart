@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 
 import '../../caching/tokens_manager.dart';
+import '../../config/app_manager/app_manager_cubit.dart';
 import '../../config/constants/api_constants.dart';
 import '../crud_manager.dart';
 import 'dio_factory.dart';
@@ -80,8 +81,8 @@ class TokenInterceptor extends Interceptor {
   }
 
   Future<void> logout() async {
-    // TODO: show snackbar and use logout endpoint
-    await TokensManager.setAccessToken("");
-    await TokensManager.setRefreshToken("");
+    // TODO: show snackbar
+    final AppManagerCubit appManagerCubit = AppManagerCubit();
+    appManagerCubit.logUserOut();
   }
 }

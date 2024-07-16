@@ -4,8 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../core/config/theme/colors_manager.dart';
-import 'widgets/categories/categories_widget.dart';
+import '../../../../core/config/theme/colors_manager.dart';
+import 'widgets/categories_list_widget.dart';
 import 'widgets/home_header_widget.dart';
 import 'widgets/home_list_widget.dart';
 
@@ -25,7 +25,7 @@ class HomeScreen extends StatelessWidget {
               children: [
                 const HomeHeaderWidget(),
                 Gap(32.h),
-                const CategoriesWidget(),
+                const CategoriesList(),
                 Gap(24.h),
                 const HomeListWidget(title: "Recommended For You"),
                 Gap(16.h),

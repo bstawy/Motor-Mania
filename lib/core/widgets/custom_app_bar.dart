@@ -10,6 +10,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? leading;
   final List<Widget>? actions;
   final double? topPadding, downPadding, rightPadding, leftPadding;
+  final VoidCallback? onLeadingPressed;
 
   const CustomAppBar({
     super.key,
@@ -21,13 +22,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.downPadding,
     this.rightPadding,
     this.leftPadding,
+    this.onLeadingPressed,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       forceMaterialTransparency: true,
-      leading: leading ?? const CustomBackButton(),
+      leading: leading ?? CustomBackButton(onPressed: onLeadingPressed),
       title: title != null
           ? Text(
               title!,
