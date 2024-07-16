@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import '../../data/models/home_car_model.dart';
-import '../../data/models/home_product_model.dart';
 
 import '../../../../core/networking/failure/failures.dart';
+import '../../data/models/home_car_model.dart';
+import '../../data/models/home_product_model.dart';
 import '../entities/category_entity.dart';
 
 abstract class HomeRepo {

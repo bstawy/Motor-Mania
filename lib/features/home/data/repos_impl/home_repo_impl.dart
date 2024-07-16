@@ -19,8 +19,6 @@ class HomeRepoImpl extends HomeRepo {
       final response = await _homeRemoteDataSource.getUserCar();
 
       if (response.statusCode == 200 && response.data['success'] == true) {
-        debugPrint("============================");
-
         final CarModel userCar = CarModel.fromJson(response.data['data']);
 
         return Right(userCar);
