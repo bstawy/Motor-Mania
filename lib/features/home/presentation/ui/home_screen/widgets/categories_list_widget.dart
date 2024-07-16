@@ -4,11 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../../../../../../core/config/text/text_styles.dart';
-import '../../../../../../../core/helpers/extensions/extensions.dart';
-import '../../../../../../../core/widgets/shimmer_loading_widget.dart';
-import '../../../../../domain/entities/category_entity.dart';
-import '../../../../logic/home_cubit.dart';
+import '../../../../../../core/config/text/text_styles.dart';
+import '../../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../../core/widgets/shimmer_loading_widget.dart';
+import '../../../../domain/entities/category_entity.dart';
+import '../../../logic/home_cubit.dart';
 import 'categories_list_item_widget.dart';
 
 class CategoriesList extends StatelessWidget {
@@ -47,7 +47,7 @@ class CategoriesList extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ShimmerLoadingWidget(
-          width: 50.w,
+          width: 100.w,
           height: 20.h,
         ).setHorizontalPadding(16.w),
         Gap(8.h),
