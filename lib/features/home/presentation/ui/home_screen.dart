@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../core/config/theme/colors_manager.dart';
+import '../../../../core/config/theme/colors_manager.dart';
 import 'widgets/categories_list_widget.dart';
 import 'widgets/home_header_widget.dart';
 import 'widgets/home_list_widget.dart';

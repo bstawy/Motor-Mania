@@ -4,11 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../../../../../core/config/text/text_styles.dart';
-import '../../../../../../core/helpers/extensions/extensions.dart';
-import '../../../../../../core/widgets/shimmer_loading_widget.dart';
-import '../../../../domain/entities/home_product_entity.dart';
-import '../../../logic/home_cubit.dart';
+import '../../../../../core/config/text/text_styles.dart';
+import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../core/widgets/shimmer_loading_widget.dart';
+import '../../../domain/entities/home_product_entity.dart';
+import '../../logic/home_cubit.dart';
 import 'home_list_item_widget.dart';
 
 class HomeListWidget extends StatelessWidget {

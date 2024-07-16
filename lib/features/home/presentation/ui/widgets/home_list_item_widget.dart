@@ -3,10 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../../core/config/text/text_styles.dart';
-import '../../../../../../core/config/theme/colors_manager.dart';
-import '../../../../../../core/helpers/extensions/extensions.dart';
-import '../../../../domain/entities/home_product_entity.dart';
+import '../../../../../core/config/text/text_styles.dart';
+import '../../../../../core/config/theme/colors_manager.dart';
+import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../domain/entities/home_product_entity.dart';
 
 class HomeListItem extends StatelessWidget {
   final HomeProductEntity product;
@@ -20,7 +20,7 @@ class HomeListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // TODO: getProductsDetails
+        // TODO: get to Product Details Screen
       },
       child: Container(
         width: 150.w,

@@ -22,8 +22,7 @@ class GetHomeProductsUseCase {
             product.oldPrice!,
             product.discountPercentage!,
           );
-
-          return product.toEntity(finalPrice);
+          return product.copyWith(price: finalPrice);
         }).toList();
 
         return Right(homeProducts);

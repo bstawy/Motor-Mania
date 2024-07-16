@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
 
 import '../../../../core/networking/failure/failures.dart';
 import '../../domain/entities/category_entity.dart';
+import '../../domain/entities/home_product_entity.dart';
 import '../../domain/repos/home_repo.dart';
 import '../data_sources/home_remote_data_source.dart';
 import '../models/home_car_model.dart';
@@ -72,7 +72,7 @@ class HomeRepoImpl extends HomeRepo {
   }
 
   @override
-  Future<Either<ServerFailure, List<HomeProductModel>>>
+  Future<Either<ServerFailure, List<HomeProductEntity>>>
       getHomeProducts() async {
     try {
       final response = await _homeRemoteDataSource.getHomeProducts();
@@ -85,8 +85,6 @@ class HomeRepoImpl extends HomeRepo {
 
         return Right(homeProducts);
       }
-      debugPrint("============================");
-      debugPrint(response.data['status'].toString());
 
       return Left(
         ServerFailure(
