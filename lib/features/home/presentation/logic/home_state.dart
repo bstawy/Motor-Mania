@@ -5,20 +5,6 @@ sealed class HomeState {}
 
 final class HomeInitial extends HomeState {}
 
-final class UserCarLoading extends HomeState {}
-
-final class UserCarLoaded extends HomeState {
-  final CarEntity car;
-
-  UserCarLoaded(this.car);
-}
-
-final class UserCarErrorState extends HomeState {
-  final ServerFailure failure;
-
-  UserCarErrorState(this.failure);
-}
-
 final class CategoriesLoading extends HomeState {}
 
 final class CategoriesLoaded extends HomeState {
