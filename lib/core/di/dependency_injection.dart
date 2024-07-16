@@ -14,6 +14,7 @@ import '../../features/home/domain/repos/home_repo.dart';
 import '../../features/home/domain/use_cases/get_home_categories_use_case.dart';
 import '../../features/home/domain/use_cases/get_home_products_use_case.dart';
 import '../../features/home/domain/use_cases/get_user_selected_car_use_case.dart';
+import '../../features/home/presentation/logic/cubit/user_cubit.dart';
 import '../../features/home/presentation/logic/home_cubit.dart';
 import '../networking/crud_manager.dart';
 import '../networking/dio/dio_factory.dart';
@@ -62,7 +63,8 @@ Future<void> initGetIt() async {
     () => HomeCubit(
       getIt(),
       getIt(),
-      getIt(),
     ),
   );
+
+  getIt.registerFactory<UserCubit>(() => UserCubit(getIt()));
 }
