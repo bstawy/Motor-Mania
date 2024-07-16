@@ -1,39 +1,17 @@
 class CarEntity {
-  final int id;
-  final String brand;
-  final String model;
-  final int year;
-  final String imageUrl;
-  final int? km;
+  int? id;
+  String? brand;
+  String? model;
+  int? year;
+  String? imageUrl;
+  int? km;
 
   CarEntity({
-    required this.id,
-    required this.brand,
-    required this.model,
-    required this.year,
-    required this.imageUrl,
-    required this.km,
+    this.id,
+    this.brand,
+    this.model,
+    this.year,
+    this.imageUrl,
+    this.km,
   });
-
-  factory CarEntity.formJson(Map<String, dynamic> json) {
-    return CarEntity(
-      id: json['id'],
-      brand: json['brand'],
-      model: json['model'],
-      year: json['year'],
-      imageUrl: json['image_url'],
-      km: json['km'],
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'brand': brand,
-      'model': model,
-      'year': year,
-      'image_url': imageUrl,
-      'km': km,
-    };
-  }
 }
