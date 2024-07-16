@@ -201,7 +201,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
 
         border: widget.border ??
             OutlineInputBorder(
-              borderRadius: BorderRadius.circular(widget.borderRadius ?? 32.r),
+              borderRadius: BorderRadius.circular(widget.borderRadius ?? 15.r),
               borderSide: BorderSide(
                 color: widget.borderColor ?? ColorsManager.lighterGrey,
                 width: widget.borderWidth ?? 1.3,
@@ -210,7 +210,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         enabledBorder: widget.enabledBorder ??
             OutlineInputBorder(
               borderRadius:
-                  BorderRadius.circular(widget.enabledBorderRadius ?? 32.r),
+                  BorderRadius.circular(widget.enabledBorderRadius ?? 15.r),
               borderSide: BorderSide(
                 color: widget.enabledBorderColor ?? ColorsManager.lighterGrey,
                 width: widget.enabledBorderWidth ?? 1.3,
@@ -219,7 +219,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         focusedBorder: widget.focusedBorder ??
             OutlineInputBorder(
               borderRadius:
-                  BorderRadius.circular(widget.focusedBorderRadius ?? 32.r),
+                  BorderRadius.circular(widget.focusedBorderRadius ?? 15.r),
               borderSide: BorderSide(
                 color: widget.focusedBorderColor ??
                     ColorsManager.grey.withOpacity(0.5),
@@ -229,7 +229,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         disabledBorder: widget.disabledBorder ??
             OutlineInputBorder(
               borderRadius:
-                  BorderRadius.circular(widget.disabledBorderRadius ?? 32.r),
+                  BorderRadius.circular(widget.disabledBorderRadius ?? 15.r),
               borderSide: BorderSide(
                 color:
                     widget.disabledBackgroundColor ?? const Color(0xFFE6E6E6),
@@ -242,7 +242,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         errorBorder: widget.errorBorder ??
             OutlineInputBorder(
               borderRadius:
-                  BorderRadius.circular(widget.errorBorderRadius ?? 32.r),
+                  BorderRadius.circular(widget.errorBorderRadius ?? 15.r),
               borderSide: BorderSide(
                 color: widget.errorBorderColor ?? ColorsManager.red,
                 width: widget.errorBorderWidth ?? 1.3,
@@ -251,7 +251,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         focusedErrorBorder: widget.focusedErrorBorder ??
             OutlineInputBorder(
               borderRadius: BorderRadius.circular(
-                  widget.focusedErrorBorderRadius ?? 32.r),
+                  widget.focusedErrorBorderRadius ?? 15.r),
               borderSide: BorderSide(
                 color: widget.focusedErrorBorderColor ?? ColorsManager.red,
                 width: widget.focusedErrorBorderWidth ?? 1.3,

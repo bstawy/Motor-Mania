@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:shimmer/shimmer.dart';
@@ -10,8 +9,7 @@ import '../../../../../core/helpers/extensions/extensions.dart';
 import '../../../../../core/widgets/custom_app_bar.dart';
 import '../../../../../core/widgets/search_bar_widget.dart';
 import '../../../domain/entities/category_entity.dart';
-import '../../../domain/entities/product_entity.dart';
-import '../../logic/home_cubit.dart';
+import '../../../domain/entities/home_product_entity.dart';
 import 'widgets/category_product_item_widget.dart';
 
 class CategoryScreen extends StatefulWidget {
@@ -22,12 +20,12 @@ class CategoryScreen extends StatefulWidget {
 }
 
 class _CategoryScreenState extends State<CategoryScreen> {
-  late Category category;
+  late HomeCategoryEntity category;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    category = ModalRoute.of(context)!.settings.arguments as Category;
+    category = ModalRoute.of(context)!.settings.arguments as HomeCategoryEntity;
     setState(() {});
   }
 
@@ -47,37 +45,37 @@ class _CategoryScreenState extends State<CategoryScreen> {
             borderColor: ColorsManager.lighterBlue,
           ).setHorizontalPadding(16.w),
           Gap(8.h),
-          BlocBuilder<HomeCubit, HomeState>(
-            bloc: context.read<HomeCubit>()..getCategoryProducts(category.id),
-            buildWhen: (previous, current) {
-              if (current is CategoryProductsLoading ||
-                  current is CategoryProductsLoaded) {
-                return true;
-              }
-              return false;
-            },
-            builder: (context, state) {
-              if (state is CategoryProductsLoading) {
-                return _buildCategoryProductsLoading();
-              } else if (state is CategoryProductsLoaded) {
-                return _buildCategoryProductsLoaded(state.products);
-              } else if (state is ErrorState) {
-                return Center(
-                  child: Text(state.message).setHorizontalPadding(16.w),
-                );
-              } else {
-                return const SizedBox();
-              }
-            },
-          ),
+          // BlocBuilder<HomeCubit, HomeState>(
+          //   bloc: context.read<HomeCubit>(),
+          //   buildWhen: (previous, current) {
+          //     if (current is CategoryProductsLoading ||
+          //         current is CategoryProductsLoaded) {
+          //       return true;
+          //     }
+          //     return false;
+          //   },
+          //   builder: (context, state) {
+          //     if (state is CategoryProductsLoading) {
+          //       return _buildCategoryProductsLoading();
+          //     } else if (state is CategoryProductsLoaded) {
+          //       return _buildCategoryProductsLoaded(state.products);
+          //     } else if (state is ErrorState) {
+          //       return Center(
+          //         child: Text(state.failure.message ?? "")
+          //             .setHorizontalPadding(16.w),
+          //       );
+          //     } else {
+          //       return const SizedBox();
+          //     }
+          //   },
+          // ),
         ],
       ),
     );
   }
 
   Widget _buildCategoryProductsLoading() {
-    return SizedBox(
-      height: 0.7.sh,
+    return Expanded(
       child: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
@@ -106,9 +104,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
     );
   }
 
-  Widget _buildCategoryProductsLoaded(List<ProductEntity> products) {
-    return SizedBox(
-      height: 0.70.sh,
+  Widget _buildCategoryProductsLoaded(List<HomeProductEntity> products) {
+    return Expanded(
       child: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,

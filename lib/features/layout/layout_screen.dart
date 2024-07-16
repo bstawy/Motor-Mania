@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
-import '../../core/caching/tokens_manager.dart';
 import '../../core/config/app_manager/app_manager_cubit.dart';
 import '../../core/config/routing/routes.dart';
 import '../../core/config/text/text_styles.dart';
@@ -80,13 +79,10 @@ class LayoutScreen extends StatelessWidget {
             body: Center(
               child: context.read<AppManagerCubit>().isUserLoggedIn
                   ? CustomMaterialButton(
-                      onClicked: () async {
-                        await TokensManager.deleteTokens();
-                        if (context.mounted) {
-                          context.read<AppManagerCubit>().checkUserLoggedIn();
-                          context.pushNamedAndRemoveUntil(Routes.layoutScreen,
-                              predicate: (route) => false);
-                        }
+                      onClicked: () {
+                        context.read<AppManagerCubit>().logUserOut();
+                        context.pushNamedAndRemoveUntil(Routes.layoutScreen,
+                            predicate: (route) => false);
                       },
                       backgroundColor: ColorsManager.red,
                       title: "Logout",

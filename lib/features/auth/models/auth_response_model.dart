@@ -15,7 +15,7 @@ class AuthResponseModel {
     return AuthResponseModel(
       success: json['success'],
       message: json['message'],
-      data: json['data'] == [] ? null : UserData.fromJson(json['data']),
+      data: json['data'] != null ? UserData.fromJson(json['data']) : null,
     );
   }
 }

@@ -82,6 +82,13 @@ class TextStyles {
     fontFamily: 'Montserrat',
   );
 
+  static TextStyle font14WhiteSemiBold = TextStyle(
+    color: Colors.white,
+    fontSize: 14.sp,
+    fontWeight: FontWeightHelper.semiBold,
+    fontFamily: 'Montserrat',
+  );
+
   static TextStyle font14RedSemiBold = TextStyle(
     color: ColorsManager.red,
     fontSize: 14.sp,
@@ -107,6 +114,13 @@ class TextStyles {
     color: ColorsManager.grey,
     fontSize: 14.sp,
     fontWeight: FontWeightHelper.regular,
+    fontFamily: 'Montserrat',
+  );
+
+  static TextStyle font14WhiteLite = TextStyle(
+    color: ColorsManager.grey,
+    fontSize: 14.sp,
+    fontWeight: FontWeightHelper.light,
     fontFamily: 'Montserrat',
   );
 

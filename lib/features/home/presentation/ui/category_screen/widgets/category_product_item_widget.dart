@@ -6,10 +6,10 @@ import 'package:gap/gap.dart';
 import '../../../../../../core/config/text/text_styles.dart';
 import '../../../../../../core/config/theme/colors_manager.dart';
 import '../../../../../../core/helpers/extensions/extensions.dart';
-import '../../../../domain/entities/product_entity.dart';
+import '../../../../domain/entities/home_product_entity.dart';
 
 class CategoryProductItemWidget extends StatelessWidget {
-  final ProductEntity product;
+  final HomeProductEntity product;
 
   const CategoryProductItemWidget({
     super.key,
@@ -38,7 +38,7 @@ class CategoryProductItemWidget extends StatelessWidget {
               Gap(32.h),
               SizedBox(
                 height: 95.h,
-                child: Image.network(product.imageUrl),
+                child: Image.network(product.imageUrl ?? ""),
               ).setHorizontalPadding(8.w),
               Gap(12.h),
               Row(
@@ -51,13 +51,13 @@ class CategoryProductItemWidget extends StatelessWidget {
                 ],
               ).setHorizontalPadding(8.w),
               Text(
-                product.name,
+                product.name ?? "",
                 style: TextStyles.font14DarkBlueBold,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ).setHorizontalPadding(8.w),
               Text(
-                product.compatibleCars.first.brand,
+                product.compatibleCars?.first.brand ?? "",
                 style: TextStyles.font10DarkBlueRegular,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -66,7 +66,7 @@ class CategoryProductItemWidget extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    "\$${calculatePriceAfterDiscount(product.price, product.discountPercentage).toStringAsFixed(2)}",
+                    "\$${product.price?.toStringAsFixed(2)}",
                     style: TextStyles.font14DarkBlueBold,
                   ),
                   Gap(6.w),
@@ -78,7 +78,7 @@ class CategoryProductItemWidget extends StatelessWidget {
                   ),
                   Gap(4.w),
                   Text(
-                    "${product.discountPercentage}% OFF",
+                    "$product% OFF",
                     style: TextStyles.font7RedSemiBold,
                   ),
                 ],
@@ -87,13 +87,15 @@ class CategoryProductItemWidget extends StatelessWidget {
               Row(
                 children: [
                   SvgPicture.asset(
-                    product.freeDelivery
+                    product.freeDelivery ?? true
                         ? "assets/icons/free_delivery_filled_icon.svg"
                         : "assets/icons/verify_icon.svg",
                   ),
                   Gap(4.w),
                   Text(
-                    product.freeDelivery ? "Free Delivery" : "Verified Seller",
+                    product.freeDelivery ?? true
+                        ? "Free Delivery"
+                        : "Verified Seller",
                     style: TextStyles.font8LightGreyMedium.copyWith(
                       color: ColorsManager.darkkBlue,
                     ),
@@ -149,20 +151,22 @@ class CategoryProductItemWidget extends StatelessWidget {
             ),
           ),
           Visibility(
-            visible: product.newProduct || product.amount < 5,
+            visible: product.newProduct ?? false || product.amount! < 5,
             child: Positioned(
               left: 0,
               child: Container(
                 padding: EdgeInsets.all(5.r),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50.r),
-                  color: product.newProduct
+                  color: product.newProduct ?? false
                       ? ColorsManager.red
                       : const Color(0xff171823),
                 ),
                 alignment: Alignment.center,
                 child: Text(
-                  product.newProduct ? "NEW" : "only ${product.amount} left",
+                  product.newProduct ?? false
+                      ? "NEW"
+                      : "only ${product.amount} left",
                   style: TextStyles.font7WhiteMedium,
                 ),
               ),

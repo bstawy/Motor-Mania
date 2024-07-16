@@ -119,12 +119,9 @@ class _LoginFormState extends State<LoginForm> {
                   logging = true;
                 });
               } else if (state is SuccessState) {
-                context.read<AppManagerCubit>().checkUserLoggedIn();
+                context.read<AppManagerCubit>().logUserIn();
                 context.pushNamedAndRemoveUntil(Routes.layoutScreen,
                     predicate: (route) => false);
-                setState(() {
-                  logging = false;
-                });
               } else if (state is ErrorState) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(

@@ -21,4 +21,15 @@ class AppManagerCubit extends Cubit<AppManagerState> {
       emit(NoUserLoggedInState());
     }
   }
+
+  void logUserIn() {
+    isUserLoggedIn = true;
+    emit(UserLoggedInState());
+  }
+
+  void logUserOut() async {
+    await TokensManager.deleteTokens();
+    isUserLoggedIn = false;
+    emit(NoUserLoggedInState());
+  }
 }
