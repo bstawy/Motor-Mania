@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
@@ -7,27 +6,21 @@ import 'package:gap/gap.dart';
 import '../../../../../../core/config/text/text_styles.dart';
 import '../../../../../../core/config/theme/colors_manager.dart';
 import '../../../../../../core/helpers/extensions/extensions.dart';
-import '../../../../domain/entities/product_entity.dart';
-import '../../../logic/home_cubit.dart';
+import '../../../../domain/entities/home_product_entity.dart';
 
 class HomeListItem extends StatelessWidget {
-  final ProductEntity product;
+  final HomeProductEntity product;
 
   const HomeListItem({
     super.key,
     required this.product,
   });
 
-  num calculatePriceAfterDiscount(num actualPrice, num discountPercentage) {
-    final discountPrice = actualPrice * (discountPercentage / 100);
-    return actualPrice - discountPrice;
-  }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.read<HomeCubit>().getProductDetails(product.id);
+        // TODO: getProductsDetails
       },
       child: Container(
         width: 150.w,
@@ -45,7 +38,7 @@ class HomeListItem extends StatelessWidget {
                 SizedBox(
                   width: 104.w,
                   height: 88.h,
-                  child: Image.network(product.imageUrl),
+                  child: Image.network(product.imageUrl ?? ""),
                 ),
                 Gap(12.h),
                 Row(
@@ -58,13 +51,13 @@ class HomeListItem extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  product.name,
+                  product.name ?? "",
                   style: TextStyles.font16DarkBlueBold,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
-                  product.compatibleCars.first.brand,
+                  product.compatibleCars?.first.brand ?? "",
                   style: TextStyles.font10DarkBlueRegular,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -73,12 +66,12 @@ class HomeListItem extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      "\$${calculatePriceAfterDiscount(product.price, product.discountPercentage).toStringAsFixed(2)}",
+                      "\$${product.price?.toStringAsFixed(2)}",
                       style: TextStyles.font16DarkBlueBold,
                     ),
                     Gap(6.w),
                     Text(
-                      "\$${product.price}",
+                      "\$${product.oldPrice?.toStringAsFixed(2)}",
                       style: TextStyles.font10LightGreyRegular.copyWith(
                         decoration: TextDecoration.lineThrough,
                       ),
@@ -89,13 +82,13 @@ class HomeListItem extends StatelessWidget {
                 Row(
                   children: [
                     SvgPicture.asset(
-                      product.freeDelivery
+                      product.freeDelivery ?? true
                           ? "assets/icons/free_delivery_filled_icon.svg"
                           : "assets/icons/verify_icon.svg",
                     ),
                     Gap(4.w),
                     Text(
-                      product.freeDelivery
+                      product.freeDelivery ?? true
                           ? "Free Delivery"
                           : "Verified Seller",
                       style: TextStyles.font8LightGreyMedium.copyWith(
@@ -149,20 +142,22 @@ class HomeListItem extends StatelessWidget {
               ),
             ),
             Visibility(
-              visible: product.newProduct || product.amount < 5,
+              visible: product.newProduct ?? false || product.amount! < 5,
               child: Positioned(
                 left: 0,
                 child: Container(
                   padding: EdgeInsets.all(5.r),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50.r),
-                    color: product.newProduct
+                    color: product.newProduct ?? false
                         ? ColorsManager.red
                         : const Color(0xff171823),
                   ),
                   alignment: Alignment.center,
                   child: Text(
-                    product.newProduct ? "NEW" : "only ${product.amount} left",
+                    product.newProduct ?? false
+                        ? "NEW"
+                        : "only ${product.amount} left",
                     style: TextStyles.font7WhiteMedium,
                   ),
                 ),

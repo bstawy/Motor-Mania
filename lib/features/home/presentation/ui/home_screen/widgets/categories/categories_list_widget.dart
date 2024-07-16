@@ -14,11 +14,11 @@ class CategoriesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
-      bloc: context.read<HomeCubit>()..getAllCategories(),
+      bloc: context.read<HomeCubit>()..getHomeCategories(),
       buildWhen: (previous, current) {
         if (current is CategoriesLoading ||
             current is CategoriesLoaded ||
-            current is ErrorState) {
+            current is CategoriesErrorState) {
           return true;
         }
         return false;
@@ -28,9 +28,9 @@ class CategoriesList extends StatelessWidget {
           return _buildCategoriesLoading();
         } else if (state is CategoriesLoaded) {
           return _buildCategoriesLoaded(state.categories);
-        } else if (state is ErrorState) {
+        } else if (state is CategoriesErrorState) {
           return Center(
-            child: Text(state.message).setHorizontalPadding(16.w),
+            child: Text(state.failure.message ?? "").setHorizontalPadding(16.w),
           );
         } else {
           return const SizedBox();
@@ -65,7 +65,7 @@ class CategoriesList extends StatelessWidget {
     );
   }
 
-  Widget _buildCategoriesLoaded(List<Category> categories) {
+  Widget _buildCategoriesLoaded(List<HomeCategoryEntity> categories) {
     return SizedBox(
       height: 75.h,
       child: ListView.builder(

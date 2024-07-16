@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../../../core/helpers/extensions/extensions.dart';
-import '../../../../domain/entities/product_entity.dart';
+import '../../../../domain/entities/home_product_entity.dart';
 import '../../../logic/home_cubit.dart';
 import 'home_list_item_widget.dart';
 
@@ -14,11 +14,11 @@ class HomeListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
-        bloc: context.read<HomeCubit>()..getAllProducts(),
+        bloc: context.read<HomeCubit>()..getHomeProducts(),
         buildWhen: (previous, current) {
           if (current is ProductsLoading ||
               current is ProductsLoaded ||
-              current is ErrorState) {
+              current is ProductsErrorState) {
             return true;
           }
           return false;
@@ -28,9 +28,10 @@ class HomeListWidget extends StatelessWidget {
             return _buildProductsLoading();
           } else if (state is ProductsLoaded) {
             return _buildProductsList(state.products);
-          } else if (state is ErrorState) {
+          } else if (state is ProductsErrorState) {
             return Center(
-              child: Text(state.message).setHorizontalPadding(16.w),
+              child:
+                  Text(state.failure.message ?? "").setHorizontalPadding(16.w),
             );
           } else {
             return const SizedBox();
@@ -64,7 +65,7 @@ class HomeListWidget extends StatelessWidget {
     );
   }
 
-  SizedBox _buildProductsList(List<ProductEntity> products) {
+  SizedBox _buildProductsList(List<HomeProductEntity> products) {
     return SizedBox(
       height: 295.h,
       child: ListView.builder(

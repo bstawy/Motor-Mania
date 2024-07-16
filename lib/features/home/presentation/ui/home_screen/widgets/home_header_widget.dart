@@ -82,7 +82,7 @@ class HomeHeaderWidget extends StatelessWidget {
                         right: -70,
                         bottom: 0.h,
                         child: Image.network(
-                          car.imageUrl,
+                          car.imageUrl ?? "",
                           width: 290.w,
                           height: 130.h,
                         ),
@@ -236,7 +236,7 @@ class HomeHeaderWidget extends StatelessWidget {
         ),
         Gap(6.h),
         Text(
-          "Your next maintenance\nwill be at 80,000 KM.",
+          "Your next maintenance\nwill be at ${car.km} KM.",
           style: TextStyles.font10WhiteMedium,
         ),
         Gap(24.h),
