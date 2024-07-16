@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -141,7 +142,7 @@ class HomeLoggedUserHeaderWidget extends StatelessWidget {
             car.imageUrl ?? "",
             width: 290.w,
             height: 130.h,
-          ),
+          ).animate().scale(duration: const Duration(milliseconds: 425)),
         ),
       ],
     );
