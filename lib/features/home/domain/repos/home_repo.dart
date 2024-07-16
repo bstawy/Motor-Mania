@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:motor_mania/features/home/data/models/home_car_model.dart';
-import 'package:motor_mania/features/home/data/models/home_product_model.dart';
+import '../../data/models/home_car_model.dart';
+import '../../data/models/home_product_model.dart';
 
 import '../../../../core/networking/failure/failures.dart';
 import '../entities/category_entity.dart';

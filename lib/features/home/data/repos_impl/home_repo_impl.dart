@@ -1,11 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
-import 'package:motor_mania/features/home/data/models/home_car_model.dart';
 
 import '../../../../core/networking/failure/failures.dart';
 import '../../domain/entities/category_entity.dart';
 import '../../domain/repos/home_repo.dart';
 import '../data_sources/home_remote_data_source.dart';
+import '../models/home_car_model.dart';
 import '../models/home_category_model.dart';
 import '../models/home_product_model.dart';
 

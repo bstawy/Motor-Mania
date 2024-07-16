@@ -1,4 +1,4 @@
-import 'package:motor_mania/features/home/data/models/home_car_model.dart';
+import 'home_car_model.dart';
 
 import '../../domain/entities/home_product_entity.dart';
 
