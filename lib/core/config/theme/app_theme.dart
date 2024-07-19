@@ -7,7 +7,7 @@ class AppTheme {
     useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(
       seedColor: ColorsManager.darkkBlue,
-      surface: ColorsManager.lighterGrey,
+      surface: ColorsManager.whiteGrey,
     ),
     fontFamily: 'Montserrat',
   );
