@@ -19,6 +19,8 @@ class LayoutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppManagerCubit appManager = context.read<AppManagerCubit>();
+
     return PersistentTabView(
       navBarHeight: 70.h,
       navBarOverlap: const NavBarOverlap.none(),
@@ -76,7 +78,7 @@ class LayoutScreen extends StatelessWidget {
         bottomNavBarTab(
           screen: Scaffold(
             body: Center(
-              child: context.read<AppManagerCubit>().isUserLoggedIn
+              child: appManager.isUserLoggedIn
                   ? CustomMaterialButton(
                       onClicked: () {
                         context.read<AppManagerCubit>().logUserOut();
@@ -102,16 +104,33 @@ class LayoutScreen extends StatelessWidget {
         ),
       ],
       navBarBuilder: (navBarConfig) {
-        return Style2BottomNavBar(
-          navBarConfig: navBarConfig,
-          navBarDecoration: NavBarDecoration(
-            color: ColorsManager.darkkBlue,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(25.r),
-              topRight: Radius.circular(25.r),
-            ),
-            padding: EdgeInsets.symmetric(horizontal: 8.w),
-          ),
+        return BlocBuilder<AppManagerCubit, AppManagerState>(
+          bloc: appManager,
+          buildWhen: (previous, current) {
+            if (current is BottomSheetClosedState ||
+                current is BottomSheetOpenedState) {
+              return true;
+            }
+            return false;
+          },
+          builder: (BuildContext context, state) {
+            return Style2BottomNavBar(
+              navBarConfig: navBarConfig,
+              navBarDecoration: NavBarDecoration(
+                color: ColorsManager.darkkBlue,
+                border: Border.all(
+                  width: 0,
+                ),
+                borderRadius: state is BottomSheetOpenedState
+                    ? BorderRadius.zero
+                    : BorderRadius.only(
+                        topLeft: Radius.circular(25.r),
+                        topRight: Radius.circular(25.r),
+                      ),
+                padding: EdgeInsets.symmetric(horizontal: 8.w),
+              ),
+            );
+          },
         );
       },
     );
