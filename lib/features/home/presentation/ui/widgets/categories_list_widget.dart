@@ -94,21 +94,9 @@ class CategoriesList extends StatelessWidget {
             itemCount: categories.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  // TODO: navigate to category screen
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        "${categories[index].name} tapped!",
-                      ),
-                    ),
-                  );
-                },
-                child: CategoriesListItem(
-                  category: categories[index],
-                ).setOnlyPadding(0, 0, 8.w, 0),
-              );
+              return CategoriesListItem(
+                category: categories[index],
+              ).setOnlyPadding(0, 0, 8.w, 0);
             },
           ),
         ),
