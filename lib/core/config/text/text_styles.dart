@@ -5,6 +5,13 @@ import '../theme/colors_manager.dart';
 import 'font_weight_helper.dart';
 
 class TextStyles {
+  static TextStyle font32DarkBlueBold = TextStyle(
+    color: ColorsManager.darkkBlue,
+    fontSize: 32.sp,
+    fontWeight: FontWeightHelper.bold,
+    fontFamily: 'Montserrat',
+  );
+
   static TextStyle font32DarkBlueSemiBold = TextStyle(
     color: ColorsManager.darkkBlue,
     fontSize: 32.sp,
@@ -15,6 +22,13 @@ class TextStyles {
   static TextStyle font30WhiteBold = TextStyle(
     color: Colors.white,
     fontSize: 30.sp,
+    fontWeight: FontWeightHelper.bold,
+    fontFamily: 'Montserrat',
+  );
+
+  static TextStyle font24DarkBlueBold = TextStyle(
+    color: ColorsManager.darkkBlue,
+    fontSize: 24.sp,
     fontWeight: FontWeightHelper.bold,
     fontFamily: 'Montserrat',
   );
@@ -121,6 +135,13 @@ class TextStyles {
     color: ColorsManager.grey,
     fontSize: 14.sp,
     fontWeight: FontWeightHelper.light,
+    fontFamily: 'Montserrat',
+  );
+
+  static TextStyle font12RedSemiBold = TextStyle(
+    color: ColorsManager.red,
+    fontSize: 12.sp,
+    fontWeight: FontWeightHelper.semiBold,
     fontFamily: 'Montserrat',
   );
 

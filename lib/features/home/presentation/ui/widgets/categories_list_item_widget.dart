@@ -28,11 +28,6 @@ class CategoriesListItem extends StatelessWidget {
           ),
           withNavBar: true,
         );
-        // context.pushNamed(
-        //   Routes.categoryScreen,
-        //   arguments: category,
-        //   navigateWithNavBar: true,
-        // );
       },
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 13.h, horizontal: 8.w),

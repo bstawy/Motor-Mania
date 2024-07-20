@@ -139,7 +139,7 @@ class CategoryProductItemWidget extends StatelessWidget {
                 padding: EdgeInsets.all(6.r),
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: ColorsManager.lighterGrey,
+                  color: ColorsManager.whiteGrey,
                 ),
                 alignment: Alignment.center,
                 child: SvgPicture.asset(

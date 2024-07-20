@@ -1,11 +1,16 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
+import '../../../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors_manager.dart';
 import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../product_details/presentation/ui/product_details_screen.dart';
 import '../../../domain/entities/home_product_entity.dart';
 
 class HomeListItem extends StatelessWidget {
@@ -20,7 +25,22 @@ class HomeListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // TODO: get to Product Details Screen
+        context.read<AppManagerCubit>().openBottomSheet();
+        final Completer<void> completer = Completer<void>();
+
+        showModalBottomSheet(
+          context: context,
+          builder: (context) {
+            return ProductDetailsScreen(product: product);
+          },
+          isScrollControlled: true,
+          useSafeArea: true,
+        ).whenComplete(
+          () {
+            completer.complete();
+            context.read<AppManagerCubit>().closeBottomSheet();
+          },
+        );
       },
       child: Container(
         width: 150.w,
@@ -130,7 +150,7 @@ class HomeListItem extends StatelessWidget {
                   padding: EdgeInsets.all(6.r),
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
-                    color: ColorsManager.lighterGrey,
+                    color: ColorsManager.whiteGrey,
                   ),
                   alignment: Alignment.center,
                   child: SvgPicture.asset(
