@@ -8,8 +8,9 @@ part 'app_manager_state.dart';
 class AppManagerCubit extends Cubit<AppManagerState> {
   bool isUserLoggedIn = false;
   String? token;
+  bool isBottomSheetOpen = false;
 
-  AppManagerCubit() : super(InitialState());
+  AppManagerCubit() : super(BottomSheetClosedState());
 
   void checkUserLoggedIn() async {
     token = await TokensManager.getAccessToken();
@@ -20,6 +21,16 @@ class AppManagerCubit extends Cubit<AppManagerState> {
       isUserLoggedIn = false;
       emit(NoUserLoggedInState());
     }
+  }
+
+  void openBottomSheet() {
+    isBottomSheetOpen = true;
+    emit(BottomSheetOpenedState());
+  }
+
+  void closeBottomSheet() {
+    isBottomSheetOpen = false;
+    emit(BottomSheetClosedState());
   }
 
   void logUserIn() {
