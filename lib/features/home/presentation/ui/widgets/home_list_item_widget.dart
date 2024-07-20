@@ -9,7 +9,9 @@ import 'package:gap/gap.dart';
 import '../../../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors_manager.dart';
+import '../../../../../core/di/dependency_injection.dart';
 import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../product_details/presentation/logic/product_cubit.dart';
 import '../../../../product_details/presentation/ui/product_details_screen.dart';
 import '../../../domain/entities/home_product_entity.dart';
 
@@ -31,7 +33,12 @@ class HomeListItem extends StatelessWidget {
         showModalBottomSheet(
           context: context,
           builder: (context) {
-            return ProductDetailsScreen(product: product);
+            return BlocProvider(
+              create: (context) => getIt<ProductCubit>()
+                ..getProductDetails(product.id ?? "")
+                ..getSimilarProducts(),
+              child: const ProductDetailsScreen(),
+            );
           },
           isScrollControlled: true,
           useSafeArea: true,

@@ -4,12 +4,18 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../../core/config/text/text_styles.dart';
-import '../../../../home/domain/entities/home_product_entity.dart';
 
 class ProductImageAndRatingWidget extends StatelessWidget {
-  final HomeProductEntity product;
+  final String imageUrl;
+  final num rating;
+  final num reviewsCount;
 
-  const ProductImageAndRatingWidget({super.key, required this.product});
+  const ProductImageAndRatingWidget({
+    super.key,
+    required this.imageUrl,
+    required this.rating,
+    required this.reviewsCount,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +24,7 @@ class ProductImageAndRatingWidget extends StatelessWidget {
         SizedBox(
           height: 210.h,
           width: double.infinity,
-          child: Image.network(product.imageUrl ?? ""),
+          child: Image.network(imageUrl),
         ),
         Positioned(
           bottom: 0,
@@ -44,7 +50,7 @@ class ProductImageAndRatingWidget extends StatelessWidget {
                 ),
                 Gap(4.w),
                 Text(
-                  "${product.rating} (${product.reviewsCount})",
+                  "$rating ($reviewsCount)",
                   style: TextStyles.font10WhiteMedium,
                 ),
               ],

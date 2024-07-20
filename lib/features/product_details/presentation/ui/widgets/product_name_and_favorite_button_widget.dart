@@ -3,12 +3,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../core/config/text/text_styles.dart';
-import '../../../../home/domain/entities/home_product_entity.dart';
 
 class ProductNameAndFavoriteButtonWidget extends StatelessWidget {
-  final HomeProductEntity product;
+  final String name;
+  final String carModel;
 
-  const ProductNameAndFavoriteButtonWidget({super.key, required this.product});
+  const ProductNameAndFavoriteButtonWidget({
+    super.key,
+    required this.name,
+    required this.carModel,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +23,11 @@ class ProductNameAndFavoriteButtonWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              product.name ?? '',
+              name,
               style: TextStyles.font24DarkBlueBold,
             ),
             Text(
-              '${product.compatibleCars?.first.brand} ${product.compatibleCars?.first.model}',
+              carModel,
               style: TextStyles.font14DarkBlueRegular,
             ),
           ],
