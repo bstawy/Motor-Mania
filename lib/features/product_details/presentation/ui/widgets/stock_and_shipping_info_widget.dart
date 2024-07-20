@@ -6,8 +6,13 @@ import 'package:gap/gap.dart';
 import '../../../../../core/config/text/text_styles.dart';
 
 class StockAndShippingInfoWidget extends StatelessWidget {
+  final int amount;
+  final String shippingInfo;
+
   const StockAndShippingInfoWidget({
     super.key,
+    required this.amount,
+    required this.shippingInfo,
   });
 
   @override
@@ -23,19 +28,30 @@ class StockAndShippingInfoWidget extends StatelessWidget {
               height: 14.h,
             ),
             Gap(4.w),
-            Text(
-              "Only 2 Left ",
-              style: TextStyles.font12RedSemiBold,
-            ),
-            Text(
-              "in Stock",
-              style: TextStyles.font12DarkBlueMedium,
+            Visibility(
+              visible: amount < 5,
+              replacement: Text(
+                "In Stock",
+                style: TextStyles.font12DarkBlueMedium,
+              ),
+              child: Row(
+                children: [
+                  Text(
+                    "Only $amount Left ",
+                    style: TextStyles.font12RedSemiBold,
+                  ),
+                  Text(
+                    "in Stock",
+                    style: TextStyles.font12DarkBlueMedium,
+                  ),
+                ],
+              ),
             ),
           ],
         ),
         Gap(4.h),
         Text(
-          "Shipping in two days",
+          shippingInfo,
           style: TextStyles.font12DarkBlueMedium,
         ),
       ],

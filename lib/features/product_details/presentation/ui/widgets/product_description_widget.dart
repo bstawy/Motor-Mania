@@ -5,7 +5,12 @@ import 'package:gap/gap.dart';
 import '../../../../../core/config/text/text_styles.dart';
 
 class ProductDescriptionWidget extends StatelessWidget {
-  const ProductDescriptionWidget({super.key});
+  final String description;
+
+  const ProductDescriptionWidget({
+    super.key,
+    required this.description,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +23,7 @@ class ProductDescriptionWidget extends StatelessWidget {
         ),
         Gap(8.h),
         Text(
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+          description,
           style: TextStyles.font12DarkBlueRegular,
         ),
       ],

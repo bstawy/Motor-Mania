@@ -5,15 +5,9 @@ import 'package:gap/gap.dart';
 
 import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors_manager.dart';
-import '../../../../home/domain/entities/home_product_entity.dart';
 
 class SellerInfoWidget extends StatelessWidget {
-  final HomeProductEntity product;
-
-  const SellerInfoWidget({
-    super.key,
-    required this.product,
-  });
+  const SellerInfoWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +70,7 @@ class SellerInfoWidget extends StatelessWidget {
                             ),
                             Gap(4.w),
                             Text(
-                              product.rating.toString(),
+                              '4.2',
                               style: TextStyles.font10WhiteMedium.copyWith(
                                 fontSize: 5.sp,
                               ),

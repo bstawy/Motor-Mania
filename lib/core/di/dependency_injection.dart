@@ -22,6 +22,13 @@ import '../../features/home/domain/use_cases/get_home_products_use_case.dart';
 import '../../features/home/domain/use_cases/get_user_selected_car_use_case.dart';
 import '../../features/home/presentation/logic/cubit/user_cubit.dart';
 import '../../features/home/presentation/logic/home_cubit.dart';
+import '../../features/product_details/data/data_sources/product_remote_data_source.dart';
+import '../../features/product_details/data/data_sources_impl/product_remote_data_source_impl.dart';
+import '../../features/product_details/data/repos_impl/product_repo_impl.dart';
+import '../../features/product_details/domain/repos/product_repo.dart';
+import '../../features/product_details/domain/use_cases/get_product_details_use_case.dart';
+import '../../features/product_details/domain/use_cases/get_similar_product_use_case.dart';
+import '../../features/product_details/presentation/logic/product_cubit.dart';
 import '../networking/crud_manager.dart';
 import '../networking/dio/dio_factory.dart';
 
@@ -86,4 +93,19 @@ Future<void> initGetIt() async {
     () => GetCategoryProductsUseCases(getIt()),
   );
   getIt.registerFactory<CategoryCubit>(() => CategoryCubit(getIt()));
+
+  // Product
+  getIt.registerFactory<ProductRemoteDataSource>(
+    () => ProductRemoteDataSourceImpl(getIt()),
+  );
+  getIt.registerFactory<ProductRepo>(
+    () => ProductRepoImpl(getIt(), getIt()),
+  );
+  getIt.registerFactory<GetProductDetailsUseCase>(
+    () => GetProductDetailsUseCase(getIt()),
+  );
+  getIt.registerFactory<GetSimilarProductUseCase>(
+    () => GetSimilarProductUseCase(getIt()),
+  );
+  getIt.registerFactory<ProductCubit>(() => ProductCubit(getIt(), getIt()));
 }
