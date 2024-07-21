@@ -13,6 +13,14 @@ import '../../features/category/data/repos_impl/category_repository_impl.dart';
 import '../../features/category/domain/repos/category_repository.dart';
 import '../../features/category/domain/use_cases/get_category_products_use_cases.dart';
 import '../../features/category/presentation/logic/category_cubit.dart';
+import '../../features/favorites/data/data_source/favorites_remote_data_source.dart';
+import '../../features/favorites/data/data_source_impl/favorites_remote_data_source_impl.dart';
+import '../../features/favorites/data/repos_impl/favorites_repo_impl.dart';
+import '../../features/favorites/domain/repos/favorites_repo.dart';
+import '../../features/favorites/domain/use_cases/add_to_favorites_use_case.dart';
+import '../../features/favorites/domain/use_cases/get_all_favorites_use_case.dart';
+import '../../features/favorites/domain/use_cases/remove_from_favorites_use_case.dart';
+import '../../features/favorites/presentation/logic/favorites_cubit.dart';
 import '../../features/home/data/data_sources/home_remote_data_source.dart';
 import '../../features/home/data/data_sources_impl/home_remote_data_source_impl.dart';
 import '../../features/home/data/repos_impl/home_repo_impl.dart';
@@ -29,6 +37,7 @@ import '../../features/product_details/domain/repos/product_repo.dart';
 import '../../features/product_details/domain/use_cases/get_product_details_use_case.dart';
 import '../../features/product_details/domain/use_cases/get_similar_product_use_case.dart';
 import '../../features/product_details/presentation/logic/product_cubit.dart';
+import '../helpers/app_bloc_observer.dart';
 import '../networking/crud_manager.dart';
 import '../networking/dio/dio_factory.dart';
 
@@ -39,10 +48,15 @@ Future<void> initGetIt() async {
   Dio freeDio = DioFactory.getFreeDio();
   Dio tokenDio = DioFactory.getTokenDio();
 
-  getIt.registerLazySingleton<CrudManager>(() => CrudManager.getInstance(
-        freeDio: freeDio,
-        tokenDio: tokenDio,
-      ));
+  getIt.registerLazySingleton<CrudManager>(
+    () => CrudManager.getInstance(
+      freeDio: freeDio,
+      tokenDio: tokenDio,
+    ),
+  );
+
+  // BLoc observer
+  getIt.registerSingleton<AppBlocObserver>(AppBlocObserver());
 
   // Register
   getIt.registerFactory<RegisterRemoteDataSource>(
@@ -108,4 +122,23 @@ Future<void> initGetIt() async {
     () => GetSimilarProductUseCase(getIt()),
   );
   getIt.registerFactory<ProductCubit>(() => ProductCubit(getIt(), getIt()));
+
+  // Favorites
+  getIt.registerFactory<FavoritesRemoteDataSource>(
+    () => FavoritesRemoteDataSourceImpl(getIt()),
+  );
+  getIt.registerFactory<FavoritesRepo>(
+    () => FavoritesRepoImpl(getIt()),
+  );
+  getIt.registerFactory<GetAllFavoritesUseCase>(
+    () => GetAllFavoritesUseCase(getIt()),
+  );
+  getIt.registerFactory<AddToFavoritesUseCase>(
+    () => AddToFavoritesUseCase(getIt()),
+  );
+  getIt.registerFactory<RemoveFromFavoritesUseCase>(
+    () => RemoveFromFavoritesUseCase(getIt()),
+  );
+  getIt.registerFactory<FavoritesCubit>(
+      () => FavoritesCubit(getIt(), getIt(), getIt()));
 }
