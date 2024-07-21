@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 
 import '../config/text/text_styles.dart';
 import '../config/theme/colors_manager.dart';
+import '../helpers/extensions/snackbar_ext.dart';
 
 class SearchBarWidget extends StatelessWidget {
   final String? hintText;
@@ -36,10 +37,7 @@ class SearchBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        onTap ??
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Search Bar")),
-            );
+        onTap ?? context.successSnackBar("Search Bar");
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
@@ -68,10 +66,7 @@ class SearchBarWidget extends StatelessWidget {
             const Spacer(),
             InkWell(
               onTap: () {
-                onSuffixIconTap ??
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Barcode")),
-                    );
+                onSuffixIconTap ?? context.successSnackBar("Barcode");
               },
               child: suffixIcon ??
                   SvgPicture.asset(
