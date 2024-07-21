@@ -4,12 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/config/app_manager/app_manager_cubit.dart';
 import 'core/di/dependency_injection.dart';
+import 'core/helpers/app_bloc_observer.dart';
 import 'motor_mania_app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ScreenUtil.ensureScreenSize();
   initGetIt();
+  Bloc.observer = getIt<AppBlocObserver>();
 
   runApp(
     BlocProvider<AppManagerCubit>(
