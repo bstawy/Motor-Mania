@@ -22,29 +22,29 @@ class HomeListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
-        bloc: context.read<HomeCubit>()..getHomeProducts(),
-        buildWhen: (previous, current) {
-          if (current is ProductsLoading ||
-              current is ProductsLoaded ||
-              current is ProductsErrorState) {
-            return true;
-          }
-          return false;
-        },
-        builder: (context, state) {
-          if (state is ProductsLoading) {
-            return _buildProductsLoading();
-          } else if (state is ProductsLoaded) {
-            return _buildProductsList(state.products);
-          } else if (state is ProductsErrorState) {
-            return Center(
-              child:
-                  Text(state.failure.message ?? "").setHorizontalPadding(16.w),
-            );
-          } else {
-            return const SizedBox();
-          }
-        });
+      bloc: context.read<HomeCubit>()..getHomeProducts(),
+      buildWhen: (previous, current) {
+        if (current is ProductsLoading ||
+            current is ProductsLoaded ||
+            current is ProductsErrorState) {
+          return true;
+        }
+        return false;
+      },
+      builder: (context, state) {
+        if (state is ProductsLoading) {
+          return _buildProductsLoading();
+        } else if (state is ProductsLoaded) {
+          return _buildProductsList(context, state.products);
+        } else if (state is ProductsErrorState) {
+          return Center(
+            child: Text(state.failure.message ?? "").setHorizontalPadding(16.w),
+          );
+        } else {
+          return const SizedBox();
+        }
+      },
+    );
   }
 
   Widget _buildProductsLoading() {
@@ -83,7 +83,15 @@ class HomeListWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildProductsList(List<HomeProductEntity> products) {
+  Widget _buildProductsList(
+      BuildContext context, List<HomeProductEntity> products) {
+    // final List<HomeProductEntity> poductList = products.map((product) {
+    //   final isFavorite =
+    //       context.read<FavoritesCubit>().isFavorite(product.id ?? '');
+
+    //   return product.copyWith(isFavorite: isFavorite);
+    // }).toList();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import '../../../../core/config/theme/colors_manager.dart';
 import '../../../../core/helpers/extensions/extensions.dart';
 import '../../../../core/widgets/search_bar_widget.dart';
+import '../../../favorites/presentation/logic/favorites_cubit.dart';
 import '../../domain/entities/product_entity.dart';
 import '../logic/product_cubit.dart';
 import 'widgets/product_description_widget.dart';
@@ -48,7 +49,12 @@ class ProductDetailsScreen extends StatelessWidget {
                       if (state is ProductLoading) {
                         return const Center(child: CircularProgressIndicator());
                       } else if (state is ProductLoaded) {
-                        final ProductEntity product = state.product;
+                        bool isFavorite = context
+                            .read<FavoritesCubit>()
+                            .isFavorite(state.product.id ?? "");
+
+                        ProductEntity product =
+                            state.product.copyWith(isFavorite: isFavorite);
 
                         return Column(
                           children: [
@@ -67,9 +73,7 @@ class ProductDetailsScreen extends StatelessWidget {
                             ),
                             Gap(16.h),
                             ProductNameAndFavoriteButtonWidget(
-                              name: product.name ?? "",
-                              carModel:
-                                  "${product.compatibleCars?.first.brand} ${product.compatibleCars?.first.model}",
+                              product: product,
                             ),
                             Gap(16.r),
                             ProductImageAndRatingWidget(
