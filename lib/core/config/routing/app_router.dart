@@ -5,6 +5,7 @@ import '../../../features/auth/login/logic/login_cubit.dart';
 import '../../../features/auth/login/presentation/login_screen.dart';
 import '../../../features/auth/register/logic/register_cubit.dart';
 import '../../../features/auth/register/presentation/register_screen.dart';
+import '../../../features/favorites/presentation/logic/favorites_cubit.dart';
 import '../../../features/layout/layout_screen.dart';
 import '../../../features/on_boarding/on_boarding_screen.dart';
 import '../../di/dependency_injection.dart';
@@ -35,7 +36,15 @@ class AppRouter {
 
       case Routes.layoutScreen:
         return MaterialPageRoute(
-          builder: (_) => const LayoutScreen(),
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => getIt<FavoritesCubit>()..getAllFavorites(),
+              ),
+              // TODO: add cart cubit
+            ],
+            child: const LayoutScreen(),
+          ),
         );
 
       default:

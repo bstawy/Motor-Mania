@@ -15,6 +15,7 @@ class HomeProductEntity extends Equatable {
   final bool? newProduct;
   final bool? freeDelivery;
   final List<CarEntity>? compatibleCars;
+  final bool? isFavorite;
 
   const HomeProductEntity({
     this.id,
@@ -29,6 +30,7 @@ class HomeProductEntity extends Equatable {
     this.newProduct,
     this.freeDelivery,
     this.compatibleCars,
+    this.isFavorite = false,
   });
 
   HomeProductEntity copyWith({
@@ -44,6 +46,7 @@ class HomeProductEntity extends Equatable {
     bool? newProduct,
     bool? freeDelivery,
     List<CarEntity>? compatibleCars,
+    bool? isFavorite,
   }) {
     return HomeProductEntity(
       id: id ?? this.id,
@@ -58,6 +61,7 @@ class HomeProductEntity extends Equatable {
       newProduct: newProduct ?? this.newProduct,
       freeDelivery: freeDelivery ?? this.freeDelivery,
       compatibleCars: compatibleCars ?? this.compatibleCars,
+      isFavorite: isFavorite ?? this.isFavorite,
     );
   }
 
@@ -74,5 +78,6 @@ class HomeProductEntity extends Equatable {
         newProduct,
         freeDelivery,
         compatibleCars,
+        isFavorite,
       ];
 }

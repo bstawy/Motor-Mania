@@ -123,12 +123,8 @@ class _LoginFormState extends State<LoginForm> {
                 context.pushNamedAndRemoveUntil(Routes.layoutScreen,
                     predicate: (route) => false);
               } else if (state is ErrorState) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(state.message),
-                    backgroundColor: Colors.red,
-                  ),
-                );
+                context.errorSnackBar(state.message);
+
                 setState(() {
                   logging = false;
                 });

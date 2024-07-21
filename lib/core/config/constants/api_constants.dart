@@ -12,4 +12,7 @@ class EndPoints {
   static const String categoryProducts = "categories/categoryProducts.php";
   static const String userSelectedCar = "cars/getUserSelectedCar.php";
   static const String productDetails = "products/getProduct.php";
+  static const String allFavorites = "favorites/allFavorites.php";
+  static const String addToFavorites = "favorites/addProduct.php";
+  static const String removeFromFavorites = "favorites/removeProduct.php";
 }

@@ -10,6 +10,7 @@ import '../../core/config/theme/colors_manager.dart';
 import '../../core/di/dependency_injection.dart';
 import '../../core/helpers/extensions/extensions.dart';
 import '../../core/widgets/custom_material_button.dart';
+import '../favorites/presentation/ui/favorites_screen.dart';
 import '../home/presentation/logic/home_cubit.dart';
 import '../home/presentation/ui/home_screen.dart';
 import 'bottom_nav_bar_tab.dart';
@@ -35,14 +36,7 @@ class LayoutScreen extends StatelessWidget {
           title: "Home",
         ),
         bottomNavBarTab(
-          screen: Scaffold(
-            body: Center(
-              child: Text(
-                "Favorites",
-                style: TextStyles.font20DarkBlueBold,
-              ),
-            ),
-          ),
+          screen: const FavoritesScreen(),
           iconPath: "assets/icons/bottom_nav_selected_favorite_icon.svg",
           inactiveIconPath:
               "assets/icons/bottom_nav_unselected_favorite_icon.svg",

@@ -10,6 +10,19 @@ class GetProductDetailsUseCase {
   GetProductDetailsUseCase(this._productRepo);
 
   Future<Either<ServerFailure, ProductEntity>> execute(String id) async {
-    return await _productRepo.getProductDetails(id);
+    final response = await _productRepo.getProductDetails(id);
+
+    return response.fold((failure) => Left(failure), (product) {
+      final finalPrice = calculateFinalPrice(
+        product.oldPrice!,
+        product.discountPercentage!,
+      );
+
+      return Right(product.copyWith(price: finalPrice));
+    });
+  }
+
+  double calculateFinalPrice(num oldPrice, num discountPercentage) {
+    return oldPrice - (oldPrice * discountPercentage / 100);
   }
 }
