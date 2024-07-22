@@ -15,4 +15,5 @@ class EndPoints {
   static const String allFavorites = "favorites/allFavorites.php";
   static const String addToFavorites = "favorites/addProduct.php";
   static const String removeFromFavorites = "favorites/removeProduct.php";
+  static const String search = "products/searchProduct.php";
 }
