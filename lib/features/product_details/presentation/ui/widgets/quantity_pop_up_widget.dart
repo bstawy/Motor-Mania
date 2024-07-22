@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:motor_mania/core/config/text/text_styles.dart';
-import 'package:motor_mania/core/config/theme/colors_manager.dart';
-import 'package:motor_mania/core/helpers/extensions/extensions.dart';
+import '../../../../../core/config/text/text_styles.dart';
+import '../../../../../core/config/theme/colors_manager.dart';
+import '../../../../../core/helpers/extensions/extensions.dart';
 
 class QuantityPopUpWidget extends StatelessWidget {
   const QuantityPopUpWidget({super.key});
