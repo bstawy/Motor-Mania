@@ -15,6 +15,7 @@ import '../../../../core/widgets/search_bar_widget.dart';
 import '../../../../core/widgets/shimmer_loading_widget.dart';
 import '../../../category/presentation/ui/widgets/category_product_item_widget.dart';
 import '../../../home/domain/entities/home_product_entity.dart';
+import '../../../layout/logic/layout_cubit.dart';
 import '../logic/favorites_cubit.dart';
 
 class FavoritesScreen extends StatelessWidget {
@@ -26,6 +27,9 @@ class FavoritesScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: CustomAppBar(
+        onLeadingPressed: () {
+          context.read<LayoutCubit>().changeTab(0);
+        },
         title: "Favorites",
         titleStyle: TextStyles.font14DarkBlueMedium,
         leftPadding: 16.w,

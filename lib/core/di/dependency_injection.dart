@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:motor_mania/features/layout/logic/layout_cubit.dart';
 
 import '../../features/auth/login/data/data_sources/login_remote_data_source.dart';
 import '../../features/auth/login/data/repos/login_repo.dart';
@@ -75,6 +76,9 @@ Future<void> initGetIt() async {
       () => LoginRemoteDataSource(getIt()));
   getIt.registerFactory<LoginRepo>(() => LoginRepo(getIt()));
   getIt.registerFactory<LoginCubit>(() => LoginCubit(getIt()));
+
+  // layout
+  getIt.registerSingleton<LayoutCubit>(LayoutCubit());
 
   // home
   getIt.registerFactory<HomeRemoteDataSource>(

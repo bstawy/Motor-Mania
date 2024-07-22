@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:motor_mania/features/layout/logic/layout_cubit.dart';
 
 import '../../../features/auth/login/logic/login_cubit.dart';
 import '../../../features/auth/login/presentation/login_screen.dart';
 import '../../../features/auth/register/logic/register_cubit.dart';
 import '../../../features/auth/register/presentation/register_screen.dart';
 import '../../../features/favorites/presentation/logic/favorites_cubit.dart';
-import '../../../features/layout/layout_screen.dart';
+import '../../../features/layout/presentation/layout_screen.dart';
 import '../../../features/on_boarding/on_boarding_screen.dart';
 import '../../../features/search/presentation/logic/search_cubit.dart';
 import '../../../features/search/presentation/search_screen.dart';
@@ -40,6 +41,7 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
             providers: [
+              BlocProvider(create: (context) => getIt<LayoutCubit>()),
               BlocProvider(
                 create: (context) => getIt<FavoritesCubit>()..getAllFavorites(),
               ),

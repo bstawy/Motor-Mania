@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
-import '../../core/config/text/text_styles.dart';
-import '../../core/config/theme/colors_manager.dart';
+import '../../../../core/config/text/text_styles.dart';
+import '../../../../core/config/theme/colors_manager.dart';
 
 PersistentTabConfig bottomNavBarTab({
   required Widget screen,
