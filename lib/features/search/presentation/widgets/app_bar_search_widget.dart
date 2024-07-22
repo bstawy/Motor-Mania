@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../core/config/theme/colors_manager.dart';
-import '../../../../core/helpers/extensions/extensions.dart';
 
 import '../../../../core/config/text/text_styles.dart';
+import '../../../../core/config/theme/colors_manager.dart';
+import '../../../../core/helpers/extensions/extensions.dart';
+import '../logic/search_cubit.dart';
 
 class AppBarSearchWidget extends StatefulWidget {
   const AppBarSearchWidget({super.key});
@@ -33,14 +35,9 @@ class _AppBarSearchWidgetState extends State<AppBarSearchWidget> {
     }
 
     _debounceTimer = Timer(const Duration(milliseconds: 300), () {
-      if (query.isNotEmpty && query != lastQuery) {
+      if (query != lastQuery) {
         lastQuery = query;
-        // context.read<ProductsCubit>().search(query);
-        //TODO: Implement search method
-      }
-      if (_searchController.text.isEmpty) {
-        // context.read<ProductsCubit>().clearSearch();
-        // TODO: implement clear search method
+        context.read<SearchCubit>().search(query);
       }
     });
   }
