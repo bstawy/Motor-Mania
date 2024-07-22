@@ -124,12 +124,8 @@ class _RegisterFormState extends State<RegisterForm> {
                 context.pushNamedAndRemoveUntil(Routes.layoutScreen,
                     predicate: (route) => false);
               } else if (state is ErrorState) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(state.message),
-                    backgroundColor: ColorsManager.red,
-                  ),
-                );
+                context.errorSnackBar(state.message);
+
                 setState(() {
                   registering = false;
                 });

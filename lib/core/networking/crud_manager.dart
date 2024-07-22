@@ -40,7 +40,7 @@ class CrudManager {
   Future<Response> post(
     String endPoint, {
     Map<String, dynamic>? body,
-    dynamic param,
+    Map<String, dynamic>? params,
     bool tokenReq = false,
   }) async {
     try {
@@ -49,7 +49,7 @@ class CrudManager {
       final response = await dio!.post(
         endPoint,
         data: body,
-        queryParameters: param,
+        queryParameters: params,
       );
       return response;
     } catch (e) {
@@ -61,7 +61,23 @@ class CrudManager {
     // Update a record
   }
 
-  Future<void> delete() async {
-    // Delete a record
+  Future<Response> delete(
+    String endPoint, {
+    Map<String, dynamic>? body,
+    Map<String, dynamic>? params,
+    bool tokenReq = false,
+  }) async {
+    try {
+      final dio = tokenReq ? _tokenDio : _freeDio;
+
+      final response = await dio!.delete(
+        endPoint,
+        data: body,
+        queryParameters: params,
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
   }
 }

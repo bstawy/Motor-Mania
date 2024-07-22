@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,6 +24,7 @@ class MotorManiaApp extends StatelessWidget {
           theme: AppTheme.lightThemeData,
           onGenerateRoute: AppRouter().generateRoute,
           initialRoute: Routes.onBoardingScreens,
+          builder: BotToastInit(),
         ),
       ),
     );

@@ -184,7 +184,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             : widget.backgroundColor ?? Colors.white,
         filled: widget.isFilled ?? true,
         prefixIcon: widget.prefixIcon,
-        prefixIconColor: ColorsManager.lighterGrey,
+        prefixIconColor: ColorsManager.whiteGrey,
         suffixIcon: widget.isPassword ?? false
             ? GestureDetector(
                 onTap: () {
@@ -203,7 +203,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             OutlineInputBorder(
               borderRadius: BorderRadius.circular(widget.borderRadius ?? 15.r),
               borderSide: BorderSide(
-                color: widget.borderColor ?? ColorsManager.lighterGrey,
+                color: widget.borderColor ?? ColorsManager.whiteGrey,
                 width: widget.borderWidth ?? 1.3,
               ),
             ),
@@ -212,7 +212,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
               borderRadius:
                   BorderRadius.circular(widget.enabledBorderRadius ?? 15.r),
               borderSide: BorderSide(
-                color: widget.enabledBorderColor ?? ColorsManager.lighterGrey,
+                color: widget.enabledBorderColor ?? ColorsManager.whiteGrey,
                 width: widget.enabledBorderWidth ?? 1.3,
               ),
             ),

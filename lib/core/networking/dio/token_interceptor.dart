@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../caching/tokens_manager.dart';
+import '../../config/app_manager/app_manager_cubit.dart';
 import '../../config/constants/api_constants.dart';
 import '../crud_manager.dart';
 import 'dio_factory.dart';
@@ -23,31 +25,73 @@ class TokenInterceptor extends Interceptor {
   }
 
   @override
+  void onResponse(Response response, ResponseInterceptorHandler handler) async {
+    if (response.statusCode == 401 &&
+        response.data['message'] == "Token expired") {
+      String refreshToken = await TokensManager.getRefreshToken() ?? "";
+
+      if (refreshToken.isNotEmpty) {
+        if (await updateAccessToken(refreshToken)) {
+          final Dio dio = DioFactory.getTokenDio();
+
+          response.requestOptions.headers['Authorization'] =
+              TokensManager.getAccessToken();
+
+          final opts = Options(
+            method: response.requestOptions.method,
+            headers: response.requestOptions.headers,
+          );
+
+          await dio.request(
+            response.requestOptions.path,
+            options: opts,
+            data: response.requestOptions.data,
+            queryParameters: response.requestOptions.queryParameters,
+          );
+        }
+      } else {
+        await logout();
+      }
+    }
+    super.onResponse(response, handler);
+  }
+
+  @override
   Future<void> onError(
     DioException err,
     ErrorInterceptorHandler handler,
   ) async {
     if (err.response?.statusCode == 401) {
+      final Dio dio = DioFactory.getTokenDio();
+
       String refreshToken = await TokensManager.getRefreshToken() ?? "";
+      debugPrint("=======================================");
+      debugPrint("RefreshToken: $refreshToken");
+      debugPrint("=======================================");
 
       if (refreshToken.isNotEmpty) {
         if (await updateAccessToken(refreshToken)) {
-          final Dio dio = DioFactory.getFreeDio();
+          debugPrint("=======================================");
+          debugPrint("RefreshToken: ${TokensManager.getAccessToken()}");
+          debugPrint("=======================================");
 
           err.requestOptions.headers['Authorization'] =
-              TokensManager.getAccessToken();
+              'Bearer ${TokensManager.getAccessToken()}';
+          err.requestOptions.method = err.requestOptions.method;
 
-          final opts = Options(
-            method: err.requestOptions.method,
-            headers: err.requestOptions.headers,
-          );
+          return handler.resolve(await dio.fetch(err.requestOptions));
 
-          await dio.request(
-            err.requestOptions.path,
-            options: opts,
-            data: err.requestOptions.data,
-            queryParameters: err.requestOptions.queryParameters,
-          );
+          // final opts = Options(
+          //   method: err.requestOptions.method,
+          //   headers: err.requestOptions.headers,
+          // );
+
+          // await dio.request(
+          //   err.requestOptions.path,
+          //   options: opts,
+          //   data: err.requestOptions.data,
+          //   queryParameters: err.requestOptions.queryParameters,
+          // );
         }
       } else {
         await logout();
@@ -80,8 +124,8 @@ class TokenInterceptor extends Interceptor {
   }
 
   Future<void> logout() async {
-    // TODO: show snackbar and use logout endpoint
-    await TokensManager.setAccessToken("");
-    await TokensManager.setRefreshToken("");
+    // TODO: show snackbar
+    final AppManagerCubit appManagerCubit = AppManagerCubit();
+    appManagerCubit.logUserOut();
   }
 }

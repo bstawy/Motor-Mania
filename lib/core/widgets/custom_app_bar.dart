@@ -7,27 +7,31 @@ import 'custom_back_button.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
   final TextStyle? titleStyle;
+  final bool centerTitle;
   final Widget? leading;
   final List<Widget>? actions;
   final double? topPadding, downPadding, rightPadding, leftPadding;
+  final VoidCallback? onLeadingPressed;
 
   const CustomAppBar({
     super.key,
     this.title,
     this.titleStyle,
+    this.centerTitle = false,
     this.leading,
     this.actions,
     this.topPadding,
     this.downPadding,
     this.rightPadding,
     this.leftPadding,
+    this.onLeadingPressed,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       forceMaterialTransparency: true,
-      leading: leading ?? const CustomBackButton(),
+      leading: leading ?? CustomBackButton(onPressed: onLeadingPressed),
       title: title != null
           ? Text(
               title!,
@@ -39,7 +43,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             )
           : const SizedBox.shrink(),
       actions: actions,
-      centerTitle: false,
+      centerTitle: centerTitle,
     ).setOnlyPadding(topPadding ?? 8.h, downPadding ?? 0, rightPadding ?? 0,
         leftPadding ?? 0);
   }

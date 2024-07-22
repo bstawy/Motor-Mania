@@ -10,8 +10,9 @@ import '../../core/config/theme/colors_manager.dart';
 import '../../core/di/dependency_injection.dart';
 import '../../core/helpers/extensions/extensions.dart';
 import '../../core/widgets/custom_material_button.dart';
+import '../favorites/presentation/ui/favorites_screen.dart';
 import '../home/presentation/logic/home_cubit.dart';
-import '../home/presentation/ui/home_screen/home_screen.dart';
+import '../home/presentation/ui/home_screen.dart';
 import 'bottom_nav_bar_tab.dart';
 
 class LayoutScreen extends StatelessWidget {
@@ -19,10 +20,11 @@ class LayoutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppManagerCubit appManager = context.read<AppManagerCubit>();
+
     return PersistentTabView(
       navBarHeight: 70.h,
       navBarOverlap: const NavBarOverlap.none(),
-      handleAndroidBackButtonPress: false,
       tabs: [
         bottomNavBarTab(
           screen: BlocProvider<HomeCubit>(
@@ -34,14 +36,7 @@ class LayoutScreen extends StatelessWidget {
           title: "Home",
         ),
         bottomNavBarTab(
-          screen: Scaffold(
-            body: Center(
-              child: Text(
-                "Favorites",
-                style: TextStyles.font20DarkBlueBold,
-              ),
-            ),
-          ),
+          screen: const FavoritesScreen(),
           iconPath: "assets/icons/bottom_nav_selected_favorite_icon.svg",
           inactiveIconPath:
               "assets/icons/bottom_nav_unselected_favorite_icon.svg",
@@ -77,7 +72,7 @@ class LayoutScreen extends StatelessWidget {
         bottomNavBarTab(
           screen: Scaffold(
             body: Center(
-              child: context.read<AppManagerCubit>().isUserLoggedIn
+              child: appManager.isUserLoggedIn
                   ? CustomMaterialButton(
                       onClicked: () {
                         context.read<AppManagerCubit>().logUserOut();
@@ -103,16 +98,33 @@ class LayoutScreen extends StatelessWidget {
         ),
       ],
       navBarBuilder: (navBarConfig) {
-        return Style2BottomNavBar(
-          navBarConfig: navBarConfig,
-          navBarDecoration: NavBarDecoration(
-            color: ColorsManager.darkkBlue,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(25.r),
-              topRight: Radius.circular(25.r),
-            ),
-            padding: EdgeInsets.symmetric(horizontal: 8.w),
-          ),
+        return BlocBuilder<AppManagerCubit, AppManagerState>(
+          bloc: appManager,
+          buildWhen: (previous, current) {
+            if (current is BottomSheetClosedState ||
+                current is BottomSheetOpenedState) {
+              return true;
+            }
+            return false;
+          },
+          builder: (BuildContext context, state) {
+            return Style2BottomNavBar(
+              navBarConfig: navBarConfig,
+              navBarDecoration: NavBarDecoration(
+                color: ColorsManager.darkkBlue,
+                border: Border.all(
+                  width: 0,
+                ),
+                borderRadius: state is BottomSheetOpenedState
+                    ? BorderRadius.zero
+                    : BorderRadius.only(
+                        topLeft: Radius.circular(25.r),
+                        topRight: Radius.circular(25.r),
+                      ),
+                padding: EdgeInsets.symmetric(horizontal: 8.w),
+              ),
+            );
+          },
         );
       },
     );
