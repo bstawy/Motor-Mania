@@ -77,6 +77,7 @@ class TokenInterceptor extends Interceptor {
 
           err.requestOptions.headers['Authorization'] =
               'Bearer ${TokensManager.getAccessToken()}';
+          err.requestOptions.method = err.requestOptions.method;
 
           return handler.resolve(await dio.fetch(err.requestOptions));
 

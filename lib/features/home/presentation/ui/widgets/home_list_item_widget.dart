@@ -1,16 +1,13 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors_manager.dart';
 import '../../../../../core/helpers/extensions/extensions.dart';
-import '../../../../product_details/presentation/ui/product_details_screen.dart';
+import '../../../../../core/helpers/open_product_bottom_sheet.dart';
+import '../../../../../core/widgets/favorite_button_widget.dart';
 import '../../../domain/entities/home_product_entity.dart';
 
 class HomeListItem extends StatelessWidget {
@@ -25,22 +22,7 @@ class HomeListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.read<AppManagerCubit>().openBottomSheet();
-        final Completer<void> completer = Completer<void>();
-
-        showModalBottomSheet(
-          context: context,
-          builder: (context) {
-            return ProductDetailsScreen(product: product);
-          },
-          isScrollControlled: true,
-          useSafeArea: true,
-        ).whenComplete(
-          () {
-            completer.complete();
-            context.read<AppManagerCubit>().closeBottomSheet();
-          },
-        );
+        openProductBottomSheet(context: context, productId: product.id ?? "");
       },
       child: Container(
         width: 150.w,
@@ -142,24 +124,7 @@ class HomeListItem extends StatelessWidget {
             ).setHorizontalPadding(8.w),
             Positioned(
               right: 0,
-              child: GestureDetector(
-                onTap: () {},
-                child: Container(
-                  width: 28.r,
-                  height: 28.r,
-                  padding: EdgeInsets.all(6.r),
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: ColorsManager.whiteGrey,
-                  ),
-                  alignment: Alignment.center,
-                  child: SvgPicture.asset(
-                    "assets/icons/favorite_icon.svg",
-                    width: 16.r,
-                    height: 16.r,
-                  ),
-                ),
-              ),
+              child: FavoriteButtonWidget(product: product),
             ),
             Visibility(
               visible: product.newProduct ?? false || product.amount! < 5,

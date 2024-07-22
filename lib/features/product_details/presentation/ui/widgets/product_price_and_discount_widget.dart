@@ -3,12 +3,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../../core/config/text/text_styles.dart';
-import '../../../../home/domain/entities/home_product_entity.dart';
 
 class ProductPriceAndDiscountWidget extends StatelessWidget {
-  final HomeProductEntity product;
+  final num price;
+  final num oldPrice;
+  final num discountPercentage;
 
-  const ProductPriceAndDiscountWidget({super.key, required this.product});
+  const ProductPriceAndDiscountWidget({
+    super.key,
+    required this.price,
+    required this.oldPrice,
+    required this.discountPercentage,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,19 +22,19 @@ class ProductPriceAndDiscountWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Text(
-          "\$${product.price?.toStringAsFixed(2)}",
+          "\$${price.toStringAsFixed(2)}",
           style: TextStyles.font32DarkBlueBold,
         ),
         Gap(16.w),
         Text(
-          "\$${product.oldPrice?.toStringAsFixed(2)}",
+          "\$${oldPrice.toStringAsFixed(2)}",
           style: TextStyles.font14GreyRegular.copyWith(
             decoration: TextDecoration.lineThrough,
           ),
         ),
         Gap(8.w),
         Text(
-          "${product.discountPercentage}% OFF",
+          "$discountPercentage% OFF",
           style: TextStyles.font14RedSemiBold,
         ),
       ],

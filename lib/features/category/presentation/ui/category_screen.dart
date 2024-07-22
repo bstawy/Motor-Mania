@@ -9,6 +9,8 @@ import '../../../../../../../core/helpers/extensions/extensions.dart';
 import '../../../../../../../core/widgets/custom_app_bar.dart';
 import '../../../../../../../core/widgets/search_bar_widget.dart';
 import '../../../../core/widgets/shimmer_loading_widget.dart';
+import '../../../favorites/presentation/logic/favorites_cubit.dart'
+    as favorites;
 import '../../../home/domain/entities/category_entity.dart';
 import '../../../home/domain/entities/home_product_entity.dart';
 import '../logic/category_cubit.dart';
@@ -41,7 +43,7 @@ class CategoryScreen extends StatelessWidget {
               if (state is CategoryProductsLoading) {
                 return _buildCategoryProductsLoading();
               } else if (state is CategoryProductsLoaded) {
-                return _buildCategoryProductsLoaded(state.products);
+                return _buildCategoryProductsLoaded(context, state.products);
               } else if (state is ErrorState) {
                 return Center(
                   child: Text(state.failure.message ?? "")
@@ -79,7 +81,18 @@ class CategoryScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildCategoryProductsLoaded(List<HomeProductEntity> products) {
+  Widget _buildCategoryProductsLoaded(
+      BuildContext context, List<HomeProductEntity> products) {
+    List<HomeProductEntity> categoryProducts = products.map(
+      (product) {
+        return product.copyWith(
+          isFavorite: context
+              .read<favorites.FavoritesCubit>()
+              .isFavorite(product.id ?? ""),
+        );
+      },
+    ).toList();
+
     return Expanded(
       child: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -91,7 +104,7 @@ class CategoryScreen extends StatelessWidget {
         padding: EdgeInsets.only(top: 16.h),
         itemCount: products.length,
         itemBuilder: (context, index) {
-          return CategoryProductItemWidget(product: products[index]);
+          return CategoryProductItemWidget(product: categoryProducts[index]);
         },
       ).setHorizontalPadding(16.w),
     );

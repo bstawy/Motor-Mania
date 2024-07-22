@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../core/config/text/text_styles.dart';
-import '../../../../home/domain/entities/home_product_entity.dart';
+import '../../../../../core/widgets/favorite_button_widget.dart';
+import '../../../domain/entities/product_entity.dart';
 
 class ProductNameAndFavoriteButtonWidget extends StatelessWidget {
-  final HomeProductEntity product;
+  final ProductEntity product;
 
-  const ProductNameAndFavoriteButtonWidget({super.key, required this.product});
+  const ProductNameAndFavoriteButtonWidget({
+    super.key,
+    required this.product,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,30 +22,23 @@ class ProductNameAndFavoriteButtonWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              product.name ?? '',
+              product.name ?? "",
               style: TextStyles.font24DarkBlueBold,
             ),
             Text(
-              '${product.compatibleCars?.first.brand} ${product.compatibleCars?.first.model}',
+              "${product.compatibleCars?.first.brand} ${product.compatibleCars?.first.model}",
               style: TextStyles.font14DarkBlueRegular,
             ),
           ],
         ),
         const Spacer(),
-        Container(
+        FavoriteButtonWidget(
+          product: product,
           width: 40.w,
           height: 40.h,
-          padding: EdgeInsets.all(5.r),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(15.r),
-          ),
-          alignment: Alignment.center,
-          child: SvgPicture.asset(
-            "assets/icons/favorite_icon.svg",
-            width: 24.r,
-            height: 24.r,
-          ),
+          backgroundColor: Colors.white,
+          iconHeight: 24.r,
+          iconWidth: 24.r,
         ),
       ],
     );
