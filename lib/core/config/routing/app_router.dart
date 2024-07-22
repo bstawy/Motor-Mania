@@ -8,6 +8,7 @@ import '../../../features/auth/register/presentation/register_screen.dart';
 import '../../../features/favorites/presentation/logic/favorites_cubit.dart';
 import '../../../features/layout/layout_screen.dart';
 import '../../../features/on_boarding/on_boarding_screen.dart';
+import '../../../features/search/presentation/search_screen.dart';
 import '../../di/dependency_injection.dart';
 import 'no_route_defined_widget.dart';
 import 'routes.dart';
@@ -45,6 +46,11 @@ class AppRouter {
             ],
             child: const LayoutScreen(),
           ),
+        );
+
+      case Routes.searchScreen:
+        return MaterialPageRoute(
+          builder: (_) => const SearchScreen(),
         );
 
       default:
