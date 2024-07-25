@@ -40,7 +40,7 @@ class FavoriteButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.read<AppManagerCubit>().isUserLoggedIn
+        context.read<AppManagerCubit>().userLoggedIn
             ? _toggleFavorite(context)
             : context.errorSnackBar("Please login to add to favorites");
       },

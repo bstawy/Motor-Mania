@@ -14,7 +14,7 @@ class HomeHeaderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isUserLogged = context.read<AppManagerCubit>().isUserLoggedIn;
+    bool isUserLogged = context.read<AppManagerCubit>().userLoggedIn;
 
     return Container(
       width: double.infinity,
