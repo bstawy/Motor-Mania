@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../../core/caching/navigation_data_manager.dart';
 import '../../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../../core/config/routing/routes.dart';
 import '../../../../core/config/text/text_styles.dart';
@@ -34,7 +35,7 @@ class FavoritesScreen extends StatelessWidget {
         titleStyle: TextStyles.font14DarkBlueMedium,
         leftPadding: 16.w,
       ),
-      body: appManager.isUserLoggedIn
+      body: appManager.userLoggedIn
           ? Column(
               children: [
                 Gap(12.h),
@@ -77,6 +78,14 @@ class FavoritesScreen extends StatelessWidget {
           : Center(
               child: CustomMaterialButton(
                 onClicked: () {
+                  final ScreenNavigationData data = ScreenNavigationData(
+                    previousScreenRouteName: Routes.layoutScreen,
+                    previousScreenArguments:
+                        context.read<LayoutCubit>().controller.index,
+                  );
+
+                  NavigationDataManager.saveScreenNavigationData(data);
+
                   context.pushNamed(Routes.loginScreen);
                 },
                 backgroundColor: ColorsManager.red,

@@ -4,7 +4,7 @@ import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 part 'layout_state.dart';
 
 class LayoutCubit extends Cubit<LayoutState> {
-  PersistentTabController controller = PersistentTabController(initialIndex: 0);
+  late PersistentTabController controller;
   bool isBottomSheetOpen = false;
 
   LayoutCubit() : super(BottomSheetClosedState());

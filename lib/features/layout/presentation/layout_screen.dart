@@ -13,18 +13,46 @@ import '../../../core/widgets/custom_material_button.dart';
 import '../../favorites/presentation/ui/favorites_screen.dart';
 import '../../home/presentation/logic/home_cubit.dart';
 import '../../home/presentation/ui/home_screen.dart';
-import 'widgets/bottom_nav_bar_tab.dart';
 import '../logic/layout_cubit.dart';
+import 'widgets/bottom_nav_bar_tab.dart';
 
-class LayoutScreen extends StatelessWidget {
+class LayoutScreen extends StatefulWidget {
   const LayoutScreen({super.key});
+
+  @override
+  State<LayoutScreen> createState() => _LayoutScreenState();
+}
+
+class _LayoutScreenState extends State<LayoutScreen> {
+  late PersistentTabController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = PersistentTabController(initialIndex: 0);
+    context.read<LayoutCubit>().controller = controller;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    getTabIndex();
+  }
+
+  getTabIndex() {
+    dynamic args = ModalRoute.of(context)!.settings.arguments;
+
+    if (args != null) {
+      controller.jumpToTab(args);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     AppManagerCubit appManager = context.read<AppManagerCubit>();
 
     return PersistentTabView(
-      controller: context.read<LayoutCubit>().controller,
+      controller: controller,
       navBarHeight: 70.h,
       navBarOverlap: const NavBarOverlap.none(),
       tabs: [
@@ -74,12 +102,16 @@ class LayoutScreen extends StatelessWidget {
         bottomNavBarTab(
           screen: Scaffold(
             body: Center(
-              child: appManager.isUserLoggedIn
+              child: appManager.userLoggedIn
                   ? CustomMaterialButton(
-                      onClicked: () {
-                        context.read<AppManagerCubit>().logUserOut();
-                        context.pushNamedAndRemoveUntil(Routes.layoutScreen,
-                            predicate: (route) => false);
+                      onClicked: () async {
+                        await context.read<AppManagerCubit>().logUserOut();
+                        if (context.mounted) {
+                          context.pushNamedAndRemoveUntil(
+                            Routes.layoutScreen,
+                            predicate: (route) => false,
+                          );
+                        }
                       },
                       backgroundColor: ColorsManager.red,
                       title: "Logout",
