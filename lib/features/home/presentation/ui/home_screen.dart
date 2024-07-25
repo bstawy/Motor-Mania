@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
+import '../../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../../core/config/theme/colors_manager.dart';
 import '../logic/home_cubit.dart';
 import 'widgets/categories_list_widget.dart';
@@ -28,17 +29,21 @@ class HomeScreen extends StatelessWidget {
                 ..getHomeProducts();
             },
             child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const HomeHeaderWidget(),
-                  Gap(32.h),
-                  const CategoriesList(),
-                  Gap(24.h),
-                  const HomeListWidget(title: "Recommended For You"),
-                  Gap(16.h),
-                  const HomeListWidget(title: "BestSellers"),
-                ],
+              child: BlocBuilder<AppManagerCubit, AppManagerState>(
+                builder: (context, state) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const HomeHeaderWidget(),
+                      Gap(32.h),
+                      const CategoriesList(),
+                      Gap(24.h),
+                      const HomeListWidget(title: "Recommended For You"),
+                      Gap(16.h),
+                      const HomeListWidget(title: "BestSellers"),
+                    ],
+                  );
+                },
               ),
             ),
           ),
