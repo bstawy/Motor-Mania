@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:motor_mania/features/layout/logic/layout_cubit.dart';
 
+import '../../features/layout/logic/layout_cubit.dart';
 import '../../features/product_details/presentation/logic/product_cubit.dart';
 import '../../features/product_details/presentation/ui/product_details_screen.dart';
 import '../di/dependency_injection.dart';
