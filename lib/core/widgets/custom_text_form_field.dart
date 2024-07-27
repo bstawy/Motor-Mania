@@ -170,8 +170,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       enabled: widget.enabled,
       style: widget.inputTextStyle ?? TextStyles.font14DarkBlueRegular,
       decoration: InputDecoration(
-        // Used to have full control on padding
-        isDense: true,
+        isDense: true, // Used to have full control on padding
         contentPadding: widget.contentPadding ??
             EdgeInsets.symmetric(
               horizontal: 16.w,
@@ -198,7 +197,6 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
               )
             : widget.suffixIcon,
         counterText: "",
-
         border: widget.border ??
             OutlineInputBorder(
               borderRadius: BorderRadius.circular(widget.borderRadius ?? 15.r),

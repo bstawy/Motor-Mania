@@ -10,7 +10,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool centerTitle;
   final Widget? leading;
   final List<Widget>? actions;
-  final double? topPadding, downPadding, rightPadding, leftPadding;
+  final double? height;
+  final double? topPadding, bottomPadding, rightPadding, leftPadding;
   final VoidCallback? onLeadingPressed;
 
   const CustomAppBar({
@@ -20,8 +21,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.centerTitle = false,
     this.leading,
     this.actions,
+    this.height,
     this.topPadding,
-    this.downPadding,
+    this.bottomPadding,
     this.rightPadding,
     this.leftPadding,
     this.onLeadingPressed,
@@ -32,22 +34,22 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       forceMaterialTransparency: true,
       leading: leading ?? CustomBackButton(onPressed: onLeadingPressed),
-      title: title != null
-          ? Text(
-              title!,
-              style: titleStyle ??
-                  TextStyle(
-                    fontSize: 24.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-            )
-          : const SizedBox.shrink(),
+      title: Text(title ?? ""),
+      titleTextStyle: titleStyle ??
+          TextStyle(
+            fontSize: 24.sp,
+            fontWeight: FontWeight.bold,
+          ),
       actions: actions,
       centerTitle: centerTitle,
-    ).setOnlyPadding(topPadding ?? 8.h, downPadding ?? 0, rightPadding ?? 0,
-        leftPadding ?? 0);
+    ).setOnlyPadding(
+      topPadding ?? 8.h,
+      bottomPadding ?? 0,
+      rightPadding ?? 0,
+      leftPadding ?? 0,
+    );
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(60.0.h);
+  Size get preferredSize => Size.fromHeight(height ?? 60.0.h);
 }
