@@ -10,10 +10,10 @@ import '../../../../../core/helpers/extensions/extensions.dart';
 import '../../../../../core/widgets/search_bar_widget.dart';
 import '../../../../../core/widgets/shimmer_loading_widget.dart';
 import '../../../domain/entities/car_entity.dart';
-import '../../logic/cubit/user_cubit.dart';
+import '../../logic/user_cubit/user_cubit.dart';
 
-class HomeLoggedUserHeaderWidget extends StatelessWidget {
-  const HomeLoggedUserHeaderWidget({super.key});
+class HomeUserHeaderWidget extends StatelessWidget {
+  const HomeUserHeaderWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +21,9 @@ class HomeLoggedUserHeaderWidget extends StatelessWidget {
       bloc: context.read<UserCubit>()..fetchUserData(),
       builder: (context, state) {
         if (state is UserDataLoading) {
-          return _homeHeaderLoadingWidget();
+          return _loadingWidget();
         } else if (state is UserDataLoaded) {
-          return _homeHeaderLoadedWidget(state.userCar);
+          return _loadedWidget(context, state.userCar);
         } else {
           return Container();
         }
@@ -31,68 +31,24 @@ class HomeLoggedUserHeaderWidget extends StatelessWidget {
     );
   }
 
-  Widget _homeHeaderLoadingWidget() {
-    return Stack(
+  Widget _loadingWidget() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ShimmerLoadingWidget(
-              height: 36.h,
-              width: double.infinity,
-            ),
-            Gap(10.h),
-            ShimmerLoadingWidget(
-              height: 20.h,
-              width: double.infinity,
-            ),
-            Gap(16.h),
-            ShimmerLoadingWidget(
-              height: 25.h,
-              width: 135.w,
-            ),
-            Gap(16.h),
-            ShimmerLoadingWidget(
-              height: 13.h,
-              width: 125.w,
-            ),
-            Gap(5.h),
-            ShimmerLoadingWidget(
-              height: 13.h,
-              width: 125.w,
-            ),
-            Gap(16.h),
-            ShimmerLoadingWidget(
-              height: 13.h,
-              width: 100.w,
-            ),
-            Gap(10.h),
-            ShimmerLoadingWidget(
-              height: 13.h,
-              width: 60.w,
-            ),
-            Gap(8.h),
-            ShimmerLoadingWidget(
-              height: 13.h,
-              width: 60.w,
-            ),
-            Gap(9.h)
-          ],
-        ).setHorizontalPadding(16.w),
-        Positioned(
-          right: 16.w,
-          bottom: 0.h,
-          child: ShimmerLoadingWidget(
-            height: 150.h,
-            width: 180.w,
-            borderRadius: 24.r,
-          ),
+        ShimmerLoadingWidget(
+          height: 65.h,
+          width: double.infinity,
+        ),
+        Gap(20.h),
+        ShimmerLoadingWidget(
+          height: 151.h,
+          width: double.infinity,
         ),
       ],
-    );
+    ).setHorizontalPadding(16.w);
   }
 
-  Widget _homeHeaderLoadedWidget(CarEntity car) {
+  Widget _loadedWidget(BuildContext context, CarEntity car) {
     return Stack(
       children: [
         Column(
@@ -138,11 +94,25 @@ class HomeLoggedUserHeaderWidget extends StatelessWidget {
         Positioned(
           right: -70,
           bottom: 0.h,
-          child: Image.network(
-            car.imageUrl ?? "",
-            width: 290.w,
-            height: 130.h,
-          ).animate().scale(duration: const Duration(milliseconds: 425)),
+          child: GestureDetector(
+            onPanUpdate: (details) {
+              // TODO: get next car when swipe left and previous car when swipe right
+              // Swiping in right direction.
+              if (details.delta.dx > 0) {
+                context.successSnackBar("car swiped right");
+              }
+
+              // Swiping in left direction.
+              if (details.delta.dx < 0) {
+                context.successSnackBar("car swiped left");
+              }
+            },
+            child: Image.network(
+              car.imageUrl ?? "",
+              width: 290.w,
+              height: 130.h,
+            ).animate().scale(duration: const Duration(milliseconds: 425)),
+          ),
         ),
       ],
     );

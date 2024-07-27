@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
+import '../../../../../core/config/routing/routes.dart';
 import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/helpers/extensions/extensions.dart';
 import '../../../../../core/widgets/search_bar_widget.dart';
 import 'home_guest_offers_widget.dart';
 
-class HomeGuestUserHeaderWidget extends StatelessWidget {
-  const HomeGuestUserHeaderWidget({super.key});
+class HomeGuestHeaderWidget extends StatelessWidget {
+  const HomeGuestHeaderWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,7 @@ class HomeGuestUserHeaderWidget extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    // TODOL: Navigate to login screen
+                    context.pushNamed(Routes.loginScreen);
                   },
                   child: Text(
                     "Login ",
@@ -43,7 +44,7 @@ class HomeGuestUserHeaderWidget extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'First to get all App\' advantages',
+                  'First to get all App\'s advantages',
                   style: TextStyles.font14WhiteLite,
                 ),
               ],
@@ -53,7 +54,7 @@ class HomeGuestUserHeaderWidget extends StatelessWidget {
           ],
         ).setHorizontalPadding(16.w),
         Gap(24.h),
-        const OffersWidget().setHorizontalPadding(8.w),
+        const HomeGuestOffersWidget().setHorizontalPadding(8.w),
       ],
     );
   }
