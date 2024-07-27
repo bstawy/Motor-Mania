@@ -9,6 +9,7 @@ import '../../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../../core/config/routing/routes.dart';
 import '../../../../core/config/text/text_styles.dart';
 import '../../../../core/config/theme/colors_manager.dart';
+import '../../../../core/helpers/enums/app_modes_enums.dart';
 import '../../../../core/helpers/extensions/extensions.dart';
 import '../../../../core/widgets/custom_app_bar.dart';
 import '../../../../core/widgets/custom_material_button.dart';
@@ -35,7 +36,7 @@ class FavoritesScreen extends StatelessWidget {
         titleStyle: TextStyles.font14DarkBlueMedium,
         leftPadding: 16.w,
       ),
-      body: appManager.userLoggedIn
+      body: appManager.appMode == AppMode.user
           ? Column(
               children: [
                 Gap(12.h),
