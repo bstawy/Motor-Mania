@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 
+import '../../../../core/helpers/calc_product_final_price.dart';
 import '../../../../core/networking/failure/server_failure.dart';
 import '../entities/home_product_entity.dart';
 import '../repos/home_repo.dart';
@@ -28,9 +29,5 @@ class GetHomeProductsUseCase {
         return Right(homeProducts);
       },
     );
-  }
-
-  double calculateFinalPrice(num oldPrice, num discountPercentage) {
-    return oldPrice - (oldPrice * discountPercentage / 100);
   }
 }
