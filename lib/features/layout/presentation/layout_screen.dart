@@ -147,6 +147,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
                         topRight: Radius.circular(25.r),
                       ),
                 padding: EdgeInsets.symmetric(horizontal: 8.w),
+                shape: BoxShape.rectangle,
               ),
             );
           },

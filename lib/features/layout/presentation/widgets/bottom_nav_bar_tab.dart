@@ -8,9 +8,9 @@ import '../../../../core/config/theme/colors_manager.dart';
 
 PersistentTabConfig bottomNavBarTab({
   required Widget screen,
+  required String title,
   required String iconPath,
   required String inactiveIconPath,
-  required String title,
 }) {
   return PersistentTabConfig(
     screen: screen,
