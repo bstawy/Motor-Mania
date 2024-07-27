@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/networking/failure/failures.dart';
+import '../../../../core/networking/failure/server_failure.dart';
 import '../../../home/domain/entities/home_product_entity.dart';
 
 abstract class SearchRepo {

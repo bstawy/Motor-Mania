@@ -2,9 +2,9 @@ import 'package:dio/dio.dart';
 
 import '../../../../core/config/constants/api_constants.dart';
 import '../../../../core/networking/crud_manager.dart';
-import '../data_sources/home_remote_data_source.dart';
+import 'home_data_sources.dart';
 
-class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
+class HomeRemoteDataSourceImpl extends HomeDataSources {
   final CrudManager _crudManager;
 
   HomeRemoteDataSourceImpl(this._crudManager);

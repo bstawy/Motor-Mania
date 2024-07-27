@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/networking/failure/server_failure.dart';
-import '../../../home/data/data_sources/home_remote_data_source.dart';
+import '../../../home/data/data_sources/home_data_sources.dart';
 import '../../../home/data/models/home_product_model.dart';
 import '../../../home/domain/entities/home_product_entity.dart';
 import '../../domain/entities/product_entity.dart';
@@ -11,7 +11,7 @@ import '../models/product_model.dart';
 
 class ProductRepoImpl extends ProductRepo {
   final ProductRemoteDataSource _productRemoteDataSource;
-  final HomeRemoteDataSource _homeRemoteDataSource;
+  final HomeDataSources _homeRemoteDataSource;
 
   ProductRepoImpl(this._productRemoteDataSource, this._homeRemoteDataSource);
 
@@ -26,14 +26,14 @@ class ProductRepoImpl extends ProductRepo {
       }
       return Left(
         ServerFailure(
-          statusCode: response.statusCode.toString(),
+          statusCode: response.statusCode,
           message: response.statusMessage,
         ),
       );
     } catch (e) {
       return Left(
         ServerFailure(
-          statusCode: '500',
+          statusCode: 500,
           message: e.toString(),
         ),
       );
@@ -57,14 +57,14 @@ class ProductRepoImpl extends ProductRepo {
 
       return Left(
         ServerFailure(
-          statusCode: response.statusCode.toString(),
+          statusCode: response.statusCode,
           message: response.data['message'],
         ),
       );
     } catch (e) {
       return Left(
         ServerFailure(
-          statusCode: '400',
+          statusCode: 400,
           message: e.toString(),
         ),
       );

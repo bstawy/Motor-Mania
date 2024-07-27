@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/networking/failure/failures.dart';
+import '../../../../core/networking/failure/server_failure.dart';
 import '../repos/favorites_repo.dart';
 
 class AddToFavoritesUseCase {

@@ -1,20 +1,22 @@
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/networking/failure/failures.dart';
+import '../../../../core/networking/failure/server_failure.dart';
+import '../../domain/entities/car_entity.dart';
 import '../../domain/entities/category_entity.dart';
 import '../../domain/entities/home_product_entity.dart';
 import '../../domain/repos/home_repo.dart';
-import '../data_sources/home_remote_data_source.dart';
+import '../data_sources/home_data_sources.dart';
 import '../models/home_car_model.dart';
 import '../models/home_category_model.dart';
 import '../models/home_product_model.dart';
 
 class HomeRepoImpl extends HomeRepo {
-  final HomeRemoteDataSource _homeRemoteDataSource;
+  final HomeDataSources _homeRemoteDataSource;
 
   HomeRepoImpl(this._homeRemoteDataSource);
+
   @override
-  Future<Either<ServerFailure, CarModel>> getUserCar() async {
+  Future<Either<ServerFailure, CarEntity>> getUserCar() async {
     try {
       final response = await _homeRemoteDataSource.getUserCar();
 
@@ -26,14 +28,14 @@ class HomeRepoImpl extends HomeRepo {
 
       return Left(
         ServerFailure(
-          statusCode: response.statusCode.toString(),
+          statusCode: response.statusCode,
           message: response.data['message'],
         ),
       );
     } catch (e) {
       return Left(
         ServerFailure(
-          statusCode: '400',
+          statusCode: 400,
           message: e.toString(),
         ),
       );
@@ -47,7 +49,7 @@ class HomeRepoImpl extends HomeRepo {
       final response = await _homeRemoteDataSource.getHomeCategories();
 
       if (response.statusCode == 200 && response.data['success'] == true) {
-        List<HomeCategoryEntity> homeCategories =
+        final List<HomeCategoryEntity> homeCategories =
             (response.data['data'] as List)
                 .map((i) => HomeCategoryModel.fromJson(i))
                 .toList();
@@ -57,14 +59,14 @@ class HomeRepoImpl extends HomeRepo {
 
       return Left(
         ServerFailure(
-          statusCode: response.statusCode.toString(),
+          statusCode: response.statusCode,
           message: response.data['message'],
         ),
       );
     } catch (e) {
       return Left(
         ServerFailure(
-          statusCode: '400',
+          statusCode: 400,
           message: e.toString(),
         ),
       );
@@ -88,14 +90,14 @@ class HomeRepoImpl extends HomeRepo {
 
       return Left(
         ServerFailure(
-          statusCode: response.statusCode.toString(),
+          statusCode: response.statusCode,
           message: response.data['message'],
         ),
       );
     } catch (e) {
       return Left(
         ServerFailure(
-          statusCode: '400',
+          statusCode: 400,
           message: e.toString(),
         ),
       );

@@ -27,14 +27,14 @@ class FavoritesRepoImpl extends FavoritesRepo {
 
       return Left(
         ServerFailure(
-          statusCode: response.statusCode.toString(),
+          statusCode: response.statusCode,
           message: response.data['message'],
         ),
       );
     } catch (e) {
       return Left(
         ServerFailure(
-          statusCode: '500',
+          statusCode: 500,
           message: 'Internal Server Error',
         ),
       );
@@ -51,14 +51,14 @@ class FavoritesRepoImpl extends FavoritesRepo {
       }
       return Left(
         ServerFailure(
-          statusCode: response.statusCode.toString(),
+          statusCode: response.statusCode,
           message: response.data['message'],
         ),
       );
     } catch (e) {
       return Left(
         ServerFailure(
-          statusCode: '500',
+          statusCode: 500,
           message: 'Internal Server Error',
         ),
       );
@@ -75,14 +75,14 @@ class FavoritesRepoImpl extends FavoritesRepo {
       }
       return Left(
         ServerFailure(
-          statusCode: response.statusCode.toString(),
+          statusCode: response.statusCode,
           message: response.data['message'],
         ),
       );
     } catch (e) {
       return Left(
         ServerFailure(
-          statusCode: '500',
+          statusCode: 500,
           message: 'Internal Server Error',
         ),
       );

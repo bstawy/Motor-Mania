@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/networking/failure/failures.dart';
+import '../../../../core/networking/failure/server_failure.dart';
 import '../../../home/domain/entities/home_product_entity.dart';
 import '../../domain/use_cases/add_to_favorites_use_case.dart';
 import '../../domain/use_cases/get_all_favorites_use_case.dart';

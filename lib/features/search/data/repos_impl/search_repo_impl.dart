@@ -26,14 +26,14 @@ class SearchRepoImpl implements SearchRepo {
       }
       return Left(
         ServerFailure(
-          statusCode: response.statusCode.toString(),
+          statusCode: response.statusCode,
           message: response.statusMessage,
         ),
       );
     } catch (e) {
       return Left(
         ServerFailure(
-          statusCode: 500.toString(),
+          statusCode: 500,
           message: e.toString(),
         ),
       );
