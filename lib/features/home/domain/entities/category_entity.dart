@@ -11,6 +11,17 @@ class HomeCategoryEntity extends Equatable {
     required this.imageUrl,
   });
 
+  HomeCategoryEntity copyWith({
+    String? name,
+    String? imageUrl,
+  }) {
+    return HomeCategoryEntity(
+      id: id,
+      name: name ?? this.name,
+      imageUrl: imageUrl ?? this.imageUrl,
+    );
+  }
+
   @override
   List<Object?> get props => [id, name, imageUrl];
 }
