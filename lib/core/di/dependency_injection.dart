@@ -21,15 +21,15 @@ import '../../features/favorites/domain/use_cases/add_to_favorites_use_case.dart
 import '../../features/favorites/domain/use_cases/get_all_favorites_use_case.dart';
 import '../../features/favorites/domain/use_cases/remove_from_favorites_use_case.dart';
 import '../../features/favorites/presentation/logic/favorites_cubit.dart';
-import '../../features/home/data/data_sources/home_remote_data_source.dart';
-import '../../features/home/data/data_sources_impl/home_remote_data_source_impl.dart';
+import '../../features/home/data/data_sources/home_data_sources.dart';
+import '../../features/home/data/data_sources/home_remote_data_source_impl.dart';
 import '../../features/home/data/repos_impl/home_repo_impl.dart';
 import '../../features/home/domain/repos/home_repo.dart';
 import '../../features/home/domain/use_cases/get_home_categories_use_case.dart';
 import '../../features/home/domain/use_cases/get_home_products_use_case.dart';
 import '../../features/home/domain/use_cases/get_user_selected_car_use_case.dart';
-import '../../features/home/presentation/logic/cubit/user_cubit.dart';
-import '../../features/home/presentation/logic/home_cubit.dart';
+import '../../features/home/presentation/logic/home_cubit/home_cubit.dart';
+import '../../features/home/presentation/logic/user_cubit/user_cubit.dart';
 import '../../features/layout/logic/layout_cubit.dart';
 import '../../features/product_details/data/data_sources/product_remote_data_source.dart';
 import '../../features/product_details/data/data_sources_impl/product_remote_data_source_impl.dart';
@@ -81,7 +81,7 @@ Future<void> initGetIt() async {
   getIt.registerSingleton<LayoutCubit>(LayoutCubit());
 
   // home
-  getIt.registerFactory<HomeRemoteDataSource>(
+  getIt.registerFactory<HomeDataSources>(
     () => HomeRemoteDataSourceImpl(getIt()),
   );
   getIt.registerFactory<HomeRepo>(
