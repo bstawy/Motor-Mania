@@ -7,7 +7,7 @@ import '../../domain/repos/category_repository.dart';
 import '../data_sources/category_remote_data_source.dart';
 
 class CategoryRepositoryImpl extends CategoryRepository {
-  final CategoryRemoteDataSource _remoteDataSource;
+  final CategoryDataSources _remoteDataSource;
 
   CategoryRepositoryImpl(this._remoteDataSource);
 

@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
 
-abstract class CategoryRemoteDataSource {
+abstract class CategoryDataSources {
   Future<Response> getCategoryProducts(int categoryId);
 }

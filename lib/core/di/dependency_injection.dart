@@ -8,7 +8,7 @@ import '../../features/auth/register/data/data_sources/register_remote_data_sour
 import '../../features/auth/register/data/repos/register_repo.dart';
 import '../../features/auth/register/logic/register_cubit.dart';
 import '../../features/category/data/data_sources/category_remote_data_source.dart';
-import '../../features/category/data/data_sources_impl/category_remote_data_source_impl.dart';
+import '../../features/category/data/data_sources/category_remote_data_source_impl.dart';
 import '../../features/category/data/repos_impl/category_repository_impl.dart';
 import '../../features/category/domain/repos/category_repository.dart';
 import '../../features/category/domain/use_cases/get_category_products_use_cases.dart';
@@ -107,7 +107,7 @@ Future<void> initGetIt() async {
   getIt.registerFactory<UserCubit>(() => UserCubit(getIt()));
 
   // Category
-  getIt.registerFactory<CategoryRemoteDataSource>(
+  getIt.registerFactory<CategoryDataSources>(
     () => CategoryRemoteDataSourceImpl(getIt()),
   );
   getIt.registerFactory<CategoryRepository>(
