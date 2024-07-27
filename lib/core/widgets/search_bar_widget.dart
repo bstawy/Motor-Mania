@@ -57,7 +57,7 @@ class SearchBarWidget extends StatelessWidget {
                 ),
             Gap(8.w),
             Text(
-              hintText ?? "Search",
+              hintText ?? "What are you looking for?",
               style: hintStyle ?? TextStyles.font12LightGreyMedium,
             ),
             const Spacer(),

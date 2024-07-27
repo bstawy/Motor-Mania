@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../core/helpers/extensions/extensions.dart';
+import '../../../core/widgets/products_grid_item_widget.dart';
 import '../../../core/widgets/shimmer_loading_widget.dart';
-import '../../category/presentation/ui/widgets/category_product_item_widget.dart';
 import '../../favorites/presentation/logic/favorites_cubit.dart';
 import '../../home/domain/entities/home_product_entity.dart';
 import 'logic/search_cubit.dart';
@@ -91,7 +91,7 @@ class SearchScreen extends StatelessWidget {
       padding: EdgeInsets.only(top: 16.h),
       itemCount: products.length,
       itemBuilder: (context, index) {
-        return CategoryProductItemWidget(product: categoryProducts[index]);
+        return ProductsGridItemWidget(product: categoryProducts[index]);
       },
     ).setHorizontalPadding(16.w);
   }
