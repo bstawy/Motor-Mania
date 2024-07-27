@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../caching/tokens_manager.dart';
+import '../../helpers/enums/app_modes_enums.dart';
 
 part 'app_manager_state.dart';
 
 class AppManagerCubit extends Cubit<AppManagerState> {
-  bool userLoggedIn = false;
+  AppMode appMode = AppMode.guest;
 
   AppManagerCubit() : super(AppManagerInitialState());
 
@@ -14,22 +15,22 @@ class AppManagerCubit extends Cubit<AppManagerState> {
     final String? token = await TokensManager.getAccessToken();
 
     if (token != null) {
-      userLoggedIn = true;
+      appMode = AppMode.user;
       emit(UserLoggedInState());
     } else {
-      userLoggedIn = false;
+      appMode = AppMode.guest;
       emit(NoUserLoggedInState());
     }
   }
 
   void logUserIn() {
-    userLoggedIn = true;
+    appMode = AppMode.user;
     emit(UserLoggedInState());
   }
 
   Future<void> logUserOut() async {
     await TokensManager.deleteTokens();
-    userLoggedIn = false;
+    appMode = AppMode.guest;
     emit(NoUserLoggedInState());
   }
 }
