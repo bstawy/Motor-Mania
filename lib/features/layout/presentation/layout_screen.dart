@@ -8,13 +8,15 @@ import '../../../core/config/routing/routes.dart';
 import '../../../core/config/text/text_styles.dart';
 import '../../../core/config/theme/colors_manager.dart';
 import '../../../core/di/dependency_injection.dart';
+import '../../../core/helpers/enums/app_modes_enums.dart';
 import '../../../core/helpers/extensions/extensions.dart';
 import '../../../core/widgets/custom_material_button.dart';
 import '../../favorites/presentation/ui/favorites_screen.dart';
-import '../../home/presentation/logic/home_cubit.dart';
+import '../../home/presentation/logic/home_cubit/home_cubit.dart';
 import '../../home/presentation/ui/home_screen.dart';
 import '../logic/layout_cubit.dart';
 import 'widgets/bottom_nav_bar_tab.dart';
+import 'widgets/exit_confirmation_dialog_widget.dart';
 
 class LayoutScreen extends StatefulWidget {
   const LayoutScreen({super.key});
@@ -45,6 +47,16 @@ class _LayoutScreenState extends State<LayoutScreen> {
     if (args != null) {
       controller.jumpToTab(args);
     }
+  }
+
+  // TODO: show exit confirmation Dialog when back from home screen
+  _showExitConfirmationDialog(BuildContext context) async {
+    return await showDialog(
+      context: context,
+      builder: (context) {
+        return const ExitConfirmationDialogWidget();
+      },
+    );
   }
 
   @override
@@ -102,7 +114,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
         bottomNavBarTab(
           screen: Scaffold(
             body: Center(
-              child: appManager.userLoggedIn
+              child: appManager.appMode == AppMode.user
                   ? CustomMaterialButton(
                       onClicked: () async {
                         await context.read<AppManagerCubit>().logUserOut();
