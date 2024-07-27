@@ -10,10 +10,11 @@ import '../helpers/extensions/extensions.dart';
 import '../helpers/open_product_bottom_sheet.dart';
 import 'favorite_button_widget.dart';
 
-class ProductsListItemWidget extends StatelessWidget {
+// TODO: needs refactoring
+class ProductsGridItemWidget extends StatelessWidget {
   final HomeProductEntity product;
 
-  const ProductsListItemWidget({
+  const ProductsGridItemWidget({
     super.key,
     required this.product,
   });
@@ -25,23 +26,22 @@ class ProductsListItemWidget extends StatelessWidget {
         openProductBottomSheet(context: context, productId: product.id ?? "");
       },
       child: Container(
-        width: 150.w,
+        width: 167.w,
         padding: EdgeInsets.all(8.r),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(15.r),
+          borderRadius: BorderRadius.circular(16.r),
         ),
         child: Stack(
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Gap(24.h),
+                Gap(32.h),
                 SizedBox(
-                  width: 104.w,
-                  height: 88.h,
+                  height: 95.h,
                   child: Image.network(product.imageUrl ?? ""),
-                ),
+                ).setHorizontalPadding(8.w),
                 Gap(12.h),
                 Row(
                   children: [
@@ -51,25 +51,25 @@ class ProductsListItemWidget extends StatelessWidget {
                       style: TextStyles.font8LightGreyMedium,
                     ),
                   ],
-                ),
+                ).setHorizontalPadding(8.w),
                 Text(
                   product.name ?? "",
-                  style: TextStyles.font16DarkBlueBold,
+                  style: TextStyles.font14DarkBlueBold,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                ),
+                ).setHorizontalPadding(8.w),
                 Text(
                   product.compatibleCars?.first.brand ?? "",
                   style: TextStyles.font10DarkBlueRegular,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                ),
+                ).setHorizontalPadding(8.w),
                 Gap(6.h),
                 Row(
                   children: [
                     Text(
                       "\$${product.price?.toStringAsFixed(2)}",
-                      style: TextStyles.font16DarkBlueBold,
+                      style: TextStyles.font14DarkBlueBold,
                     ),
                     Gap(6.w),
                     Text(
@@ -78,9 +78,14 @@ class ProductsListItemWidget extends StatelessWidget {
                         decoration: TextDecoration.lineThrough,
                       ),
                     ),
+                    Gap(4.w),
+                    Text(
+                      "${product.discountPercentage}% OFF",
+                      style: TextStyles.font7RedSemiBold,
+                    ),
                   ],
-                ),
-                Gap(3.h),
+                ).setHorizontalPadding(8.w),
+                Gap(6.h),
                 Row(
                   children: [
                     SvgPicture.asset(
@@ -98,20 +103,24 @@ class ProductsListItemWidget extends StatelessWidget {
                       ),
                     ),
                   ],
-                ),
+                ).setHorizontalPadding(8.w),
                 Gap(8.h),
                 Container(
                   width: double.infinity,
                   padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 6.h),
                   decoration: BoxDecoration(
                     color: ColorsManager.red,
-                    borderRadius: BorderRadius.circular(50.r),
+                    borderRadius: BorderRadius.circular(10.r),
                   ),
                   alignment: Alignment.center,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SvgPicture.asset("assets/icons/cart_icon.svg"),
+                      SvgPicture.asset(
+                        "assets/icons/cart_icon.svg",
+                        width: 16.r,
+                        height: 16.r,
+                      ),
                       Gap(6.w),
                       Text(
                         "Add to cart",
@@ -119,9 +128,9 @@ class ProductsListItemWidget extends StatelessWidget {
                       ),
                     ],
                   ),
-                )
+                ).setHorizontalPadding(8.w),
               ],
-            ).setHorizontalPadding(8.w),
+            ),
             Positioned(
               right: 0,
               child: FavoriteButtonWidget(product: product),
