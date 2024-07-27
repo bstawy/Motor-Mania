@@ -13,9 +13,9 @@ import '../../../../core/helpers/enums/app_modes_enums.dart';
 import '../../../../core/helpers/extensions/extensions.dart';
 import '../../../../core/widgets/custom_app_bar.dart';
 import '../../../../core/widgets/custom_material_button.dart';
+import '../../../../core/widgets/products_grid_item_widget.dart';
 import '../../../../core/widgets/search_bar_widget.dart';
 import '../../../../core/widgets/shimmer_loading_widget.dart';
-import '../../../category/presentation/ui/widgets/category_product_item_widget.dart';
 import '../../../home/domain/entities/home_product_entity.dart';
 import '../../../layout/logic/layout_cubit.dart';
 import '../logic/favorites_cubit.dart';
@@ -41,7 +41,6 @@ class FavoritesScreen extends StatelessWidget {
               children: [
                 Gap(12.h),
                 const SearchBarWidget(
-                  hintText: "What are you looking for?",
                   borderColor: ColorsManager.lighterBlue,
                 ).setHorizontalPadding(16.w),
                 Gap(8.h),
@@ -142,7 +141,7 @@ class FavoritesScreen extends StatelessWidget {
         padding: EdgeInsets.only(top: 16.h),
         itemCount: products.length,
         itemBuilder: (context, index) {
-          return CategoryProductItemWidget(product: products[index]);
+          return ProductsGridItemWidget(product: products[index]);
         },
       ).setHorizontalPadding(16.w),
     );
