@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../features/favorites/presentation/logic/favorites_cubit.dart';
 import '../config/app_manager/app_manager_cubit.dart';
 import '../config/theme/colors_manager.dart';
+import '../helpers/enums/app_modes_enums.dart';
 import '../helpers/extensions/extensions.dart';
 
 class FavoriteButtonWidget extends StatelessWidget {
@@ -40,7 +41,7 @@ class FavoriteButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.read<AppManagerCubit>().userLoggedIn
+        context.read<AppManagerCubit>().appMode == AppMode.user
             ? _toggleFavorite(context)
             : context.errorSnackBar("Please login to add to favorites");
       },
