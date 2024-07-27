@@ -9,8 +9,11 @@ import 'motor_mania_app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await ScreenUtil.ensureScreenSize();
-  initGetIt();
+  Future.wait([
+    ScreenUtil.ensureScreenSize(),
+    initGetIt(),
+  ]);
+
   Bloc.observer = getIt<AppBlocObserver>();
 
   runApp(
