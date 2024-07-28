@@ -19,9 +19,8 @@ void openProductBottomSheet({
     context: context,
     builder: (context) {
       return BlocProvider(
-        create: (context) => getIt<ProductCubit>()
-          ..getProductDetails(productId)
-          ..getSimilarProducts(),
+        create: (context) =>
+            getIt<ProductCubit>()..getProductDetails(productId),
         child: const ProductDetailsScreen(),
       );
     },

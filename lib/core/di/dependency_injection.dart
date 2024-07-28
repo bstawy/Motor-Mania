@@ -31,12 +31,11 @@ import '../../features/home/domain/use_cases/get_user_selected_car_use_case.dart
 import '../../features/home/presentation/logic/home_cubit/home_cubit.dart';
 import '../../features/home/presentation/logic/user_cubit/user_cubit.dart';
 import '../../features/layout/logic/layout_cubit.dart';
-import '../../features/product_details/data/data_sources/product_remote_data_source.dart';
-import '../../features/product_details/data/data_sources_impl/product_remote_data_source_impl.dart';
+import '../../features/product_details/data/data_sources/product_data_sources.dart';
+import '../../features/product_details/data/data_sources/product_remote_data_source_impl.dart';
 import '../../features/product_details/data/repos_impl/product_repo_impl.dart';
 import '../../features/product_details/domain/repos/product_repo.dart';
 import '../../features/product_details/domain/use_cases/get_product_details_use_case.dart';
-import '../../features/product_details/domain/use_cases/get_similar_product_use_case.dart';
 import '../../features/product_details/presentation/logic/product_cubit.dart';
 import '../../features/search/data/data_sources/search_data_sources.dart';
 import '../../features/search/data/data_sources/search_remote_data_source_impl.dart';
@@ -119,19 +118,16 @@ Future<void> initGetIt() async {
   getIt.registerFactory<CategoryCubit>(() => CategoryCubit(getIt()));
 
   // Product
-  getIt.registerFactory<ProductRemoteDataSource>(
+  getIt.registerFactory<ProductDataSources>(
     () => ProductRemoteDataSourceImpl(getIt()),
   );
   getIt.registerFactory<ProductRepo>(
-    () => ProductRepoImpl(getIt(), getIt()),
+    () => ProductRepoImpl(getIt()),
   );
   getIt.registerFactory<GetProductDetailsUseCase>(
     () => GetProductDetailsUseCase(getIt()),
   );
-  getIt.registerFactory<GetSimilarProductUseCase>(
-    () => GetSimilarProductUseCase(getIt()),
-  );
-  getIt.registerFactory<ProductCubit>(() => ProductCubit(getIt(), getIt()));
+  getIt.registerFactory<ProductCubit>(() => ProductCubit(getIt()));
 
   // Favorites
   getIt.registerFactory<FavoritesDataSources>(
