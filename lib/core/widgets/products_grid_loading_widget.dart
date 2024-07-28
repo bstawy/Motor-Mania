@@ -15,7 +15,7 @@ class ProductsGridLoadingWidget extends StatelessWidget {
         mainAxisSpacing: 8.h,
         childAspectRatio: 0.52.r,
       ),
-      padding: EdgeInsets.symmetric(vertical: 16.h),
+      padding: EdgeInsets.symmetric(vertical: 8.h),
       itemCount: 4,
       itemBuilder: (context, index) {
         return ShimmerLoadingWidget(

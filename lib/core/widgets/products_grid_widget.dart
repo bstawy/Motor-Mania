@@ -17,7 +17,7 @@ class ProductsGridWidget extends StatelessWidget {
         mainAxisSpacing: 8.h,
         childAspectRatio: 0.52.r,
       ),
-      padding: EdgeInsets.only(top: 16.h),
+      padding: EdgeInsets.symmetric(vertical: 8.h),
       itemCount: products.length,
       itemBuilder: (context, index) {
         return ProductsGridItemWidget(product: products[index]);
