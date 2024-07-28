@@ -4,7 +4,7 @@ import '../../../../core/networking/failure/server_failure.dart';
 import '../../../home/data/models/home_product_model.dart';
 import '../../../home/domain/entities/home_product_entity.dart';
 import '../../domain/repos/category_repository.dart';
-import '../data_sources/category_remote_data_source.dart';
+import '../data_sources/category_data_sources.dart';
 
 class CategoryRepositoryImpl extends CategoryRepository {
   final CategoryDataSources _remoteDataSource;
