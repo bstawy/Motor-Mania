@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:lottie/lottie.dart';
 
 import '../../../../core/caching/navigation_data_manager.dart';
 import '../../../../core/config/app_manager/app_manager_cubit.dart';
@@ -13,12 +12,12 @@ import '../../../../core/helpers/enums/app_modes_enums.dart';
 import '../../../../core/helpers/extensions/extensions.dart';
 import '../../../../core/widgets/custom_app_bar.dart';
 import '../../../../core/widgets/custom_material_button.dart';
-import '../../../../core/widgets/products_grid_item_widget.dart';
+import '../../../../core/widgets/products_grid_loading_widget.dart';
+import '../../../../core/widgets/products_grid_widget.dart';
 import '../../../../core/widgets/search_bar_widget.dart';
-import '../../../../core/widgets/shimmer_loading_widget.dart';
-import '../../../home/domain/entities/home_product_entity.dart';
 import '../../../layout/logic/layout_cubit.dart';
 import '../logic/favorites_cubit.dart';
+import 'widgets/favorites_empty_widget.dart';
 
 class FavoritesScreen extends StatelessWidget {
   const FavoritesScreen({super.key});
@@ -41,6 +40,7 @@ class FavoritesScreen extends StatelessWidget {
               children: [
                 Gap(12.h),
                 const SearchBarWidget(
+                  backgroundColor: Colors.white,
                   borderColor: ColorsManager.lighterBlue,
                 ).setHorizontalPadding(16.w),
                 Gap(8.h),
@@ -58,11 +58,17 @@ class FavoritesScreen extends StatelessWidget {
                   },
                   builder: (context, state) {
                     if (state is FavoritesLoading) {
-                      return _buildCategoryProductsLoading();
+                      return Expanded(
+                        child: const ProductsGridLoadingWidget()
+                            .setHorizontalPadding(16.w),
+                      );
                     } else if (state is FavoritesLoaded) {
-                      return _buildCategoryProductsLoaded(state.products);
+                      return Expanded(
+                        child: ProductsGridWidget(products: state.products)
+                            .setHorizontalPadding(16.w),
+                      );
                     } else if (state is FavoritesEmpty) {
-                      return _buildFavoritesEmpty();
+                      return const FavoritesEmptyWidget();
                     } else if (state is ErrorState) {
                       return Center(
                         child: Text(state.failure.message ?? "")
@@ -92,58 +98,6 @@ class FavoritesScreen extends StatelessWidget {
                 title: "Login",
               ).setHorizontalPadding(60.w),
             ),
-    );
-  }
-
-  Widget _buildCategoryProductsLoading() {
-    return Expanded(
-      child: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 8.w,
-          mainAxisSpacing: 8.h,
-          childAspectRatio: 0.52.r,
-        ),
-        padding: EdgeInsets.symmetric(vertical: 16.h),
-        itemCount: 4,
-        itemBuilder: (context, index) {
-          return ShimmerLoadingWidget(
-            height: 270.h,
-            width: 150.w,
-            borderRadius: 15.r,
-          );
-        },
-      ).setHorizontalPadding(16.w),
-    );
-  }
-
-  Widget _buildFavoritesEmpty() {
-    return Column(
-      children: [
-        Gap(100.h),
-        SizedBox(
-            width: 260.w,
-            height: 260.h,
-            child: Lottie.asset('assets/animation/no_data_found_lottie.json')),
-      ],
-    );
-  }
-
-  Widget _buildCategoryProductsLoaded(List<HomeProductEntity> products) {
-    return Expanded(
-      child: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 8.w,
-          mainAxisSpacing: 8.h,
-          childAspectRatio: 0.52.r,
-        ),
-        padding: EdgeInsets.only(top: 16.h),
-        itemCount: products.length,
-        itemBuilder: (context, index) {
-          return ProductsGridItemWidget(product: products[index]);
-        },
-      ).setHorizontalPadding(16.w),
     );
   }
 }

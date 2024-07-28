@@ -67,7 +67,7 @@ class FavoriteButtonWidget extends StatelessWidget {
                   state.products.any((element) => element.id == product.id);
               return SvgPicture.asset(
                 isFavorite
-                    ? "assets/icons/bottom_nav_selected_favorite_icon.svg"
+                    ? "assets/icons/favorite_filled_icon.svg"
                     : "assets/icons/favorite_icon.svg",
                 width: iconWidth ?? 16.r,
                 height: iconHeight ?? 16.r,
