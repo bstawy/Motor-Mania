@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import '../../../../../core/config/routing/routes.dart';
 import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../core/helpers/save_navigation_data.dart';
 import '../../../../../core/widgets/search_bar_widget.dart';
 import 'home_guest_offers_widget.dart';
 
@@ -36,6 +37,10 @@ class HomeGuestHeaderWidget extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
+                    saveNavigationData(
+                      Routes.layoutScreen,
+                      null,
+                    );
                     context.pushNamed(Routes.loginScreen);
                   },
                   child: Text(

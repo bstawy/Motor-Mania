@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
+import '../../../../../core/caching/navigation_data_manager.dart';
 import '../../../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../../../core/config/routing/routes.dart';
 import '../../../../../core/config/theme/colors_manager.dart';
@@ -114,15 +115,31 @@ class _RegisterFormState extends State<RegisterForm> {
           Gap(16.h),
           BlocConsumer<RegisterCubit, RegisterState>(
             bloc: context.read<RegisterCubit>(),
-            listener: (context, state) {
+            listener: (context, state) async {
               if (state is LoadingState) {
                 setState(() {
                   registering = true;
                 });
               } else if (state is SuccessState) {
                 context.read<AppManagerCubit>().logUserIn();
-                context.pushNamedAndRemoveUntil(Routes.layoutScreen,
-                    predicate: (route) => false);
+                String navRoute = Routes.layoutScreen;
+                int? args;
+
+                final ScreenNavigationData? navigationData =
+                    await NavigationDataManager.getScreenNavigationData();
+
+                if (navigationData != null) {
+                  navRoute = navigationData.previousScreenRouteName!;
+                  args = navigationData.previousScreenArguments;
+                }
+
+                if (context.mounted) {
+                  context.pushNamedAndRemoveUntil(
+                    navRoute,
+                    predicate: (route) => false,
+                    arguments: args,
+                  );
+                }
               } else if (state is ErrorState) {
                 context.errorSnackBar(state.message);
 
