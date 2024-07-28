@@ -38,8 +38,8 @@ import '../../features/product_details/domain/repos/product_repo.dart';
 import '../../features/product_details/domain/use_cases/get_product_details_use_case.dart';
 import '../../features/product_details/domain/use_cases/get_similar_product_use_case.dart';
 import '../../features/product_details/presentation/logic/product_cubit.dart';
-import '../../features/search/data/data_sources/search_remote_data_source.dart';
-import '../../features/search/data/data_sources_impl/search_remote_data_source_impl.dart';
+import '../../features/search/data/data_sources/search_data_sources.dart';
+import '../../features/search/data/data_sources/search_remote_data_source_impl.dart';
 import '../../features/search/data/repos_impl/search_repo_impl.dart';
 import '../../features/search/domain/repos/search_repo.dart';
 import '../../features/search/domain/use_cases/search_use_case.dart';
@@ -154,7 +154,7 @@ Future<void> initGetIt() async {
   );
 
   // search
-  getIt.registerFactory<SearchRemoteDataSource>(
+  getIt.registerFactory<SearchDataSources>(
     () => SearchRemoteDataSourceImpl(getIt()),
   );
   getIt.registerFactory<SearchRepo>(

@@ -2,9 +2,9 @@ import 'package:dio/dio.dart';
 
 import '../../../../core/config/constants/api_constants.dart';
 import '../../../../core/networking/crud_manager.dart';
-import '../data_sources/search_remote_data_source.dart';
+import 'search_data_sources.dart';
 
-class SearchRemoteDataSourceImpl implements SearchRemoteDataSource {
+class SearchRemoteDataSourceImpl implements SearchDataSources {
   final CrudManager _crudManager;
 
   SearchRemoteDataSourceImpl(this._crudManager);

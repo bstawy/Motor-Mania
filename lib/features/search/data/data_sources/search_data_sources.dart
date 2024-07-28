@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
 
-abstract class SearchRemoteDataSource {
+abstract class SearchDataSources {
   Future<Response> search(query);
 }
