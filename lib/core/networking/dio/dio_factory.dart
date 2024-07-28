@@ -20,8 +20,11 @@ class DioFactory {
         ..baseUrl = ApiConstants.localHostBaseUrl
         ..connectTimeout = timeOut
         ..receiveTimeout = timeOut
-        ..validateStatus = (status) {
-          return status! <= 500;
+        ..validateStatus = (statusCode) {
+          if (statusCode == 401) {
+            return false;
+          }
+          return statusCode! <= 500;
         };
 
       _addFreeDioInterceptors();
@@ -40,8 +43,13 @@ class DioFactory {
         ..baseUrl = ApiConstants.localHostBaseUrl
         ..connectTimeout = timeOut
         ..receiveTimeout = timeOut
-        ..validateStatus = (status) {
-          return status! <= 500;
+        ..validateStatus = (statusCode) {
+          // TODO: handle 401 status code when access token expired
+
+          if (statusCode == 401) {
+            return false;
+          }
+          return statusCode! <= 500;
         };
       _addTokenDioInterceptors();
       return _tokenDio!;

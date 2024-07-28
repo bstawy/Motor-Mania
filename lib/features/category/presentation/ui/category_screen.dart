@@ -8,13 +8,10 @@ import '../../../../../../../core/config/theme/colors_manager.dart';
 import '../../../../../../../core/helpers/extensions/extensions.dart';
 import '../../../../../../../core/widgets/custom_app_bar.dart';
 import '../../../../../../../core/widgets/search_bar_widget.dart';
-import '../../../../core/widgets/shimmer_loading_widget.dart';
-import '../../../favorites/presentation/logic/favorites_cubit.dart'
-    as favorites;
+import '../../../../core/widgets/products_grid_loading_widget.dart';
+import '../../../../core/widgets/products_grid_widget.dart';
 import '../../../home/domain/entities/category_entity.dart';
-import '../../../home/domain/entities/home_product_entity.dart';
 import '../logic/category_cubit.dart';
-import 'widgets/category_product_item_widget.dart';
 
 class CategoryScreen extends StatelessWidget {
   final HomeCategoryEntity category;
@@ -32,7 +29,7 @@ class CategoryScreen extends StatelessWidget {
         children: [
           Gap(12.h),
           const SearchBarWidget(
-            hintText: "What are you looking for?",
+            backgroundColor: Colors.white,
             borderColor: ColorsManager.lighterBlue,
           ).setHorizontalPadding(16.w),
           Gap(8.h),
@@ -41,9 +38,14 @@ class CategoryScreen extends StatelessWidget {
               ..getCategoryProducts(category.id),
             builder: (context, state) {
               if (state is CategoryProductsLoading) {
-                return _buildCategoryProductsLoading();
+                return Expanded(
+                    child: const ProductsGridLoadingWidget()
+                        .setHorizontalPadding(16.w));
               } else if (state is CategoryProductsLoaded) {
-                return _buildCategoryProductsLoaded(context, state.products);
+                return Expanded(
+                  child: ProductsGridWidget(products: state.products)
+                      .setHorizontalPadding(16.w),
+                );
               } else if (state is ErrorState) {
                 return Center(
                   child: Text(state.failure.message ?? "")
@@ -56,57 +58,6 @@ class CategoryScreen extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildCategoryProductsLoading() {
-    return Expanded(
-      child: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 8.w,
-          mainAxisSpacing: 8.h,
-          childAspectRatio: 0.52.r,
-        ),
-        padding: EdgeInsets.symmetric(vertical: 16.h),
-        itemCount: 4,
-        itemBuilder: (context, index) {
-          return ShimmerLoadingWidget(
-            height: 270.h,
-            width: 150.w,
-            borderRadius: 15.r,
-          );
-        },
-      ).setHorizontalPadding(16.w),
-    );
-  }
-
-  Widget _buildCategoryProductsLoaded(
-      BuildContext context, List<HomeProductEntity> products) {
-    List<HomeProductEntity> categoryProducts = products.map(
-      (product) {
-        return product.copyWith(
-          isFavorite: context
-              .read<favorites.FavoritesCubit>()
-              .isFavorite(product.id ?? ""),
-        );
-      },
-    ).toList();
-
-    return Expanded(
-      child: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 8.w,
-          mainAxisSpacing: 8.h,
-          childAspectRatio: 0.52.r,
-        ),
-        padding: EdgeInsets.only(top: 16.h),
-        itemCount: products.length,
-        itemBuilder: (context, index) {
-          return CategoryProductItemWidget(product: categoryProducts[index]);
-        },
-      ).setHorizontalPadding(16.w),
     );
   }
 }

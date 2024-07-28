@@ -1,17 +1,17 @@
-import 'failure.dart';
-
 /// General remote failures
-class ServerFailure extends Failure {
+class ServerFailure {
+  int? statusCode;
   String? message;
 
   ServerFailure({
-    required super.statusCode,
+    this.statusCode,
     this.message,
   });
 
   factory ServerFailure.fromMap(Map<String, dynamic> json) {
     return ServerFailure(
       statusCode: json['statusCode'] ?? '',
+      message: json['message'] ?? '',
     );
   }
 }

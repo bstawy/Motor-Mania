@@ -1,25 +1,58 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 
-class OffersWidget extends StatelessWidget {
-  const OffersWidget({super.key});
+class HomeGuestOffersWidget extends StatefulWidget {
+  const HomeGuestOffersWidget({super.key});
+
+  @override
+  State<HomeGuestOffersWidget> createState() => _HomeGuestOffersWidgetState();
+}
+
+class _HomeGuestOffersWidgetState extends State<HomeGuestOffersWidget> {
+  late final CarouselController _controller = CarouselController();
+  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    return CarouselSlider(
-      items: [
-        Image.asset('assets/images/offer_image_2.png'),
-        Image.asset('assets/images/offer_image_2.png'),
-        Image.asset('assets/images/offer_image_2.png')
+    return Column(
+      children: [
+        CarouselSlider(
+          carouselController: _controller,
+          items: [
+            Image.asset('assets/images/guest_offers_image_1.png'),
+            Image.asset('assets/images/guest_offers_image_2.png'),
+            Image.asset('assets/images/guest_offers_image_3.png')
+          ],
+          options: CarouselOptions(
+              height: 115.h,
+              viewportFraction: 0.9.r,
+              padEnds: true,
+              autoPlay: true,
+              autoPlayInterval: const Duration(seconds: 5),
+              onPageChanged: (index, reason) {
+                selectedIndex = index;
+                setState(() {});
+              }),
+        ),
+        Gap(16.h),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            for (int i = 0; i < 3; i++)
+              Container(
+                width: selectedIndex == i ? 16.w : 4.w,
+                height: 4.w,
+                margin: EdgeInsets.only(right: 5.w),
+                decoration: BoxDecoration(
+                  color: selectedIndex == i ? Colors.white : Colors.grey,
+                  borderRadius: BorderRadius.circular(100.r),
+                ),
+              ),
+          ],
+        )
       ],
-      options: CarouselOptions(
-        height: 115.h,
-        viewportFraction: 0.9.r,
-        padEnds: true,
-        autoPlay: true,
-        autoPlayInterval: const Duration(seconds: 5),
-      ),
     );
   }
 }

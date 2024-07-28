@@ -7,38 +7,38 @@ import '../../features/auth/login/logic/login_cubit.dart';
 import '../../features/auth/register/data/data_sources/register_remote_data_source.dart';
 import '../../features/auth/register/data/repos/register_repo.dart';
 import '../../features/auth/register/logic/register_cubit.dart';
-import '../../features/category/data/data_sources/category_remote_data_source.dart';
-import '../../features/category/data/data_sources_impl/category_remote_data_source_impl.dart';
+import '../../features/category/data/data_sources/category_data_sources.dart';
+import '../../features/category/data/data_sources/category_remote_data_source_impl.dart';
 import '../../features/category/data/repos_impl/category_repository_impl.dart';
 import '../../features/category/domain/repos/category_repository.dart';
 import '../../features/category/domain/use_cases/get_category_products_use_cases.dart';
 import '../../features/category/presentation/logic/category_cubit.dart';
-import '../../features/favorites/data/data_source/favorites_remote_data_source.dart';
-import '../../features/favorites/data/data_source_impl/favorites_remote_data_source_impl.dart';
+import '../../features/favorites/data/data_source/favorites_data_sources.dart';
+import '../../features/favorites/data/data_source/favorites_remote_data_source_impl.dart';
 import '../../features/favorites/data/repos_impl/favorites_repo_impl.dart';
 import '../../features/favorites/domain/repos/favorites_repo.dart';
 import '../../features/favorites/domain/use_cases/add_to_favorites_use_case.dart';
 import '../../features/favorites/domain/use_cases/get_all_favorites_use_case.dart';
 import '../../features/favorites/domain/use_cases/remove_from_favorites_use_case.dart';
 import '../../features/favorites/presentation/logic/favorites_cubit.dart';
-import '../../features/home/data/data_sources/home_remote_data_source.dart';
-import '../../features/home/data/data_sources_impl/home_remote_data_source_impl.dart';
+import '../../features/home/data/data_sources/home_data_sources.dart';
+import '../../features/home/data/data_sources/home_remote_data_source_impl.dart';
 import '../../features/home/data/repos_impl/home_repo_impl.dart';
 import '../../features/home/domain/repos/home_repo.dart';
 import '../../features/home/domain/use_cases/get_home_categories_use_case.dart';
 import '../../features/home/domain/use_cases/get_home_products_use_case.dart';
 import '../../features/home/domain/use_cases/get_user_selected_car_use_case.dart';
-import '../../features/home/presentation/logic/cubit/user_cubit.dart';
-import '../../features/home/presentation/logic/home_cubit.dart';
-import '../../features/product_details/data/data_sources/product_remote_data_source.dart';
-import '../../features/product_details/data/data_sources_impl/product_remote_data_source_impl.dart';
+import '../../features/home/presentation/logic/home_cubit/home_cubit.dart';
+import '../../features/home/presentation/logic/user_cubit/user_cubit.dart';
+import '../../features/layout/logic/layout_cubit.dart';
+import '../../features/product_details/data/data_sources/product_data_sources.dart';
+import '../../features/product_details/data/data_sources/product_remote_data_source_impl.dart';
 import '../../features/product_details/data/repos_impl/product_repo_impl.dart';
 import '../../features/product_details/domain/repos/product_repo.dart';
 import '../../features/product_details/domain/use_cases/get_product_details_use_case.dart';
-import '../../features/product_details/domain/use_cases/get_similar_product_use_case.dart';
 import '../../features/product_details/presentation/logic/product_cubit.dart';
-import '../../features/search/data/data_sources/search_remote_data_source.dart';
-import '../../features/search/data/data_sources_impl/search_remote_data_source_impl.dart';
+import '../../features/search/data/data_sources/search_data_sources.dart';
+import '../../features/search/data/data_sources/search_remote_data_source_impl.dart';
 import '../../features/search/data/repos_impl/search_repo_impl.dart';
 import '../../features/search/domain/repos/search_repo.dart';
 import '../../features/search/domain/use_cases/search_use_case.dart';
@@ -76,8 +76,11 @@ Future<void> initGetIt() async {
   getIt.registerFactory<LoginRepo>(() => LoginRepo(getIt()));
   getIt.registerFactory<LoginCubit>(() => LoginCubit(getIt()));
 
+  // layout
+  getIt.registerSingleton<LayoutCubit>(LayoutCubit());
+
   // home
-  getIt.registerFactory<HomeRemoteDataSource>(
+  getIt.registerFactory<HomeDataSources>(
     () => HomeRemoteDataSourceImpl(getIt()),
   );
   getIt.registerFactory<HomeRepo>(
@@ -103,7 +106,7 @@ Future<void> initGetIt() async {
   getIt.registerFactory<UserCubit>(() => UserCubit(getIt()));
 
   // Category
-  getIt.registerFactory<CategoryRemoteDataSource>(
+  getIt.registerFactory<CategoryDataSources>(
     () => CategoryRemoteDataSourceImpl(getIt()),
   );
   getIt.registerFactory<CategoryRepository>(
@@ -115,22 +118,19 @@ Future<void> initGetIt() async {
   getIt.registerFactory<CategoryCubit>(() => CategoryCubit(getIt()));
 
   // Product
-  getIt.registerFactory<ProductRemoteDataSource>(
+  getIt.registerFactory<ProductDataSources>(
     () => ProductRemoteDataSourceImpl(getIt()),
   );
   getIt.registerFactory<ProductRepo>(
-    () => ProductRepoImpl(getIt(), getIt()),
+    () => ProductRepoImpl(getIt()),
   );
   getIt.registerFactory<GetProductDetailsUseCase>(
     () => GetProductDetailsUseCase(getIt()),
   );
-  getIt.registerFactory<GetSimilarProductUseCase>(
-    () => GetSimilarProductUseCase(getIt()),
-  );
-  getIt.registerFactory<ProductCubit>(() => ProductCubit(getIt(), getIt()));
+  getIt.registerFactory<ProductCubit>(() => ProductCubit(getIt()));
 
   // Favorites
-  getIt.registerFactory<FavoritesRemoteDataSource>(
+  getIt.registerFactory<FavoritesDataSources>(
     () => FavoritesRemoteDataSourceImpl(getIt()),
   );
   getIt.registerFactory<FavoritesRepo>(
@@ -150,7 +150,7 @@ Future<void> initGetIt() async {
   );
 
   // search
-  getIt.registerFactory<SearchRemoteDataSource>(
+  getIt.registerFactory<SearchDataSources>(
     () => SearchRemoteDataSourceImpl(getIt()),
   );
   getIt.registerFactory<SearchRepo>(

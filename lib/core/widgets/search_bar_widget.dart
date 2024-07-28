@@ -11,14 +11,10 @@ import '../helpers/extensions/extensions.dart';
 class SearchBarWidget extends StatelessWidget {
   final String? hintText;
   final TextStyle? hintStyle;
-  final Widget? prefixIcon;
-  final Widget? suffixIcon;
-  final double? borderRadius;
-  final Color? backgroundColor;
-  final Color? borderColor;
-  final double? borderWidth;
-  final VoidCallback? onTap;
-  final VoidCallback? onSuffixIconTap;
+  final Widget? prefixIcon, suffixIcon;
+  final double? borderRadius, borderWidth;
+  final Color? backgroundColor, borderColor;
+  final VoidCallback? onTap, onSuffixIconTap;
 
   const SearchBarWidget({
     super.key,
@@ -61,7 +57,7 @@ class SearchBarWidget extends StatelessWidget {
                 ),
             Gap(8.w),
             Text(
-              hintText ?? "Search",
+              hintText ?? "What are you looking for?",
               style: hintStyle ?? TextStyles.font12LightGreyMedium,
             ),
             const Spacer(),

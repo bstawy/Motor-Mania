@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/networking/failure/failures.dart';
+import '../../../../core/networking/failure/server_failure.dart';
 import '../entities/car_entity.dart';
 import '../repos/home_repo.dart';
 
@@ -10,11 +10,6 @@ class GetUserSelectedCarUseCase {
   GetUserSelectedCarUseCase(this._homeRepo);
 
   Future<Either<ServerFailure, CarEntity>> execute() async {
-    final response = await _homeRepo.getUserCar();
-
-    return response.fold(
-      (failure) => Left(failure),
-      (carModel) => Right(carModel.toEntity(50000)),
-    );
+    return await _homeRepo.getUserCar();
   }
 }

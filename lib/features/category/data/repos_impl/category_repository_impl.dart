@@ -4,10 +4,10 @@ import '../../../../core/networking/failure/server_failure.dart';
 import '../../../home/data/models/home_product_model.dart';
 import '../../../home/domain/entities/home_product_entity.dart';
 import '../../domain/repos/category_repository.dart';
-import '../data_sources/category_remote_data_source.dart';
+import '../data_sources/category_data_sources.dart';
 
 class CategoryRepositoryImpl extends CategoryRepository {
-  final CategoryRemoteDataSource _remoteDataSource;
+  final CategoryDataSources _remoteDataSource;
 
   CategoryRepositoryImpl(this._remoteDataSource);
 
@@ -26,13 +26,13 @@ class CategoryRepositoryImpl extends CategoryRepository {
       }
       return Left(
         ServerFailure(
-          statusCode: response.statusCode.toString(),
+          statusCode: response.statusCode,
           message: response.data['message'],
         ),
       );
     } catch (e) {
       return Left(ServerFailure(
-        statusCode: '500',
+        statusCode: 500,
         message: 'Internal Server Error',
       ));
     }

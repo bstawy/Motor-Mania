@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:shimmer/shimmer.dart';
 
 import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/helpers/extensions/extensions.dart';
 import '../../../../../core/widgets/shimmer_loading_widget.dart';
 import '../../../domain/entities/category_entity.dart';
-import '../../logic/home_cubit.dart';
+import '../../logic/home_cubit/home_cubit.dart';
 import 'categories_list_item_widget.dart';
 
 class CategoriesList extends StatelessWidget {
@@ -55,22 +54,13 @@ class CategoriesList extends StatelessWidget {
           height: 75.h,
           child: ListView.builder(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
-            itemCount: 5,
+            itemCount: 4,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
-              return Shimmer.fromColors(
-                baseColor: Colors.grey[300]!,
-                highlightColor: Colors.white,
-                child: Container(
-                  height: 74.h,
-                  width: 71.w,
-                  padding: EdgeInsets.all(13.r),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(17.r),
-                  ),
-                ).setOnlyPadding(0, 0, 8.w, 0),
-              );
+              return ShimmerLoadingWidget(
+                width: 71.w,
+                height: 74.h,
+              ).setOnlyPadding(0, 0, 8.w, 0);
             },
           ),
         ),

@@ -5,20 +5,24 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../../../core/config/theme/colors_manager.dart';
 import '../../../../../core/di/dependency_injection.dart';
-import '../../logic/cubit/user_cubit.dart';
-import 'home_guest_user_header_widget.dart';
-import 'home_logged_user_header_widget.dart';
+import '../../../../../core/helpers/enums/app_modes_enums.dart';
+import '../../logic/user_cubit/user_cubit.dart';
+import 'home_guest_header_widget.dart';
+import 'home_user_header_widget.dart';
 
 class HomeHeaderWidget extends StatelessWidget {
   const HomeHeaderWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    bool isUserLogged = context.read<AppManagerCubit>().isUserLoggedIn;
+    AppMode appMode = context.watch<AppManagerCubit>().appMode;
 
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.only(top: 16.h, bottom: 30.h),
+      padding: EdgeInsets.only(
+        top: 16.h,
+        bottom: appMode == AppMode.guest ? 8.h : 30.h,
+      ),
       decoration: BoxDecoration(
         color: ColorsManager.darkkBlue,
         borderRadius: BorderRadius.only(
@@ -26,12 +30,12 @@ class HomeHeaderWidget extends StatelessWidget {
           bottomRight: Radius.circular(24.r),
         ),
       ),
-      child: isUserLogged
+      child: appMode == AppMode.user
           ? BlocProvider<UserCubit>(
               create: (context) => getIt<UserCubit>(),
-              child: const HomeLoggedUserHeaderWidget(),
+              child: const HomeUserHeaderWidget(),
             )
-          : const HomeGuestUserHeaderWidget(),
+          : const HomeGuestHeaderWidget(),
     );
   }
 }

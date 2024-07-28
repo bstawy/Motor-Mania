@@ -6,9 +6,9 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../core/widgets/products_list_item_widget.dart';
 import '../../../../../core/widgets/shimmer_loading_widget.dart';
 import '../../../../home/domain/entities/home_product_entity.dart';
-import '../../../../home/presentation/ui/widgets/home_list_item_widget.dart';
 import '../../logic/product_cubit.dart';
 
 class SimilarProductsListWidget extends StatelessWidget {
@@ -94,7 +94,7 @@ class SimilarProductsListWidget extends StatelessWidget {
             padding: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 16.h),
             itemCount: products.length,
             itemBuilder: (context, index) {
-              return HomeListItem(product: products[index])
+              return ProductsListItemWidget(product: products[index])
                   .setOnlyPadding(0, 0, 8.w, 0);
             },
           ),

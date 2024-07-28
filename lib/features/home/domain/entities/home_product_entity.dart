@@ -34,7 +34,6 @@ class HomeProductEntity extends Equatable {
   });
 
   HomeProductEntity copyWith({
-    String? id,
     String? name,
     String? imageUrl,
     num? price,
@@ -49,7 +48,7 @@ class HomeProductEntity extends Equatable {
     bool? isFavorite,
   }) {
     return HomeProductEntity(
-      id: id ?? this.id,
+      id: id,
       name: name ?? this.name,
       imageUrl: imageUrl ?? this.imageUrl,
       price: price ?? this.price,

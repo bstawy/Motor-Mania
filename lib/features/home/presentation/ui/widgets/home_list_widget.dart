@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gap/gap.dart';
-import 'package:shimmer/shimmer.dart';
 
-import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/helpers/extensions/extensions.dart';
-import '../../../../../core/widgets/shimmer_loading_widget.dart';
-import '../../../domain/entities/home_product_entity.dart';
-import '../../logic/home_cubit.dart';
-import 'home_list_item_widget.dart';
+import '../../../../../core/widgets/products_list_loading_widget.dart';
+import '../../../../../core/widgets/products_list_widget.dart';
+import '../../logic/home_cubit/home_cubit.dart';
 
 class HomeListWidget extends StatelessWidget {
   final String title;
@@ -33,9 +29,12 @@ class HomeListWidget extends StatelessWidget {
       },
       builder: (context, state) {
         if (state is ProductsLoading) {
-          return _buildProductsLoading();
+          return const ProductsListLoadingWidget();
         } else if (state is ProductsLoaded) {
-          return _buildProductsList(context, state.products);
+          return ProductsListWidget(
+            title: title,
+            products: state.products,
+          );
         } else if (state is ProductsErrorState) {
           return Center(
             child: Text(state.failure.message ?? "").setHorizontalPadding(16.w),
@@ -44,75 +43,6 @@ class HomeListWidget extends StatelessWidget {
           return const SizedBox();
         }
       },
-    );
-  }
-
-  Widget _buildProductsLoading() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ShimmerLoadingWidget(
-          width: 150.w,
-          height: 20.h,
-        ).setHorizontalPadding(16.w),
-        Gap(8.h),
-        SizedBox(
-          height: 295.h,
-          child: ListView.builder(
-            padding: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 16.h),
-            itemCount: 5,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              return Shimmer.fromColors(
-                baseColor: Colors.grey[300]!,
-                highlightColor: Colors.white,
-                child: Container(
-                  height: 270.h,
-                  width: 150.w,
-                  padding: EdgeInsets.all(8.r),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(15.r),
-                  ),
-                ).setOnlyPadding(0, 0, 8.w, 0),
-              );
-            },
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildProductsList(
-      BuildContext context, List<HomeProductEntity> products) {
-    // final List<HomeProductEntity> poductList = products.map((product) {
-    //   final isFavorite =
-    //       context.read<FavoritesCubit>().isFavorite(product.id ?? '');
-
-    //   return product.copyWith(isFavorite: isFavorite);
-    // }).toList();
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: TextStyles.font14DarkBlueSemiBold,
-        ).setHorizontalPadding(16.w),
-        Gap(8.h),
-        SizedBox(
-          height: 295.h,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 16.h),
-            itemCount: products.length,
-            itemBuilder: (context, index) {
-              return HomeListItem(product: products[index])
-                  .setOnlyPadding(0, 0, 8.w, 0);
-            },
-          ),
-        ),
-      ],
     );
   }
 }

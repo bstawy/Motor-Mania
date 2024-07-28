@@ -7,32 +7,30 @@ import '../config/theme/colors_manager.dart';
 
 class CustomMaterialButton extends StatelessWidget {
   final String? title;
-  final double? height, width, elevation, borderRadius;
+  final TextStyle? titleStyle;
+  final double? height, width, elevation, borderRadius, borderWidth;
   final EdgeInsetsGeometry? padding;
   final Color? backgroundColor, borderColor;
-  final double? borderWidth;
-  final TextStyle? titleStyle;
   final Widget? prefixIcon;
-  final bool enabled;
-  final bool loading;
+  final bool enabled, loading;
   final VoidCallback onClicked;
 
   const CustomMaterialButton({
     super.key,
-    required this.onClicked,
     this.title,
+    this.titleStyle,
     this.height,
     this.width,
-    this.padding,
+    this.elevation,
     this.borderRadius,
+    this.borderWidth,
+    this.padding,
     this.backgroundColor,
     this.borderColor,
-    this.borderWidth,
-    this.elevation,
-    this.titleStyle,
     this.prefixIcon,
-    this.enabled = true,
     this.loading = false,
+    this.enabled = true,
+    required this.onClicked,
   });
 
   @override
@@ -43,7 +41,7 @@ class CustomMaterialButton extends StatelessWidget {
           onClicked();
         }
       },
-      enableFeedback: enabled && !loading,
+      enableFeedback: !loading,
       height: height ?? 56.h,
       minWidth: width ?? double.maxFinite,
       elevation: elevation ?? 0,

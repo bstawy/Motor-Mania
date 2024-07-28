@@ -1,7 +1,7 @@
 import '../../domain/entities/car_entity.dart';
 
 class CarModel extends CarEntity {
-  CarModel({
+  const CarModel({
     required super.id,
     required super.brand,
     required super.model,
@@ -27,16 +27,5 @@ class CarModel extends CarEntity {
       'year': year,
       'image_url': imageUrl,
     };
-  }
-
-  CarEntity toEntity(int km) {
-    return CarEntity(
-      id: id,
-      brand: brand,
-      model: model,
-      year: year,
-      imageUrl: imageUrl,
-      km: km,
-    );
   }
 }

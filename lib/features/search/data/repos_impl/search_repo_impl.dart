@@ -4,10 +4,10 @@ import '../../../../core/networking/failure/server_failure.dart';
 import '../../../home/data/models/home_product_model.dart';
 import '../../../home/domain/entities/home_product_entity.dart';
 import '../../domain/repos/search_repo.dart';
-import '../data_sources/search_remote_data_source.dart';
+import '../data_sources/search_data_sources.dart';
 
 class SearchRepoImpl implements SearchRepo {
-  final SearchRemoteDataSource _remoteDataSource;
+  final SearchDataSources _remoteDataSource;
 
   SearchRepoImpl(this._remoteDataSource);
 
@@ -26,14 +26,14 @@ class SearchRepoImpl implements SearchRepo {
       }
       return Left(
         ServerFailure(
-          statusCode: response.statusCode.toString(),
+          statusCode: response.statusCode,
           message: response.statusMessage,
         ),
       );
     } catch (e) {
       return Left(
         ServerFailure(
-          statusCode: 500.toString(),
+          statusCode: 500,
           message: e.toString(),
         ),
       );
