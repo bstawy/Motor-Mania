@@ -2,9 +2,9 @@ import 'package:dio/dio.dart';
 
 import '../../../../core/config/constants/api_constants.dart';
 import '../../../../core/networking/crud_manager.dart';
-import '../data_source/favorites_remote_data_source.dart';
+import 'favorites_data_sources.dart';
 
-class FavoritesRemoteDataSourceImpl extends FavoritesRemoteDataSource {
+class FavoritesRemoteDataSourceImpl extends FavoritesDataSources {
   final CrudManager _crudManager;
 
   FavoritesRemoteDataSourceImpl(this._crudManager);

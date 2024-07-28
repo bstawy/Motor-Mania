@@ -7,14 +7,14 @@ import '../../features/auth/login/logic/login_cubit.dart';
 import '../../features/auth/register/data/data_sources/register_remote_data_source.dart';
 import '../../features/auth/register/data/repos/register_repo.dart';
 import '../../features/auth/register/logic/register_cubit.dart';
-import '../../features/category/data/data_sources/category_remote_data_source.dart';
+import '../../features/category/data/data_sources/category_data_sources.dart';
 import '../../features/category/data/data_sources/category_remote_data_source_impl.dart';
 import '../../features/category/data/repos_impl/category_repository_impl.dart';
 import '../../features/category/domain/repos/category_repository.dart';
 import '../../features/category/domain/use_cases/get_category_products_use_cases.dart';
 import '../../features/category/presentation/logic/category_cubit.dart';
-import '../../features/favorites/data/data_source/favorites_remote_data_source.dart';
-import '../../features/favorites/data/data_source_impl/favorites_remote_data_source_impl.dart';
+import '../../features/favorites/data/data_source/favorites_data_sources.dart';
+import '../../features/favorites/data/data_source/favorites_remote_data_source_impl.dart';
 import '../../features/favorites/data/repos_impl/favorites_repo_impl.dart';
 import '../../features/favorites/domain/repos/favorites_repo.dart';
 import '../../features/favorites/domain/use_cases/add_to_favorites_use_case.dart';
@@ -134,7 +134,7 @@ Future<void> initGetIt() async {
   getIt.registerFactory<ProductCubit>(() => ProductCubit(getIt(), getIt()));
 
   // Favorites
-  getIt.registerFactory<FavoritesRemoteDataSource>(
+  getIt.registerFactory<FavoritesDataSources>(
     () => FavoritesRemoteDataSourceImpl(getIt()),
   );
   getIt.registerFactory<FavoritesRepo>(

@@ -4,10 +4,10 @@ import '../../../../core/networking/failure/server_failure.dart';
 import '../../../home/data/models/home_product_model.dart';
 import '../../../home/domain/entities/home_product_entity.dart';
 import '../../domain/repos/favorites_repo.dart';
-import '../data_source/favorites_remote_data_source.dart';
+import '../data_source/favorites_data_sources.dart';
 
 class FavoritesRepoImpl extends FavoritesRepo {
-  final FavoritesRemoteDataSource _favoritesRemoteDataSource;
+  final FavoritesDataSources _favoritesRemoteDataSource;
 
   FavoritesRepoImpl(this._favoritesRemoteDataSource);
 

@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 
+import '../../../../core/helpers/calc_product_final_price.dart';
 import '../../../../core/networking/failure/server_failure.dart';
 import '../../../home/domain/entities/home_product_entity.dart';
 import '../repos/favorites_repo.dart';
@@ -26,9 +27,5 @@ class GetAllFavoritesUseCase {
         return Right(homeProducts);
       },
     );
-  }
-
-  double calculateFinalPrice(num oldPrice, num discountPercentage) {
-    return oldPrice - (oldPrice * discountPercentage / 100);
   }
 }
