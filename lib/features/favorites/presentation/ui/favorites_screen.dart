@@ -3,13 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../core/caching/navigation_data_manager.dart';
 import '../../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../../core/config/routing/routes.dart';
 import '../../../../core/config/text/text_styles.dart';
 import '../../../../core/config/theme/colors_manager.dart';
 import '../../../../core/helpers/enums/app_modes_enums.dart';
 import '../../../../core/helpers/extensions/extensions.dart';
+import '../../../../core/helpers/save_navigation_data.dart';
 import '../../../../core/widgets/custom_app_bar.dart';
 import '../../../../core/widgets/custom_material_button.dart';
 import '../../../../core/widgets/products_grid_loading_widget.dart';
@@ -84,13 +84,10 @@ class FavoritesScreen extends StatelessWidget {
           : Center(
               child: CustomMaterialButton(
                 onClicked: () {
-                  final ScreenNavigationData data = ScreenNavigationData(
-                    previousScreenRouteName: Routes.layoutScreen,
-                    previousScreenArguments:
-                        context.read<LayoutCubit>().controller.index,
+                  saveNavigationData(
+                    Routes.layoutScreen,
+                    context.read<LayoutCubit>().controller.index,
                   );
-
-                  NavigationDataManager.saveScreenNavigationData(data);
 
                   context.pushNamed(Routes.loginScreen);
                 },
