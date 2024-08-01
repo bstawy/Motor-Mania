@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 
 import '../../caching/tokens_manager.dart';
 import '../../config/app_manager/app_manager_cubit.dart';
 import '../../config/constants/api_constants.dart';
+import '../../di/dependency_injection.dart';
 import '../crud_manager.dart';
 import 'dio_factory.dart';
 
@@ -65,16 +65,9 @@ class TokenInterceptor extends Interceptor {
       final Dio dio = DioFactory.getTokenDio();
 
       String refreshToken = await TokensManager.getRefreshToken() ?? "";
-      debugPrint("=======================================");
-      debugPrint("RefreshToken: $refreshToken");
-      debugPrint("=======================================");
 
       if (refreshToken.isNotEmpty) {
         if (await updateAccessToken(refreshToken)) {
-          debugPrint("=======================================");
-          debugPrint("RefreshToken: ${TokensManager.getAccessToken()}");
-          debugPrint("=======================================");
-
           err.requestOptions.headers['Authorization'] =
               'Bearer ${TokensManager.getAccessToken()}';
           err.requestOptions.method = err.requestOptions.method;
@@ -101,7 +94,7 @@ class TokenInterceptor extends Interceptor {
   }
 
   Future<bool> updateAccessToken(String refreshToken) async {
-    final CrudManager crud = CrudManager.getInstance();
+    final CrudManager crud = getIt<CrudManager>();
 
     final response = await crud
         .post(EndPoints.refreshToken, body: {"refresh_token": refreshToken});
@@ -109,7 +102,7 @@ class TokenInterceptor extends Interceptor {
     if (response.statusCode == 200) {
       final data = response.data;
 
-      if (data["status"] == true) {
+      if (data["success"] == true) {
         await TokensManager.setAccessToken(data["data"]["access_token"]);
         await TokensManager.setRefreshToken(data["data"]["refresh_token"]);
         return true;
