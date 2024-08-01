@@ -7,6 +7,14 @@ import '../../features/auth/login/logic/login_cubit.dart';
 import '../../features/auth/register/data/data_sources/register_remote_data_source.dart';
 import '../../features/auth/register/data/repos/register_repo.dart';
 import '../../features/auth/register/logic/register_cubit.dart';
+import '../../features/cart/data/data_sources/cart_data_sources.dart';
+import '../../features/cart/data/data_sources/cart_remote_data_source.dart';
+import '../../features/cart/data/repos_impl/cart_repo_impl.dart';
+import '../../features/cart/domain/repos/cart_repo.dart';
+import '../../features/cart/domain/use_cases/add_product_to_cart_use_case.dart';
+import '../../features/cart/domain/use_cases/get_cart_products_use_case.dart';
+import '../../features/cart/domain/use_cases/remove_product_from_cart_use_case.dart';
+import '../../features/cart/presentation/logic/cart_cubit.dart';
 import '../../features/category/data/data_sources/category_data_sources.dart';
 import '../../features/category/data/data_sources/category_remote_data_source_impl.dart';
 import '../../features/category/data/repos_impl/category_repository_impl.dart';
@@ -162,4 +170,22 @@ Future<void> initGetIt() async {
   getIt.registerFactory<SearchCubit>(
     () => SearchCubit(getIt()),
   );
+
+  //cart
+  getIt.registerFactory<CartDataSources>(
+    () => CartRemoteDataSource(getIt()),
+  );
+  getIt.registerFactory<CartRepo>(
+    () => CartRepoImpl(getIt()),
+  );
+  getIt.registerFactory<GetCartProductsUseCase>(
+    () => GetCartProductsUseCase(getIt()),
+  );
+  getIt.registerFactory<AddProductToCartUseCase>(
+    () => AddProductToCartUseCase(getIt()),
+  );
+  getIt.registerFactory<RemoveProductFromCartUseCase>(
+    () => RemoveProductFromCartUseCase(getIt()),
+  );
+  getIt.registerFactory<CartCubit>(() => CartCubit(getIt(), getIt(), getIt()));
 }

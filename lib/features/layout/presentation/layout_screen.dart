@@ -11,6 +11,8 @@ import '../../../core/di/dependency_injection.dart';
 import '../../../core/helpers/enums/app_modes_enums.dart';
 import '../../../core/helpers/extensions/extensions.dart';
 import '../../../core/widgets/custom_material_button.dart';
+import '../../cart/presentation/logic/cart_cubit.dart';
+import '../../cart/presentation/ui/cart_screen.dart';
 import '../../favorites/presentation/ui/favorites_screen.dart';
 import '../../home/presentation/logic/home_cubit/home_cubit.dart';
 import '../../home/presentation/ui/home_screen.dart';
@@ -99,13 +101,9 @@ class _LayoutScreenState extends State<LayoutScreen> {
           title: "Garage",
         ),
         bottomNavBarTab(
-          screen: Scaffold(
-            body: Center(
-              child: Text(
-                "Cart",
-                style: TextStyles.font20DarkBlueBold,
-              ),
-            ),
+          screen: BlocProvider<CartCubit>(
+            create: (context) => getIt<CartCubit>(),
+            child: const CartScreen(),
           ),
           iconPath: "assets/icons/bottom_nav_selected_cart_icon.svg",
           inactiveIconPath: "assets/icons/bottom_nav_unselected_cart_icon.svg",
