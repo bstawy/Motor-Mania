@@ -7,13 +7,22 @@ import '../../../../../core/config/text/text_styles.dart';
 class ProductPriceAndDiscountWidget extends StatelessWidget {
   final num price;
   final num oldPrice;
-  final num discountPercentage;
+  final num? discountPercentage;
+  final TextStyle? priceStyle;
+  final TextStyle? oldPriceStyle;
+  final TextStyle? discountPercentageStyle;
+  final double? firstGap, secondGap;
 
   const ProductPriceAndDiscountWidget({
     super.key,
     required this.price,
     required this.oldPrice,
-    required this.discountPercentage,
+    this.discountPercentage,
+    this.priceStyle,
+    this.oldPriceStyle,
+    this.discountPercentageStyle,
+    this.firstGap,
+    this.secondGap,
   });
 
   @override
@@ -23,20 +32,29 @@ class ProductPriceAndDiscountWidget extends StatelessWidget {
       children: [
         Text(
           "\$${price.toStringAsFixed(2)}",
-          style: TextStyles.font32DarkBlueBold,
+          style: priceStyle ?? TextStyles.font32DarkBlueBold,
         ),
-        Gap(16.w),
+        Gap(firstGap ?? 16.w),
         Text(
           "\$${oldPrice.toStringAsFixed(2)}",
-          style: TextStyles.font14GreyRegular.copyWith(
-            decoration: TextDecoration.lineThrough,
-          ),
+          style:
+              oldPriceStyle?.copyWith(decoration: TextDecoration.lineThrough) ??
+                  TextStyles.font14GreyRegular.copyWith(
+                    decoration: TextDecoration.lineThrough,
+                  ),
         ),
-        Gap(8.w),
-        Text(
-          "$discountPercentage% OFF",
-          style: TextStyles.font14RedSemiBold,
-        ),
+        discountPercentage == null
+            ? const SizedBox()
+            : Row(
+                children: [
+                  Gap(secondGap ?? 8.w),
+                  Text(
+                    "$discountPercentage% OFF",
+                    style:
+                        discountPercentageStyle ?? TextStyles.font14RedSemiBold,
+                  ),
+                ],
+              ),
       ],
     );
   }
