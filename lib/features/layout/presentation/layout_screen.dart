@@ -69,6 +69,21 @@ class _LayoutScreenState extends State<LayoutScreen> {
       controller: controller,
       navBarHeight: 70.h,
       navBarOverlap: const NavBarOverlap.none(),
+      selectedTabContext: (context) {
+        if (controller.index == 3) {
+          final state = context.read<CartCubit>().state;
+          if (state is CartLoaded && state.cartProducts.isNotEmpty) {
+            context.read<LayoutCubit>().openBottomSheet();
+          } else {
+            context.read<LayoutCubit>().closeBottomSheet();
+          }
+        }
+      },
+      onTabChanged: (value) {
+        if (value != 3 && context.read<LayoutCubit>().isBottomSheetOpen) {
+          context.read<LayoutCubit>().closeBottomSheet();
+        }
+      },
       tabs: [
         bottomNavBarTab(
           screen: BlocProvider<HomeCubit>(
@@ -117,10 +132,11 @@ class _LayoutScreenState extends State<LayoutScreen> {
                       onClicked: () async {
                         await context.read<AppManagerCubit>().logUserOut();
                         if (context.mounted) {
-                          context.pushNamedAndRemoveUntil(
-                            Routes.layoutScreen,
-                            predicate: (route) => false,
-                          );
+                          context.read<LayoutCubit>().changeTab(0);
+                          // context.pushNamedAndRemoveUntil(
+                          //   Routes.layoutScreen,
+                          //   predicate: (route) => false,
+                          // );
                         }
                       },
                       backgroundColor: ColorsManager.red,
