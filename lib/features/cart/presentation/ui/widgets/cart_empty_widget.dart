@@ -8,8 +8,8 @@ import '../../../../../core/widgets/empty_screen_widget.dart';
 import '../../../../home/presentation/logic/home_cubit/home_cubit.dart';
 import '../../../../home/presentation/ui/widgets/home_list_widget.dart';
 
-class FavoritesEmptyWidget extends StatelessWidget {
-  const FavoritesEmptyWidget({super.key});
+class CartEmptyWidget extends StatelessWidget {
+  const CartEmptyWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +17,11 @@ class FavoritesEmptyWidget extends StatelessWidget {
       child: Column(
         children: [
           const EmptyScreenWidget(
-            imagePath: "assets/images/favorites_empty_image.png",
-            firstTextSpan: "Ready To Make A ",
-            secondTextSpan: "Wish?",
+            imagePath: "assets/images/cart_empty_image.png",
+            firstTextSpan: "Your Shopping Cart Looks ",
+            secondTextSpan: "Empty!",
             description:
-                "Start adding items you love to your Favorites by tapping on the heart icon",
+                "What are you waiting for? Start adding items to your cart now",
           ),
           Gap(32.h),
           BlocProvider<HomeCubit>(

@@ -21,9 +21,6 @@ class DioFactory {
         ..connectTimeout = timeOut
         ..receiveTimeout = timeOut
         ..validateStatus = (statusCode) {
-          if (statusCode == 401) {
-            return false;
-          }
           return statusCode! <= 500;
         };
 
@@ -44,11 +41,6 @@ class DioFactory {
         ..connectTimeout = timeOut
         ..receiveTimeout = timeOut
         ..validateStatus = (statusCode) {
-          // TODO: handle 401 status code when access token expired
-
-          if (statusCode == 401) {
-            return false;
-          }
           return statusCode! <= 500;
         };
       _addTokenDioInterceptors();

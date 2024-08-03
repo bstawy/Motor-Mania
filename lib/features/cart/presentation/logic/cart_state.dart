@@ -12,6 +12,8 @@ final class CartLoaded extends CartState {
   CartLoaded(this.cartProducts);
 }
 
+final class CartEmpty extends CartState {}
+
 final class AddToCartSuccess extends CartState {
   final String message;
 
@@ -25,7 +27,7 @@ final class RemoveFromCartSuccess extends CartState {
 }
 
 final class CartError extends CartState {
-  final ServerFailure message;
+  final ServerFailure failure;
 
-  CartError(this.message);
+  CartError(this.failure);
 }

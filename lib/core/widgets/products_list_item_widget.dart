@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
+import '../../features/cart/presentation/logic/cart_cubit.dart';
 import '../../features/home/domain/entities/home_product_entity.dart';
 import '../config/text/text_styles.dart';
 import '../config/theme/colors_manager.dart';
@@ -108,18 +110,25 @@ class ProductsListItemWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(50.r),
                   ),
                   alignment: Alignment.center,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset("assets/icons/cart_icon.svg"),
-                      Gap(6.w),
-                      Text(
-                        "Add to cart",
-                        style: TextStyles.font10WhiteMedium,
-                      ),
-                    ],
+                  child: InkWell(
+                    onTap: () {
+                      context
+                          .read<CartCubit>()
+                          .addProductToCart(product.id!, 1);
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset("assets/icons/cart_icon.svg"),
+                        Gap(6.w),
+                        Text(
+                          "Add to cart",
+                          style: TextStyles.font10WhiteMedium,
+                        ),
+                      ],
+                    ),
                   ),
-                )
+                ),
               ],
             ).setHorizontalPadding(8.w),
             Positioned(

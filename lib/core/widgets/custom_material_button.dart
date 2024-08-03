@@ -11,7 +11,8 @@ class CustomMaterialButton extends StatelessWidget {
   final double? height, width, elevation, borderRadius, borderWidth;
   final EdgeInsetsGeometry? padding;
   final Color? backgroundColor, borderColor;
-  final Widget? prefixIcon;
+  final Widget? prefixWidget;
+  final Widget? child;
   final bool enabled, loading;
   final VoidCallback onClicked;
 
@@ -27,12 +28,13 @@ class CustomMaterialButton extends StatelessWidget {
     this.padding,
     this.backgroundColor,
     this.borderColor,
-    this.prefixIcon,
+    this.prefixWidget,
+    this.child,
     this.loading = false,
     this.enabled = true,
     required this.onClicked,
   });
-
+  // TODO: needs refactoring
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
@@ -60,22 +62,23 @@ class CustomMaterialButton extends StatelessWidget {
           ? const CircularProgressIndicator(
               color: Colors.white,
             )
-          : prefixIcon != null
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    prefixIcon!,
-                    Gap(8.w),
-                    Text(
+          : child ??
+              (prefixWidget != null
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        prefixWidget!,
+                        Gap(8.w),
+                        Text(
+                          title ?? "Continue",
+                          style: titleStyle ?? TextStyles.font16WhiteSemiBold,
+                        ),
+                      ],
+                    )
+                  : Text(
                       title ?? "Continue",
                       style: titleStyle ?? TextStyles.font16WhiteSemiBold,
-                    ),
-                  ],
-                )
-              : Text(
-                  title ?? "Continue",
-                  style: titleStyle ?? TextStyles.font16WhiteSemiBold,
-                ),
+                    )),
     );
   }
 }

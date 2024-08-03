@@ -41,7 +41,7 @@ class FavoritesScreen extends StatelessWidget {
                 Gap(12.h),
                 const SearchBarWidget(
                   backgroundColor: Colors.white,
-                  borderColor: ColorsManager.lighterBlue,
+                  borderColor: ColorsManager.lightBlueGrey,
                 ).setHorizontalPadding(16.w),
                 Gap(8.h),
                 BlocConsumer<FavoritesCubit, FavoritesState>(
@@ -68,7 +68,7 @@ class FavoritesScreen extends StatelessWidget {
                             .setHorizontalPadding(16.w),
                       );
                     } else if (state is FavoritesEmpty) {
-                      return const FavoritesEmptyWidget();
+                      return const Expanded(child: FavoritesEmptyWidget());
                     } else if (state is ErrorState) {
                       return Center(
                         child: Text(state.failure.message ?? "")
