@@ -154,7 +154,6 @@ class _LoginFormState extends State<LoginForm> {
                 },
                 title: "Login",
                 backgroundColor: ColorsManager.red,
-                enabled: !logging,
                 loading: logging,
               );
             },
