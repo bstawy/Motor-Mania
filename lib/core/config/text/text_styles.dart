@@ -188,7 +188,7 @@ class TextStyles {
   );
 
   static TextStyle font12LightBlueGreyRegular = TextStyle(
-    color: ColorsManager.lightBlueGrey,
+    color: ColorsManager.blueGrey,
     fontSize: 12.sp,
     fontWeight: FontWeightHelper.regular,
     fontFamily: 'Montserrat',
@@ -250,6 +250,13 @@ class TextStyles {
     fontFamily: 'Montserrat',
   );
 
+  static TextStyle font10BlueGreyLight = TextStyle(
+    color: ColorsManager.blueGrey,
+    fontSize: 10.sp,
+    fontWeight: FontWeightHelper.light,
+    fontFamily: 'Montserrat',
+  );
+
   static TextStyle font8LightGreyBold = TextStyle(
     color: ColorsManager.lightGrey,
     fontSize: 8.sp,
@@ -264,8 +271,8 @@ class TextStyles {
     fontFamily: 'Montserrat',
   );
 
-  static TextStyle font8LightBlueGreyMedium = TextStyle(
-    color: ColorsManager.lightBlueGrey,
+  static TextStyle font8BlueGreyMedium = TextStyle(
+    color: ColorsManager.blueGrey,
     fontSize: 8.sp,
     fontWeight: FontWeightHelper.medium,
     fontFamily: 'Montserrat',
