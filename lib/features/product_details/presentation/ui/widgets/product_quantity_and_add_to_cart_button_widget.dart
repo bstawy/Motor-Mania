@@ -55,8 +55,7 @@ class ProductQuantityAndAddToCartButtonWidget extends StatelessWidget {
                 children: [
                   Text(
                     "QTY",
-                    style: TextStyles.font8LightGreyMedium
-                        .copyWith(color: ColorsManager.lighterBlue),
+                    style: TextStyles.font8LightBlueGreyMedium,
                   ),
                   Text(
                     "1",
