@@ -42,7 +42,7 @@ class SearchBarWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(borderRadius ?? 15.r),
           color: backgroundColor ?? Colors.transparent,
           border: Border.all(
-            color: borderColor ?? ColorsManager.lightGrey,
+            color: borderColor ?? ColorsManager.blueGrey,
           ),
         ),
         child: Row(
@@ -50,26 +50,27 @@ class SearchBarWidget extends StatelessWidget {
             prefixIcon ??
                 SvgPicture.asset(
                   "assets/icons/search_icon.svg",
-                  colorFilter: const ColorFilter.mode(
-                    ColorsManager.lightGrey,
+                  colorFilter: ColorFilter.mode(
+                    borderColor ?? ColorsManager.blueGrey,
                     BlendMode.srcIn,
                   ),
                 ),
-            Gap(8.w),
+            Gap(6.w),
             Text(
               hintText ?? "What are you looking for?",
-              style: hintStyle ?? TextStyles.font12LightGreyMedium,
+              style: hintStyle ?? TextStyles.font10BlueGreyLight,
             ),
             const Spacer(),
             InkWell(
               onTap: () {
+                // TODO: open qrcode scanner
                 onSuffixIconTap ?? context.successSnackBar("Barcode");
               },
               child: suffixIcon ??
                   SvgPicture.asset(
                     "assets/icons/barcode_icon.svg",
-                    colorFilter: const ColorFilter.mode(
-                      ColorsManager.lightGrey,
+                    colorFilter: ColorFilter.mode(
+                      borderColor ?? ColorsManager.blueGrey,
                       BlendMode.srcIn,
                     ),
                   ),

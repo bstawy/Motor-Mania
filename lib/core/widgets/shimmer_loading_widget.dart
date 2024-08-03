@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:motor_mania/core/config/theme/colors_manager.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ShimmerLoadingWidget extends StatelessWidget {
@@ -19,8 +20,8 @@ class ShimmerLoadingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: baseColor ?? Colors.grey[300]!,
-      highlightColor: highlightColor ?? Colors.white,
+      baseColor: baseColor ?? const Color(0xFFD9D9D9),
+      highlightColor: highlightColor ?? const Color(0xFFEEEEEE),
       child: Container(
         height: height ?? 25.h,
         width: width ?? 135.w,

@@ -13,8 +13,8 @@ class CustomMaterialButton extends StatelessWidget {
   final Color? backgroundColor, borderColor;
   final Widget? prefixWidget;
   final Widget? child;
-  final bool enabled, loading;
-  final VoidCallback onClicked;
+  final bool loading;
+  final VoidCallback? onClicked;
 
   const CustomMaterialButton({
     super.key,
@@ -31,26 +31,21 @@ class CustomMaterialButton extends StatelessWidget {
     this.prefixWidget,
     this.child,
     this.loading = false,
-    this.enabled = true,
-    required this.onClicked,
+    this.onClicked,
   });
   // TODO: needs refactoring
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
-      onPressed: () {
-        if (enabled && !loading) {
-          onClicked();
-        }
-      },
-      enableFeedback: !loading,
+      onPressed: loading ? null : onClicked,
       height: height ?? 56.h,
       minWidth: width ?? double.maxFinite,
       elevation: elevation ?? 0,
       padding: padding,
-      color: loading || !enabled
-          ? (backgroundColor ?? ColorsManager.grey).withOpacity(0.5)
-          : (backgroundColor ?? ColorsManager.darkkBlue),
+      color: backgroundColor ?? ColorsManager.red,
+      disabledColor:
+          backgroundColor?.withOpacity(0.7) ?? const Color(0xFFC7172C),
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(borderRadius ?? 15.r),
         side: BorderSide(
@@ -59,8 +54,13 @@ class CustomMaterialButton extends StatelessWidget {
         ),
       ),
       child: loading
-          ? const CircularProgressIndicator(
-              color: Colors.white,
+          ? SizedBox(
+              height: 16.h,
+              width: 16.w,
+              child: const CircularProgressIndicator(
+                color: Colors.white,
+                strokeWidth: 2,
+              ),
             )
           : child ??
               (prefixWidget != null

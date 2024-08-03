@@ -20,11 +20,13 @@ class CustomBackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 48.r,
-      height: 48.r,
+      width: 40.r,
+      height: 40.r,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(borderRadius ?? 15.r),
+        borderRadius: BorderRadius.circular(
+          borderRadius ?? 15.r,
+        ),
       ),
       child: IconButton(
         onPressed: onPressed ?? () => Navigator.of(context).pop(),
