@@ -5,6 +5,7 @@ import '../../../features/auth/login/logic/login_cubit.dart';
 import '../../../features/auth/login/presentation/login_screen.dart';
 import '../../../features/auth/register/logic/register_cubit.dart';
 import '../../../features/auth/register/presentation/register_screen.dart';
+import '../../../features/cart/presentation/logic/cart_cubit.dart';
 import '../../../features/favorites/presentation/logic/favorites_cubit.dart';
 import '../../../features/layout/logic/layout_cubit.dart';
 import '../../../features/layout/presentation/layout_screen.dart';
@@ -50,7 +51,9 @@ class AppRouter {
               BlocProvider(
                 create: (context) => getIt<FavoritesCubit>()..getAllFavorites(),
               ),
-              // TODO: add cart cubit
+              BlocProvider(
+                create: (context) => getIt<CartCubit>()..getCartProducts(),
+              ),
             ],
             child: const LayoutScreen(),
           ),
