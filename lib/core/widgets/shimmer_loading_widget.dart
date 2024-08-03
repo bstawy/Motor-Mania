@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:motor_mania/core/config/theme/colors_manager.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ShimmerLoadingWidget extends StatelessWidget {

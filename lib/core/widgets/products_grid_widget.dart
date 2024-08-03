@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:motor_mania/core/widgets/product_item_widget.dart';
+
+import 'product_item_widget.dart';
 
 class ProductsGridWidget extends StatelessWidget {
   final List<dynamic> products;
