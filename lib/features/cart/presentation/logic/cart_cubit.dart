@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/networking/failure/server_failure.dart';
@@ -24,7 +25,14 @@ class CartCubit extends Cubit<CartState> {
     final response = await _getCartProductsUseCase.execute();
     response.fold(
       (failure) => emit(CartError(failure)),
-      (cartProducts) => emit(CartLoaded(cartProducts)),
+      (cartProducts) {
+        if (cartProducts.isEmpty) {
+          debugPrint('Cart is empty');
+          emit(CartEmpty());
+        } else {
+          emit(CartLoaded(cartProducts));
+        }
+      },
     );
   }
 
