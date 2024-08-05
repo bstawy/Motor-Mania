@@ -31,33 +31,26 @@ class CategoryScreen extends StatelessWidget {
           const SearchBarWidget(
             backgroundColor: Colors.white,
             borderColor: ColorsManager.blueGrey,
-          ).setHorizontalPadding(16.w),
+          ),
           Gap(8.h),
           BlocBuilder<CategoryCubit, CategoryState>(
             bloc: context.read<CategoryCubit>()
               ..getCategoryProducts(category.id),
             builder: (context, state) {
               if (state is CategoryProductsLoading) {
-                return Expanded(
-                    child: const ProductsGridLoadingWidget()
-                        .setHorizontalPadding(16.w));
+                return const Expanded(child: ProductsGridLoadingWidget());
               } else if (state is CategoryProductsLoaded) {
                 return Expanded(
-                  child: ProductsGridWidget(products: state.products)
-                      .setHorizontalPadding(16.w),
-                );
+                    child: ProductsGridWidget(products: state.products));
               } else if (state is ErrorState) {
-                return Center(
-                  child: Text(state.failure.message ?? "")
-                      .setHorizontalPadding(16.w),
-                );
+                return Center(child: Text(state.failure.message ?? ""));
               } else {
                 return const SizedBox();
               }
             },
           ),
         ],
-      ),
+      ).setHorizontalPadding(16.w),
     );
   }
 }
