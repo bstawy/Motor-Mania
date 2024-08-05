@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 
 import '../../../../core/config/constants/api_constants.dart';
 import '../../../../core/networking/crud_manager.dart';
+import '../../../home/domain/entities/home_product_entity.dart';
 import 'favorites_data_sources.dart';
 
 class FavoritesRemoteDataSourceImpl extends FavoritesDataSources {
@@ -15,8 +16,8 @@ class FavoritesRemoteDataSourceImpl extends FavoritesDataSources {
   }
 
   @override
-  Future<Response> addToFavorites(String id) async {
-    Map<String, dynamic> params = {'id': id};
+  Future<Response> addToFavorites(HomeProductEntity product) async {
+    Map<String, dynamic> params = {'id': product.id};
 
     return await _crudManager.post(
       EndPoints.addToFavorites,
