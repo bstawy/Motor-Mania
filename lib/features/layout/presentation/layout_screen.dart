@@ -164,7 +164,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
             return Style2BottomNavBar(
               navBarConfig: navBarConfig,
               navBarDecoration: NavBarDecoration(
-                color: ColorsManager.darkkBlue,
+                color: ColorsManager.darkBlue,
                 border: Border.all(width: 0),
                 borderRadius: state is BottomSheetOpenedState
                     ? BorderRadius.zero

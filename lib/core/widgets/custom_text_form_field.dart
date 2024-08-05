@@ -178,7 +178,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
               vertical: 12.h,
             ),
         hintText: widget.hint,
-        hintStyle: widget.hintStyle ?? TextStyles.font14GreyRegular,
+        hintStyle: widget.hintStyle ?? TextStyles.font14BlueGreyRegular,
         fillColor: (widget.enabled != null && widget.enabled == false)
             ? widget.disabledBackgroundColor ?? ColorsManager.grey
             : widget.backgroundColor ?? Colors.white,

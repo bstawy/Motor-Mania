@@ -21,7 +21,7 @@ class CustomAccountWidget extends StatelessWidget {
       children: [
         Text(
           text,
-          style: TextStyles.font14GreyRegular,
+          style: TextStyles.font14BlueGreyRegular,
         ),
         TextButton(
           onPressed: onPressed,

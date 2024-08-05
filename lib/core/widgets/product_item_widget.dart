@@ -99,7 +99,7 @@ class ProductItemWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(50.r),
                     color: product.newProduct ?? false
                         ? ColorsManager.red
-                        : ColorsManager.darkkBlue,
+                        : ColorsManager.darkBlue,
                   ),
                   alignment: Alignment.center,
                   child: Text(

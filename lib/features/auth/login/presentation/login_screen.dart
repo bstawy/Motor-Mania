@@ -30,7 +30,7 @@ class LoginScreen extends StatelessWidget {
             Gap(8.h),
             Text(
               "Welcome Back! Please Enter Your Details.",
-              style: TextStyles.font16GreyRegular,
+              style: TextStyles.font16BlueGreyRegular,
             ),
             Gap(32.h),
             const LoginForm(),

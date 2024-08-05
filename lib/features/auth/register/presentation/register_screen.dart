@@ -30,7 +30,7 @@ class RegisterScreen extends StatelessWidget {
               Gap(8.h),
               Text(
                 "Let's Get Started Together",
-                style: TextStyles.font16GreyRegular,
+                style: TextStyles.font16BlueGreyRegular,
               ),
               Gap(32.h),
               const RegisterForm(),

@@ -39,7 +39,7 @@ class ProductPriceAndDiscountWidget extends StatelessWidget {
           "\$${oldPrice.toStringAsFixed(2)}",
           style:
               oldPriceStyle?.copyWith(decoration: TextDecoration.lineThrough) ??
-                  TextStyles.font14GreyRegular.copyWith(
+                  TextStyles.font14BlueGreyRegular.copyWith(
                     decoration: TextDecoration.lineThrough,
                   ),
         ),
