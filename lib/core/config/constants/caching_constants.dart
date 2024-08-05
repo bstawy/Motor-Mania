@@ -6,3 +6,8 @@ class TokensConstants {
 class CachingConstants {
   static const String screenNavigationData = "navData";
 }
+
+class HiveBoxKeys {
+  static const String favorites = "favorites_box";
+  static const String cart = "cart_box";
+}
