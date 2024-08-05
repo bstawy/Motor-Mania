@@ -1,22 +1,41 @@
 import 'package:equatable/equatable.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../home/domain/entities/car_entity.dart';
 
+part 'product_entity.g.dart';
+
+@HiveType(typeId: 1)
 class ProductEntity extends Equatable {
+  @HiveField(0)
   final String? id;
+  @HiveField(1)
   final String? name;
+  @HiveField(2)
   final String? description;
+  @HiveField(3)
   final String? imageUrl;
+  @HiveField(4)
   final num? price;
+  @HiveField(5)
   final num? oldPrice;
+  @HiveField(6)
   final num? discountPercentage;
+  @HiveField(7)
   final int? amount;
+  @HiveField(8)
   final num? rating;
+  @HiveField(9)
   final num? reviewsCount;
+  @HiveField(10)
   final bool? newProduct;
+  @HiveField(11)
   final bool? freeDelivery;
+  @HiveField(12)
   final String? shippingInformation;
+  @HiveField(13)
   final List<CarEntity>? compatibleCars;
+  @HiveField(14)
   final bool? isFavorite;
 
   const ProductEntity({
