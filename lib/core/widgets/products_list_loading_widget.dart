@@ -19,7 +19,7 @@ class ProductsListLoadingWidget extends StatelessWidget {
         ).setHorizontalPadding(16.w),
         Gap(8.h),
         SizedBox(
-          height: 295.h,
+          height: 290.h,
           child: ListView.builder(
             padding: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 16.h),
             itemCount: 3,

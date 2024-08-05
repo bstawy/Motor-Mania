@@ -29,7 +29,7 @@ class CartProductsLoadingWidget extends StatelessWidget {
         ShimmerLoadingWidget(
           width: 1.sw,
           height: 138.h,
-        )
+        ),
       ],
     );
   }

@@ -155,7 +155,6 @@ class _RegisterFormState extends State<RegisterForm> {
                 },
                 title: "Register",
                 backgroundColor: ColorsManager.red,
-                enabled: !registering,
                 loading: registering,
               );
             },

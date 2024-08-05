@@ -38,17 +38,7 @@ class CartScreen extends StatelessWidget {
         titleStyle: TextStyles.font14DarkBlueMedium,
         leftPadding: 16.w,
         actions: [
-          CustomElevatedButton(
-            onPressed: () => context.read<LayoutCubit>().changeTab(1),
-            title: "Go To Favorites",
-            titleStyle: TextStyles.font10LightGreyRegular,
-            iconPath: "assets/icons/favorite_light_icon.svg",
-            iconWidth: 17.w,
-            iconHeight: 17.h,
-            borderRadiusValue: 12.r,
-            horizontalPadding: 14.w,
-            verticalPadding: 8.h,
-          ).setHorizontalPadding(16.w),
+          _buildGoToFavoriteButton(context).setHorizontalPadding(16.w),
         ],
       ),
       body: RefreshIndicator(
@@ -61,7 +51,7 @@ class CartScreen extends StatelessWidget {
                 builder: (context, state) {
                   if (state is CartLoading) {
                     return const CartProductsLoadingWidget()
-                        .setHorizontalPadding(16.w);
+                        .setOnlyPadding(12.h, 0, 16.w, 16.w);
                   } else if (state is CartLoaded) {
                     context.read<LayoutCubit>().openBottomSheet();
                     return Column(
@@ -117,6 +107,20 @@ class CartScreen extends StatelessWidget {
                 ).setHorizontalPadding(60.w),
               ),
       ),
+    );
+  }
+
+  Widget _buildGoToFavoriteButton(BuildContext context) {
+    return CustomElevatedButton(
+      onPressed: () => context.read<LayoutCubit>().changeTab(1),
+      title: "Go To Favorites",
+      titleStyle: TextStyles.font10LightGreyRegular,
+      iconPath: "assets/icons/favorite_light_icon.svg",
+      iconWidth: 17.w,
+      iconHeight: 17.h,
+      borderRadiusValue: 12.r,
+      horizontalPadding: 14.w,
+      verticalPadding: 8.h,
     );
   }
 }

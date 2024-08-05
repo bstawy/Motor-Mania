@@ -26,7 +26,7 @@ class CartCheckoutButtonWidget extends StatelessWidget {
         right: 16.w,
       ),
       decoration: BoxDecoration(
-        color: ColorsManager.darkkBlue,
+        color: ColorsManager.darkBlue,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(25.r),
           topRight: Radius.circular(25.r),

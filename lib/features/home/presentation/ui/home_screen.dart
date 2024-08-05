@@ -23,7 +23,7 @@ class HomeScreen extends StatelessWidget {
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
         child: ColorfulSafeArea(
-          color: ColorsManager.darkkBlue,
+          color: ColorsManager.darkBlue,
           child: RefreshIndicator(
             onRefresh: () async {
               context.read<HomeCubit>()

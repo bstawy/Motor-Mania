@@ -4,7 +4,7 @@ import 'package:gap/gap.dart';
 
 import '../config/text/text_styles.dart';
 import '../helpers/extensions/extensions.dart';
-import 'products_list_item_widget.dart';
+import 'product_item_widget.dart';
 
 class ProductsListWidget extends StatelessWidget {
   final String title;
@@ -27,13 +27,13 @@ class ProductsListWidget extends StatelessWidget {
         ).setHorizontalPadding(16.w),
         Gap(8.h),
         SizedBox(
-          height: 295.h,
+          height: 290.h,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             padding: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 16.h),
-            itemCount: products.length,
+            itemCount: products.length.clamp(0, 10),
             itemBuilder: (context, index) {
-              return ProductsListItemWidget(product: products[index])
+              return ProductItemWidget(product: products[index])
                   .setOnlyPadding(0, 0, 8.w, 0);
             },
           ),

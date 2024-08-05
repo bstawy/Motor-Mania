@@ -21,7 +21,7 @@ class ProductQuantityAndAddToCartButtonWidget extends StatelessWidget {
         right: 16.w,
       ),
       decoration: BoxDecoration(
-        color: ColorsManager.darkkBlue,
+        color: ColorsManager.darkBlue,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(25.r),
           topRight: Radius.circular(25.r),
@@ -55,7 +55,7 @@ class ProductQuantityAndAddToCartButtonWidget extends StatelessWidget {
                 children: [
                   Text(
                     "QTY",
-                    style: TextStyles.font8LightBlueGreyMedium,
+                    style: TextStyles.font8BlueGreyMedium,
                   ),
                   Text(
                     "1",

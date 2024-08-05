@@ -43,7 +43,7 @@ class CustomElevatedButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadiusValue ?? 8.r),
           side: BorderSide(
-            color: borderColor ?? ColorsManager.lighterBlue,
+            color: borderColor ?? ColorsManager.whiteBlue,
           ),
         ),
         padding: EdgeInsets.symmetric(
@@ -63,7 +63,7 @@ class CustomElevatedButton extends StatelessWidget {
           iconPath != null ? Gap(4.w) : const SizedBox(),
           Text(
             title,
-            style: titleStyle ?? TextStyles.font8LightBlueGreyMedium,
+            style: titleStyle ?? TextStyles.font8BlueGreyMedium,
           ),
         ],
       ),

@@ -15,7 +15,7 @@ class FavoriteButtonWidget extends StatelessWidget {
   final double? iconWidth, iconHeight;
   final Color? backgroundColor;
 
-  FavoriteButtonWidget({
+  const FavoriteButtonWidget({
     super.key,
     required this.product,
     this.width,
@@ -25,9 +25,7 @@ class FavoriteButtonWidget extends StatelessWidget {
     this.backgroundColor,
   });
 
-  bool isFavorite = false;
-
-  _toggleFavorite(BuildContext context) {
+  _toggleFavorite(BuildContext context, bool isFavorite) {
     if (isFavorite) {
       context.read<FavoritesCubit>().removeFromFavorites(product.id);
       context.successSnackBar("${product.name} removed from your favorites");
@@ -39,10 +37,12 @@ class FavoriteButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isFavorite = false;
+
     return GestureDetector(
       onTap: () {
         context.read<AppManagerCubit>().appMode == AppMode.user
-            ? _toggleFavorite(context)
+            ? _toggleFavorite(context, isFavorite)
             : context.errorSnackBar("Please login to add to favorites");
       },
       child: Container(
@@ -65,17 +65,10 @@ class FavoriteButtonWidget extends StatelessWidget {
             if (state is FavoritesLoaded) {
               isFavorite =
                   state.products.any((element) => element.id == product.id);
-              return SvgPicture.asset(
-                isFavorite
-                    ? "assets/icons/favorite_filled_icon.svg"
-                    : "assets/icons/favorite_icon.svg",
-                width: iconWidth ?? 16.r,
-                height: iconHeight ?? 16.r,
-              );
             }
             return SvgPicture.asset(
               isFavorite
-                  ? "assets/icons/bottom_nav_selected_favorite_icon.svg"
+                  ? "assets/icons/favorite_filled_icon.svg"
                   : "assets/icons/favorite_icon.svg",
               width: iconWidth ?? 16.r,
               height: iconHeight ?? 16.r,

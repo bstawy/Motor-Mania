@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../config/text/text_styles.dart';
 import '../config/theme/colors_manager.dart';
 
+// TODO: needs refactoring
 class CustomTextFormField extends StatefulWidget {
   final TextEditingController? controller;
   final String hint;
@@ -177,7 +178,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
               vertical: 12.h,
             ),
         hintText: widget.hint,
-        hintStyle: widget.hintStyle ?? TextStyles.font14GreyRegular,
+        hintStyle: widget.hintStyle ?? TextStyles.font14BlueGreyRegular,
         fillColor: (widget.enabled != null && widget.enabled == false)
             ? widget.disabledBackgroundColor ?? ColorsManager.grey
             : widget.backgroundColor ?? Colors.white,

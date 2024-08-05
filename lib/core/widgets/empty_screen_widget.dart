@@ -63,7 +63,7 @@ class EmptyScreenWidget extends StatelessWidget {
             Gap(8.h),
             Text(
               description ?? "",
-              style: TextStyles.font12LightBlueGreyRegular,
+              style: TextStyles.font12BlueGreyRegular,
               textAlign: TextAlign.center,
             ),
           ],

@@ -63,7 +63,7 @@ class HomeUserHeaderWidget extends StatelessWidget {
                 Expanded(
                   child: Text(
                     "2972 Westheimer Rd. Santa Ana, Illinois 85486",
-                    style: TextStyles.font12LightGreyMedium,
+                    style: TextStyles.font12BlueGreyMedium,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -125,7 +125,7 @@ class HomeUserHeaderWidget extends StatelessWidget {
         Gap(6.w),
         Text(
           title,
-          style: TextStyles.font12LightGreyMedium,
+          style: TextStyles.font12BlueGreyMedium,
         ),
       ],
     );

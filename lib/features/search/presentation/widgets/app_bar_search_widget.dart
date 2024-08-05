@@ -53,13 +53,13 @@ class _AppBarSearchWidgetState extends State<AppBarSearchWidget> {
       style: TextStyles.font14DarkBlueMedium,
       decoration: InputDecoration(
         hintText: "What are you looking for?",
-        hintStyle: TextStyles.font12LightGreyMedium,
+        hintStyle: TextStyles.font12BlueGreyMedium,
         prefixIcon: Padding(
           padding: EdgeInsets.only(right: 16.w),
           child: IconButton(
             onPressed: () => context.pop(),
             icon: const Icon(Icons.arrow_back_ios_new_rounded),
-            color: ColorsManager.darkkBlue,
+            color: ColorsManager.darkBlue,
           ),
         ),
       ),
