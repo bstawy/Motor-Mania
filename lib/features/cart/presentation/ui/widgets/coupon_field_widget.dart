@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:motor_mania/core/config/theme/colors_manager.dart';
 
-import '../../../../../core/config/text/font_weight_helper.dart';
 import '../../../../../core/config/text/text_styles.dart';
 
 class CouponFieldWidget extends StatelessWidget {
@@ -17,23 +17,26 @@ class CouponFieldWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(14.r),
           borderSide: BorderSide.none,
         ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14.r),
+          borderSide: BorderSide(
+            color: ColorsManager.blueGrey,
+            width: 1.w,
+          ),
+        ),
         contentPadding: EdgeInsets.symmetric(
           horizontal: 15.w,
           vertical: 12.h,
         ),
         hintText: "Enter Coupon Code",
-        hintStyle: TextStyles.font12LightGreyMedium.copyWith(
-          fontWeight: FontWeightHelper.light,
-        ),
+        hintStyle: TextStyles.font12BlueGreyLight,
         suffix: InkWell(
           onTap: () {
             // TODO: apply coupon
           },
           child: Text(
             "Apply",
-            style: TextStyles.font12DarkBlueMedium.copyWith(
-              fontWeight: FontWeightHelper.semiBold,
-            ),
+            style: TextStyles.font12DarkBlueSemiBold,
           ),
         ),
       ),
