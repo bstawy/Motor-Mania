@@ -6,35 +6,28 @@ import 'font_weight_helper.dart';
 
 class TextStyles {
   static TextStyle font32DarkBlueBold = TextStyle(
-    color: ColorsManager.darkkBlue,
+    color: ColorsManager.darkBlue,
     fontSize: 32.sp,
     fontWeight: FontWeightHelper.bold,
     fontFamily: 'Montserrat',
   );
 
   static TextStyle font32DarkBlueSemiBold = TextStyle(
-    color: ColorsManager.darkkBlue,
+    color: ColorsManager.darkBlue,
     fontSize: 32.sp,
     fontWeight: FontWeightHelper.semiBold,
     fontFamily: 'Montserrat',
   );
 
-  static TextStyle font30WhiteBold = TextStyle(
-    color: Colors.white,
-    fontSize: 30.sp,
-    fontWeight: FontWeightHelper.bold,
-    fontFamily: 'Montserrat',
-  );
-
   static TextStyle font24DarkBlueBold = TextStyle(
-    color: ColorsManager.darkkBlue,
+    color: ColorsManager.darkBlue,
     fontSize: 24.sp,
     fontWeight: FontWeightHelper.bold,
     fontFamily: 'Montserrat',
   );
 
   static TextStyle font24DarkBlueSemiBold = TextStyle(
-    color: ColorsManager.darkkBlue,
+    color: ColorsManager.darkBlue,
     fontSize: 24.sp,
     fontWeight: FontWeightHelper.semiBold,
     fontFamily: 'Montserrat',
@@ -55,21 +48,21 @@ class TextStyles {
   );
 
   static TextStyle font20DarkBlueBold = TextStyle(
-    color: ColorsManager.darkkBlue,
+    color: ColorsManager.darkBlue,
     fontSize: 20.sp,
     fontWeight: FontWeightHelper.bold,
     fontFamily: 'Montserrat',
   );
 
   static TextStyle font16DarkBlueBold = TextStyle(
-    color: ColorsManager.darkkBlue,
+    color: ColorsManager.darkBlue,
     fontSize: 16.sp,
     fontWeight: FontWeightHelper.bold,
     fontFamily: 'Montserrat',
   );
 
   static TextStyle font16DarkBlueSemiBold = TextStyle(
-    color: ColorsManager.darkkBlue,
+    color: ColorsManager.darkBlue,
     fontSize: 16.sp,
     fontWeight: FontWeightHelper.semiBold,
     fontFamily: 'Montserrat',
@@ -82,29 +75,22 @@ class TextStyles {
     fontFamily: 'Montserrat',
   );
 
-  static TextStyle font16DarkBlueMedium = TextStyle(
-    color: ColorsManager.darkkBlue,
-    fontSize: 16.sp,
-    fontWeight: FontWeightHelper.medium,
-    fontFamily: 'Montserrat',
-  );
-
-  static TextStyle font16GreyRegular = TextStyle(
-    color: ColorsManager.grey,
+  static TextStyle font16BlueGreyRegular = TextStyle(
+    color: ColorsManager.blueGrey,
     fontSize: 16.sp,
     fontWeight: FontWeightHelper.regular,
     fontFamily: 'Montserrat',
   );
 
   static TextStyle font14DarkBlueBold = TextStyle(
-    color: ColorsManager.darkkBlue,
+    color: ColorsManager.darkBlue,
     fontSize: 14.sp,
     fontWeight: FontWeightHelper.bold,
     fontFamily: 'Montserrat',
   );
 
   static TextStyle font14DarkBlueSemiBold = TextStyle(
-    color: ColorsManager.darkkBlue,
+    color: ColorsManager.darkBlue,
     fontSize: 14.sp,
     fontWeight: FontWeightHelper.semiBold,
     fontFamily: 'Montserrat',
@@ -125,21 +111,21 @@ class TextStyles {
   );
 
   static TextStyle font14DarkBlueMedium = TextStyle(
-    color: ColorsManager.darkkBlue,
+    color: ColorsManager.darkBlue,
     fontSize: 14.sp,
     fontWeight: FontWeightHelper.medium,
     fontFamily: 'Montserrat',
   );
 
   static TextStyle font14DarkBlueRegular = TextStyle(
-    color: ColorsManager.darkkBlue,
+    color: ColorsManager.darkBlue,
     fontSize: 14.sp,
     fontWeight: FontWeightHelper.regular,
     fontFamily: 'Montserrat',
   );
 
-  static TextStyle font14GreyRegular = TextStyle(
-    color: ColorsManager.grey,
+  static TextStyle font14BlueGreyRegular = TextStyle(
+    color: ColorsManager.blueGrey,
     fontSize: 14.sp,
     fontWeight: FontWeightHelper.regular,
     fontFamily: 'Montserrat',
@@ -149,6 +135,13 @@ class TextStyles {
     color: ColorsManager.grey,
     fontSize: 14.sp,
     fontWeight: FontWeightHelper.light,
+    fontFamily: 'Montserrat',
+  );
+
+  static TextStyle font12DarkBlueSemiBold = TextStyle(
+    color: ColorsManager.darkBlue,
+    fontSize: 12.sp,
+    fontWeight: FontWeightHelper.semiBold,
     fontFamily: 'Montserrat',
   );
 
@@ -167,35 +160,42 @@ class TextStyles {
   );
 
   static TextStyle font12DarkBlueMedium = TextStyle(
-    color: ColorsManager.darkkBlue,
+    color: ColorsManager.darkBlue,
     fontSize: 12.sp,
     fontWeight: FontWeightHelper.medium,
     fontFamily: 'Montserrat',
   );
 
-  static TextStyle font12LightGreyMedium = TextStyle(
-    color: ColorsManager.lightGrey,
+  static TextStyle font12BlueGreyMedium = TextStyle(
+    color: ColorsManager.blueGrey,
     fontSize: 12.sp,
     fontWeight: FontWeightHelper.medium,
     fontFamily: 'Montserrat',
   );
 
   static TextStyle font12DarkBlueRegular = TextStyle(
-    color: ColorsManager.darkkBlue,
+    color: ColorsManager.darkBlue,
     fontSize: 12.sp,
     fontWeight: FontWeightHelper.regular,
     fontFamily: 'Montserrat',
   );
 
-  static TextStyle font12LightBlueGreyRegular = TextStyle(
+  static TextStyle font12BlueGreyRegular = TextStyle(
     color: ColorsManager.blueGrey,
     fontSize: 12.sp,
     fontWeight: FontWeightHelper.regular,
     fontFamily: 'Montserrat',
   );
 
+  static TextStyle font12BlueGreyLight = TextStyle(
+    color: ColorsManager.blueGrey,
+    fontSize: 12.sp,
+    fontWeight: FontWeightHelper.light,
+    fontFamily: 'Montserrat',
+  );
+
   static TextStyle font10DarkBlueBold = TextStyle(
-    color: ColorsManager.darkkBlue,
+    color: ColorsManager.darkBlue,
     fontSize: 10.sp,
     fontWeight: FontWeightHelper.bold,
     fontFamily: 'Montserrat',
@@ -223,7 +223,7 @@ class TextStyles {
   );
 
   static TextStyle font10DarkBlueMedium = TextStyle(
-    color: ColorsManager.darkkBlue,
+    color: ColorsManager.darkBlue,
     fontSize: 10.sp,
     fontWeight: FontWeightHelper.medium,
     fontFamily: 'Montserrat',
@@ -237,7 +237,7 @@ class TextStyles {
   );
 
   static TextStyle font10DarkBlueRegular = TextStyle(
-    color: ColorsManager.darkkBlue,
+    color: ColorsManager.darkBlue,
     fontSize: 10.sp,
     fontWeight: FontWeightHelper.regular,
     fontFamily: 'Montserrat',
@@ -265,7 +265,7 @@ class TextStyles {
   );
 
   static TextStyle font8DarkBlueMedium = TextStyle(
-    color: ColorsManager.darkkBlue,
+    color: ColorsManager.darkBlue,
     fontSize: 8.sp,
     fontWeight: FontWeightHelper.medium,
     fontFamily: 'Montserrat',
