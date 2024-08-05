@@ -4,9 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../features/favorites/presentation/logic/favorites_cubit.dart';
-import '../config/app_manager/app_manager_cubit.dart';
 import '../config/theme/colors_manager.dart';
-import '../helpers/enums/app_modes_enums.dart';
 import '../helpers/extensions/extensions.dart';
 
 class FavoriteButtonWidget extends StatelessWidget {
@@ -30,7 +28,7 @@ class FavoriteButtonWidget extends StatelessWidget {
       context.read<FavoritesCubit>().removeFromFavorites(product.id);
       context.successSnackBar("${product.name} removed from your favorites");
     } else {
-      context.read<FavoritesCubit>().addToFavorites(product.id);
+      context.read<FavoritesCubit>().addToFavorites(product);
       context.successSnackBar("${product.name} added to your favorites");
     }
   }
@@ -41,9 +39,7 @@ class FavoriteButtonWidget extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        context.read<AppManagerCubit>().appMode == AppMode.user
-            ? _toggleFavorite(context, isFavorite)
-            : context.errorSnackBar("Please login to add to favorites");
+        _toggleFavorite(context, isFavorite);
       },
       child: Container(
         width: width ?? 28.r,
