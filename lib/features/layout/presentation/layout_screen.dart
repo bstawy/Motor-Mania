@@ -132,11 +132,10 @@ class _LayoutScreenState extends State<LayoutScreen> {
                       onClicked: () async {
                         await context.read<AppManagerCubit>().logUserOut();
                         if (context.mounted) {
-                          context.read<LayoutCubit>().changeTab(0);
-                          // context.pushNamedAndRemoveUntil(
-                          //   Routes.layoutScreen,
-                          //   predicate: (route) => false,
-                          // );
+                          context.pushNamedAndRemoveUntil(
+                            Routes.layoutScreen,
+                            predicate: (route) => false,
+                          );
                         }
                       },
                       backgroundColor: ColorsManager.red,
