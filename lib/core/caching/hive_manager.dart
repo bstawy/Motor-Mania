@@ -34,32 +34,34 @@ class HiveManager {
     await Hive.openBox<CartProductEntity>(HiveBoxKeys.cart);
   }
 
-  void cacheDataItem<T>({required String boxKey, required T data}) async {
+  Future<void> cacheDataItem<T>(
+      {required String boxKey, required T data}) async {
     var box = Hive.box<T>(boxKey);
-    box.add(data);
+    await box.add(data);
   }
 
   Future<void> cacheDataList<T>(
       {required String boxKey, required List<T> data}) async {
     var box = Hive.box<T>(boxKey);
-    box.addAll(data);
+    await box.addAll(data);
   }
 
-  List<T> retrieveData<T>(String boxKey) {
+  Future<List<T>> retrieveData<T>(String boxKey) async {
     var box = Hive.box<T>(boxKey);
     return box.values.toList();
   }
 
-  void clearData<T>(String boxKey) {
-    Hive.box<T>(boxKey).clear();
+  Future<void> clearData<T>(String boxKey) async {
+    await Hive.box<T>(boxKey).clear();
   }
 
-  void clearItem<T>({required String boxKey, required int index}) {
-    Hive.box<T>(boxKey).deleteAt(index);
+  Future<void> clearItem<T>(
+      {required String boxKey, required int index}) async {
+    await Hive.box<T>(boxKey).deleteAt(index);
   }
 
-  void clearAllData() {
-    Hive.box<HomeProductEntity>(HiveBoxKeys.favorites).clear();
-    Hive.box<CartProductEntity>(HiveBoxKeys.cart).clear();
+  Future<void> clearAllData() async {
+    await Hive.box<HomeProductEntity>(HiveBoxKeys.favorites).clear();
+    await Hive.box<CartProductEntity>(HiveBoxKeys.cart).clear();
   }
 }
