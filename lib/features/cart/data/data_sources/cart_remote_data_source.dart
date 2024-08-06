@@ -15,7 +15,10 @@ class CartRemoteDataSource implements CartDataSources {
   }
 
   @override
-  Future<Response> addProduct(String productId, int quantity) {
+  Future<Response> addProduct(
+    String productId,
+    int quantity,
+  ) {
     final Map<String, dynamic> params = {
       "id": productId,
       "quantity": quantity,
