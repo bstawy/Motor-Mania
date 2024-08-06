@@ -20,7 +20,6 @@ class HomeCubit extends Cubit<HomeState> {
 
   void getHomeCategories() {
     emit(CategoriesLoading());
-
     _getHomeCategoriesUseCase.execute().then((response) {
       response.fold(
         (error) => emit(CategoriesErrorState(error)),
