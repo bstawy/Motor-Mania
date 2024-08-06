@@ -39,7 +39,8 @@ class HiveManager {
     box.add(data);
   }
 
-  void cacheDataList<T>({required String boxKey, required List<T> data}) async {
+  Future<void> cacheDataList<T>(
+      {required String boxKey, required List<T> data}) async {
     var box = Hive.box<T>(boxKey);
     box.addAll(data);
   }
