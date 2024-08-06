@@ -7,39 +7,35 @@ class FavoritesLocalDataSource {
 
   FavoritesLocalDataSource(this._hiveManager);
 
-  cacheFavoritesList(List<HomeProductEntity> favorites) {
-    _hiveManager.cacheDataList<HomeProductEntity>(
+  Future<void> cacheFavoritesList(List<HomeProductEntity> favorites) async {
+    await _hiveManager.cacheDataList<HomeProductEntity>(
       boxKey: HiveBoxKeys.favorites,
       data: favorites,
     );
   }
 
-  cacheFavoritesItem(HomeProductEntity product) {
-    _hiveManager.cacheDataItem<HomeProductEntity>(
+  Future<void> cacheFavoritesItem(HomeProductEntity product) async {
+    await _hiveManager.cacheDataItem<HomeProductEntity>(
       boxKey: HiveBoxKeys.favorites,
       data: product,
     );
   }
 
   Future<List<HomeProductEntity>> getCachedFavoritesList() async {
-    return _hiveManager.retrieveData<HomeProductEntity>(HiveBoxKeys.favorites);
+    return await _hiveManager
+        .retrieveData<HomeProductEntity>(HiveBoxKeys.favorites);
   }
 
-  Future<bool> isFavorite(String productId) async {
-    final favorites = await getCachedFavoritesList();
-    return favorites.any((product) => product.id == productId);
-  }
-
-  void removeFavorite(String productId) async {
+  Future<void> removeFavorite(String productId) async {
     final List<HomeProductEntity> favorites = await getCachedFavoritesList();
     int index = favorites.indexWhere((product) => product.id == productId);
-    _hiveManager.clearItem<HomeProductEntity>(
+    await _hiveManager.clearItem<HomeProductEntity>(
       boxKey: HiveBoxKeys.favorites,
       index: index,
     );
   }
 
-  void clearFavorites() {
-    _hiveManager.clearData<HomeProductEntity>(HiveBoxKeys.favorites);
+  Future<void> clearFavorites() async {
+    await _hiveManager.clearData<HomeProductEntity>(HiveBoxKeys.favorites);
   }
 }

@@ -43,14 +43,6 @@ class FavoritesRepoImpl extends FavoritesRepo {
             allFavorites.add(fav);
           }
         }
-        // for (final fav in favorites) {
-        //   cachedFavorites.map((product) async {
-        //     if (product.id != fav.id) {
-        //       await addToFavorites(product);
-        //       allFavorites.add(product);
-        //     }
-        //   }).toList();
-        // }
 
         _localDataSource.clearFavorites();
         await _localDataSource.cacheFavoritesList(allFavorites);
@@ -98,7 +90,7 @@ class FavoritesRepoImpl extends FavoritesRepo {
           freeDelivery: product.freeDelivery,
           compatibleCars: product.compatibleCars,
         );
-        _localDataSource.cacheFavoritesItem(favProduct);
+        await _localDataSource.cacheFavoritesItem(favProduct);
         return const Right("Added to favorites");
       }
 
@@ -126,7 +118,7 @@ class FavoritesRepoImpl extends FavoritesRepo {
   @override
   Future<Either<ServerFailure, String>> removeFromFavorites(String id) async {
     try {
-      _localDataSource.removeFavorite(id);
+      await _localDataSource.removeFavorite(id);
 
       final response = await _remoteDataSource.removeFromFavorites(id);
 
