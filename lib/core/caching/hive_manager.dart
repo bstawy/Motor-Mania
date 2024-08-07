@@ -60,7 +60,7 @@ class HiveManager {
     await Hive.box<T>(boxKey).deleteAt(index);
   }
 
-  Future<void> clearAllData() async {
+  Future<void> clearAllBoxes() async {
     await Hive.box<HomeProductEntity>(HiveBoxKeys.favorites).clear();
     await Hive.box<CartProductEntity>(HiveBoxKeys.cart).clear();
   }
