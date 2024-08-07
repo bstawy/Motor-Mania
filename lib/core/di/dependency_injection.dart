@@ -8,6 +8,7 @@ import '../../features/auth/register/data/data_sources/register_remote_data_sour
 import '../../features/auth/register/data/repos/register_repo.dart';
 import '../../features/auth/register/logic/register_cubit.dart';
 import '../../features/cart/data/data_sources/cart_data_sources.dart';
+import '../../features/cart/data/data_sources/cart_local_data_source.dart';
 import '../../features/cart/data/data_sources/cart_remote_data_source.dart';
 import '../../features/cart/data/repos_impl/cart_repo_impl.dart';
 import '../../features/cart/domain/repos/cart_repo.dart';
@@ -22,6 +23,7 @@ import '../../features/category/domain/repos/category_repository.dart';
 import '../../features/category/domain/use_cases/get_category_products_use_cases.dart';
 import '../../features/category/presentation/logic/category_cubit.dart';
 import '../../features/favorites/data/data_source/favorites_data_sources.dart';
+import '../../features/favorites/data/data_source/favorites_local_data_source.dart';
 import '../../features/favorites/data/data_source/favorites_remote_data_source_impl.dart';
 import '../../features/favorites/data/repos_impl/favorites_repo_impl.dart';
 import '../../features/favorites/domain/repos/favorites_repo.dart';
@@ -51,6 +53,7 @@ import '../../features/search/data/repos_impl/search_repo_impl.dart';
 import '../../features/search/domain/repos/search_repo.dart';
 import '../../features/search/domain/use_cases/search_use_case.dart';
 import '../../features/search/presentation/logic/search_cubit.dart';
+import '../caching/hive_manager.dart';
 import '../helpers/app_bloc_observer.dart';
 import '../networking/crud_manager.dart';
 import '../networking/dio/dio_factory.dart';
@@ -58,7 +61,7 @@ import '../networking/dio/dio_factory.dart';
 final getIt = GetIt.instance;
 
 Future<void> initGetIt() async {
-  // Dio & ApiService
+  // Dio & ApiService & HiveManager
   Dio freeDio = DioFactory.getFreeDio();
   Dio tokenDio = DioFactory.getTokenDio();
 
@@ -67,6 +70,10 @@ Future<void> initGetIt() async {
       freeDio: freeDio,
       tokenDio: tokenDio,
     ),
+  );
+
+  getIt.registerLazySingleton<HiveManager>(
+    () => HiveManager.getInstance(),
   );
 
   // BLoc observer
@@ -141,8 +148,11 @@ Future<void> initGetIt() async {
   getIt.registerFactory<FavoritesDataSources>(
     () => FavoritesRemoteDataSourceImpl(getIt()),
   );
+  getIt.registerFactory<FavoritesLocalDataSource>(
+    () => FavoritesLocalDataSource(getIt()),
+  );
   getIt.registerFactory<FavoritesRepo>(
-    () => FavoritesRepoImpl(getIt()),
+    () => FavoritesRepoImpl(getIt(), getIt()),
   );
   getIt.registerFactory<GetAllFavoritesUseCase>(
     () => GetAllFavoritesUseCase(getIt()),
@@ -175,8 +185,11 @@ Future<void> initGetIt() async {
   getIt.registerFactory<CartDataSources>(
     () => CartRemoteDataSource(getIt()),
   );
+  getIt.registerFactory<CartLocalDataSource>(
+    () => CartLocalDataSource(getIt()),
+  );
   getIt.registerFactory<CartRepo>(
-    () => CartRepoImpl(getIt()),
+    () => CartRepoImpl(getIt(), getIt(), getIt()),
   );
   getIt.registerFactory<GetCartProductsUseCase>(
     () => GetCartProductsUseCase(getIt()),

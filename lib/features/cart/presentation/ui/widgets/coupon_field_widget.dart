@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:motor_mania/core/config/theme/colors_manager.dart';
 
 import '../../../../../core/config/text/text_styles.dart';
+import '../../../../../core/config/theme/colors_manager.dart';
 
 class CouponFieldWidget extends StatelessWidget {
   const CouponFieldWidget({super.key});

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../config/text/text_styles.dart';
+import '../config/theme/colors_manager.dart';
 
 class CustomSnackBar {
   static void showSuccessMessage(BuildContext context, String msg) {
@@ -38,10 +39,9 @@ class CustomSnackBar {
     required bool success,
     required String msg,
   }) {
-    final theme = Theme.of(context);
+    //final theme = Theme.of(context);
 
-    Color msgTextColor =
-        (success) ? theme.colorScheme.primary : theme.colorScheme.error;
+    Color msgTextColor = (success) ? ColorsManager.darkBlue : ColorsManager.red;
 
     return IntrinsicHeight(
       child: Container(

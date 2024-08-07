@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
@@ -9,7 +10,9 @@ import '../../../../../core/widgets/custom_elevated_button.dart';
 import '../../../../../core/widgets/product_name_and_type_widget.dart';
 import '../../../../../core/widgets/product_price_widget.dart';
 import '../../../../../core/widgets/product_property_widget.dart';
+import '../../../../favorites/presentation/logic/favorites_cubit.dart';
 import '../../../domain/entities/cart_product_entity.dart';
+import '../../logic/cart_cubit.dart';
 
 class CartProductItemWidget extends StatelessWidget {
   final CartProductEntity cartProduct;
@@ -138,6 +141,9 @@ class CartProductItemWidget extends StatelessWidget {
                   CustomElevatedButton(
                     onPressed: () {
                       // TODO: remove product from cart
+                      context
+                          .read<CartCubit>()
+                          .removeProductFromCart(cartProduct.product.id ?? "");
                     },
                     title: "Remove",
                     iconPath: "assets/icons/trash_icon.svg",
@@ -146,6 +152,12 @@ class CartProductItemWidget extends StatelessWidget {
                   CustomElevatedButton(
                     onPressed: () {
                       // TODO: add to favorites and remove from cart
+                      context
+                          .read<FavoritesCubit>()
+                          .addToFavorites(cartProduct);
+                      context
+                          .read<CartCubit>()
+                          .removeProductFromCart(cartProduct.product.id ?? "");
                     },
                     title: "Move To Favorites",
                     iconPath: "assets/icons/favorite_light_icon.svg",

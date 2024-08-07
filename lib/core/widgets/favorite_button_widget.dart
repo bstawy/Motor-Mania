@@ -4,9 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../features/favorites/presentation/logic/favorites_cubit.dart';
-import '../config/app_manager/app_manager_cubit.dart';
 import '../config/theme/colors_manager.dart';
-import '../helpers/enums/app_modes_enums.dart';
 import '../helpers/extensions/extensions.dart';
 
 class FavoriteButtonWidget extends StatelessWidget {
@@ -25,13 +23,16 @@ class FavoriteButtonWidget extends StatelessWidget {
     this.backgroundColor,
   });
 
-  _toggleFavorite(BuildContext context, bool isFavorite) {
+  _toggleFavorite(BuildContext context, bool isFavorite) async {
     if (isFavorite) {
-      context.read<FavoritesCubit>().removeFromFavorites(product.id);
-      context.successSnackBar("${product.name} removed from your favorites");
+      await context.read<FavoritesCubit>().removeFromFavorites(product.id);
+      // if (context.mounted) {
+      // }
     } else {
-      context.read<FavoritesCubit>().addToFavorites(product.id);
-      context.successSnackBar("${product.name} added to your favorites");
+      await context.read<FavoritesCubit>().addToFavorites(product);
+      // if (context.mounted) {
+      //   context.successSnackBar("${product.name} added to your favorites");
+      // }
     }
   }
 
@@ -41,9 +42,7 @@ class FavoriteButtonWidget extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        context.read<AppManagerCubit>().appMode == AppMode.user
-            ? _toggleFavorite(context, isFavorite)
-            : context.errorSnackBar("Please login to add to favorites");
+        _toggleFavorite(context, isFavorite);
       },
       child: Container(
         width: width ?? 28.r,
@@ -54,12 +53,28 @@ class FavoriteButtonWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(15.r),
         ),
         alignment: Alignment.center,
-        child: BlocBuilder<FavoritesCubit, FavoritesState>(
+        child: BlocConsumer<FavoritesCubit, FavoritesState>(
+          bloc: context.read<FavoritesCubit>(),
+          listenWhen: (previous, current) {
+            if (current is AddToFavoritesSuccess ||
+                current is RemoveFromFavoritesSuccess) {
+              return true;
+            }
+            return false;
+          },
           buildWhen: (previous, current) {
             if (current is FavoritesLoaded) {
               return true;
             }
             return false;
+          },
+          listener: (context, state) {
+            if (state is AddToFavoritesSuccess) {
+              context.successSnackBar(
+                  "${product.name} removed from your favorites");
+            } else {
+              //   context.successSnackBar("${product.name} added to your favorites");
+            }
           },
           builder: (context, state) {
             if (state is FavoritesLoaded) {

@@ -1,20 +1,37 @@
 import 'package:equatable/equatable.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import 'car_entity.dart';
 
+part 'home_product_entity.g.dart';
+
+@HiveType(typeId: 0)
 class HomeProductEntity extends Equatable {
+  @HiveField(0)
   final String? id;
+  @HiveField(1)
   final String? name;
+  @HiveField(2)
   final String? imageUrl;
+  @HiveField(3)
   final num? price;
+  @HiveField(4)
   final num? oldPrice;
+  @HiveField(5)
   final num? discountPercentage;
+  @HiveField(6)
   final int? amount;
+  @HiveField(7)
   final num? rating;
+  @HiveField(8)
   final num? reviewsCount;
+  @HiveField(9)
   final bool? newProduct;
+  @HiveField(10)
   final bool? freeDelivery;
+  @HiveField(11)
   final List<CarEntity>? compatibleCars;
+  @HiveField(12)
   final bool? isFavorite;
 
   const HomeProductEntity({
@@ -68,15 +85,15 @@ class HomeProductEntity extends Equatable {
   List<Object?> get props => [
         id,
         name,
-        imageUrl,
-        price,
-        oldPrice,
-        amount,
-        rating,
-        reviewsCount,
-        newProduct,
-        freeDelivery,
-        compatibleCars,
-        isFavorite,
+        // imageUrl,
+        // price,
+        // oldPrice,
+        // amount,
+        // rating,
+        // reviewsCount,
+        // newProduct,
+        // freeDelivery,
+        // compatibleCars,
+        // isFavorite,
       ];
 }

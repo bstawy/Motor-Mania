@@ -8,7 +8,7 @@ class AddToFavoritesUseCase {
 
   AddToFavoritesUseCase(this._favoritesRepo);
 
-  Future<Either<ServerFailure, String>> execute(String id) async {
-    return await _favoritesRepo.addToFavorites(id);
+  Future<Either<ServerFailure, String>> execute(dynamic product) async {
+    return await _favoritesRepo.addToFavorites(product);
   }
 }

@@ -73,9 +73,9 @@ class _LayoutScreenState extends State<LayoutScreen> {
         if (controller.index == 3) {
           final state = context.read<CartCubit>().state;
           if (state is CartLoaded && state.cartProducts.isNotEmpty) {
-            context.read<LayoutCubit>().openBottomSheet();
+            getIt<LayoutCubit>().openBottomSheet();
           } else {
-            context.read<LayoutCubit>().closeBottomSheet();
+            getIt<LayoutCubit>().closeBottomSheet();
           }
         }
       },
@@ -116,10 +116,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
           title: "Garage",
         ),
         bottomNavBarTab(
-          screen: BlocProvider<CartCubit>(
-            create: (context) => getIt<CartCubit>(),
-            child: const CartScreen(),
-          ),
+          screen: const CartScreen(),
           iconPath: "assets/icons/bottom_nav_selected_cart_icon.svg",
           inactiveIconPath: "assets/icons/bottom_nav_unselected_cart_icon.svg",
           title: "Cart",
@@ -132,11 +129,10 @@ class _LayoutScreenState extends State<LayoutScreen> {
                       onClicked: () async {
                         await context.read<AppManagerCubit>().logUserOut();
                         if (context.mounted) {
-                          context.read<LayoutCubit>().changeTab(0);
-                          // context.pushNamedAndRemoveUntil(
-                          //   Routes.layoutScreen,
-                          //   predicate: (route) => false,
-                          // );
+                          context.pushNamedAndRemoveUntil(
+                            Routes.layoutScreen,
+                            predicate: (route) => false,
+                          );
                         }
                       },
                       backgroundColor: ColorsManager.red,
