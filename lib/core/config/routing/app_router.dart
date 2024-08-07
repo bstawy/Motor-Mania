@@ -65,12 +65,14 @@ class AppRouter {
           builder: (_) => MultiBlocProvider(
             providers: [
               BlocProvider(
+                create: (context) => getIt<SearchCubit>(),
+              ),
+              BlocProvider(
                 create: (context) => getIt<FavoritesCubit>()..getAllFavorites(),
               ),
               BlocProvider(
-                create: (context) => getIt<SearchCubit>(),
+                create: (context) => getIt<CartCubit>()..getCartProducts(),
               ),
-              // TODO: add cart cubit
             ],
             child: const SearchScreen(),
           ),
