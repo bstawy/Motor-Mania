@@ -1,4 +1,4 @@
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -11,7 +11,7 @@ class HomeGuestOffersWidget extends StatefulWidget {
 }
 
 class _HomeGuestOffersWidgetState extends State<HomeGuestOffersWidget> {
-  late final CarouselController _controller = CarouselController();
+  late final CarouselControllerPlus _controller = CarouselControllerPlus();
   int selectedIndex = 0;
 
   @override
@@ -19,7 +19,7 @@ class _HomeGuestOffersWidgetState extends State<HomeGuestOffersWidget> {
     return Column(
       children: [
         CarouselSlider(
-          carouselController: _controller,
+          controller: _controller,
           items: [
             Image.asset('assets/images/guest_offers_image_1.png'),
             Image.asset('assets/images/guest_offers_image_2.png'),
