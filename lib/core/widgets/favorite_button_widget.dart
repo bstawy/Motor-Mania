@@ -23,13 +23,16 @@ class FavoriteButtonWidget extends StatelessWidget {
     this.backgroundColor,
   });
 
-  _toggleFavorite(BuildContext context, bool isFavorite) {
+  _toggleFavorite(BuildContext context, bool isFavorite) async {
     if (isFavorite) {
-      context.read<FavoritesCubit>().removeFromFavorites(product.id);
-      context.successSnackBar("${product.name} removed from your favorites");
+      await context.read<FavoritesCubit>().removeFromFavorites(product.id);
+      // if (context.mounted) {
+      // }
     } else {
-      context.read<FavoritesCubit>().addToFavorites(product);
-      context.successSnackBar("${product.name} added to your favorites");
+      await context.read<FavoritesCubit>().addToFavorites(product);
+      // if (context.mounted) {
+      //   context.successSnackBar("${product.name} added to your favorites");
+      // }
     }
   }
 
@@ -50,12 +53,28 @@ class FavoriteButtonWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(15.r),
         ),
         alignment: Alignment.center,
-        child: BlocBuilder<FavoritesCubit, FavoritesState>(
+        child: BlocConsumer<FavoritesCubit, FavoritesState>(
+          bloc: context.read<FavoritesCubit>(),
+          listenWhen: (previous, current) {
+            if (current is AddToFavoritesSuccess ||
+                current is RemoveFromFavoritesSuccess) {
+              return true;
+            }
+            return false;
+          },
           buildWhen: (previous, current) {
             if (current is FavoritesLoaded) {
               return true;
             }
             return false;
+          },
+          listener: (context, state) {
+            if (state is AddToFavoritesSuccess) {
+              context.successSnackBar(
+                  "${product.name} removed from your favorites");
+            } else {
+              //   context.successSnackBar("${product.name} added to your favorites");
+            }
           },
           builder: (context, state) {
             if (state is FavoritesLoaded) {

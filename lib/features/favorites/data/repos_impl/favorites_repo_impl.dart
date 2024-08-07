@@ -24,6 +24,7 @@ class FavoritesRepoImpl extends FavoritesRepo {
       List<HomeProductEntity> cachedFavorites =
           await _localDataSource.getCachedFavoritesList();
       debugPrint("cachedFavorites with no token: $cachedFavorites");
+
       if (token.isEmpty) {
         return Right(cachedFavorites);
       }
@@ -44,7 +45,7 @@ class FavoritesRepoImpl extends FavoritesRepo {
           }
         }
 
-        _localDataSource.clearFavorites();
+        await _localDataSource.clearFavorites();
         await _localDataSource.cacheFavoritesList(allFavorites);
         debugPrint("cachedFavorites: $cachedFavorites");
         debugPrint("favorites: $favorites");
@@ -85,26 +86,26 @@ class FavoritesRepoImpl extends FavoritesRepo {
           oldPrice: product.oldPrice,
           rating: product.rating,
           reviewsCount: product.reviewsCount,
-          isFavorite: product.isFavorite,
+          isFavorite: true,
           newProduct: product.newProduct,
           freeDelivery: product.freeDelivery,
           compatibleCars: product.compatibleCars,
         );
         await _localDataSource.cacheFavoritesItem(favProduct);
         return const Right("Added to favorites");
-      }
+      } else {
+        final response = await _remoteDataSource.addToFavorites(product);
 
-      final response = await _remoteDataSource.addToFavorites(product);
-
-      if (response.statusCode == 200) {
-        return Right(response.data['message']);
+        if (response.statusCode == 200) {
+          return Right(response.data['message']);
+        }
+        return Left(
+          ServerFailure(
+            statusCode: response.statusCode,
+            message: response.data['message'],
+          ),
+        );
       }
-      return Left(
-        ServerFailure(
-          statusCode: response.statusCode,
-          message: response.data['message'],
-        ),
-      );
     } catch (e) {
       return Left(
         ServerFailure(
@@ -118,11 +119,18 @@ class FavoritesRepoImpl extends FavoritesRepo {
   @override
   Future<Either<ServerFailure, String>> removeFromFavorites(String id) async {
     try {
-      await _localDataSource.removeFavorite(id);
+      final token = await TokensManager.getAccessToken() ?? "";
+      if (token.isEmpty) {
+        await _localDataSource.removeFavorite(id);
+
+        return const Right('Product removed from Favorites successfully');
+      }
 
       final response = await _remoteDataSource.removeFromFavorites(id);
 
       if (response.statusCode == 200) {
+        _localDataSource.removeFavorite(id);
+
         return Right(response.data['message']);
       }
       return Left(
