@@ -26,8 +26,7 @@ class CartRepoImpl implements CartRepo {
       getCartProducts() async {
     final token = await TokensManager.getAccessToken() ?? "";
 
-    List<CartProductEntity>? cachedCart =
-        await _localDataSource.getCachedCartList();
+    List<CartProductEntity> cachedCart = await _localDataSource.getCachedList();
     debugPrint("cachedCart with no token: $cachedCart");
 
     if (token.isEmpty) {
@@ -46,21 +45,21 @@ class CartRepoImpl implements CartRepo {
 
       List<CartProductEntity> allCartProducts = cartProducts;
 
-      for (final product in cachedCart) {
+      for (final CartProductEntity product in cachedCart) {
         if (!cartProducts.any(
             (cartProduct) => cartProduct.product.id == product.product.id)) {
           await addProduct(product.product.id!, product.quantity);
-          allCartProducts.add(product);
+          allCartProducts.add(product as CartProductModel);
         }
       }
 
-      _localDataSource.clearCart();
-      await _localDataSource.cacheCart(allCartProducts);
+      await _localDataSource.clearCart();
+      await _localDataSource.cacheList(allCartProducts);
       debugPrint("cachedCart: $cachedCart");
       debugPrint("cartProducts: $cartProducts");
       debugPrint("allCartProducts: $allCartProducts");
 
-      return Right(cartProducts);
+      return Right(allCartProducts);
     } else {
       return Left(ServerFailure());
     }
@@ -74,22 +73,20 @@ class CartRepoImpl implements CartRepo {
     final token = await TokensManager.getAccessToken() ?? "";
 
     if (token.isEmpty) {
-      debugPrint("Token: $token");
       final response = await _productRepo.getProductDetails(productId);
+
       return response.fold(
         (failure) => Left(ServerFailure()),
         (product) async {
-          debugPrint("product: $product");
-          List<CartProductEntity> cachedList = [];
-
-          cachedList = await _localDataSource.getCachedCartList();
+          List<CartProductEntity> cachedList =
+              await _localDataSource.getCachedList();
           debugPrint("cachedList: $cachedList");
           if (cachedList.isEmpty) {
             final newProduct = CartProductEntity(
               product: product,
               quantity: quantity,
             );
-            await _localDataSource.cacheCartItem(newProduct);
+            await _localDataSource.cacheItem(newProduct);
             return const Right("Added to cart");
           }
           bool isNew = true;
@@ -101,44 +98,55 @@ class CartRepoImpl implements CartRepo {
             }
           }).toList();
 
-          cachedList = await _localDataSource.getCachedCartList();
-
           if (isNew) {
             final newProduct = CartProductEntity(
               product: product,
               quantity: quantity,
             );
-            await _localDataSource.cacheCartItem(newProduct);
+            await _localDataSource.cacheItem(newProduct);
           }
-
-          debugPrint("cachedList: $cachedList");
 
           return const Right("Added to cart");
         },
       );
     } else {
-      return Left(ServerFailure());
+      final response = await _remoteDataSource.addProduct(
+        productId,
+        quantity,
+      );
+
+      if (response.statusCode == 200) {
+        final response = await _productRepo.getProductDetails(productId);
+        return response.fold((failure) => Left(ServerFailure()),
+            (product) async {
+          final newProduct = CartProductEntity(
+            product: product,
+            quantity: quantity,
+          );
+          await _localDataSource.cacheItem(newProduct);
+          return const Right('Product added to cart successfully');
+        });
+      } else {
+        return Left(ServerFailure());
+      }
     }
-
-    // final response = await _remoteDataSource.addProduct(
-    //   productId,
-    //   quantity,
-    // );
-
-    // if (response.statusCode == 200) {
-    //   return const Right('Product added to cart successfully');
-    // } else {
-    //   return Left(ServerFailure());
-    // }
   }
 
   @override
   Future<Either<ServerFailure, String>> removeProduct(String productId) async {
-    _localDataSource.removeProduct(productId);
+    final token = await TokensManager.getAccessToken() ?? "";
+
+    if (token.isEmpty) {
+      _localDataSource.removeProduct(productId);
+
+      return const Right('Product removed from cart successfully');
+    }
 
     final response = await _remoteDataSource.removeProduct(productId);
 
     if (response.statusCode == 200) {
+      _localDataSource.removeProduct(productId);
+
       return const Right('Product removed from cart successfully');
     } else {
       return Left(ServerFailure());
