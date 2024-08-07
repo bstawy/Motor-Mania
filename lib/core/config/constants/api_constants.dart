@@ -19,4 +19,5 @@ class EndPoints {
   static const String allCartProducts = "cart/allCartProducts.php";
   static const String addProductToCart = "cart/addProduct.php";
   static const String removeProductFromCart = "cart/removeProduct.php";
+  static const String homeOffers = "offers/getOffers.php";
 }
