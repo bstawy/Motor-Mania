@@ -26,6 +26,6 @@ class HomeRemoteDataSourceImpl extends HomeDataSources {
 
   @override
   Future<Response> getHomeOffers() async {
-    return await _crudManager.get(EndPoints.homeOffers);
+    return await _crudManager.get(EndPoints.homeOffers, tokenReq: true);
   }
 }

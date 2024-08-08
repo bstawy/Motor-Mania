@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../caching/tokens_manager.dart';
 import '../../config/app_manager/app_manager_cubit.dart';
@@ -17,9 +18,9 @@ class TokenInterceptor extends Interceptor {
     if (accessToken.isNotEmpty) {
       options.headers["Authorization"] = "Bearer $accessToken";
     } else {
-      throw Exception(
-          "================================\nAccess Token is empty");
+      options.headers["Authorization"] = "";
     }
+    debugPrint("Access Token: $accessToken");
 
     super.onRequest(options, handler);
   }
