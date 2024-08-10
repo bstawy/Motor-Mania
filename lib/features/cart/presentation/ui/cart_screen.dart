@@ -37,14 +37,29 @@ class CartScreen extends StatelessWidget {
         onRefresh: () async {
           context.read<CartCubit>().getCartProducts();
         },
-        child: BlocBuilder<CartCubit, CartState>(
+        child: BlocConsumer<CartCubit, CartState>(
           bloc: context.read<CartCubit>()..getCartProducts(),
+          listenWhen: (previous, current) {
+            return current is CartLoaded ||
+                current is CartEmpty ||
+                current is CartError;
+          },
+          listener: (context, state) {
+            if (state is CartLoaded) {
+              if (context.read<LayoutCubit>().controller.index == 3) {
+                context.read<LayoutCubit>().openBottomSheet();
+              }
+            } else if (state is CartEmpty || state is CartError) {
+              if (context.read<LayoutCubit>().controller.index == 3) {
+                context.read<LayoutCubit>().closeBottomSheet();
+              }
+            }
+          },
           builder: (context, state) {
             if (state is CartLoading) {
               return const CartProductsLoadingWidget()
                   .setOnlyPadding(12.h, 0, 16.w, 16.w);
             } else if (state is CartLoaded) {
-              context.read<LayoutCubit>().openBottomSheet();
               return Column(
                 children: [
                   Expanded(

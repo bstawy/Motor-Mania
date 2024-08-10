@@ -26,7 +26,7 @@ class CartButtonWidget extends StatelessWidget {
       },
       listener: (BuildContext context, CartState state) {
         if (state is AddToCartSuccess) {
-          context.successSnackBar("${product.name} added to your cart");
+          context.successSnackBar("Product added to your cart successfully");
         } else if (state is CartError) {
           context.errorSnackBar(state.failure.message ?? "An error occurred");
         }

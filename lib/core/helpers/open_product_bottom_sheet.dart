@@ -29,7 +29,9 @@ void openProductBottomSheet({
   ).whenComplete(
     () {
       completer.complete();
-      context.read<LayoutCubit>().closeBottomSheet();
+      if (context.mounted) {
+        context.read<LayoutCubit>().closeBottomSheet();
+      }
     },
   );
 }
