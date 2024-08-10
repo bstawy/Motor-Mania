@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
@@ -6,6 +7,7 @@ import 'package:gap/gap.dart';
 import '../../../../../core/config/text/font_weight_helper.dart';
 import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors_manager.dart';
+import '../../logic/cart_cubit.dart';
 import 'cart_details_entry_widget.dart';
 
 class CartDetailsWidget extends StatelessWidget {
@@ -25,9 +27,21 @@ class CartDetailsWidget extends StatelessWidget {
       ),
       child: Column(
         children: [
-          const CartDetailsEntryWidget(
-            title: "Subtotal",
-            value: "\$198.88",
+          BlocBuilder<CartCubit, CartState>(
+            bloc: context.read<CartCubit>(),
+            buildWhen: (previous, current) {
+              if (current is CartLoaded) {
+                return true;
+              }
+              return false;
+            },
+            builder: (context, state) {
+              return CartDetailsEntryWidget(
+                title: "Subtotal",
+                value:
+                    "\$${context.read<CartCubit>().subTotal.toStringAsFixed(2)}",
+              );
+            },
           ),
           Gap(4.h),
           CartDetailsEntryWidget(
@@ -103,7 +117,7 @@ class CartDetailsWidget extends StatelessWidget {
               ),
               const Spacer(),
               Text(
-                "\$178.36",
+                "\$${context.read<CartCubit>().subTotal.toStringAsFixed(2)}",
                 style: TextStyles.font16DarkBlueBold,
               ),
             ],

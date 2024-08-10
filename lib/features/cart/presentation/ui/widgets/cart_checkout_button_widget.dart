@@ -8,7 +8,7 @@ import '../../../../../core/widgets/custom_material_button.dart';
 
 class CartCheckoutButtonWidget extends StatelessWidget {
   final int quantity;
-  final double totalPrice;
+  final num totalPrice;
 
   const CartCheckoutButtonWidget({
     super.key,
@@ -33,7 +33,7 @@ class CartCheckoutButtonWidget extends StatelessWidget {
         ),
       ),
       child: CustomMaterialButton(
-        onClicked: () {},
+        onClicked: null,
         height: 40.h,
         backgroundColor: ColorsManager.red,
         child: Row(
@@ -46,7 +46,7 @@ class CartCheckoutButtonWidget extends StatelessWidget {
                 style: TextStyles.font8WhiteRegular,
                 children: [
                   TextSpan(
-                    text: '\$$totalPrice',
+                    text: '\$${totalPrice.toStringAsFixed(2)}',
                     style: TextStyles.font12WhiteSemiBold,
                   ),
                 ],

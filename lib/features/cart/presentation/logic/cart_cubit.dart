@@ -13,6 +13,7 @@ class CartCubit extends Cubit<CartState> {
   final GetCartProductsUseCase _getCartProductsUseCase;
   final AddProductToCartUseCase _addProductToCartUseCase;
   final RemoveProductFromCartUseCase _removeProductFromCartUseCase;
+  num subTotal = 0.0;
 
   CartCubit(
     this._getCartProductsUseCase,
@@ -30,6 +31,7 @@ class CartCubit extends Cubit<CartState> {
           debugPrint('Cart is empty');
           emit(CartEmpty());
         } else {
+          calculateSubTotal(cartProducts);
           emit(CartLoaded(cartProducts));
         }
       },
@@ -59,5 +61,12 @@ class CartCubit extends Cubit<CartState> {
         getCartProducts();
       },
     );
+  }
+
+  void calculateSubTotal(List<CartProductEntity> cartProducts) {
+    subTotal = 0.0;
+    cartProducts.map((cartProduct) {
+      subTotal += cartProduct.product.price! * cartProduct.quantity;
+    }).toList();
   }
 }

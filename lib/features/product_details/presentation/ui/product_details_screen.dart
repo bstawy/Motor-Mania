@@ -110,8 +110,8 @@ class ProductDetailsScreen extends StatelessWidget {
                     },
                   ).setHorizontalPadding(16.w),
                   Gap(16.h),
-                  BlocProvider<HomeCubit>(
-                    create: (context) => getIt<HomeCubit>(),
+                  BlocProvider<HomeCubit>.value(
+                    value: getIt<HomeCubit>(),
                     child:
                         const HomeListWidget(title: "Products Related To This"),
                   ),

@@ -82,7 +82,7 @@ class CartScreen extends StatelessWidget {
                   ),
                   CartCheckoutButtonWidget(
                     quantity: state.cartProducts.length,
-                    totalPrice: 198.88,
+                    totalPrice: context.read<CartCubit>().subTotal,
                   ),
                 ],
               );
