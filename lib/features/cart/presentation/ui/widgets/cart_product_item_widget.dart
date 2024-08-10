@@ -140,7 +140,6 @@ class CartProductItemWidget extends StatelessWidget {
                   Gap(8.w),
                   CustomElevatedButton(
                     onPressed: () {
-                      // TODO: remove product from cart
                       context
                           .read<CartCubit>()
                           .removeProductFromCart(cartProduct.product.id ?? "");

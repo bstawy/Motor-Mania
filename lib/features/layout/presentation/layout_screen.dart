@@ -39,8 +39,8 @@ class _LayoutScreenState extends State<LayoutScreen> {
 
   @override
   void didChangeDependencies() {
-    super.didChangeDependencies();
     getTabIndex();
+    super.didChangeDependencies();
   }
 
   getTabIndex() {
@@ -69,90 +69,25 @@ class _LayoutScreenState extends State<LayoutScreen> {
       controller: controller,
       navBarHeight: 70.h,
       navBarOverlap: const NavBarOverlap.none(),
-      selectedTabContext: (context) {
-        if (controller.index == 3) {
-          final state = context.read<CartCubit>().state;
-          if (state is CartLoaded && state.cartProducts.isNotEmpty) {
-            getIt<LayoutCubit>().openBottomSheet();
-          } else {
-            getIt<LayoutCubit>().closeBottomSheet();
-          }
-        }
-      },
+      selectedTabContext: (context) {},
       onTabChanged: (value) {
-        if (value != 3 && context.read<LayoutCubit>().isBottomSheetOpen) {
+        if (value == 3 && context.read<CartCubit>().state is CartLoaded) {
+          context.read<LayoutCubit>().openBottomSheet();
+        } else {
           context.read<LayoutCubit>().closeBottomSheet();
         }
+        // if (value == 3) {
+        //   final state = context.read<CartCubit>().state;
+        //   if (state is CartLoaded && state.cartProducts.isNotEmpty) {
+        //     context.read<LayoutCubit>().openBottomSheet();
+        //   } else {
+        //     context.read<LayoutCubit>().closeBottomSheet();
+        //   }
+        // } else if (context.read<LayoutCubit>().isBottomSheetOpen) {
+
+        // }
       },
-      tabs: [
-        bottomNavBarTab(
-          screen: BlocProvider<HomeCubit>(
-            create: (context) => getIt<HomeCubit>(),
-            child: const HomeScreen(),
-          ),
-          iconPath: "assets/icons/bottom_nav_selected_home_icon.svg",
-          inactiveIconPath: "assets/icons/bottom_nav_unselected_home_icon.svg",
-          title: "Home",
-        ),
-        bottomNavBarTab(
-          screen: const FavoritesScreen(),
-          iconPath: "assets/icons/bottom_nav_selected_favorite_icon.svg",
-          inactiveIconPath:
-              "assets/icons/bottom_nav_unselected_favorite_icon.svg",
-          title: "Favorites",
-        ),
-        bottomNavBarTab(
-          screen: Scaffold(
-            body: Center(
-              child: Text(
-                "My Garage",
-                style: TextStyles.font20DarkBlueBold,
-              ),
-            ),
-          ),
-          iconPath: "assets/icons/bottom_nav_selected_garage_icon.svg",
-          inactiveIconPath:
-              "assets/icons/bottom_nav_unselected_garage_icon.svg",
-          title: "Garage",
-        ),
-        bottomNavBarTab(
-          screen: const CartScreen(),
-          iconPath: "assets/icons/bottom_nav_selected_cart_icon.svg",
-          inactiveIconPath: "assets/icons/bottom_nav_unselected_cart_icon.svg",
-          title: "Cart",
-        ),
-        bottomNavBarTab(
-          screen: Scaffold(
-            body: Center(
-              child: appManager.appMode == AppMode.user
-                  ? CustomMaterialButton(
-                      onClicked: () async {
-                        await context.read<AppManagerCubit>().logUserOut();
-                        if (context.mounted) {
-                          context.pushNamedAndRemoveUntil(
-                            Routes.layoutScreen,
-                            predicate: (route) => false,
-                          );
-                        }
-                      },
-                      backgroundColor: ColorsManager.red,
-                      title: "Logout",
-                    ).setHorizontalPadding(60.w)
-                  : CustomMaterialButton(
-                      onClicked: () {
-                        context.pushNamed(Routes.loginScreen);
-                      },
-                      backgroundColor: ColorsManager.red,
-                      title: "Login",
-                    ).setHorizontalPadding(60.w),
-            ),
-          ),
-          iconPath: "assets/icons/bottom_nav_selected_profile_icon.svg",
-          inactiveIconPath:
-              "assets/icons/bottom_nav_unselected_profile_icon.svg",
-          title: "Profile",
-        ),
-      ],
+      tabs: _buildTabs(appManager, context),
       navBarBuilder: (navBarConfig) {
         return BlocBuilder<LayoutCubit, LayoutState>(
           bloc: context.read<LayoutCubit>(),
@@ -176,5 +111,76 @@ class _LayoutScreenState extends State<LayoutScreen> {
         );
       },
     );
+  }
+
+  List<PersistentTabConfig> _buildTabs(
+      AppManagerCubit appManager, BuildContext context) {
+    return [
+      bottomNavBarTab(
+        screen: BlocProvider<HomeCubit>(
+          create: (context) => getIt<HomeCubit>(),
+          child: const HomeScreen(),
+        ),
+        iconPath: "assets/icons/bottom_nav_selected_home_icon.svg",
+        inactiveIconPath: "assets/icons/bottom_nav_unselected_home_icon.svg",
+        title: "Home",
+      ),
+      bottomNavBarTab(
+        screen: const FavoritesScreen(),
+        iconPath: "assets/icons/bottom_nav_selected_favorite_icon.svg",
+        inactiveIconPath:
+            "assets/icons/bottom_nav_unselected_favorite_icon.svg",
+        title: "Favorites",
+      ),
+      bottomNavBarTab(
+        screen: Scaffold(
+          body: Center(
+            child: Text(
+              "My Garage",
+              style: TextStyles.font20DarkBlueBold,
+            ),
+          ),
+        ),
+        iconPath: "assets/icons/bottom_nav_selected_garage_icon.svg",
+        inactiveIconPath: "assets/icons/bottom_nav_unselected_garage_icon.svg",
+        title: "Garage",
+      ),
+      bottomNavBarTab(
+        screen: const CartScreen(),
+        iconPath: "assets/icons/bottom_nav_selected_cart_icon.svg",
+        inactiveIconPath: "assets/icons/bottom_nav_unselected_cart_icon.svg",
+        title: "Cart",
+      ),
+      bottomNavBarTab(
+        screen: Scaffold(
+          body: Center(
+            child: appManager.appMode == AppMode.user
+                ? CustomMaterialButton(
+                    onClicked: () async {
+                      await context.read<AppManagerCubit>().logUserOut();
+                      if (context.mounted) {
+                        context.pushNamedAndRemoveUntil(
+                          Routes.layoutScreen,
+                          predicate: (route) => false,
+                        );
+                      }
+                    },
+                    backgroundColor: ColorsManager.red,
+                    title: "Logout",
+                  ).setHorizontalPadding(60.w)
+                : CustomMaterialButton(
+                    onClicked: () {
+                      context.pushNamed(Routes.loginScreen);
+                    },
+                    backgroundColor: ColorsManager.red,
+                    title: "Login",
+                  ).setHorizontalPadding(60.w),
+          ),
+        ),
+        iconPath: "assets/icons/bottom_nav_selected_profile_icon.svg",
+        inactiveIconPath: "assets/icons/bottom_nav_unselected_profile_icon.svg",
+        title: "Profile",
+      ),
+    ];
   }
 }

@@ -7,7 +7,6 @@ import '../../../../core/config/theme/colors_manager.dart';
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/helpers/extensions/extensions.dart';
 import '../../../../core/widgets/search_bar_widget.dart';
-import '../../../favorites/presentation/logic/favorites_cubit.dart';
 import '../../../home/presentation/logic/home_cubit/home_cubit.dart';
 import '../../../home/presentation/ui/widgets/home_list_widget.dart';
 import '../../domain/entities/product_entity.dart';
@@ -51,12 +50,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       if (state is ProductLoading) {
                         return const Center(child: CircularProgressIndicator());
                       } else if (state is ProductLoaded) {
-                        bool isFavorite = context
-                            .read<FavoritesCubit>()
-                            .isFavorite(state.product.id ?? "");
-
-                        ProductEntity product =
-                            state.product.copyWith(isFavorite: isFavorite);
+                        ProductEntity product = state.product;
 
                         return Column(
                           children: [
@@ -126,7 +120,9 @@ class ProductDetailsScreen extends StatelessWidget {
             },
           ),
         ),
-        const ProductQuantityAndAddToCartButtonWidget()
+        ProductQuantityAndAddToCartButtonWidget(
+          productCubit: context.read<ProductCubit>(),
+        ),
       ],
     );
   }

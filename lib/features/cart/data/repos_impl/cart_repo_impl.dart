@@ -34,35 +34,30 @@ class CartRepoImpl implements CartRepo {
     }
 
     final response = await _remoteDataSource.getCartProducts();
+    List<CartProductEntity> allCartProducts = [];
 
-    if (response.statusCode == 200) {
-      final List<CartProductEntity> cartProducts =
-          (response.data['data'] as List)
-              .map(
-                (product) => CartProductModel.fromJson(product),
-              )
-              .toList();
+    return response.fold(
+      (failure) => Left(ServerFailure()),
+      (data) async {
+        allCartProducts = data;
+        debugPrint("cartProducts: $data");
 
-      List<CartProductEntity> allCartProducts = cartProducts;
-
-      for (final CartProductEntity product in cachedCart) {
-        if (!cartProducts.any(
-            (cartProduct) => cartProduct.product.id == product.product.id)) {
-          await addProduct(product.product.id!, product.quantity);
-          allCartProducts.add(product as CartProductModel);
+        for (final CartProductEntity product in cachedCart) {
+          if (!data.any(
+              (cartProduct) => cartProduct.product.id == product.product.id)) {
+            await addProduct(product.product.id!, product.quantity);
+            allCartProducts.add(product as CartProductModel);
+          }
         }
-      }
 
-      await _localDataSource.clearCart();
-      await _localDataSource.cacheList(allCartProducts);
-      debugPrint("cachedCart: $cachedCart");
-      debugPrint("cartProducts: $cartProducts");
-      debugPrint("allCartProducts: $allCartProducts");
+        await _localDataSource.clearCart();
+        await _localDataSource.cacheList(allCartProducts);
+        debugPrint("cachedCart: $cachedCart");
+        debugPrint("allCartProducts: $allCartProducts");
 
-      return Right(allCartProducts);
-    } else {
-      return Left(ServerFailure());
-    }
+        return Right(allCartProducts);
+      },
+    );
   }
 
   @override
@@ -70,6 +65,8 @@ class CartRepoImpl implements CartRepo {
     String productId,
     int quantity,
   ) async {
+    List<CartProductEntity> cachedList = await _localDataSource.getCachedList();
+    debugPrint("cachedList: $cachedList");
     final token = await TokensManager.getAccessToken() ?? "";
 
     if (token.isEmpty) {
@@ -78,9 +75,6 @@ class CartRepoImpl implements CartRepo {
       return response.fold(
         (failure) => Left(ServerFailure()),
         (product) async {
-          List<CartProductEntity> cachedList =
-              await _localDataSource.getCachedList();
-          debugPrint("cachedList: $cachedList");
           if (cachedList.isEmpty) {
             final newProduct = CartProductEntity(
               product: product,
@@ -116,18 +110,20 @@ class CartRepoImpl implements CartRepo {
       );
 
       if (response.statusCode == 200) {
-        final response = await _productRepo.getProductDetails(productId);
-        return response.fold((failure) => Left(ServerFailure()),
-            (product) async {
-          final newProduct = CartProductEntity(
-            product: product,
-            quantity: quantity,
-          );
-          await _localDataSource.cacheItem(newProduct);
-          return const Right('Product added to cart successfully');
-        });
+        final product = await _productRepo.getProductDetails(productId);
+        return product.fold(
+          (failure) => Left(ServerFailure()),
+          (product) async {
+            return Right(response.data['message']);
+          },
+        );
       } else {
-        return Left(ServerFailure());
+        return Left(
+          ServerFailure(
+            statusCode: 500,
+            message: 'Failed to add product to cart',
+          ),
+        );
       }
     }
   }
