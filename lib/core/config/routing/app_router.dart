@@ -6,6 +6,7 @@ import '../../../features/auth/login/presentation/login_screen.dart';
 import '../../../features/auth/register/logic/register_cubit.dart';
 import '../../../features/auth/register/presentation/register_screen.dart';
 import '../../../features/cart/presentation/logic/cart_cubit.dart';
+import '../../../features/checkout/checkout_screen.dart';
 import '../../../features/favorites/presentation/logic/favorites_cubit.dart';
 import '../../../features/layout/logic/layout_cubit.dart';
 import '../../../features/layout/presentation/layout_screen.dart';
@@ -17,6 +18,8 @@ import 'no_route_defined_widget.dart';
 import 'routes.dart';
 
 class AppRouter {
+  CartCubit? _cartCubit;
+
   Route generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.onBoardingScreens:
@@ -44,6 +47,8 @@ class AppRouter {
         );
 
       case Routes.layoutScreen:
+        _initializeCartCubit();
+
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
             providers: [
@@ -51,8 +56,8 @@ class AppRouter {
               BlocProvider(
                 create: (context) => getIt<FavoritesCubit>()..getAllFavorites(),
               ),
-              BlocProvider(
-                create: (context) => getIt<CartCubit>()..getCartProducts(),
+              BlocProvider<CartCubit>.value(
+                value: _cartCubit!,
               ),
             ],
             child: const LayoutScreen(),
@@ -61,6 +66,8 @@ class AppRouter {
         );
 
       case Routes.searchScreen:
+        _initializeCartCubit();
+
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
             providers: [
@@ -70,11 +77,20 @@ class AppRouter {
               BlocProvider(
                 create: (context) => getIt<FavoritesCubit>()..getAllFavorites(),
               ),
-              BlocProvider(
-                create: (context) => getIt<CartCubit>()..getCartProducts(),
+              BlocProvider<CartCubit>.value(
+                value: _cartCubit!,
               ),
             ],
             child: const SearchScreen(),
+          ),
+          settings: settings,
+        );
+
+      case Routes.checkout:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider<CartCubit>.value(
+            value: _cartCubit!,
+            child: const CheckoutScreen(),
           ),
           settings: settings,
         );
@@ -85,5 +101,9 @@ class AppRouter {
           settings: settings,
         );
     }
+  }
+
+  void _initializeCartCubit() {
+    _cartCubit ??= getIt<CartCubit>();
   }
 }
