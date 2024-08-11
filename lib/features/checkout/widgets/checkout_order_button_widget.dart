@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors_manager.dart';
 import '../../../../../core/widgets/custom_material_button.dart';
+import 'checkout_order_success_sheet_widget.dart';
 
 class CheckoutOrderButtonWidget extends StatelessWidget {
   final int quantity;
@@ -38,6 +39,13 @@ class CheckoutOrderButtonWidget extends StatelessWidget {
           CustomMaterialButton(
             onClicked: () {
               // TODO: open order successfully bottom sheet
+              showModalBottomSheet(
+                context: context,
+                builder: (context) => const CheckoutOrderSuccessSheet(),
+                isScrollControlled: true,
+                useSafeArea: true,
+                backgroundColor: Colors.white,
+              );
             },
             height: 40.h,
             backgroundColor: ColorsManager.red,
