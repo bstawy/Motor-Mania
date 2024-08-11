@@ -55,6 +55,12 @@ class CartScreen extends StatelessWidget {
               }
             }
           },
+          buildWhen: (previous, current) {
+            return current is CartLoading ||
+                current is CartLoaded ||
+                current is CartEmpty ||
+                current is CartError;
+          },
           builder: (context, state) {
             if (state is CartLoading) {
               return const CartProductsLoadingWidget()
@@ -82,7 +88,6 @@ class CartScreen extends StatelessWidget {
                   ),
                   CartCheckoutButtonWidget(
                     quantity: state.cartProducts.length,
-                    totalPrice: 198.88,
                   ),
                 ],
               );

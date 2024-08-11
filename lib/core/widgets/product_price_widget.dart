@@ -5,14 +5,14 @@ import 'package:gap/gap.dart';
 import '../config/text/text_styles.dart';
 
 class ProductPriceWidget extends StatelessWidget {
-  final num oldPrice, finalPrice;
-  final num? discountPercentage;
+  final num finalPrice;
+  final num? oldPrice, discountPercentage;
   final TextStyle? oldPriceStyle, finalPriceStyle, discountPercentageStyle;
 
   const ProductPriceWidget({
     super.key,
-    required this.oldPrice,
     required this.finalPrice,
+    this.oldPrice,
     this.discountPercentage,
     this.oldPriceStyle,
     this.finalPriceStyle,
@@ -28,12 +28,14 @@ class ProductPriceWidget extends StatelessWidget {
           style: TextStyles.font14DarkBlueBold,
         ),
         Gap(6.w),
-        Text(
-          "\$${oldPrice.toStringAsFixed(2)}",
-          style: TextStyles.font10LightGreyRegular.copyWith(
-            decoration: TextDecoration.lineThrough,
-          ),
-        ),
+        oldPrice != null
+            ? Text(
+                "\$${oldPrice!.toStringAsFixed(2)}",
+                style: TextStyles.font10LightGreyRegular.copyWith(
+                  decoration: TextDecoration.lineThrough,
+                ),
+              )
+            : const SizedBox(),
         discountPercentage != null
             ? Row(
                 children: [
