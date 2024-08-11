@@ -13,7 +13,9 @@ class CartCubit extends Cubit<CartState> {
   final GetCartProductsUseCase _getCartProductsUseCase;
   final AddProductToCartUseCase _addProductToCartUseCase;
   final RemoveProductFromCartUseCase _removeProductFromCartUseCase;
+  int quantity = 0;
   num subTotal = 0.0;
+  num discount = 0.0;
 
   CartCubit(
     this._getCartProductsUseCase,
@@ -32,6 +34,7 @@ class CartCubit extends Cubit<CartState> {
           emit(CartEmpty());
         } else {
           calculateSubTotal(cartProducts);
+          quantity = cartProducts.length;
           emit(CartLoaded(cartProducts));
         }
       },
@@ -68,5 +71,21 @@ class CartCubit extends Cubit<CartState> {
     cartProducts.map((cartProduct) {
       subTotal += cartProduct.product.price! * cartProduct.quantity;
     }).toList();
+  }
+
+  void applyCoupon(String couponCode) {
+    if (couponCode.toUpperCase() == 'MM20') {
+      discount = subTotal * 0.2;
+      subTotal = subTotal - discount;
+      emit(CouponApplied());
+    } else {
+      emit(CouponError('Invalid coupon code'));
+    }
+  }
+
+  void removeCoupon() {
+    subTotal = subTotal + discount;
+    discount = 0.0;
+    emit(CouponRemoved());
   }
 }

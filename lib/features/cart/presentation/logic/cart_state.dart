@@ -31,3 +31,13 @@ final class CartError extends CartState {
 
   CartError(this.failure);
 }
+
+final class CouponApplied extends CartState {}
+
+final class CouponRemoved extends CartState {}
+
+final class CouponError extends CartState {
+  final String message;
+
+  CouponError(this.message);
+}
