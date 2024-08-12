@@ -14,7 +14,7 @@ class CheckoutOrderSuccessSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
-      initialChildSize: 0.65.h,
+      initialChildSize: 0.6.h,
       expand: false,
       builder: (context, scrollController) {
         return SizedBox(
@@ -41,26 +41,30 @@ class CheckoutOrderSuccessSheet extends StatelessWidget {
               Gap(16.h),
               Text(
                 "Thank you for your purchase! Your order has been placed successfully. We will notify you once it has been shipped. You can track your order status in the \"My Orders\" section.",
+                textAlign: TextAlign.center,
                 style: TextStyles.font12BlueGreyRegular,
-              ),
+              ).setHorizontalPadding(30.w),
               Gap(24.h),
               CustomMaterialButton(
-                title: "Continue Shopping",
                 onClicked: () {
                   context.popUntil(
                     Routes.layoutScreen,
                   );
                 },
+                title: "Continue Shopping",
+                titleStyle: TextStyles.font14WhiteSemiBold,
+                height: 45.h,
               ),
               Gap(8.h),
               CustomMaterialButton(
-                title: "Track Order",
                 onClicked: () {
                   // TODO: navigate to orders screen
                 },
+                title: "Track Order",
+                titleStyle: TextStyles.font14RedSemiBold,
+                height: 45.h,
                 backgroundColor: Colors.white,
                 borderColor: ColorsManager.red,
-                titleStyle: TextStyles.font14RedSemiBold,
               )
             ],
           ).setOnlyPadding(32.h, 0, 16.w, 16.w),

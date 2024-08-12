@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors_manager.dart';
-import '../../../../../core/helpers/extensions/padding_ext.dart';
 import '../../logic/cart_cubit.dart';
 
 class CouponFieldWidget extends StatefulWidget {
@@ -50,29 +49,37 @@ class _CouponFieldWidgetState extends State<CouponFieldWidget> {
         ),
         hintText: "Enter Coupon Code",
         hintStyle: TextStyles.font12BlueGreyLight,
-        prefix: InkWell(
-          onTap: () {
-            _controller.clear();
-            if (_controller.text.isNotEmpty &&
-                context.read<CartCubit>().state is CouponApplied) {
-              context.read<CartCubit>().removeCoupon();
+        suffix: BlocBuilder<CartCubit, CartState>(
+          buildWhen: (previous, current) =>
+              current is CouponApplied ||
+              current is CouponRemoved ||
+              current is CouponError,
+          builder: (context, state) {
+            if (state is CouponApplied) {
+              return InkWell(
+                onTap: () {
+                  _controller.clear();
+                  context.read<CartCubit>().removeCoupon();
+                },
+                child: Text(
+                  "Remove",
+                  style: TextStyles.font12RedSemiBold,
+                ),
+              );
+            } else {
+              return InkWell(
+                onTap: () {
+                  if (_controller.text.isNotEmpty) {
+                    context.read<CartCubit>().applyCoupon(_controller.text);
+                  }
+                },
+                child: Text(
+                  "Apply",
+                  style: TextStyles.font12DarkBlueSemiBold,
+                ),
+              );
             }
           },
-          child: Text(
-            "Remove",
-            style: TextStyles.font12RedSemiBold,
-          ),
-        ).setOnlyPadding(0, 0, 8.w, 0),
-        suffix: InkWell(
-          onTap: () {
-            if (_controller.text.isNotEmpty) {
-              context.read<CartCubit>().applyCoupon(_controller.text);
-            }
-          },
-          child: Text(
-            "Apply",
-            style: TextStyles.font12DarkBlueSemiBold,
-          ),
         ),
       ),
     );
