@@ -5,7 +5,7 @@ flutter_native_splash:
   color: "#F9F9F9"
   image: assets/images/splash_screen_light_logo.png
 
-  # Light mode properties
+  # dark mode properties
   color_dark: "#0C0F14"
   image_dark: assets/images/splash_screen_dark_logo.png
 
@@ -15,7 +15,7 @@ flutter_native_splash:
     color: "#F9F9F9"
     image: assets/images/splash_screen_light_logo.png
 
-    # Light mode properties
+    # dark mode properties
     color_dark: "#0C0F14"
     image_dark: assets/images/splash_screen_dark_logo.png
 
@@ -25,8 +25,12 @@ flutter_native_splash:
   web: true
 
   # Configure web
+
+  # Light mode properties
   color_web: "#F9F9F9"
   image_web: assets/images/splash_screen_light_logo.png
+
+  # dark mode properties
   color_dark_web: "#0C0F14"
   image_dark_web: assets/images/splash_screen_dark_logo.png
 
