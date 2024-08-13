@@ -87,6 +87,8 @@ class AppRouter {
         );
 
       case Routes.checkout:
+        _initializeCartCubit();
+
         return MaterialPageRoute(
           builder: (_) => BlocProvider<CartCubit>.value(
             value: _cartCubit!,
