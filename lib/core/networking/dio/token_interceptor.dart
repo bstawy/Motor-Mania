@@ -74,18 +74,6 @@ class TokenInterceptor extends Interceptor {
           err.requestOptions.method = err.requestOptions.method;
 
           return handler.resolve(await dio.fetch(err.requestOptions));
-
-          // final opts = Options(
-          //   method: err.requestOptions.method,
-          //   headers: err.requestOptions.headers,
-          // );
-
-          // await dio.request(
-          //   err.requestOptions.path,
-          //   options: opts,
-          //   data: err.requestOptions.data,
-          //   queryParameters: err.requestOptions.queryParameters,
-          // );
         }
       } else {
         await logout();
@@ -118,7 +106,6 @@ class TokenInterceptor extends Interceptor {
   }
 
   Future<void> logout() async {
-    // TODO: show snackbar
     final AppManagerCubit appManagerCubit = AppManagerCubit();
     appManagerCubit.logUserOut();
   }
