@@ -31,7 +31,7 @@ class ProductPriceWidget extends StatelessWidget {
         oldPrice != null
             ? Text(
                 "\$${oldPrice!.toStringAsFixed(2)}",
-                style: TextStyles.font10LightGreyRegular.copyWith(
+                style: TextStyles.font10BlueGreyRegular.copyWith(
                   decoration: TextDecoration.lineThrough,
                 ),
               )

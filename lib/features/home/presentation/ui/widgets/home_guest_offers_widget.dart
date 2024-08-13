@@ -50,7 +50,7 @@ class _HomeGuestOffersWidgetState extends State<HomeGuestOffersWidget> {
                 items: (offersUrl).map((url) => Image.network(url)).toList(),
                 options: CarouselOptions(
                     height: 115.h,
-                    viewportFraction: 0.9.r,
+                    viewportFraction: 1.r,
                     padEnds: true,
                     autoPlay: true,
                     autoPlayInterval: const Duration(seconds: 5),
@@ -78,7 +78,10 @@ class _HomeGuestOffersWidgetState extends State<HomeGuestOffersWidget> {
             ],
           );
         } else if (state is OffersError) {
-          return Text(state.failure.message ?? "");
+          return Text(
+            state.failure.message ?? "",
+            style: const TextStyle(color: Colors.white),
+          );
         } else {
           return const SizedBox();
         }

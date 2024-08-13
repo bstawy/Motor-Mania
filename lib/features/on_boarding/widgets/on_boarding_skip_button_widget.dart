@@ -13,7 +13,7 @@ class OnBoardingSkipButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 95.w,
+      width: 96.w,
       height: 50.h,
       padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 6.h),
       decoration: BoxDecoration(
@@ -39,7 +39,7 @@ class OnBoardingSkipButtonWidget extends StatelessWidget {
             Icon(
               Icons.arrow_forward_ios,
               color: ColorsManager.darkBlue,
-              size: 24.r,
+              size: 20.r,
             ),
           ],
         ),

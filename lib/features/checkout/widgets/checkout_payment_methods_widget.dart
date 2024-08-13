@@ -17,7 +17,7 @@ class CheckoutPaymentMethodsWidget extends StatefulWidget {
 
 class _CheckoutPaymentMethodsWidgetState
     extends State<CheckoutPaymentMethodsWidget> {
-  String selectedItem = "Debit/Credit Card";
+  String selectedItem = "0";
 
   void changeItem(String value) {
     setState(() {
@@ -36,9 +36,11 @@ class _CheckoutPaymentMethodsWidgetState
         ),
         Gap(8.h),
         Container(
-          padding: EdgeInsets.symmetric(
-            horizontal: 16.w,
-            vertical: 16.h,
+          padding: EdgeInsets.only(
+            top: 8.h,
+            bottom: 8.h,
+            left: 8.w,
+            right: 16.w,
           ),
           decoration: BoxDecoration(
             color: Colors.white,
@@ -47,19 +49,35 @@ class _CheckoutPaymentMethodsWidgetState
           child: Column(
             children: [
               _buildPaymentItem(
+                index: 0,
+                title: "My Wallet",
+                subTitle: "Available: \$1,925.25",
+                iconPath: "assets/icons/wallet_icon.svg",
+              ),
+              Gap(8.h),
+              Container(
+                margin: EdgeInsets.only(left: 8.w),
+                width: double.infinity,
+                height: 0.75.h,
+                color: ColorsManager.whiteBlue,
+              ),
+              Gap(8.h),
+              _buildPaymentItem(
+                index: 1,
                 title: "Debit/Credit Card",
                 subTitle: "Add New Card to Your Account",
                 iconPath: "assets/icons/card_icon.svg",
               ),
-              Gap(16.h),
+              Gap(8.h),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 8.w),
+                margin: EdgeInsets.only(left: 8.w),
                 width: double.infinity,
-                height: 1.5.h,
-                color: ColorsManager.lighterGrey,
+                height: 0.75.h,
+                color: ColorsManager.whiteBlue,
               ),
-              Gap(16.h),
+              Gap(8.h),
               _buildPaymentItem(
+                index: 2,
                 title: "Cash On Delivery",
                 subTitle: "Extra Charges May Be Applied",
                 iconPath: "assets/icons/cash_icon.svg",
@@ -72,6 +90,7 @@ class _CheckoutPaymentMethodsWidgetState
   }
 
   Widget _buildPaymentItem({
+    required int index,
     required String title,
     required String subTitle,
     required String iconPath,
@@ -85,13 +104,13 @@ class _CheckoutPaymentMethodsWidgetState
         subTitle,
         style: TextStyles.font10BlueGreyRegular,
       ),
-      value: title,
+      value: index.toString(),
       groupValue: selectedItem,
       onChanged: (value) {
         changeItem(value!);
       },
       secondary: SvgPicture.asset(iconPath),
-      contentPadding: const EdgeInsets.all(0),
+      contentPadding: EdgeInsets.zero,
       visualDensity: VisualDensity.compact,
       dense: true,
       activeColor: ColorsManager.darkBlue,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../config/text/text_styles.dart';
 import '../helpers/extensions/extensions.dart';
 import 'custom_back_button.dart';
 
@@ -34,22 +35,19 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       forceMaterialTransparency: true,
       leading: leading ?? CustomBackButton(onPressed: onLeadingPressed),
+      leadingWidth: 40.w,
       title: Text(title ?? ""),
-      titleTextStyle: titleStyle ??
-          TextStyle(
-            fontSize: 24.sp,
-            fontWeight: FontWeight.bold,
-          ),
+      titleTextStyle: titleStyle ?? TextStyles.font14DarkBlueMedium,
       actions: actions,
       centerTitle: centerTitle,
     ).setOnlyPadding(
       topPadding ?? 8.h,
       bottomPadding ?? 0,
-      rightPadding ?? 0,
-      leftPadding ?? 0,
+      rightPadding ?? 16.w,
+      leftPadding ?? 16.w,
     );
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(height ?? 60.0.h);
+  Size get preferredSize => Size.fromHeight(height ?? 50.0.h);
 }

@@ -47,11 +47,9 @@ class PasswordValidations extends StatelessWidget {
           width: 10,
           height: 10,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4),
-              color: hasValidated
-                  ? Colors.green
-                  : ColorsManager.red //ColorsManager.grey.withOpacity(0.5),
-              ),
+            borderRadius: BorderRadius.circular(4),
+            color: hasValidated ? Colors.green : ColorsManager.red,
+          ),
           child: Icon(
             hasValidated ? Icons.check : Icons.close,
             color: Colors.white,

@@ -62,7 +62,7 @@ class QuantityPopUpWidget extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.circular(8.r),
           border: Border.all(
-            color: ColorsManager.lighterGrey,
+            color: ColorsManager.whiteBlue,
             width: 1.w,
           ),
         ),

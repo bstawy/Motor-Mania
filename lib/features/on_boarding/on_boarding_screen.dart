@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 import '../../core/config/routing/routes.dart';
+import '../../core/config/text/text_styles.dart';
 import '../../core/helpers/extensions/extensions.dart';
 import '../../core/widgets/custom_material_button.dart';
 import 'on_boarding_model.dart';
@@ -18,6 +19,7 @@ class OnBoardingScreen extends StatefulWidget {
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   late PageController _pageController;
+  int currentPageIndex = 0;
   String buttonText = 'Next';
 
   final List<OnBoardingModel> _onBoardingList = [
@@ -60,16 +62,21 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         child: Column(
           children: [
             Gap(16.h),
-            const Align(
-              alignment: Alignment.centerRight,
-              child: OnBoardingSkipButtonWidget(),
-            ).setHorizontalPadding(24.w),
+            Visibility(
+              visible: currentPageIndex != 2,
+              replacement: SizedBox(height: 50.h),
+              child: const Align(
+                alignment: Alignment.centerRight,
+                child: OnBoardingSkipButtonWidget(),
+              ).setHorizontalPadding(24.w),
+            ),
             Gap(48.h),
             Expanded(
               child: PageView(
                 controller: _pageController,
                 onPageChanged: (value) {
                   setState(() {
+                    currentPageIndex = value;
                     buttonText = value == 2 ? 'Get Started' : 'Next';
                   });
                 },
@@ -86,7 +93,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.h),
+        padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 24.h),
         child: CustomMaterialButton(
           onClicked: () {
             if (_pageController.page == 2) {
@@ -99,6 +106,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             }
           },
           title: buttonText,
+          titleStyle: TextStyles.font14WhiteSemiBold,
+          height: 45.h,
         ),
       ),
     );

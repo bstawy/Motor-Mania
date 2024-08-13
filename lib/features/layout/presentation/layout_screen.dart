@@ -76,16 +76,6 @@ class _LayoutScreenState extends State<LayoutScreen> {
         } else {
           context.read<LayoutCubit>().closeBottomSheet();
         }
-        // if (value == 3) {
-        //   final state = context.read<CartCubit>().state;
-        //   if (state is CartLoaded && state.cartProducts.isNotEmpty) {
-        //     context.read<LayoutCubit>().openBottomSheet();
-        //   } else {
-        //     context.read<LayoutCubit>().closeBottomSheet();
-        //   }
-        // } else if (context.read<LayoutCubit>().isBottomSheetOpen) {
-
-        // }
       },
       tabs: _buildTabs(appManager, context),
       navBarBuilder: (navBarConfig) {

@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../core/config/text/text_styles.dart';
 import '../../core/helpers/extensions/navigation_ext.dart';
+import '../../core/helpers/extensions/padding_ext.dart';
 import '../../core/widgets/custom_app_bar.dart';
 import '../cart/presentation/logic/cart_cubit.dart';
 import 'widgets/checkout_address_widget.dart';
@@ -24,8 +24,6 @@ class CheckoutScreen extends StatelessWidget {
           context.pop();
         },
         title: "Checkout",
-        titleStyle: TextStyles.font14DarkBlueMedium,
-        leftPadding: 16.w,
       ),
       body: ListView(
         padding: EdgeInsets.symmetric(vertical: 16.h),
@@ -38,7 +36,7 @@ class CheckoutScreen extends StatelessWidget {
           Gap(16.h),
           const CheckoutOrderSummaryWidget(),
         ],
-      ),
+      ).setOnlyPadding(8.h, 0, 0, 0),
       bottomNavigationBar: SizedBox(
         height: 100.h,
         child: BlocBuilder<CartCubit, CartState>(

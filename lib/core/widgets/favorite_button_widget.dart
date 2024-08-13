@@ -26,13 +26,8 @@ class FavoriteButtonWidget extends StatelessWidget {
   _toggleFavorite(BuildContext context, bool isFavorite) async {
     if (isFavorite) {
       await context.read<FavoritesCubit>().removeFromFavorites(product.id);
-      // if (context.mounted) {
-      // }
     } else {
       await context.read<FavoritesCubit>().addToFavorites(product);
-      // if (context.mounted) {
-      //   context.successSnackBar("${product.name} added to your favorites");
-      // }
     }
   }
 
@@ -70,10 +65,9 @@ class FavoriteButtonWidget extends StatelessWidget {
           },
           listener: (context, state) {
             if (state is AddToFavoritesSuccess) {
-              context.successSnackBar(
-                  "${product.name} removed from your favorites");
+              context.successSnackBar("Product Added to your Favorites");
             } else {
-              //   context.successSnackBar("${product.name} added to your favorites");
+              context.successSnackBar("Product removed from your Favorites");
             }
           },
           builder: (context, state) {

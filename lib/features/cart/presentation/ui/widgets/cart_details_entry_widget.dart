@@ -21,7 +21,7 @@ class CartDetailsEntryWidget extends StatelessWidget {
       children: [
         Text(
           title,
-          style: titleStyle ?? TextStyles.font10LightGreyRegular,
+          style: titleStyle ?? TextStyles.font10BlueGreyRegular,
         ),
         const Spacer(),
         Text(

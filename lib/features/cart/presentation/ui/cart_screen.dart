@@ -27,11 +27,7 @@ class CartScreen extends StatelessWidget {
           context.read<LayoutCubit>().changeTab(0);
         },
         title: "Cart",
-        titleStyle: TextStyles.font14DarkBlueMedium,
-        leftPadding: 16.w,
-        actions: [
-          _buildGoToFavoriteButton(context).setHorizontalPadding(16.w),
-        ],
+        actions: [_buildGoToFavoriteButton(context)],
       ),
       body: RefreshIndicator(
         onRefresh: () async {
@@ -111,7 +107,7 @@ class CartScreen extends StatelessWidget {
     return CustomElevatedButton(
       onPressed: () => context.read<LayoutCubit>().changeTab(1),
       title: "Go To Favorites",
-      titleStyle: TextStyles.font10LightGreyRegular,
+      titleStyle: TextStyles.font10BlueGreyRegular,
       iconPath: "assets/icons/favorite_light_icon.svg",
       iconWidth: 17.w,
       iconHeight: 17.h,
