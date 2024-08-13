@@ -14,7 +14,7 @@ class CheckoutOrderSuccessSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
-      initialChildSize: 0.6.h,
+      initialChildSize: 0.65.h,
       expand: false,
       builder: (context, scrollController) {
         return SizedBox(

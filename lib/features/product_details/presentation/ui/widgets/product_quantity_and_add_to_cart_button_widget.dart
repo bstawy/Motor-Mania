@@ -56,7 +56,7 @@ class ProductQuantityAndAddToCartButtonWidget extends StatelessWidget {
             child: Container(
               width: 40.r,
               height: 40.r,
-              padding: EdgeInsets.all(4.r),
+              padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 9.w),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(12.r),

@@ -55,7 +55,7 @@ class CheckoutItemWidget extends StatelessWidget {
                   margin: EdgeInsets.only(right: 16.w),
                   width: 1.5.w,
                   height: double.infinity,
-                  color: ColorsManager.lighterGrey,
+                  color: ColorsManager.whiteBlue,
                 ),
           SizedBox(
             width: 70.w,

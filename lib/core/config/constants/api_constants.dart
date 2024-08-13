@@ -1,6 +1,7 @@
 class ApiConstants {
-  static const String baseUrl = "https://motormania0.000webhostapp.com/api/";
+  static const String baseUrl = "http://motormania0.000webhostapp.com/api/";
   static const String localHostBaseUrl = "http://10.0.2.2/motor_mania/api/";
+  static const String realDeviceBaseUrl = "http://192.168.1.3/motor_mania/api/";
 }
 
 class EndPoints {

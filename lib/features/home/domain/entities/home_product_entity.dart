@@ -84,16 +84,5 @@ class HomeProductEntity extends Equatable {
   @override
   List<Object?> get props => [
         id,
-        name,
-        // imageUrl,
-        // price,
-        // oldPrice,
-        // amount,
-        // rating,
-        // reviewsCount,
-        // newProduct,
-        // freeDelivery,
-        // compatibleCars,
-        // isFavorite,
       ];
 }

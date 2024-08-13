@@ -108,7 +108,7 @@ class CartDetailsWidget extends StatelessWidget {
                       Gap(4.w),
                       Text(
                         "Hurry! You Got a Discount",
-                        style: TextStyles.font8LightGreyBold.copyWith(
+                        style: TextStyles.font8BlueGreyBold.copyWith(
                           color: ColorsManager.red,
                           fontWeight: FontWeightHelper.semiBold,
                         ),
@@ -133,7 +133,7 @@ class CartDetailsWidget extends StatelessWidget {
                       children: [
                         TextSpan(
                           text: '(Incl. VAT)',
-                          style: TextStyles.font8LightGreyMedium.copyWith(
+                          style: TextStyles.font8BlueGreyMedium.copyWith(
                             fontWeight: FontWeightHelper.regular,
                           ),
                         ),

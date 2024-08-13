@@ -15,7 +15,7 @@ class ProductsGridWidget extends StatelessWidget {
         crossAxisCount: 2,
         crossAxisSpacing: 8.w,
         mainAxisSpacing: 8.h,
-        mainAxisExtent: 285.h,
+        mainAxisExtent: 295.h,
       ),
       padding: EdgeInsets.symmetric(vertical: 8.h),
       itemCount: products.length,

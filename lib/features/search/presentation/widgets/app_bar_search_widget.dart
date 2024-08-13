@@ -38,12 +38,6 @@ class _AppBarSearchWidgetState extends State<AppBarSearchWidget> {
   }
 
   @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return TextField(
       controller: _searchController,
@@ -64,5 +58,11 @@ class _AppBarSearchWidgetState extends State<AppBarSearchWidget> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 }

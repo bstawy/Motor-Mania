@@ -83,7 +83,7 @@ class HomeUserHeaderWidget extends StatelessWidget {
             Gap(24.h),
             Text(
               "Your last purchases",
-              style: TextStyles.font10LightGreySemiBold,
+              style: TextStyles.font10BlueGreySemiBold,
             ),
             Gap(8.h),
             _buildLastPurchaseItem("ACDelco 480"),

@@ -50,6 +50,7 @@ class ProductPriceAndDiscountWidget extends StatelessWidget {
                   Gap(secondGap ?? 8.w),
                   Text(
                     "$discountPercentage% OFF",
+                    overflow: TextOverflow.ellipsis,
                     style:
                         discountPercentageStyle ?? TextStyles.font14RedSemiBold,
                   ),

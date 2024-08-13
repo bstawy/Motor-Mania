@@ -45,6 +45,7 @@ class SellerInfoWidget extends StatelessWidget {
                       ],
                     ),
                   ),
+                  Gap(2.h),
                   Row(
                     children: [
                       Container(
@@ -81,18 +82,19 @@ class SellerInfoWidget extends StatelessWidget {
                       Gap(4.w),
                       Text(
                         "92% Positive Seller Rating",
-                        style: TextStyles.font10LightGreyRegular,
+                        style: TextStyles.font10BlueGreyRegular,
                       )
                     ],
                   ),
                 ],
               ),
               const Spacer(),
-              IconButton(
-                onPressed: () {},
-                icon: Icon(
+              GestureDetector(
+                onTap: () {},
+                child: Icon(
                   Icons.arrow_forward_ios_rounded,
                   size: 24.r,
+                  color: ColorsManager.blueGrey,
                 ),
               ),
             ],
@@ -102,16 +104,17 @@ class SellerInfoWidget extends StatelessWidget {
             width: double.infinity,
             margin: EdgeInsets.symmetric(
               vertical: 16.h,
-              horizontal: 8.w,
+              horizontal: 11.w,
             ),
             decoration: BoxDecoration(
-              color: ColorsManager.lighterGrey,
+              color: ColorsManager.whiteBlue,
               borderRadius: BorderRadius.circular(50.r),
             ),
           ),
           Row(
             children: [
-              Expanded(
+              SizedBox(
+                width: (1.sw - 85.w) / 2,
                 child: Row(
                   children: [
                     SvgPicture.asset(
@@ -125,7 +128,9 @@ class SellerInfoWidget extends StatelessWidget {
                       children: [
                         Text(
                           "Items as Described",
-                          style: TextStyles.font10DarkBlueRegular,
+                          style: TextStyles.font10DarkBlueMedium,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
                         Row(
                           children: [
@@ -134,7 +139,7 @@ class SellerInfoWidget extends StatelessWidget {
                               height: 4.h,
                               padding: EdgeInsets.only(right: 10.w),
                               decoration: BoxDecoration(
-                                color: ColorsManager.lighterGrey,
+                                color: ColorsManager.whiteBlue,
                                 borderRadius: BorderRadius.circular(50.r),
                               ),
                               child: Container(
@@ -148,7 +153,7 @@ class SellerInfoWidget extends StatelessWidget {
                             Gap(8.w),
                             Text(
                               "90%",
-                              style: TextStyles.font10LightGreySemiBold,
+                              style: TextStyles.font10BlueGreySemiBold,
                             ),
                           ],
                         ),
@@ -157,40 +162,37 @@ class SellerInfoWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              Gap(32.w),
-              Expanded(
-                child: Row(
-                  children: [
-                    SvgPicture.asset(
-                      "assets/icons/partner_icon.svg",
-                      width: 24.w,
-                      height: 24.h,
-                    ),
-                    Gap(8.w),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Partner Since",
-                          style: TextStyles.font10DarkBlueRegular,
-                        ),
-                        Text(
-                          "+2 Years",
-                          style: TextStyles.font10LightGreySemiBold.copyWith(
-                            color: ColorsManager.red,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+              Gap(30.w),
+              Row(
+                children: [
+                  SvgPicture.asset(
+                    "assets/icons/partner_icon.svg",
+                    width: 24.w,
+                    height: 24.h,
+                  ),
+                  Gap(8.w),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Partner Since",
+                        style: TextStyles.font10DarkBlueMedium,
+                      ),
+                      Text(
+                        "+2 Years",
+                        style: TextStyles.font10RedSemiBold,
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ],
           ),
           Gap(16.h),
           Row(
             children: [
-              Expanded(
+              SizedBox(
+                width: (1.sw - 85.w) / 2,
                 child: Row(
                   children: [
                     SvgPicture.asset(
@@ -204,20 +206,18 @@ class SellerInfoWidget extends StatelessWidget {
                       children: [
                         Text(
                           "Low Return Seller",
-                          style: TextStyles.font10DarkBlueRegular,
+                          style: TextStyles.font10DarkBlueMedium,
                         ),
                         Text(
                           "Last 8 Months",
-                          style: TextStyles.font10LightGreySemiBold.copyWith(
-                            color: ColorsManager.red,
-                          ),
+                          style: TextStyles.font10RedSemiBold,
                         ),
                       ],
                     ),
                   ],
                 ),
               ),
-              Gap(32.w),
+              Gap(30.w),
               Expanded(
                 child: Row(
                   children: [
@@ -230,7 +230,7 @@ class SellerInfoWidget extends StatelessWidget {
                     Expanded(
                       child: Text(
                         "Great Recent Rating",
-                        style: TextStyles.font10DarkBlueRegular,
+                        style: TextStyles.font10DarkBlueMedium,
                         maxLines: 2,
                       ),
                     ),

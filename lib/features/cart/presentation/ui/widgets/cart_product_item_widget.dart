@@ -125,13 +125,13 @@ class CartProductItemWidget extends StatelessWidget {
                         children: [
                           Text(
                             cartProduct.quantity.toString(),
-                            style: TextStyles.font10LightGreySemiBold,
+                            style: TextStyles.font10BlueGreySemiBold,
                           ),
                           Gap(4.w),
                           Icon(
                             Icons.keyboard_arrow_down_rounded,
                             size: 18.r,
-                            color: ColorsManager.lightGrey,
+                            color: ColorsManager.blueGrey,
                           ),
                         ],
                       ),
