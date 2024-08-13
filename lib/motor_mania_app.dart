@@ -21,6 +21,7 @@ class MotorManiaApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Motor Mania',
+          themeMode: ThemeMode.dark,
           theme: AppTheme.lightThemeData,
           onGenerateRoute: AppRouter().generateRoute,
           initialRoute: Routes.onBoardingScreens,
