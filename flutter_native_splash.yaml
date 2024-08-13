@@ -1,24 +1,34 @@
 flutter_native_splash:
   # IOS and Android 11 and below
-  color: "#171823"
-  image: assets/images/splash_screen_logo.png
-  branding: assets/images/splash_screen_branding.png
+
+  # Light mode properties
+  color: "#F9F9F9"
+  image: assets/images/splash_screen_light_logo.png
+
+  # Light mode properties
+  color_dark: "#0C0F14"
+  image_dark: assets/images/splash_screen_dark_logo.png
 
   # Android 12 and above
   android_12:
-    color: "#171823"
-    image: assets/images/splash_screen_logo.png
-    branding: assets/images/splash_screen_branding.png
+    # Light mode properties
+    color: "#F9F9F9"
+    image: assets/images/splash_screen_light_logo.png
 
-  # Enable web support
+    # Light mode properties
+    color_dark: "#0C0F14"
+    image_dark: assets/images/splash_screen_dark_logo.png
+
+  # Enable android & ios & web support
   android: true
   ios: true
   web: true
 
   # Configure web
-  color_web: "#171823"
-  image_web: assets/images/splash_screen_logo.png
-  branding_web: assets/images/splash_screen_branding.png
+  color_web: "#F9F9F9"
+  image_web: assets/images/splash_screen_light_logo.png
+  color_dark_web: "#0C0F14"
+  image_dark_web: assets/images/splash_screen_dark_logo.png
 
   # Hide the notification bar.
   fullscreen: true
