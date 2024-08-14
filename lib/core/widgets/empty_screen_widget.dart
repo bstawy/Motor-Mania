@@ -15,6 +15,12 @@ class EmptyScreenWidget extends StatelessWidget {
   final TextStyle? secondTextStyle;
   final TextStyle? thirdTextStyle;
   final TextStyle? descriptionStyle;
+  final double? imageWidth;
+  final double? imageHeight;
+  final double? topPadding;
+  final double? bottomPadding;
+  final double? leftPadding;
+  final double? rightPadding;
 
   const EmptyScreenWidget({
     super.key,
@@ -27,6 +33,12 @@ class EmptyScreenWidget extends StatelessWidget {
     this.secondTextStyle,
     this.thirdTextStyle,
     this.descriptionStyle,
+    this.imageWidth,
+    this.imageHeight,
+    this.topPadding,
+    this.bottomPadding,
+    this.leftPadding,
+    this.rightPadding,
   });
 
   @override
@@ -35,8 +47,8 @@ class EmptyScreenWidget extends StatelessWidget {
       children: [
         Gap(48.h),
         SizedBox(
-          width: 300.w,
-          height: 240.h,
+          width: imageWidth ?? 300.w,
+          height: imageHeight ?? 240.h,
           child: Image.asset(imagePath),
         ),
         Gap(24.h),
@@ -67,7 +79,12 @@ class EmptyScreenWidget extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ],
-        ).setHorizontalPadding(60.w),
+        ).setOnlyPadding(
+          topPadding ?? 0,
+          bottomPadding ?? 0,
+          rightPadding ?? 60.w,
+          leftPadding ?? 60.w,
+        ),
       ],
     );
   }

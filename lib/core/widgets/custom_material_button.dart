@@ -55,8 +55,8 @@ class CustomMaterialButton extends StatelessWidget {
       ),
       child: loading
           ? SizedBox(
-              height: 16.h,
-              width: 16.w,
+              height: 24.h,
+              width: 24.w,
               child: const CircularProgressIndicator(
                 color: Colors.white,
                 strokeWidth: 2,
@@ -71,13 +71,13 @@ class CustomMaterialButton extends StatelessWidget {
                         Gap(8.w),
                         Text(
                           title ?? "Continue",
-                          style: titleStyle ?? TextStyles.font16WhiteSemiBold,
+                          style: titleStyle ?? TextStyles.font14WhiteSemiBold,
                         ),
                       ],
                     )
                   : Text(
                       title ?? "Continue",
-                      style: titleStyle ?? TextStyles.font16WhiteSemiBold,
+                      style: titleStyle ?? TextStyles.font14WhiteSemiBold,
                     )),
     );
   }

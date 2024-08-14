@@ -7,18 +7,19 @@ import '../config/text/text_styles.dart';
 import '../config/theme/colors_manager.dart';
 
 class CustomElevatedButton extends StatelessWidget {
-  final String title;
+  final String? title;
   final String? iconPath;
   final Color? backgroundColor, shadowColor, borderColor;
   final Color? iconColor;
   final double? borderRadiusValue, horizontalPadding, verticalPadding;
-  final double? iconWidth, iconHeight;
+  final double? iconWidth, iconHeight, borderWidth;
+
   final TextStyle? titleStyle;
   final Function()? onPressed;
 
   const CustomElevatedButton({
     super.key,
-    required this.title,
+    this.title,
     this.iconPath,
     this.backgroundColor,
     this.shadowColor,
@@ -29,12 +30,16 @@ class CustomElevatedButton extends StatelessWidget {
     this.verticalPadding,
     this.iconWidth,
     this.iconHeight,
+    this.borderWidth,
     this.titleStyle,
     this.onPressed,
   });
 
   @override
   Widget build(BuildContext context) {
+    bool isIcon = iconPath != null && title == null;
+    bool isTitle = iconPath == null && title != null;
+
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
@@ -44,6 +49,7 @@ class CustomElevatedButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(borderRadiusValue ?? 8.r),
           side: BorderSide(
             color: borderColor ?? ColorsManager.whiteBlue,
+            width: borderWidth ?? 1.0.w,
           ),
         ),
         padding: EdgeInsets.symmetric(
@@ -51,22 +57,39 @@ class CustomElevatedButton extends StatelessWidget {
           vertical: verticalPadding ?? 5.0.h,
         ),
       ),
-      child: Row(
-        children: [
-          iconPath != null
-              ? SvgPicture.asset(
-                  iconPath!,
-                  width: iconWidth ?? 12.w,
-                  height: iconHeight ?? 12.h,
+      child: isIcon
+          ? SvgPicture.asset(
+              iconPath!,
+              width: iconWidth ?? 12.w,
+              height: iconHeight ?? 12.h,
+              colorFilter: ColorFilter.mode(
+                iconColor ?? ColorsManager.blueGrey,
+                BlendMode.srcIn,
+              ),
+            )
+          : isTitle
+              ? Text(
+                  title!,
+                  style: titleStyle ?? TextStyles.font8BlueGreyMedium,
                 )
-              : const SizedBox(),
-          iconPath != null ? Gap(4.w) : const SizedBox(),
-          Text(
-            title,
-            style: titleStyle ?? TextStyles.font8BlueGreyMedium,
-          ),
-        ],
-      ),
+              : Row(
+                  children: [
+                    SvgPicture.asset(
+                      iconPath!,
+                      width: iconWidth ?? 12.w,
+                      height: iconHeight ?? 12.h,
+                      colorFilter: ColorFilter.mode(
+                        iconColor ?? ColorsManager.blueGrey,
+                        BlendMode.srcIn,
+                      ),
+                    ),
+                    Gap(4.w),
+                    Text(
+                      title!,
+                      style: titleStyle ?? TextStyles.font8BlueGreyMedium,
+                    ),
+                  ],
+                ),
     );
   }
 }

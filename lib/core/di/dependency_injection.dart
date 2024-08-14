@@ -31,6 +31,7 @@ import '../../features/favorites/domain/use_cases/add_to_favorites_use_case.dart
 import '../../features/favorites/domain/use_cases/get_all_favorites_use_case.dart';
 import '../../features/favorites/domain/use_cases/remove_from_favorites_use_case.dart';
 import '../../features/favorites/presentation/logic/favorites_cubit.dart';
+import '../../features/garage/presentation/logic/garage_cubit.dart';
 import '../../features/home/data/data_sources/home_data_sources.dart';
 import '../../features/home/data/data_sources/home_remote_data_source_impl.dart';
 import '../../features/home/data/repos_impl/home_repo_impl.dart';
@@ -206,4 +207,7 @@ Future<void> initGetIt() async {
     () => RemoveProductFromCartUseCase(getIt()),
   );
   getIt.registerFactory<CartCubit>(() => CartCubit(getIt(), getIt(), getIt()));
+
+  //garage
+  getIt.registerFactory<GarageCubit>(() => GarageCubit());
 }

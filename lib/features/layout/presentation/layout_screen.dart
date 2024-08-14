@@ -5,7 +5,6 @@ import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 import '../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../core/config/routing/routes.dart';
-import '../../../core/config/text/text_styles.dart';
 import '../../../core/config/theme/colors_manager.dart';
 import '../../../core/di/dependency_injection.dart';
 import '../../../core/helpers/enums/app_modes_enums.dart';
@@ -14,6 +13,8 @@ import '../../../core/widgets/custom_material_button.dart';
 import '../../cart/presentation/logic/cart_cubit.dart';
 import '../../cart/presentation/ui/cart_screen.dart';
 import '../../favorites/presentation/ui/favorites_screen.dart';
+import '../../garage/presentation/logic/garage_cubit.dart';
+import '../../garage/presentation/ui/garage_screen.dart';
 import '../../home/presentation/logic/home_cubit/home_cubit.dart';
 import '../../home/presentation/ui/home_screen.dart';
 import '../logic/layout_cubit.dart';
@@ -123,13 +124,9 @@ class _LayoutScreenState extends State<LayoutScreen> {
         title: "Favorites",
       ),
       bottomNavBarTab(
-        screen: Scaffold(
-          body: Center(
-            child: Text(
-              "My Garage",
-              style: TextStyles.font20DarkBlueBold,
-            ),
-          ),
+        screen: BlocProvider<GarageCubit>(
+          create: (context) => getIt<GarageCubit>()..getGarage(),
+          child: const GarageScreen(),
         ),
         iconPath: "assets/icons/bottom_nav_selected_garage_icon.svg",
         inactiveIconPath: "assets/icons/bottom_nav_unselected_garage_icon.svg",
