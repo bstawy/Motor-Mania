@@ -6,9 +6,12 @@ import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors_manager.dart';
 import '../../../../../core/helpers/extensions/extensions.dart';
 import '../../../../../core/widgets/custom_elevated_button.dart';
+import '../../../../home/domain/entities/car_entity.dart';
 
 class GarageItemWidget extends StatelessWidget {
-  const GarageItemWidget({super.key});
+  final CarEntity car;
+
+  const GarageItemWidget({super.key, required this.car});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +31,7 @@ class GarageItemWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Ferrari F12 2020",
+                  "${car.brand} ${car.model} ${car.year}",
                   style: TextStyles.font20DarkBlueBold,
                 ),
                 Gap(4.h),
@@ -74,9 +77,7 @@ class GarageItemWidget extends StatelessWidget {
             child: SizedBox(
               height: 130.h,
               width: 268.w,
-              child: Image.asset(
-                "assets/images/84b4c6c22845c37fcdb32495e5b1e973.png",
-              ),
+              child: Image.network(car.imageUrl ?? ""),
             ),
           ),
         ],

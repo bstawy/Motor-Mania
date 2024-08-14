@@ -6,7 +6,11 @@ final class GarageInitial extends GarageState {}
 
 final class GarageLoading extends GarageState {}
 
-final class GarageLoaded extends GarageState {}
+final class GarageLoaded extends GarageState {
+  final List<CarEntity> cars;
+
+  GarageLoaded(this.cars);
+}
 
 final class GarageEmpty extends GarageState {}
 
