@@ -84,13 +84,15 @@ With ARcademy, learning human anatomy becomes an immersive experience, as detail
 
 | Light | Dark|
 | ------ | ------- |
-|<img src="https://github.com/user-attachments/assets/c71cc20c-b9fd-4755-b644-19252573bcb6" width="300" /> | <img src="https://github.com/user-attachments/assets/c71cc20c-b9fd-4755-b644-19252573bcb6" width="300" /> 
+| <img src="https://github.com/user-attachments/assets/c71cc20c-b9fd-4755-b644-19252573bcb6" width="300" /> | <img src="https://github.com/user-attachments/assets/c71cc20c-b9fd-4755-b644-19252573bcb6" width="300" /> 
 
 &nbsp;
 
 🏠 OnBoarding: Discover Doctors' specialities and Recommended Doctors all in one place.
 
-<img src="https://github.com/user-attachments/assets/e53a6dd2-0305-4e2e-a762-c7ef5da33538" width="300" />  <img src="https://github.com/user-attachments/assets/67365522-2d7d-4ec3-b540-8244aee4619e" width="300" />  <img src="https://github.com/user-attachments/assets/d4615f7e-2e22-48c5-97f6-27afc3afe26a" width="300" />
+| First screen | Second screen | Third screen|
+| ------ | ------- | ------- |
+| <img src="https://github.com/user-attachments/assets/e53a6dd2-0305-4e2e-a762-c7ef5da33538" width="300" /> | <img src="https://github.com/user-attachments/assets/67365522-2d7d-4ec3-b540-8244aee4619e" width="300" /> | <img src="https://github.com/user-attachments/assets/d4615f7e-2e22-48c5-97f6-27afc3afe26a" width="300" /> |
 
 &nbsp;
 
