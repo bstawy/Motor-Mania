@@ -34,6 +34,8 @@ class _LoginFormState extends State<LoginForm> {
   bool hasNumber = false;
   bool hasMinLength = false;
 
+  bool isEmailValid = false;
+  bool isPasswordValid = false;
   bool logging = false;
 
   void setupPasswordControllerListener() {
@@ -45,8 +47,32 @@ class _LoginFormState extends State<LoginForm> {
             Validators.hasSpecialCharacter(_passwordController.text);
         hasNumber = Validators.hasNumber(_passwordController.text);
         hasMinLength = Validators.hasMinLength(_passwordController.text);
+
+        isPasswordValid = hasLowerCase &&
+            hasUpperCase &&
+            hasSpecialCharacter &&
+            hasNumber &&
+            hasMinLength;
       });
     });
+  }
+
+  void setupEmailControllerListener() {
+    _emailController.addListener(() {
+      setState(() {
+        isEmailValid = Validators.validateEmail(_emailController.text) == null;
+      });
+    });
+  }
+
+  void login(BuildContext context) {
+    if (_formKey.currentState!.validate()) {
+      LoginRequestBodyModel requestBody = LoginRequestBodyModel(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+      context.read<LoginCubit>().login(requestBody);
+    }
   }
 
   @override
@@ -55,13 +81,7 @@ class _LoginFormState extends State<LoginForm> {
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
     setupPasswordControllerListener();
-  }
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
+    setupEmailControllerListener();
   }
 
   @override
@@ -149,9 +169,11 @@ class _LoginFormState extends State<LoginForm> {
             },
             builder: (context, state) {
               return CustomMaterialButton(
-                onClicked: () {
-                  login(context);
-                },
+                onClicked: isEmailValid && isPasswordValid
+                    ? () {
+                        login(context);
+                      }
+                    : null,
                 title: "Login",
                 backgroundColor: ColorsManager.red,
                 loading: logging,
@@ -163,13 +185,10 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
-  void login(BuildContext context) {
-    if (_formKey.currentState!.validate()) {
-      LoginRequestBodyModel requestBody = LoginRequestBodyModel(
-        email: _emailController.text,
-        password: _passwordController.text,
-      );
-      context.read<LoginCubit>().login(requestBody);
-    }
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 }
