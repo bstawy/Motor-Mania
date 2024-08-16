@@ -20,8 +20,8 @@ class DioFactory {
         ..baseUrl = ApiConstants.localHostBaseUrl
         ..connectTimeout = timeOut
         ..receiveTimeout = timeOut
-        ..validateStatus = (status) {
-          return status! <= 500;
+        ..validateStatus = (statusCode) {
+          return statusCode! <= 500;
         };
 
       _addFreeDioInterceptors();
@@ -40,8 +40,8 @@ class DioFactory {
         ..baseUrl = ApiConstants.localHostBaseUrl
         ..connectTimeout = timeOut
         ..receiveTimeout = timeOut
-        ..validateStatus = (status) {
-          return status! <= 500;
+        ..validateStatus = (statusCode) {
+          return statusCode! <= 500;
         };
       _addTokenDioInterceptors();
       return _tokenDio!;

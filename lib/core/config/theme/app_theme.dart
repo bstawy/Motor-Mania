@@ -6,8 +6,8 @@ class AppTheme {
   static final ThemeData lightThemeData = ThemeData(
     useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(
-      seedColor: ColorsManager.darkkBlue,
-      surface: ColorsManager.lighterGrey,
+      seedColor: ColorsManager.darkBlue,
+      surface: ColorsManager.whiteGrey,
     ),
     fontFamily: 'Montserrat',
   );

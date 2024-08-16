@@ -5,20 +5,24 @@ class SecureStorageFactory {
 
   static FlutterSecureStorage? _instance;
 
-  static FlutterSecureStorage getInstance() {
+  static Future<FlutterSecureStorage> getInstance() async {
     _instance ??= const FlutterSecureStorage();
     return _instance!;
   }
 
-  Future<void> write({required String key, required String value}) async {
-    await _instance?.write(key: key, value: value);
+  static Future<void> write(
+      {required String key, required String value}) async {
+    final storage = await getInstance();
+    await storage.write(key: key, value: value);
   }
 
-  Future<String?> read(String key) async {
-    return await _instance?.read(key: key);
+  static Future<String?> read(String key) async {
+    final storage = await getInstance();
+    return await storage.read(key: key);
   }
 
-  Future<void> delete(String key) async {
-    await _instance?.delete(key: key);
+  static Future<void> delete(String key) async {
+    final storage = await getInstance();
+    await storage.delete(key: key);
   }
 }

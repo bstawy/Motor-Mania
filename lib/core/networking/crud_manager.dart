@@ -17,11 +17,11 @@ class CrudManager {
     }
   }
 
-  Future<T> get<T>(
+  Future<Response> get(
     String endPoint, {
     Map<String, dynamic>? body,
-    dynamic param,
-    bool tokenReq = true,
+    Map<String, dynamic>? params,
+    bool tokenReq = false,
   }) async {
     try {
       final dio = tokenReq ? _tokenDio : _freeDio;
@@ -29,19 +29,19 @@ class CrudManager {
       final response = await dio!.get(
         endPoint,
         data: body,
-        queryParameters: param,
+        queryParameters: params,
       );
-      return response.data;
+      return response;
     } catch (e) {
       rethrow;
     }
   }
 
-  Future<Response> post<T>(
+  Future<Response> post(
     String endPoint, {
     Map<String, dynamic>? body,
-    dynamic param,
-    bool tokenReq = true,
+    Map<String, dynamic>? params,
+    bool tokenReq = false,
   }) async {
     try {
       final dio = tokenReq ? _tokenDio : _freeDio;
@@ -49,7 +49,7 @@ class CrudManager {
       final response = await dio!.post(
         endPoint,
         data: body,
-        queryParameters: param,
+        queryParameters: params,
       );
       return response;
     } catch (e) {
@@ -58,10 +58,26 @@ class CrudManager {
   }
 
   Future<void> update() async {
-    // Update a record
+    // TODO: Update a record
   }
 
-  Future<void> delete() async {
-    // Delete a record
+  Future<Response> delete(
+    String endPoint, {
+    Map<String, dynamic>? body,
+    Map<String, dynamic>? params,
+    bool tokenReq = false,
+  }) async {
+    try {
+      final dio = tokenReq ? _tokenDio : _freeDio;
+
+      final response = await dio!.delete(
+        endPoint,
+        data: body,
+        queryParameters: params,
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
   }
 }

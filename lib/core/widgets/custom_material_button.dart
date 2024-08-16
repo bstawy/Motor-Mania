@@ -7,77 +7,78 @@ import '../config/theme/colors_manager.dart';
 
 class CustomMaterialButton extends StatelessWidget {
   final String? title;
-  final double? height, width, elevation, borderRadius;
-  final EdgeInsetsGeometry? padding;
-  final Color? backgroundColor, borderColor;
-  final double? borderWidth;
   final TextStyle? titleStyle;
-  final Widget? prefixIcon;
-  final bool enabled;
+  final double? height, width, elevation, borderRadius, borderWidth;
+  final EdgeInsetsGeometry? padding;
+  final Color? backgroundColor, disabledColor, borderColor;
+  final Widget? prefixWidget;
+  final Widget? child;
   final bool loading;
-  final VoidCallback onClicked;
+  final VoidCallback? onClicked;
 
   const CustomMaterialButton({
     super.key,
-    required this.onClicked,
     this.title,
+    this.titleStyle,
     this.height,
     this.width,
-    this.padding,
-    this.borderRadius,
-    this.backgroundColor,
-    this.borderColor,
-    this.borderWidth,
     this.elevation,
-    this.titleStyle,
-    this.prefixIcon,
-    this.enabled = true,
+    this.borderRadius,
+    this.borderWidth,
+    this.padding,
+    this.backgroundColor,
+    this.disabledColor,
+    this.borderColor,
+    this.prefixWidget,
+    this.child,
     this.loading = false,
+    this.onClicked,
   });
-
+  // TODO: needs refactoring
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
-      onPressed: () {
-        if (enabled && !loading) {
-          onClicked();
-        }
-      },
-      enableFeedback: enabled && !loading,
-      height: height ?? 56.h,
+      onPressed: loading ? null : onClicked,
+      height: height ?? 45.h,
       minWidth: width ?? double.maxFinite,
       elevation: elevation ?? 0,
       padding: padding,
-      color: loading || !enabled
-          ? (backgroundColor ?? ColorsManager.grey).withOpacity(0.5)
-          : (backgroundColor ?? ColorsManager.darkkBlue),
+      color: backgroundColor ?? ColorsManager.red,
+      disabledColor: disabledColor ?? const Color(0xFFC7172C),
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(borderRadius ?? 30.r),
+        borderRadius: BorderRadius.circular(borderRadius ?? 15.r),
         side: BorderSide(
           color: borderColor ?? Colors.transparent,
           width: borderWidth ?? 1.w,
         ),
       ),
       child: loading
-          ? const CircularProgressIndicator(
-              color: Colors.white,
+          ? SizedBox(
+              height: 24.h,
+              width: 24.w,
+              child: const CircularProgressIndicator(
+                color: Colors.white,
+                strokeWidth: 2,
+              ),
             )
-          : prefixIcon != null
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    prefixIcon!,
-                    Gap(8.w),
-                    Text(
+          : child ??
+              (prefixWidget != null
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        prefixWidget!,
+                        Gap(8.w),
+                        Text(
+                          title ?? "Continue",
+                          style: titleStyle ?? TextStyles.font14WhiteSemiBold,
+                        ),
+                      ],
+                    )
+                  : Text(
                       title ?? "Continue",
-                      style: titleStyle ?? TextStyles.font16WhiteSemiBold,
-                    ),
-                  ],
-                )
-              : Text(
-                  title ?? "Continue",
-                  style: titleStyle ?? TextStyles.font16WhiteSemiBold,
-                ),
+                      style: titleStyle ?? TextStyles.font14WhiteSemiBold,
+                    )),
     );
   }
 }

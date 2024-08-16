@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../config/text/text_styles.dart';
 import '../config/theme/colors_manager.dart';
 
+// TODO: needs refactoring
 class CustomTextFormField extends StatefulWidget {
   final TextEditingController? controller;
   final String hint;
@@ -128,14 +129,6 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       isTextObscured = false;
       maxLines = widget.maxLines;
     }
-/*
-    // set fill color grey if disabled
-    if (widget.enabled != null && widget.enabled == false) {
-      fillColor = widget.disabledBackgroundColor ?? const Color(0xFFE6E6E6);
-    } else {
-      fillColor = widget.backgroundColor ?? ColorsManager.lightestGrey;
-    }
-    */
   }
 
   @override
@@ -170,21 +163,20 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       enabled: widget.enabled,
       style: widget.inputTextStyle ?? TextStyles.font14DarkBlueRegular,
       decoration: InputDecoration(
-        // Used to have full control on padding
-        isDense: true,
+        isDense: true, // Used to have full control on padding
         contentPadding: widget.contentPadding ??
             EdgeInsets.symmetric(
               horizontal: 16.w,
               vertical: 12.h,
             ),
         hintText: widget.hint,
-        hintStyle: widget.hintStyle ?? TextStyles.font14GreyRegular,
+        hintStyle: widget.hintStyle ?? TextStyles.font14BlueGreyRegular,
         fillColor: (widget.enabled != null && widget.enabled == false)
             ? widget.disabledBackgroundColor ?? ColorsManager.grey
             : widget.backgroundColor ?? Colors.white,
         filled: widget.isFilled ?? true,
         prefixIcon: widget.prefixIcon,
-        prefixIconColor: ColorsManager.lighterGrey,
+        prefixIconColor: ColorsManager.whiteGrey,
         suffixIcon: widget.isPassword ?? false
             ? GestureDetector(
                 onTap: () {
@@ -198,28 +190,27 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
               )
             : widget.suffixIcon,
         counterText: "",
-
         border: widget.border ??
             OutlineInputBorder(
-              borderRadius: BorderRadius.circular(widget.borderRadius ?? 32.r),
+              borderRadius: BorderRadius.circular(widget.borderRadius ?? 15.r),
               borderSide: BorderSide(
-                color: widget.borderColor ?? ColorsManager.lighterGrey,
+                color: widget.borderColor ?? ColorsManager.whiteGrey,
                 width: widget.borderWidth ?? 1.3,
               ),
             ),
         enabledBorder: widget.enabledBorder ??
             OutlineInputBorder(
               borderRadius:
-                  BorderRadius.circular(widget.enabledBorderRadius ?? 32.r),
+                  BorderRadius.circular(widget.enabledBorderRadius ?? 15.r),
               borderSide: BorderSide(
-                color: widget.enabledBorderColor ?? ColorsManager.lighterGrey,
+                color: widget.enabledBorderColor ?? ColorsManager.whiteGrey,
                 width: widget.enabledBorderWidth ?? 1.3,
               ),
             ),
         focusedBorder: widget.focusedBorder ??
             OutlineInputBorder(
               borderRadius:
-                  BorderRadius.circular(widget.focusedBorderRadius ?? 32.r),
+                  BorderRadius.circular(widget.focusedBorderRadius ?? 15.r),
               borderSide: BorderSide(
                 color: widget.focusedBorderColor ??
                     ColorsManager.grey.withOpacity(0.5),
@@ -229,7 +220,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         disabledBorder: widget.disabledBorder ??
             OutlineInputBorder(
               borderRadius:
-                  BorderRadius.circular(widget.disabledBorderRadius ?? 32.r),
+                  BorderRadius.circular(widget.disabledBorderRadius ?? 15.r),
               borderSide: BorderSide(
                 color:
                     widget.disabledBackgroundColor ?? const Color(0xFFE6E6E6),
@@ -242,7 +233,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         errorBorder: widget.errorBorder ??
             OutlineInputBorder(
               borderRadius:
-                  BorderRadius.circular(widget.errorBorderRadius ?? 32.r),
+                  BorderRadius.circular(widget.errorBorderRadius ?? 15.r),
               borderSide: BorderSide(
                 color: widget.errorBorderColor ?? ColorsManager.red,
                 width: widget.errorBorderWidth ?? 1.3,
@@ -251,7 +242,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         focusedErrorBorder: widget.focusedErrorBorder ??
             OutlineInputBorder(
               borderRadius: BorderRadius.circular(
-                  widget.focusedErrorBorderRadius ?? 32.r),
+                  widget.focusedErrorBorderRadius ?? 15.r),
               borderSide: BorderSide(
                 color: widget.focusedErrorBorderColor ?? ColorsManager.red,
                 width: widget.focusedErrorBorderWidth ?? 1.3,

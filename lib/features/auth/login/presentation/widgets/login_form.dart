@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
+import '../../../../../core/caching/navigation_data_manager.dart';
+import '../../../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../../../core/config/routing/routes.dart';
 import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors_manager.dart';
@@ -32,6 +34,8 @@ class _LoginFormState extends State<LoginForm> {
   bool hasNumber = false;
   bool hasMinLength = false;
 
+  bool isEmailValid = false;
+  bool isPasswordValid = false;
   bool logging = false;
 
   void setupPasswordControllerListener() {
@@ -43,8 +47,32 @@ class _LoginFormState extends State<LoginForm> {
             Validators.hasSpecialCharacter(_passwordController.text);
         hasNumber = Validators.hasNumber(_passwordController.text);
         hasMinLength = Validators.hasMinLength(_passwordController.text);
+
+        isPasswordValid = hasLowerCase &&
+            hasUpperCase &&
+            hasSpecialCharacter &&
+            hasNumber &&
+            hasMinLength;
       });
     });
+  }
+
+  void setupEmailControllerListener() {
+    _emailController.addListener(() {
+      setState(() {
+        isEmailValid = Validators.validateEmail(_emailController.text) == null;
+      });
+    });
+  }
+
+  void login(BuildContext context) {
+    if (_formKey.currentState!.validate()) {
+      LoginRequestBodyModel requestBody = LoginRequestBodyModel(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+      context.read<LoginCubit>().login(requestBody);
+    }
   }
 
   @override
@@ -53,13 +81,7 @@ class _LoginFormState extends State<LoginForm> {
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
     setupPasswordControllerListener();
-  }
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
+    setupEmailControllerListener();
   }
 
   @override
@@ -112,32 +134,34 @@ class _LoginFormState extends State<LoginForm> {
           Gap(16.h),
           BlocConsumer<LoginCubit, LoginState>(
             bloc: context.read<LoginCubit>(),
-            listener: (context, state) {
+            listener: (context, state) async {
               if (state is LoadingState) {
                 setState(() {
                   logging = true;
                 });
               } else if (state is SuccessState) {
-                debugPrint("======================================");
-                debugPrint("Login response: Success");
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(state.message),
-                    backgroundColor: Colors.green,
-                  ),
-                );
-                context.pushNamedAndRemoveUntil(Routes.homeScreen,
-                    predicate: (route) => false);
-                setState(() {
-                  logging = false;
-                });
+                context.read<AppManagerCubit>().logUserIn();
+                String navRoute = Routes.layoutScreen;
+                int? args;
+
+                final ScreenNavigationData? navigationData =
+                    await NavigationDataManager.getScreenNavigationData();
+
+                if (navigationData != null) {
+                  navRoute = navigationData.previousScreenRouteName!;
+                  args = navigationData.previousScreenArguments;
+                }
+
+                if (context.mounted) {
+                  context.pushNamedAndRemoveUntil(
+                    navRoute,
+                    predicate: (route) => false,
+                    arguments: args,
+                  );
+                }
               } else if (state is ErrorState) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(state.message),
-                    backgroundColor: Colors.red,
-                  ),
-                );
+                context.errorSnackBar(state.message);
+
                 setState(() {
                   logging = false;
                 });
@@ -145,12 +169,13 @@ class _LoginFormState extends State<LoginForm> {
             },
             builder: (context, state) {
               return CustomMaterialButton(
-                onClicked: () {
-                  login();
-                },
+                onClicked: isEmailValid && isPasswordValid
+                    ? () {
+                        login(context);
+                      }
+                    : null,
                 title: "Login",
                 backgroundColor: ColorsManager.red,
-                enabled: !logging,
                 loading: logging,
               );
             },
@@ -160,13 +185,10 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
-  void login() {
-    if (_formKey.currentState!.validate()) {
-      LoginRequestBodyModel requestBody = LoginRequestBodyModel(
-        email: _emailController.text,
-        password: _passwordController.text,
-      );
-      context.read<LoginCubit>().login(requestBody);
-    }
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 }

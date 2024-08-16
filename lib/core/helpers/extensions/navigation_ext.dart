@@ -1,23 +1,29 @@
 import 'package:flutter/widgets.dart';
 
 extension Navigation on BuildContext {
-  Future<dynamic> pushNamed(String routeName, {Object? arguments}) {
-    return Navigator.of(this).pushNamed(routeName, arguments: arguments);
+  Future<dynamic> pushNamed(String routeName,
+      {Object? arguments, bool navigateWithNavBar = false}) {
+    return Navigator.of(this, rootNavigator: !navigateWithNavBar)
+        .pushNamed(routeName, arguments: arguments);
   }
 
-  Future<dynamic> pushReplacementNamed(String routeName, {Object? arguments}) {
-    return Navigator.of(this)
+  Future<dynamic> pushReplacementNamed(String routeName,
+      {Object? arguments, bool navigateWithNavBar = false}) {
+    return Navigator.of(this, rootNavigator: !navigateWithNavBar)
         .pushReplacementNamed(routeName, arguments: arguments);
   }
 
   Future<dynamic> pushNamedAndRemoveUntil(String routeName,
-      {Object? arguments, required RoutePredicate predicate}) {
-    return Navigator.of(this)
+      {Object? arguments,
+      required RoutePredicate predicate,
+      bool navigateWithNavBar = false}) {
+    return Navigator.of(this, rootNavigator: !navigateWithNavBar)
         .pushNamedAndRemoveUntil(routeName, predicate, arguments: arguments);
   }
 
-  void pop() => Navigator.of(this).pop();
+  void pop() => Navigator.of(this, rootNavigator: true).pop();
 
-  void popUntil(String routeName) =>
-      Navigator.of(this).popUntil(ModalRoute.withName(routeName));
+  void popUntil(String routeName, {bool navigateWithNavBar = false}) =>
+      Navigator.of(this, rootNavigator: !navigateWithNavBar)
+          .popUntil(ModalRoute.withName(routeName));
 }

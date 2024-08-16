@@ -15,7 +15,7 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(padding: 24.w),
+      appBar: CustomAppBar(leftPadding: 24.w, rightPadding: 24.w),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -30,7 +30,7 @@ class RegisterScreen extends StatelessWidget {
               Gap(8.h),
               Text(
                 "Let's Get Started Together",
-                style: TextStyles.font16GreyRegular,
+                style: TextStyles.font16BlueGreyRegular,
               ),
               Gap(32.h),
               const RegisterForm(),

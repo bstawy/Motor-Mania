@@ -12,26 +12,15 @@ class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit(this._registerRepo) : super(InitialState());
 
   Future<void> registerUser({
-    required String name,
-    required String email,
-    required String password,
+    required RegisterRequestBodyModel requestBody,
   }) async {
     emit(LoadingState());
-    final requestBody = RegisterRequestBodyModel(
-      name: name,
-      email: email,
-      password: password,
-    );
 
     final response = await _registerRepo.registerUser(requestBody);
 
     response.fold(
-      (errors) {
-        emit(ErrorState(errors));
-      },
-      (successMsg) {
-        emit(SuccessState(successMsg));
-      },
+      (errors) => emit(ErrorState(errors)),
+      (successMsg) => emit(SuccessState(successMsg)),
     );
   }
 }

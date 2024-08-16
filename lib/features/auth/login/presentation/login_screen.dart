@@ -16,37 +16,34 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(padding: 24.w),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              //const CustomAppBar(),
-              Gap(32.h),
-              Text(
-                'Welcome back',
-                textAlign: TextAlign.left,
-                style: TextStyles.font32DarkBlueSemiBold,
-              ),
-              Gap(8.h),
-              Text(
-                "Welcome Back! Please Enter Your Details.",
-                style: TextStyles.font16GreyRegular,
-              ),
-              Gap(32.h),
-              const LoginForm(),
-              Gap(16.h),
-              const SocialMediaSignUp(),
-              Gap(16.h),
-              CustomAccountWidget(
-                text: "Don't have an account? ",
-                buttonText: "Register",
-                onPressed: () => context.pushNamed(Routes.registerScreen),
-              ),
-            ],
-          ).setHorizontalPadding(24.w),
-        ),
+      appBar: CustomAppBar(leftPadding: 24.w, rightPadding: 24.w),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Gap(32.h),
+            Text(
+              'Welcome back',
+              textAlign: TextAlign.left,
+              style: TextStyles.font32DarkBlueSemiBold,
+            ),
+            Gap(8.h),
+            Text(
+              "Welcome Back! Please Enter Your Details.",
+              style: TextStyles.font16BlueGreyRegular,
+            ),
+            Gap(32.h),
+            const LoginForm(),
+            Gap(16.h),
+            const SocialMediaSignUp(),
+            Gap(16.h),
+            CustomAccountWidget(
+              text: "Don't have an account? ",
+              buttonText: "Register",
+              onPressed: () => context.pushNamed(Routes.registerScreen),
+            ),
+          ],
+        ).setHorizontalPadding(24.w),
       ),
     );
   }
