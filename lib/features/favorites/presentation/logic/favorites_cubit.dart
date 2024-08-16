@@ -54,7 +54,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     );
   }
 
-  Future<void> removeFromFavorites(String id) async {
+  Future<void> removeFromFavorites(int id) async {
     final response = await _removeFromFavoritesUseCase.execute(id);
 
     response.fold(
@@ -68,7 +68,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     );
   }
 
-  bool isFavorite(String id) {
+  bool isFavorite(int id) {
     return favorites.any((element) => element.id == id);
   }
 }

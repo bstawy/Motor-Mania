@@ -7,8 +7,8 @@ import '../../domain/entities/cart_product_entity.dart';
 abstract class CartDataSources {
   Future<Either<ServerFailure, List<CartProductEntity>>> getCartProducts();
   Future<Response> addProduct(
-    String productId,
+    int productId,
     int quantity,
   );
-  Future<Response> removeProduct(String productId);
+  Future<Response> removeProduct(int productId);
 }

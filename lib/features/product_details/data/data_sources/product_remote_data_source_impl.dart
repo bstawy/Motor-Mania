@@ -10,7 +10,7 @@ class ProductRemoteDataSourceImpl extends ProductDataSources {
   ProductRemoteDataSourceImpl(this._crudManager);
 
   @override
-  Future<Response> getProductDetails(String id) async {
+  Future<Response> getProductDetails(int id) async {
     return await _crudManager.get(EndPoints.productDetails, params: {'id': id});
   }
 }

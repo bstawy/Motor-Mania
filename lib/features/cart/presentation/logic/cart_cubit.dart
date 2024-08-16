@@ -41,7 +41,7 @@ class CartCubit extends Cubit<CartState> {
     );
   }
 
-  void addProductToCart(String productId, int quantity) async {
+  void addProductToCart(int productId, int quantity) async {
     emit(CartLoading());
     final response =
         await _addProductToCartUseCase.execute(productId, quantity);
@@ -54,7 +54,7 @@ class CartCubit extends Cubit<CartState> {
     );
   }
 
-  void removeProductFromCart(String productId) async {
+  void removeProductFromCart(int productId) async {
     emit(CartLoading());
     final response = await _removeProductFromCartUseCase.execute(productId);
     response.fold(

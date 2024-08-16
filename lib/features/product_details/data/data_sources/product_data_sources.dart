@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
 
 abstract class ProductDataSources {
-  Future<Response> getProductDetails(String id);
+  Future<Response> getProductDetails(int id);
 }

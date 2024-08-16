@@ -10,7 +10,7 @@ class CustomMaterialButton extends StatelessWidget {
   final TextStyle? titleStyle;
   final double? height, width, elevation, borderRadius, borderWidth;
   final EdgeInsetsGeometry? padding;
-  final Color? backgroundColor, borderColor;
+  final Color? backgroundColor, disabledColor, borderColor;
   final Widget? prefixWidget;
   final Widget? child;
   final bool loading;
@@ -27,6 +27,7 @@ class CustomMaterialButton extends StatelessWidget {
     this.borderWidth,
     this.padding,
     this.backgroundColor,
+    this.disabledColor,
     this.borderColor,
     this.prefixWidget,
     this.child,
@@ -38,13 +39,12 @@ class CustomMaterialButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialButton(
       onPressed: loading ? null : onClicked,
-      height: height ?? 56.h,
+      height: height ?? 45.h,
       minWidth: width ?? double.maxFinite,
       elevation: elevation ?? 0,
       padding: padding,
       color: backgroundColor ?? ColorsManager.red,
-      disabledColor:
-          backgroundColor?.withOpacity(0.7) ?? const Color(0xFFC7172C),
+      disabledColor: disabledColor ?? const Color(0xFFC7172C),
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(borderRadius ?? 15.r),
@@ -55,8 +55,8 @@ class CustomMaterialButton extends StatelessWidget {
       ),
       child: loading
           ? SizedBox(
-              height: 16.h,
-              width: 16.w,
+              height: 24.h,
+              width: 24.w,
               child: const CircularProgressIndicator(
                 color: Colors.white,
                 strokeWidth: 2,
@@ -71,13 +71,13 @@ class CustomMaterialButton extends StatelessWidget {
                         Gap(8.w),
                         Text(
                           title ?? "Continue",
-                          style: titleStyle ?? TextStyles.font16WhiteSemiBold,
+                          style: titleStyle ?? TextStyles.font14WhiteSemiBold,
                         ),
                       ],
                     )
                   : Text(
                       title ?? "Continue",
-                      style: titleStyle ?? TextStyles.font16WhiteSemiBold,
+                      style: titleStyle ?? TextStyles.font14WhiteSemiBold,
                     )),
     );
   }
