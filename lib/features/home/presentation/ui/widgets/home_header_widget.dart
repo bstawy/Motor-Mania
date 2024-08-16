@@ -21,7 +21,7 @@ class HomeHeaderWidget extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.only(
         top: 16.h,
-        bottom: appMode == AppMode.guest ? 8.h : 30.h,
+        bottom: appMode == AppMode.guest ? 16.h : 8.h,
       ),
       decoration: BoxDecoration(
         color: ColorsManager.darkBlue,

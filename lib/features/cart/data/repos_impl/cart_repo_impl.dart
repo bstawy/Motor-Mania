@@ -62,7 +62,7 @@ class CartRepoImpl implements CartRepo {
 
   @override
   Future<Either<ServerFailure, String>> addProduct(
-    String productId,
+    int productId,
     int quantity,
   ) async {
     List<CartProductEntity> cachedList = await _localDataSource.getCachedList();
@@ -129,7 +129,7 @@ class CartRepoImpl implements CartRepo {
   }
 
   @override
-  Future<Either<ServerFailure, String>> removeProduct(String productId) async {
+  Future<Either<ServerFailure, String>> removeProduct(int productId) async {
     final token = await TokensManager.getAccessToken() ?? "";
 
     if (token.isEmpty) {

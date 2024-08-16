@@ -13,7 +13,7 @@ class CarModel extends CarEntity {
     return CarModel(
       id: json['id'],
       brand: json['brand'],
-      model: json['model'],
+      model: (json['model']).toString(),
       year: json['year'],
       imageUrl: json['image_url'],
     );

@@ -117,7 +117,7 @@ class FavoritesRepoImpl extends FavoritesRepo {
   }
 
   @override
-  Future<Either<ServerFailure, String>> removeFromFavorites(String id) async {
+  Future<Either<ServerFailure, String>> removeFromFavorites(int id) async {
     try {
       final token = await TokensManager.getAccessToken() ?? "";
       if (token.isEmpty) {

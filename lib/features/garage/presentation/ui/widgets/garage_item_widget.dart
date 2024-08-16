@@ -31,7 +31,7 @@ class GarageItemWidget extends StatelessWidget {
 
           context.read<AppManagerCubit>().selectedCarId = selectedCar.id!;
           context.successSnackBar(
-              "Your ${selectedCar.brand} ${selectedCar.model} selected successfully");
+              "Your ${selectedCar.brand} ${selectedCar.model} is now selected.");
         } else if (state is SelectCarError) {
           context.errorSnackBar(state.failure.message ?? "Error selecting car");
         } else {
@@ -56,7 +56,7 @@ class GarageItemWidget extends StatelessWidget {
                   margin: EdgeInsets.symmetric(horizontal: 16.w),
                   padding: EdgeInsets.all(16.w),
                   decoration: BoxDecoration(
-                    color: isSelected ? const Color(0xFFC7172C) : Colors.white,
+                    color: isSelected ? ColorsManager.red : Colors.white,
                     borderRadius: BorderRadius.circular(15.r),
                   ),
                   child: Column(
@@ -107,9 +107,14 @@ class GarageItemWidget extends StatelessWidget {
                                 iconPath: "assets/icons/trash_icon.svg",
                                 iconWidth: 10.w,
                                 iconHeight: 10.r,
-                                iconColor: ColorsManager.red,
-                                backgroundColor: isSelected
+                                iconColor: isSelected
                                     ? Colors.white
+                                    : ColorsManager.red,
+                                backgroundColor: isSelected
+                                    ? Colors.white.withOpacity(0.2)
+                                    : ColorsManager.red.withOpacity(0.2),
+                                borderColor: isSelected
+                                    ? Colors.white.withOpacity(0.2)
                                     : ColorsManager.red.withOpacity(0.2),
                                 borderWidth: 0,
                                 horizontalPadding: 0,
@@ -119,24 +124,6 @@ class GarageItemWidget extends StatelessWidget {
                           ],
                         ),
                       ),
-                      // Gap(8.h),
-                      // SizedBox(
-                      //   width: 22.w,
-                      //   height: 22.h,
-                      //   child: CustomElevatedButton(
-                      //     onPressed: () {
-                      //       //TODO: select car
-                      //     },
-                      //     iconPath: "assets/icons/trash_icon.svg",
-                      //     iconWidth: 10.w,
-                      //     iconHeight: 10.r,
-                      //     iconColor: ColorsManager.red,
-                      //     backgroundColor: ColorsManager.red.withOpacity(0.2),
-                      //     borderWidth: 0,
-                      //     horizontalPadding: 0,
-                      //     verticalPadding: 0,
-                      //   ),
-                      // ),
                     ],
                   ),
                 ),

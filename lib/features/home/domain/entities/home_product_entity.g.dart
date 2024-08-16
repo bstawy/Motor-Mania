@@ -17,7 +17,7 @@ class HomeProductEntityAdapter extends TypeAdapter<HomeProductEntity> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return HomeProductEntity(
-      id: fields[0] as String?,
+      id: fields[0] as int?,
       name: fields[1] as String?,
       imageUrl: fields[2] as String?,
       price: fields[3] as num?,

@@ -8,7 +8,7 @@ class RemoveProductFromCartUseCase {
 
   RemoveProductFromCartUseCase(this._cartRepo);
 
-  Future<Either<ServerFailure, String>> execute(String productId) async {
+  Future<Either<ServerFailure, String>> execute(int productId) async {
     return _cartRepo.removeProduct(productId);
   }
 }

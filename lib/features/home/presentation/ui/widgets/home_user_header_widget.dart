@@ -46,6 +46,7 @@ class HomeUserHeaderWidget extends StatelessWidget {
           height: 151.h,
           width: double.infinity,
         ),
+        Gap(8.h),
       ],
     ).setHorizontalPadding(16.w);
   }
@@ -82,7 +83,7 @@ class HomeUserHeaderWidget extends StatelessWidget {
               "Your next maintenance\nwill be at ${car.km} KM.",
               style: TextStyles.font10WhiteMedium,
             ),
-            Gap(24.h),
+            Gap(16.h),
             Text(
               "Your last purchases",
               style: TextStyles.font10BlueGreySemiBold,
@@ -91,24 +92,46 @@ class HomeUserHeaderWidget extends StatelessWidget {
             _buildLastPurchaseItem("ACDelco 480"),
             Gap(6.h),
             _buildLastPurchaseItem("Bridgestone Tyre"),
+            Gap(20.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset("assets/icons/triple_back_icons.svg"),
+                Gap(6.w),
+                Text(
+                  "Swipe to Change Car",
+                  style: TextStyles.font10BlueGreyRegular,
+                ),
+                Gap(6.w),
+                SvgPicture.asset("assets/icons/triple_forward_icons.svg"),
+              ],
+            )
           ],
         ).setHorizontalPadding(16.w),
         Positioned(
           right: -70,
-          bottom: 0.h,
+          bottom: 20.h,
           child: GestureDetector(
-            onPanUpdate: (details) {
-              // TODO: get next car when swipe left and previous car when swipe right
-              // Swiping in right direction.
-              if (details.delta.dx > 0) {
-                context.successSnackBar("car swiped right");
-              }
-
-              // Swiping in left direction.
-              if (details.delta.dx < 0) {
-                context.successSnackBar("car swiped left");
+            onHorizontalDragEnd: (details) {
+              if (details.primaryVelocity! > 0) {
+                context.read<UserCubit>().selectNexCar();
+              } else if (details.primaryVelocity! < 0) {
+                context.read<UserCubit>().selectPreviousCar();
               }
             },
+            // onPanUpdate: (details) {
+            //   // Swiping in right direction.
+            //   if (details.delta.dx > 0) {
+            //     context.successSnackBar("car swiped right");
+            //     context.read<UserCubit>().selectNexCar();
+            //   }
+
+            //   // Swiping in left direction.
+            //   if (details.delta.dx < 0) {
+            //     context.successSnackBar("car swiped left");
+            //     context.read<UserCubit>().selectPreviousCar();
+            //   }
+            // },
             child: Image.network(
               car.imageUrl ?? "",
               width: 290.w,

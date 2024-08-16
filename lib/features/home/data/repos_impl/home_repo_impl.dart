@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:motor_mania/core/helpers/enums/switch_enum.dart';
 
 import '../../../../core/networking/failure/server_failure.dart';
 import '../../domain/entities/car_entity.dart';
@@ -129,6 +130,33 @@ class HomeRepoImpl extends HomeRepo {
       return Left(
         ServerFailure(
           statusCode: 400,
+          message: e.toString(),
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<ServerFailure, CarEntity>> switchCar(
+      SwitchEnum switchValue) async {
+    try {
+      final response = await _homeRemoteDataSource.switchCar(switchValue);
+
+      if (response.statusCode == 200) {
+        final CarEntity userCar = CarModel.fromJson(response.data['data']);
+
+        return Right(userCar);
+      }
+      return Left(
+        ServerFailure(
+          statusCode: response.statusCode,
+          message: response.data['message'],
+        ),
+      );
+    } catch (e) {
+      return Left(
+        ServerFailure(
+          statusCode: 500,
           message: e.toString(),
         ),
       );
