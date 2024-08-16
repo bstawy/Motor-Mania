@@ -10,17 +10,19 @@ import '../../../../core/widgets/custom_elevated_button.dart';
 import '../../../layout/logic/layout_cubit.dart';
 import '../logic/garage_cubit.dart';
 import 'widgets/garage_cars_list_widget.dart';
+import 'widgets/garage_empty_widget.dart';
+import 'widgets/garage_loading_widget.dart';
 import 'widgets/garage_no_user_widget.dart';
 
 class GarageScreen extends StatelessWidget {
   const GarageScreen({super.key});
 
-  Widget _buildAddNewCarButton(BuildContext context) {
+  Widget _buildAddNewCarButton() {
     return CustomElevatedButton(
       onPressed: () {}, // TODO: add new car,
       title: "Add New Car",
       titleStyle: TextStyles.font10BlueGreyMedium,
-      iconPath: "assets/icons/favorite_light_icon.svg",
+      iconPath: "assets/icons/add_icon.svg",
       iconWidth: 17.w,
       iconHeight: 17.h,
       borderRadiusValue: 12.r,
@@ -37,16 +39,49 @@ class GarageScreen extends StatelessWidget {
           context.read<LayoutCubit>().changeTab(0);
         },
         title: "My Garage",
-        //actions: [_buildAddNewCarButton(context)],
         actions: [
-          context.read<GarageCubit>().state is GarageLoaded
-              ? _buildAddNewCarButton(context)
-              : const SizedBox(),
+          BlocBuilder<GarageCubit, GarageState>(
+            bloc: context.read<GarageCubit>(),
+            builder: (context, state) {
+              if (state is GarageLoading) {
+                return const SizedBox();
+              }
+              return _buildAddNewCarButton();
+            },
+          ),
         ],
       ),
       body: context.read<AppManagerCubit>().appMode == AppMode.guest
           ? const GarageNoUserWidget()
-          : const GarageCarsListWidget(),
+          : BlocBuilder<GarageCubit, GarageState>(
+              bloc: context.read<GarageCubit>()..getGarageCars(),
+              buildWhen: (previous, current) {
+                if (current is GarageLoading ||
+                    current is GarageLoaded ||
+                    current is GarageEmpty ||
+                    current is GarageError) {
+                  return true;
+                }
+                return false;
+              },
+              builder: (context, state) {
+                if (state is GarageLoading) {
+                  return const GarageLoadingWidget();
+                } else if (state is GarageEmpty) {
+                  return const GarageEmptyWidget();
+                } else if (state is GarageLoaded) {
+                  return GarageCarsListWidget(
+                    garageCars: state.cars,
+                  );
+                } else if (state is GarageError) {
+                  return Center(
+                    child: Text(state.failure.message ?? ""),
+                  );
+                } else {
+                  return const SizedBox();
+                }
+              },
+            ),
     );
   }
 }

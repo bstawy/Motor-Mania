@@ -8,6 +8,7 @@ part 'app_manager_state.dart';
 
 class AppManagerCubit extends Cubit<AppManagerState> {
   AppMode appMode = AppMode.guest;
+  int selectedCarId = 0;
 
   AppManagerCubit() : super(AppManagerInitialState());
 

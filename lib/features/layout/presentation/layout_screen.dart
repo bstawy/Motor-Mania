@@ -125,7 +125,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
       ),
       bottomNavBarTab(
         screen: BlocProvider<GarageCubit>(
-          create: (context) => getIt<GarageCubit>()..getGarage(),
+          create: (context) => getIt<GarageCubit>()..getGarageCars(),
           child: const GarageScreen(),
         ),
         iconPath: "assets/icons/bottom_nav_selected_garage_icon.svg",
