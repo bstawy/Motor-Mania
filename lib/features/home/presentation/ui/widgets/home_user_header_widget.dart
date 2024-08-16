@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
+import '../../../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/helpers/extensions/extensions.dart';
 import '../../../../../core/widgets/search_bar_widget.dart';
@@ -23,6 +24,7 @@ class HomeUserHeaderWidget extends StatelessWidget {
         if (state is UserDataLoading) {
           return _loadingWidget();
         } else if (state is UserDataLoaded) {
+          context.read<AppManagerCubit>().selectedCarId = state.userCar.id!;
           return _loadedWidget(context, state.userCar);
         } else {
           return Container();
