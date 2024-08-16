@@ -39,4 +39,30 @@ class GarageRepoImpl extends GarageRepo {
       );
     }
   }
+
+  @override
+  Future<Either<ServerFailure, CarEntity>> selectCar(int carId) async {
+    try {
+      final response = await _garageRemoteDataSource.selectCar(carId);
+
+      if (response.statusCode == 200) {
+        final CarEntity car = CarModel.fromJson(response.data['data']);
+        return Right(car);
+      } else {
+        return Left(
+          ServerFailure(
+            statusCode: response.statusCode,
+            message: response.data['message'],
+          ),
+        );
+      }
+    } catch (e) {
+      return Left(
+        ServerFailure(
+          statusCode: 500,
+          message: e.toString(),
+        ),
+      );
+    }
+  }
 }

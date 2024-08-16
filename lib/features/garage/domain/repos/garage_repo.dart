@@ -5,4 +5,5 @@ import '../../../home/domain/entities/car_entity.dart';
 
 abstract class GarageRepo {
   Future<Either<ServerFailure, List<CarEntity>>> getGarageCars();
+  Future<Either<ServerFailure, CarEntity>> selectCar(int carId);
 }

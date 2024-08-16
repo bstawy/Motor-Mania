@@ -17,7 +17,7 @@ import 'widgets/garage_no_user_widget.dart';
 class GarageScreen extends StatelessWidget {
   const GarageScreen({super.key});
 
-  Widget _buildAddNewCarButton(BuildContext context) {
+  Widget _buildAddNewCarButton() {
     return CustomElevatedButton(
       onPressed: () {}, // TODO: add new car,
       title: "Add New Car",
@@ -43,11 +43,10 @@ class GarageScreen extends StatelessWidget {
           BlocBuilder<GarageCubit, GarageState>(
             bloc: context.read<GarageCubit>(),
             builder: (context, state) {
-              if (state is GarageLoaded) {
-                return _buildAddNewCarButton(context);
-              } else {
+              if (state is GarageLoading) {
                 return const SizedBox();
               }
+              return _buildAddNewCarButton();
             },
           ),
         ],
@@ -56,6 +55,15 @@ class GarageScreen extends StatelessWidget {
           ? const GarageNoUserWidget()
           : BlocBuilder<GarageCubit, GarageState>(
               bloc: context.read<GarageCubit>()..getGarageCars(),
+              buildWhen: (previous, current) {
+                if (current is GarageLoading ||
+                    current is GarageLoaded ||
+                    current is GarageEmpty ||
+                    current is GarageError) {
+                  return true;
+                }
+                return false;
+              },
               builder: (context, state) {
                 if (state is GarageLoading) {
                   return const GarageLoadingWidget();

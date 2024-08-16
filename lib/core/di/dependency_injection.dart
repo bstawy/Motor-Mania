@@ -36,6 +36,7 @@ import '../../features/garage/data/data_sources/garage_remote_data_source_impl.d
 import '../../features/garage/data/repos_impl/garage_repo_impl.dart';
 import '../../features/garage/domain/repos/garage_repo.dart';
 import '../../features/garage/domain/use_cases/get_garage_cars_use_case.dart';
+import '../../features/garage/domain/use_cases/select_car_use_case.dart';
 import '../../features/garage/presentation/logic/garage_cubit.dart';
 import '../../features/home/data/data_sources/home_data_sources.dart';
 import '../../features/home/data/data_sources/home_remote_data_source_impl.dart';
@@ -223,5 +224,8 @@ Future<void> initGetIt() async {
   getIt.registerFactory<GetGarageCarsUseCase>(
     () => GetGarageCarsUseCase(getIt()),
   );
-  getIt.registerFactory<GarageCubit>(() => GarageCubit(getIt()));
+  getIt.registerFactory<SelectCarUseCase>(
+    () => SelectCarUseCase(getIt()),
+  );
+  getIt.registerFactory<GarageCubit>(() => GarageCubit(getIt(), getIt()));
 }

@@ -13,4 +13,15 @@ class GarageRemoteDataSourceImpl extends GarageRemoteDataSource {
   Future<Response> getGarageCars() async {
     return await _crudManager.get(EndPoints.userCars, tokenReq: true);
   }
+
+  @override
+  Future<Response> selectCar(int carId) {
+    final Map<String, dynamic> param = {'carId': carId};
+
+    return _crudManager.post(
+      EndPoints.selectCar,
+      params: param,
+      tokenReq: true,
+    );
+  }
 }
