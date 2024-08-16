@@ -48,7 +48,7 @@ class CartRemoteDataSource implements CartDataSources {
 
   @override
   Future<Response> addProduct(
-    String productId,
+    int productId,
     int quantity,
   ) {
     final Map<String, dynamic> params = {
@@ -64,7 +64,7 @@ class CartRemoteDataSource implements CartDataSources {
   }
 
   @override
-  Future<Response> removeProduct(String productId) {
+  Future<Response> removeProduct(int productId) {
     final Map<String, dynamic> params = {"id": productId};
 
     return _crudManager.delete(

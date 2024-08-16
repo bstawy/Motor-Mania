@@ -12,8 +12,7 @@ class ProductRepoImpl extends ProductRepo {
   ProductRepoImpl(this._productRemoteDataSource);
 
   @override
-  Future<Either<ServerFailure, ProductEntity>> getProductDetails(
-      String id) async {
+  Future<Either<ServerFailure, ProductEntity>> getProductDetails(int id) async {
     try {
       final response = await _productRemoteDataSource.getProductDetails(id);
 

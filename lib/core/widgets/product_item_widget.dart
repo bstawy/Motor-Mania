@@ -32,7 +32,7 @@ class ProductItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        openProductBottomSheet(context: context, productId: product.id ?? "");
+        openProductBottomSheet(context: context, productId: product.id ?? 0);
       },
       child: Container(
         width: cardWidth ?? 150.w,

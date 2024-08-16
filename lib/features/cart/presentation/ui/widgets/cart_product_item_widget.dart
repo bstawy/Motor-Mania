@@ -25,7 +25,7 @@ class CartProductItemWidget extends StatelessWidget {
       onTap: () {
         openProductBottomSheet(
           context: context,
-          productId: cartProduct.product.id ?? "",
+          productId: cartProduct.product.id ?? 0,
         );
       },
       child: Container(
@@ -142,7 +142,7 @@ class CartProductItemWidget extends StatelessWidget {
                     onPressed: () {
                       context
                           .read<CartCubit>()
-                          .removeProductFromCart(cartProduct.product.id ?? "");
+                          .removeProductFromCart(cartProduct.product.id ?? 0);
                     },
                     title: "Remove",
                     iconPath: "assets/icons/trash_icon.svg",
@@ -156,7 +156,7 @@ class CartProductItemWidget extends StatelessWidget {
                           .addToFavorites(cartProduct);
                       context
                           .read<CartCubit>()
-                          .removeProductFromCart(cartProduct.product.id ?? "");
+                          .removeProductFromCart(cartProduct.product.id ?? 0);
                     },
                     title: "Move To Favorites",
                     iconPath: "assets/icons/favorite_light_icon.svg",

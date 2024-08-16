@@ -10,7 +10,7 @@ import '../di/dependency_injection.dart';
 
 void openProductBottomSheet({
   required BuildContext context,
-  required String productId,
+  required int productId,
 }) {
   context.read<LayoutCubit>().openBottomSheet();
   final Completer<void> completer = Completer<void>();

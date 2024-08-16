@@ -25,7 +25,7 @@ class CartLocalDataSource {
     return await _hiveManager.retrieveData<CartProductEntity>(HiveBoxKeys.cart);
   }
 
-  Future<void> removeProduct(String productId) async {
+  Future<void> removeProduct(int productId) async {
     final List<CartProductEntity> cart = await getCachedList();
     int index =
         cart.indexWhere((cartProduct) => cartProduct.product.id == productId);
@@ -35,7 +35,7 @@ class CartLocalDataSource {
     );
   }
 
-  Future<void> updateProductQuantity(String productId, int newQuantity) async {
+  Future<void> updateProductQuantity(int productId, int newQuantity) async {
     final List<CartProductEntity> cart = await getCachedList();
     int index =
         cart.indexWhere((cartProduct) => cartProduct.product.id == productId);

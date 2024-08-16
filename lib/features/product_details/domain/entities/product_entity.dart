@@ -8,7 +8,7 @@ part 'product_entity.g.dart';
 @HiveType(typeId: 1)
 class ProductEntity extends Equatable {
   @HiveField(0)
-  final String? id;
+  final int? id;
   @HiveField(1)
   final String? name;
   @HiveField(2)
@@ -57,7 +57,7 @@ class ProductEntity extends Equatable {
   });
 
   ProductEntity copyWith({
-    String? id,
+    int? id,
     String? name,
     String? description,
     String? imageUrl,

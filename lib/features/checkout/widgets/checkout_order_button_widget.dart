@@ -38,7 +38,6 @@ class CheckoutOrderButtonWidget extends StatelessWidget {
         children: [
           CustomMaterialButton(
             onClicked: () {
-              // TODO: open order successfully bottom sheet
               showModalBottomSheet(
                 context: context,
                 builder: (context) => const CheckoutOrderSuccessSheet(),

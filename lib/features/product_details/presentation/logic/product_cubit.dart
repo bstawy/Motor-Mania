@@ -14,7 +14,7 @@ class ProductCubit extends Cubit<ProductState> {
 
   ProductCubit(this._getProductDetailsUseCase) : super(ProductInitial());
 
-  void getProductDetails(String id) async {
+  void getProductDetails(int id) async {
     emit(ProductLoading());
     final response = await _getProductDetailsUseCase.execute(id);
     response.fold(

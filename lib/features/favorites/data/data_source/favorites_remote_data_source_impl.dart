@@ -27,7 +27,7 @@ class FavoritesRemoteDataSourceImpl extends FavoritesDataSources {
   }
 
   @override
-  Future<Response> removeFromFavorites(String id) async {
+  Future<Response> removeFromFavorites(int id) async {
     Map<String, dynamic> params = {'id': id};
 
     return await _crudManager.delete(

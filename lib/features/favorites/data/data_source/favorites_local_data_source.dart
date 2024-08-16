@@ -26,7 +26,7 @@ class FavoritesLocalDataSource {
         .retrieveData<HomeProductEntity>(HiveBoxKeys.favorites);
   }
 
-  Future<void> removeFavorite(String productId) async {
+  Future<void> removeFavorite(int productId) async {
     final List<HomeProductEntity> favorites = await getCachedFavoritesList();
     int index = favorites.indexWhere((product) => product.id == productId);
     await _hiveManager.clearItem<HomeProductEntity>(

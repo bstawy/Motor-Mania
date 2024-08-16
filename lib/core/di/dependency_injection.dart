@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:motor_mania/features/home/domain/use_cases/select_next_car_use_case.dart';
 
 import '../../features/auth/login/data/data_sources/login_remote_data_source.dart';
 import '../../features/auth/login/data/repos/login_repo.dart';
@@ -46,6 +47,7 @@ import '../../features/home/domain/use_cases/get_home_categories_use_case.dart';
 import '../../features/home/domain/use_cases/get_home_offers_use_case.dart';
 import '../../features/home/domain/use_cases/get_home_products_use_case.dart';
 import '../../features/home/domain/use_cases/get_user_selected_car_use_case.dart';
+import '../../features/home/domain/use_cases/select_previous_car_use_case.dart';
 import '../../features/home/presentation/logic/home_cubit/home_cubit.dart';
 import '../../features/home/presentation/logic/user_cubit/user_cubit.dart';
 import '../../features/layout/logic/layout_cubit.dart';
@@ -112,6 +114,12 @@ Future<void> initGetIt() async {
   getIt.registerFactory<GetUserSelectedCarUseCase>(
     () => GetUserSelectedCarUseCase(getIt()),
   );
+  getIt.registerFactory<SelectNextCarUseCase>(
+    () => SelectNextCarUseCase(getIt()),
+  );
+  getIt.registerFactory<SelectPreviousCarUseCase>(
+    () => SelectPreviousCarUseCase(getIt()),
+  );
   getIt.registerFactory<GetHomeOffersUseCase>(
     () => GetHomeOffersUseCase(getIt()),
   );
@@ -130,7 +138,7 @@ Future<void> initGetIt() async {
   );
 
   // User
-  getIt.registerFactory<UserCubit>(() => UserCubit(getIt()));
+  getIt.registerFactory<UserCubit>(() => UserCubit(getIt(), getIt(), getIt()));
 
   // Category
   getIt.registerFactory<CategoryDataSources>(

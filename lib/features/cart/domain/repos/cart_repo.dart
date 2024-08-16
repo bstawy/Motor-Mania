@@ -6,8 +6,8 @@ import '../entities/cart_product_entity.dart';
 abstract class CartRepo {
   Future<Either<ServerFailure, List<CartProductEntity>>> getCartProducts();
   Future<Either<ServerFailure, String>> addProduct(
-    String productId,
+    int productId,
     int quantity,
   );
-  Future<Either<ServerFailure, String>> removeProduct(String productId);
+  Future<Either<ServerFailure, String>> removeProduct(int productId);
 }

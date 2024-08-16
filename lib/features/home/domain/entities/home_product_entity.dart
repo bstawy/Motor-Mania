@@ -8,7 +8,7 @@ part 'home_product_entity.g.dart';
 @HiveType(typeId: 0)
 class HomeProductEntity extends Equatable {
   @HiveField(0)
-  final String? id;
+  final int? id;
   @HiveField(1)
   final String? name;
   @HiveField(2)
