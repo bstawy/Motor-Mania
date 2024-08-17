@@ -6,8 +6,8 @@ import 'package:gap/gap.dart';
 import '../../../../core/helpers/extensions/extensions.dart';
 import '../../../../core/widgets/custom_app_bar.dart';
 import '../../../../core/widgets/custom_material_button.dart';
-import '../cubit/car_brands_cubit.dart';
-import 'widgets/car_added_success_sheet_widget.dart';
+import '../logic/car_brands_cubit.dart';
+import 'widgets/add_car_listener.dart';
 import 'widgets/car_brands_form_field_widget.dart';
 import 'widgets/car_brands_kilometers_field_widget.dart';
 import 'widgets/car_brands_list_widget.dart';
@@ -28,6 +28,14 @@ class CarBrandsScreen extends StatelessWidget {
         ),
         body: BlocBuilder<CarBrandsCubit, CarBrandsState>(
           bloc: context.read<CarBrandsCubit>(),
+          buildWhen: (previous, current) {
+            return current is CarBrandsLoading ||
+                current is CarBrandsLoaded ||
+                current is CarBrandSelected ||
+                current is CarModelSelected ||
+                current is CarYearSelected ||
+                current is CarKilometersSelected;
+          },
           builder: (context, state) {
             if (state is CarBrandsLoading) {
               return const CarBrandsLoadingWidget();
@@ -86,6 +94,7 @@ class CarBrandsScreen extends StatelessWidget {
                           context.read<CarBrandsCubit>().selectedCarYear !=
                               null,
                     ),
+                    const AddCarListener(),
                   ],
                 ).setVerticalPadding(16.h),
               );
@@ -115,13 +124,7 @@ class CarBrandsScreen extends StatelessWidget {
               child: CustomMaterialButton(
                 onClicked: checkDataCompleted(context)
                     ? () {
-                        showModalBottomSheet(
-                          context: context,
-                          builder: (context) => const CarAddedSuccessSheet(),
-                          isScrollControlled: true,
-                          useSafeArea: true,
-                          backgroundColor: Colors.white,
-                        );
+                        context.read<CarBrandsCubit>().addCar();
                       }
                     : null,
                 title: "Add Car",

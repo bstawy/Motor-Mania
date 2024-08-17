@@ -6,7 +6,7 @@ import 'package:gap/gap.dart';
 import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors_manager.dart';
 import '../../../../../core/helpers/extensions/extensions.dart';
-import '../../cubit/car_brands_cubit.dart';
+import '../../logic/car_brands_cubit.dart';
 
 class CarBrandsKilometersFieldWidget extends StatefulWidget {
   final bool? isEnabled;
@@ -56,6 +56,7 @@ class _CarBrandsKilometersFieldWidgetState
                 child: TextField(
                   controller: _controller,
                   style: TextStyles.font12DarkBlueSemiBold,
+                  keyboardType: TextInputType.number,
                   enabled:
                       context.read<CarBrandsCubit>().selectedCarYear != null,
                   onTapOutside: (event) {

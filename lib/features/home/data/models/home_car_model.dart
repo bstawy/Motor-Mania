@@ -21,11 +21,9 @@ class CarModel extends CarEntity {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'brand': brand,
       'model': model,
       'year': year,
-      'image_url': imageUrl,
     };
   }
 }

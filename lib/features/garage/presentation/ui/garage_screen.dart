@@ -47,7 +47,8 @@ class GarageScreen extends StatelessWidget {
           BlocBuilder<GarageCubit, GarageState>(
             bloc: context.read<GarageCubit>(),
             builder: (context, state) {
-              if (state is GarageLoading) {
+              if (state is GarageLoading ||
+                  context.read<AppManagerCubit>().appMode == AppMode.guest) {
                 return const SizedBox();
               }
               return _buildAddNewCarButton(context);

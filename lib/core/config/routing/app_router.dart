@@ -5,7 +5,7 @@ import '../../../features/auth/login/logic/login_cubit.dart';
 import '../../../features/auth/login/presentation/login_screen.dart';
 import '../../../features/auth/register/logic/register_cubit.dart';
 import '../../../features/auth/register/presentation/register_screen.dart';
-import '../../../features/car_brands/presentation/cubit/car_brands_cubit.dart';
+import '../../../features/car_brands/presentation/logic/car_brands_cubit.dart';
 import '../../../features/car_brands/presentation/ui/car_brands_screen.dart';
 import '../../../features/car_brands/presentation/ui/choose_car_brands_screen.dart';
 import '../../../features/cart/presentation/logic/cart_cubit.dart';

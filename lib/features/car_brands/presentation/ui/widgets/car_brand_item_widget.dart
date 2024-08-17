@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../core/config/theme/colors_manager.dart';
 import '../../../domain/entities/car_brand_entity.dart';
-import '../../cubit/car_brands_cubit.dart';
+import '../../logic/car_brands_cubit.dart';
 
 class CarBrandItemWidget extends StatelessWidget {
   final CarBrandEntity carBrand;

@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/widgets/custom_app_bar.dart';
 import '../../domain/entities/car_brand_entity.dart';
-import '../cubit/car_brands_cubit.dart';
+import '../logic/car_brands_cubit.dart';
 import 'widgets/car_brand_item_widget.dart';
 
 class ChooseCarBrandsScreen extends StatelessWidget {

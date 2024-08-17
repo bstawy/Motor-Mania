@@ -12,6 +12,16 @@ final class CarBrandsLoaded extends CarBrandsState {
   CarBrandsLoaded(this.carBrands);
 }
 
+final class CarBrandsAdding extends CarBrandsState {}
+
+final class CarBrandsAddedSuccess extends CarBrandsState {}
+
+final class CarBrandsAddedError extends CarBrandsState {
+  final ServerFailure failure;
+
+  CarBrandsAddedError(this.failure);
+}
+
 final class CarBrandSelected extends CarBrandsState {}
 
 final class CarModelSelected extends CarBrandsState {}

@@ -11,8 +11,9 @@ import '../../features/car_brands/data/data_sources/car_brands_remote_data_sourc
 import '../../features/car_brands/data/data_sources/car_brands_remote_data_source_impl.dart';
 import '../../features/car_brands/data/repos_impl/car_brands_repo_impl.dart';
 import '../../features/car_brands/domain/repos/car_brands_repo.dart';
+import '../../features/car_brands/domain/use_cases/add_car_use_case.dart';
 import '../../features/car_brands/domain/use_cases/get_car_brands_use_case.dart';
-import '../../features/car_brands/presentation/cubit/car_brands_cubit.dart';
+import '../../features/car_brands/presentation/logic/car_brands_cubit.dart';
 import '../../features/cart/data/data_sources/cart_data_sources.dart';
 import '../../features/cart/data/data_sources/cart_local_data_source.dart';
 import '../../features/cart/data/data_sources/cart_remote_data_source.dart';
@@ -253,5 +254,8 @@ Future<void> initGetIt() async {
   getIt.registerFactory<GetCarBrandsUseCase>(
     () => GetCarBrandsUseCase(getIt()),
   );
-  getIt.registerFactory<CarBrandsCubit>(() => CarBrandsCubit(getIt()));
+  getIt.registerFactory<AddCarUseCase>(
+    () => AddCarUseCase(getIt()),
+  );
+  getIt.registerFactory<CarBrandsCubit>(() => CarBrandsCubit(getIt(), getIt()));
 }
