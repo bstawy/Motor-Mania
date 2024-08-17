@@ -18,7 +18,6 @@ class ChooseCarBrandsScreen extends StatelessWidget {
       ),
       body: BlocBuilder<CarBrandsCubit, CarBrandsState>(
         bloc: context.read<CarBrandsCubit>(),
-        //buildWhen: (previous, current) => current is CarBrandSelected,
         builder: (context, state) {
           final List<CarBrandEntity> carBrands =
               context.read<CarBrandsCubit>().carBrands;

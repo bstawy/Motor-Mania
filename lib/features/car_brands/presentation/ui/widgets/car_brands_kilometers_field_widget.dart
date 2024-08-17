@@ -5,11 +5,15 @@ import 'package:gap/gap.dart';
 
 import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors_manager.dart';
-import '../../../../../core/helpers/extensions/padding_ext.dart';
+import '../../../../../core/helpers/extensions/extensions.dart';
 import '../../cubit/car_brands_cubit.dart';
 
 class CarBrandsKilometersFieldWidget extends StatefulWidget {
-  const CarBrandsKilometersFieldWidget({super.key});
+  final bool? isEnabled;
+  const CarBrandsKilometersFieldWidget({
+    super.key,
+    this.isEnabled = true,
+  });
 
   @override
   State<CarBrandsKilometersFieldWidget> createState() =>
@@ -27,6 +31,12 @@ class _CarBrandsKilometersFieldWidgetState
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,52 +49,68 @@ class _CarBrandsKilometersFieldWidgetState
         Row(
           children: [
             Expanded(
-              child: TextField(
-                controller: _controller,
-                style: TextStyles.font12DarkBlueSemiBold,
-                onTapOutside: (event) {
-                  if (_controller.value.text.isNotEmpty) {
-                    context
-                        .read<CarBrandsCubit>()
-                        .selectCarKilometers(_controller.value.text);
-                  }
-                  return FocusScope.of(context).unfocus();
-                },
-                onSubmitted: (value) {
-                  if (value.isNotEmpty) {
-                    context
-                        .read<CarBrandsCubit>()
-                        .selectCarKilometers(_controller.value.text);
-                    return;
-                  }
-                },
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: 15.w,
-                    vertical: 13.h,
-                  ),
-                  isDense: true,
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(14.r),
-                    borderSide:
-                        const BorderSide(color: Colors.white, width: 0.0),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(14.r),
-                    borderSide:
-                        const BorderSide(color: Colors.white, width: 0.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(14.r),
-                    borderSide: BorderSide(
-                      color: ColorsManager.blueGrey,
-                      width: 1.5.r,
+              child: GestureDetector(
+                onTap: () => widget.isEnabled!
+                    ? null
+                    : context.errorSnackBar("Select a car year first"),
+                child: TextField(
+                  controller: _controller,
+                  style: TextStyles.font12DarkBlueSemiBold,
+                  enabled:
+                      context.read<CarBrandsCubit>().selectedCarYear != null,
+                  onTapOutside: (event) {
+                    if (_controller.value.text.isNotEmpty) {
+                      context
+                          .read<CarBrandsCubit>()
+                          .selectCarKilometers(_controller.value.text);
+                    }
+                    return FocusScope.of(context).unfocus();
+                  },
+                  onSubmitted: (value) {
+                    if (value.isNotEmpty) {
+                      context
+                          .read<CarBrandsCubit>()
+                          .selectCarKilometers(_controller.value.text);
+                      return;
+                    }
+                  },
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: 15.w,
+                      vertical: 13.h,
                     ),
+                    isDense: true,
+                    filled: true,
+                    fillColor: widget.isEnabled!
+                        ? Colors.white
+                        : ColorsManager.darkBlue.withOpacity(0.3),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(14.r),
+                      borderSide:
+                          const BorderSide(color: Colors.white, width: 0.0),
+                    ),
+                    disabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(14.r),
+                      borderSide: BorderSide(
+                        color: ColorsManager.blueGrey.withOpacity(0.2),
+                        width: 0.0,
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(14.r),
+                      borderSide:
+                          const BorderSide(color: Colors.white, width: 0.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(14.r),
+                      borderSide: BorderSide(
+                        color: ColorsManager.blueGrey,
+                        width: 1.5.r,
+                      ),
+                    ),
+                    hintText: "Enter Kilometers",
+                    hintStyle: TextStyles.font12DarkBlueRegular,
                   ),
-                  hintText: "Enter Kilometers",
-                  hintStyle: TextStyles.font12DarkBlueRegular,
                 ),
               ),
             ),
