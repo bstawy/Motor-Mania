@@ -5,6 +5,8 @@ import '../../../features/auth/login/logic/login_cubit.dart';
 import '../../../features/auth/login/presentation/login_screen.dart';
 import '../../../features/auth/register/logic/register_cubit.dart';
 import '../../../features/auth/register/presentation/register_screen.dart';
+import '../../../features/car_brands/presentation/cubit/car_brands_cubit.dart';
+import '../../../features/car_brands/presentation/ui/car_brands_screen.dart';
 import '../../../features/cart/presentation/logic/cart_cubit.dart';
 import '../../../features/checkout/checkout_screen.dart';
 import '../../../features/favorites/presentation/logic/favorites_cubit.dart';
@@ -93,6 +95,15 @@ class AppRouter {
           builder: (_) => BlocProvider<CartCubit>.value(
             value: _cartCubit!,
             child: const CheckoutScreen(),
+          ),
+          settings: settings,
+        );
+
+      case Routes.carBrands:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider<CarBrandsCubit>.value(
+            value: getIt<CarBrandsCubit>()..getCarBrands(),
+            child: const CarBrandsScreen(),
           ),
           settings: settings,
         );
