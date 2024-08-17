@@ -10,7 +10,7 @@ part 'car_brands_state.dart';
 class CarBrandsCubit extends Cubit<CarBrandsState> {
   final GetCarBrandsUseCase _getCarBrandsUseCase;
   List<CarBrandEntity> carBrands = [];
-  int selectedCarBrandId = 1;
+  int? selectedCarBrandId;
   String? selectedCarModel;
   int? selectedCarYear;
   int? selectedCarKilometers;
@@ -64,5 +64,12 @@ class CarBrandsCubit extends Cubit<CarBrandsState> {
     }
     selectedCarKilometers = int.parse(kilometer);
     emit(CarKilometersSelected());
+  }
+
+  void reset() {
+    selectedCarBrandId = 1;
+    selectedCarModel = null;
+    selectedCarYear = null;
+    selectedCarKilometers = null;
   }
 }
