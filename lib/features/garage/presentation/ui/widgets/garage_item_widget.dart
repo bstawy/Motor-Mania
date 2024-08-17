@@ -103,7 +103,11 @@ class GarageItemWidget extends StatelessWidget {
                             SizedBox(
                               width: 22.w,
                               child: CustomElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  context
+                                      .read<GarageCubit>()
+                                      .removeCar(car.id!);
+                                },
                                 iconPath: "assets/icons/trash_icon.svg",
                                 iconWidth: 10.w,
                                 iconHeight: 10.r,

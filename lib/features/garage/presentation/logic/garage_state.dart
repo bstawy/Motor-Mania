@@ -27,6 +27,8 @@ final class SelectCarError extends GarageState {
 
 final class GarageEmpty extends GarageState {}
 
+final class RemoveFromGarageLoading extends GarageState {}
+
 final class RemoveFromGarageSuccess extends GarageState {}
 
 final class RemoveFromGarageError extends GarageState {

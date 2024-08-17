@@ -65,4 +65,29 @@ class GarageRepoImpl extends GarageRepo {
       );
     }
   }
+
+  @override
+  Future<Either<ServerFailure, bool>> removeCar(int carId) async {
+    try {
+      final response = await _garageRemoteDataSource.removeCar(carId);
+
+      if (response.statusCode == 200) {
+        return const Right(true);
+      } else {
+        return Left(
+          ServerFailure(
+            statusCode: response.statusCode,
+            message: response.data['message'],
+          ),
+        );
+      }
+    } catch (e) {
+      return Left(
+        ServerFailure(
+          statusCode: 500,
+          message: e.toString(),
+        ),
+      );
+    }
+  }
 }

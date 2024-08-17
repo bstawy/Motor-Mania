@@ -18,6 +18,7 @@ class HomeUserHeaderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: handle swipe when user has only one car
     return BlocBuilder<UserCubit, UserState>(
       bloc: context.read<UserCubit>()..fetchUserData(),
       builder: (context, state) {
