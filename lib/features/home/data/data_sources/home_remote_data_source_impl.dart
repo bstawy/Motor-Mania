@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:motor_mania/core/helpers/enums/switch_enum.dart';
 
 import '../../../../core/config/constants/api_constants.dart';
+import '../../../../core/helpers/enums/switch_enum.dart';
 import '../../../../core/networking/crud_manager.dart';
 import 'home_data_sources.dart';
 
