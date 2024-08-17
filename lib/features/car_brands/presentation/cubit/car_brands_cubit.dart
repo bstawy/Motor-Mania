@@ -30,8 +30,19 @@ class CarBrandsCubit extends Cubit<CarBrandsState> {
     );
   }
 
-  selectCarBrand(int id) {
+  selectCarBrand(int id, {bool? order}) {
     selectedCarBrandId = id;
+
+    if (order != null && order) {
+      Set<CarBrandEntity> newCarBrands = {
+        carBrands.firstWhere((element) => element.id == id),
+        ...carBrands,
+      };
+
+      carBrands = newCarBrands.toList();
+    }
+    // TODO: rearrage where selected brand is first brand
+
     emit(CarBrandSelected());
   }
 
