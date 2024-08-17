@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../core/config/theme/colors_manager.dart';
-import '../../../../../core/helpers/extensions/extensions.dart';
 import '../../../domain/entities/car_brand_entity.dart';
 import '../../cubit/car_brands_cubit.dart';
 
@@ -28,27 +27,30 @@ class CarBrandItemWidget extends StatelessWidget {
       child: BlocBuilder<CarBrandsCubit, CarBrandsState>(
         bloc: context.read<CarBrandsCubit>(),
         builder: (context, state) {
-          return Container(
-            width: 100.w,
-            height: 100.h,
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            decoration: BoxDecoration(
-              color: isSelected ? ColorsManager.darkBlue : Colors.white,
-              borderRadius: BorderRadius.circular(20.r),
-            ),
-            alignment: Alignment.center,
-            child: SvgPicture.network(
-              carBrand.logoUrl ?? '',
-              width: 50.w,
-              height: 50.h,
-              colorFilter: ColorFilter.mode(
-                isSelected ? Colors.white : ColorsManager.darkBlue,
-                BlendMode.srcIn,
+          return Hero(
+            tag: carBrand.id!,
+            child: Container(
+              width: 100.w,
+              height: 100.h,
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              decoration: BoxDecoration(
+                color: isSelected ? ColorsManager.darkBlue : Colors.white,
+                borderRadius: BorderRadius.circular(20.r),
+              ),
+              alignment: Alignment.center,
+              child: SvgPicture.network(
+                carBrand.logoUrl ?? '',
+                width: 50.w,
+                height: 50.h,
+                colorFilter: ColorFilter.mode(
+                  isSelected ? Colors.white : ColorsManager.darkBlue,
+                  BlendMode.srcIn,
+                ),
               ),
             ),
           );
         },
-      ).setOnlyPadding(0, 0, 8.w, 0),
+      ),
     );
   }
 }

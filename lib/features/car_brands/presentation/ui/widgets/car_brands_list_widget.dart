@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
+import '../../../../../core/config/routing/routes.dart';
 import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/helpers/extensions/extensions.dart';
 import '../../../domain/entities/car_brand_entity.dart';
@@ -29,7 +30,7 @@ class CarBrandsListWidget extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                //TODO: go to all car brands screen
+                context.pushNamed(Routes.chooseBrand);
               },
               child: Text(
                 "See All",
@@ -46,7 +47,8 @@ class CarBrandsListWidget extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemCount: carBrands.length,
             itemBuilder: (context, index) {
-              return CarBrandItemWidget(carBrand: carBrands[index]);
+              return CarBrandItemWidget(carBrand: carBrands[index])
+                  .setOnlyPadding(0, 0, 8.w, 0);
             },
           ),
         ),
