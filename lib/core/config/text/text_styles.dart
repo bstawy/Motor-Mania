@@ -277,6 +277,13 @@ class TextStyles {
     fontFamily: 'Montserrat',
   );
 
+  static TextStyle font10RedRegular = TextStyle(
+    color: ColorsManager.red,
+    fontSize: 10.sp,
+    fontWeight: FontWeightHelper.regular,
+    fontFamily: 'Montserrat',
+  );
+
   static TextStyle font10BlueGreyLight = TextStyle(
     color: ColorsManager.blueGrey,
     fontSize: 10.sp,

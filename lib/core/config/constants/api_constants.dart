@@ -24,4 +24,7 @@ class EndPoints {
   static const String userCars = "cars/getUserCars.php";
   static const String selectCar = "cars/selectCar.php";
   static const String changeCar = "cars/changeCar.php";
+  static const String carBrands = "cars/getAllBrands.php";
+  static const String addCar = "cars/addCar.php";
+  static const String removeCar = "cars/removeCar.php";
 }

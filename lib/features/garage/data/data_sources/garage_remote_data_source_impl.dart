@@ -15,11 +15,22 @@ class GarageRemoteDataSourceImpl extends GarageRemoteDataSource {
   }
 
   @override
-  Future<Response> selectCar(int carId) {
+  Future<Response> selectCar(int carId) async {
     final Map<String, dynamic> param = {'carId': carId};
 
     return _crudManager.post(
       EndPoints.selectCar,
+      params: param,
+      tokenReq: true,
+    );
+  }
+
+  @override
+  Future<Response> removeCar(int carId) async {
+    final Map<String, dynamic> param = {'id': carId};
+
+    return await _crudManager.delete(
+      EndPoints.removeCar,
       params: param,
       tokenReq: true,
     );

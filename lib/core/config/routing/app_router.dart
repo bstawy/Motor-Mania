@@ -5,6 +5,9 @@ import '../../../features/auth/login/logic/login_cubit.dart';
 import '../../../features/auth/login/presentation/login_screen.dart';
 import '../../../features/auth/register/logic/register_cubit.dart';
 import '../../../features/auth/register/presentation/register_screen.dart';
+import '../../../features/car_brands/presentation/logic/car_brands_cubit.dart';
+import '../../../features/car_brands/presentation/ui/car_brands_screen.dart';
+import '../../../features/car_brands/presentation/ui/choose_car_brands_screen.dart';
 import '../../../features/cart/presentation/logic/cart_cubit.dart';
 import '../../../features/checkout/checkout_screen.dart';
 import '../../../features/favorites/presentation/logic/favorites_cubit.dart';
@@ -19,6 +22,7 @@ import 'routes.dart';
 
 class AppRouter {
   CartCubit? _cartCubit;
+  CarBrandsCubit? _carBrandsCubit;
 
   Route generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -97,6 +101,26 @@ class AppRouter {
           settings: settings,
         );
 
+      case Routes.carBrands:
+        _initializeCarBrandsCubit();
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider<CarBrandsCubit>.value(
+            value: _carBrandsCubit!..getCarBrands(),
+            child: const CarBrandsScreen(),
+          ),
+          settings: settings,
+        );
+
+      case Routes.chooseBrand:
+        _initializeCarBrandsCubit();
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider<CarBrandsCubit>.value(
+            value: _carBrandsCubit!,
+            child: const ChooseCarBrandsScreen(),
+          ),
+          settings: settings,
+        );
+
       default:
         return MaterialPageRoute(
           builder: (_) => NoRouteDefinedWidget(settings: settings),
@@ -107,5 +131,14 @@ class AppRouter {
 
   void _initializeCartCubit() {
     _cartCubit ??= getIt<CartCubit>();
+  }
+
+  void _initializeCarBrandsCubit() {
+    _carBrandsCubit ??= getIt<CarBrandsCubit>();
+  }
+
+  void dispose() {
+    _cartCubit?.close();
+    _carBrandsCubit?.close();
   }
 }
