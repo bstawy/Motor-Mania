@@ -32,8 +32,6 @@ class LogoutAlertDialogWidget extends StatelessWidget {
           onPressed: () async {
             await context.read<AppManagerCubit>().logUserOut();
             if (context.mounted) {
-              Navigator.of(context).pop(true);
-
               context.pushNamedAndRemoveUntil(
                 Routes.onBoardingScreens,
                 predicate: (route) => false,
