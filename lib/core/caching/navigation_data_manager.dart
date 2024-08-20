@@ -31,6 +31,10 @@ class NavigationDataManager {
     final Map<String, dynamic> json = jsonDecode(jsonString);
     return ScreenNavigationData.fromJson(json);
   }
+
+  static removeScreenNavigationData() async {
+    await SecureStorageFactory.delete(CachingConstants.screenNavigationData);
+  }
 }
 
 class ScreenNavigationData {
