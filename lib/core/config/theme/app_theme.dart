@@ -11,4 +11,13 @@ class AppTheme {
     ),
     fontFamily: 'Montserrat',
   );
+
+  static final ThemeData darkThemeData = ThemeData(
+    useMaterial3: true,
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: ColorsManager.dark,
+      surface: ColorsManager.darkBlue,
+    ),
+    fontFamily: 'Montserrat',
+  );
 }
