@@ -8,8 +8,8 @@ import '../../../../../core/helpers/extensions/extensions.dart';
 import '../../../../../core/helpers/save_navigation_data.dart';
 import '../../../../../core/widgets/custom_material_button.dart';
 
-class GarageNoUserWidget extends StatelessWidget {
-  const GarageNoUserWidget({super.key});
+class ProfileNoUserWidget extends StatelessWidget {
+  const ProfileNoUserWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class GarageNoUserWidget extends StatelessWidget {
                 style: TextStyles.font24RedSemiBold,
               ),
               TextSpan(
-                text: "To Add A Car",
+                text: "To Show Your Profile",
                 style: TextStyles.font24DarkBlueSemiBold,
               ),
             ],
@@ -41,7 +41,7 @@ class GarageNoUserWidget extends StatelessWidget {
         ).setHorizontalPadding(47.w),
         Gap(8.h),
         Text(
-          "Login and add your cars to \"My Garage\" for a personalized experience and quick access to the parts you need.",
+          "Login to see your profile and manage your account settings.",
           textAlign: TextAlign.center,
           style: TextStyles.font12BlueGreyRegular,
         ).setHorizontalPadding(47.w),
@@ -50,7 +50,7 @@ class GarageNoUserWidget extends StatelessWidget {
           onClicked: () {
             saveNavigationData(
               Routes.layoutScreen,
-              2,
+              4,
             );
             context.pushNamed(Routes.loginScreen);
           },

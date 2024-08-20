@@ -39,7 +39,7 @@ class HomeGuestHeaderWidget extends StatelessWidget {
                   onTap: () {
                     saveNavigationData(
                       Routes.layoutScreen,
-                      null,
+                      0,
                     );
                     context.pushNamed(Routes.loginScreen);
                   },

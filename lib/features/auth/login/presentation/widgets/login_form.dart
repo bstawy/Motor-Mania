@@ -153,6 +153,8 @@ class _LoginFormState extends State<LoginForm> {
                 }
 
                 if (context.mounted) {
+                  NavigationDataManager.removeScreenNavigationData();
+
                   context.pushNamedAndRemoveUntil(
                     navRoute,
                     predicate: (route) => false,

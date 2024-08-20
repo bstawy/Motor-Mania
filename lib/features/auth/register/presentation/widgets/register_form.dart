@@ -134,6 +134,8 @@ class _RegisterFormState extends State<RegisterForm> {
                 }
 
                 if (context.mounted) {
+                  NavigationDataManager.removeScreenNavigationData();
+
                   context.pushNamedAndRemoveUntil(
                     navRoute,
                     predicate: (route) => false,
