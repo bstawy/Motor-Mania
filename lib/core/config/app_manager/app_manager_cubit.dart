@@ -8,6 +8,8 @@ part 'app_manager_state.dart';
 
 class AppManagerCubit extends Cubit<AppManagerState> {
   AppMode appMode = AppMode.guest;
+  ThemeMode currentThemeMode = ThemeMode.light;
+  int selectedCarId = 0;
 
   AppManagerCubit() : super(AppManagerInitialState());
 
@@ -21,6 +23,11 @@ class AppManagerCubit extends Cubit<AppManagerState> {
       appMode = AppMode.guest;
       emit(NoUserLoggedInState());
     }
+  }
+
+  void changeTheme(ThemeMode selectedThemeMode) {
+    currentThemeMode = selectedThemeMode;
+    emit(ChangeThemeState(currentThemeMode));
   }
 
   void logUserIn() {

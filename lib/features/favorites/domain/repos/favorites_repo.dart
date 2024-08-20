@@ -5,6 +5,6 @@ import '../../../home/domain/entities/home_product_entity.dart';
 
 abstract class FavoritesRepo {
   Future<Either<ServerFailure, List<HomeProductEntity>>> getAllFavorites();
-  Future<Either<ServerFailure, String>> addToFavorites(String id);
-  Future<Either<ServerFailure, String>> removeFromFavorites(String id);
+  Future<Either<ServerFailure, String>> addToFavorites(dynamic product);
+  Future<Either<ServerFailure, String>> removeFromFavorites(int id);
 }

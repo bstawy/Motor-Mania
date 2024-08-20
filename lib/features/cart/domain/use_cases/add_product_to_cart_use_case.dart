@@ -9,7 +9,7 @@ class AddProductToCartUseCase {
   AddProductToCartUseCase(this._cartRepo);
 
   Future<Either<ServerFailure, String>> execute(
-      String productId, int quantity) async {
+      int productId, int quantity) async {
     return await _cartRepo.addProduct(productId, quantity);
   }
 }

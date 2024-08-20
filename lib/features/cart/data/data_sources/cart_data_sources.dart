@@ -1,7 +1,14 @@
+import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
+import '../../../../core/networking/failure/server_failure.dart';
+import '../../domain/entities/cart_product_entity.dart';
+
 abstract class CartDataSources {
-  Future<Response> getCartProducts();
-  Future<Response> addProduct(String productId, int quantity);
-  Future<Response> removeProduct(String productId);
+  Future<Either<ServerFailure, List<CartProductEntity>>> getCartProducts();
+  Future<Response> addProduct(
+    int productId,
+    int quantity,
+  );
+  Future<Response> removeProduct(int productId);
 }

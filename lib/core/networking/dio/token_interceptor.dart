@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../caching/tokens_manager.dart';
 import '../../config/app_manager/app_manager_cubit.dart';
@@ -17,9 +18,9 @@ class TokenInterceptor extends Interceptor {
     if (accessToken.isNotEmpty) {
       options.headers["Authorization"] = "Bearer $accessToken";
     } else {
-      throw Exception(
-          "================================\nAccess Token is empty");
+      options.headers["Authorization"] = "";
     }
+    debugPrint("Access Token: $accessToken");
 
     super.onRequest(options, handler);
   }
@@ -73,18 +74,6 @@ class TokenInterceptor extends Interceptor {
           err.requestOptions.method = err.requestOptions.method;
 
           return handler.resolve(await dio.fetch(err.requestOptions));
-
-          // final opts = Options(
-          //   method: err.requestOptions.method,
-          //   headers: err.requestOptions.headers,
-          // );
-
-          // await dio.request(
-          //   err.requestOptions.path,
-          //   options: opts,
-          //   data: err.requestOptions.data,
-          //   queryParameters: err.requestOptions.queryParameters,
-          // );
         }
       } else {
         await logout();
@@ -117,7 +106,6 @@ class TokenInterceptor extends Interceptor {
   }
 
   Future<void> logout() async {
-    // TODO: show snackbar
     final AppManagerCubit appManagerCubit = AppManagerCubit();
     appManagerCubit.logUserOut();
   }

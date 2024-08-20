@@ -1,53 +1,64 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
+import 'package:lottie/lottie.dart';
 
 import '../config/text/text_styles.dart';
+import 'enums/status_enum.dart';
 
 class CustomSnackBar {
-  static void showSuccessMessage(BuildContext context, String msg) {
+  static _buildCustomBotToast(
+      BuildContext context, StatusEnum status, String msg) {
     BotToast.showCustomNotification(
       useSafeArea: true,
       crossPage: true,
       dismissDirections: [DismissDirection.startToEnd],
       duration: const Duration(
-        seconds: 2,
+        milliseconds: 2000,
       ),
       toastBuilder: (void Function() cancelFunc) {
-        return _buildNotificationWidget(context, success: true, msg: msg);
+        return _buildNotificationWidget(context, status: status, msg: msg);
       },
     );
   }
 
+  static void showSuccessMessage(BuildContext context, String msg) {
+    _buildCustomBotToast(context, StatusEnum.success, msg);
+  }
+
+  static void showLoadingMessage(BuildContext context, String msg) {
+    _buildCustomBotToast(context, StatusEnum.loading, msg);
+  }
+
   static void showErrorMessage(BuildContext context, String msg) {
-    BotToast.showCustomNotification(
-      useSafeArea: true,
-      crossPage: true,
-      dismissDirections: [DismissDirection.endToStart],
-      duration: const Duration(
-        seconds: 2,
-      ),
-      toastBuilder: (void Function() cancelFunc) {
-        return _buildNotificationWidget(context, success: false, msg: msg);
-      },
-    );
+    _buildCustomBotToast(context, StatusEnum.error, msg);
   }
 
   static Widget _buildNotificationWidget(
     BuildContext context, {
-    required bool success,
+    required StatusEnum status,
     required String msg,
   }) {
-    final theme = Theme.of(context);
+    late String lottiePath;
 
-    Color msgTextColor =
-        (success) ? theme.colorScheme.primary : theme.colorScheme.error;
+    switch (status) {
+      case StatusEnum.loading:
+        lottiePath = "assets/animation/loading_animation.json";
+        break;
+      case StatusEnum.success:
+        lottiePath = "assets/animation/success_animation.json";
+        break;
+      case StatusEnum.error:
+        lottiePath = "assets/animation/error_animation.json";
+        break;
+    }
 
     return IntrinsicHeight(
       child: Container(
         width: double.maxFinite,
-        margin: EdgeInsets.only(top: 11.h, left: 16.w, right: 16.w),
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+        margin: EdgeInsets.only(top: 12.h, left: 16.w, right: 16.w),
+        padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(15.r),
@@ -59,15 +70,26 @@ class CustomSnackBar {
             ),
           ],
         ),
-        alignment: Alignment.center,
-        child: Text(
-          msg,
-          textAlign: TextAlign.center,
-          maxLines: 5,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyles.font14DarkBlueSemiBold.copyWith(
-            color: msgTextColor,
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Lottie.asset(
+              lottiePath,
+              width: 35.w,
+              height: 35.h,
+              repeat: false,
+            ),
+            Gap(8.w),
+            Expanded(
+              child: Text(
+                msg,
+                textAlign: TextAlign.start,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyles.font12DarkBlueMedium,
+              ),
+            ),
+          ],
         ),
       ),
     );

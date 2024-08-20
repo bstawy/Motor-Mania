@@ -9,15 +9,25 @@ part 'product_state.dart';
 
 class ProductCubit extends Cubit<ProductState> {
   final GetProductDetailsUseCase _getProductDetailsUseCase;
+  late ProductEntity product;
+  int productQuantity = 1;
 
   ProductCubit(this._getProductDetailsUseCase) : super(ProductInitial());
 
-  void getProductDetails(String id) async {
+  void getProductDetails(int id) async {
     emit(ProductLoading());
     final response = await _getProductDetailsUseCase.execute(id);
     response.fold(
       (failure) => emit(ProductError(failure)),
-      (product) => emit(ProductLoaded(product)),
+      (product) {
+        this.product = product;
+        emit(ProductLoaded(product));
+      },
     );
+  }
+
+  void updateProductQuantity(int quantity) {
+    productQuantity = quantity;
+    emit(ProductQuantityUpdated(quantity));
   }
 }

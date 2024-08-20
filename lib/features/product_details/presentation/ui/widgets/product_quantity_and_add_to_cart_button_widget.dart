@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:popover/popover.dart';
@@ -6,10 +7,17 @@ import 'package:popover/popover.dart';
 import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors_manager.dart';
 import '../../../../../core/widgets/custom_material_button.dart';
+import '../../../../cart/presentation/logic/cart_cubit.dart';
+import '../../../domain/entities/product_entity.dart';
+import '../../logic/product_cubit.dart';
 import 'quantity_pop_up_widget.dart';
 
 class ProductQuantityAndAddToCartButtonWidget extends StatelessWidget {
-  const ProductQuantityAndAddToCartButtonWidget({super.key});
+  final ProductCubit productCubit;
+  const ProductQuantityAndAddToCartButtonWidget({
+    super.key,
+    required this.productCubit,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +41,10 @@ class ProductQuantityAndAddToCartButtonWidget extends StatelessWidget {
             onTap: () {
               showPopover(
                 context: context,
-                bodyBuilder: (context) => const QuantityPopUpWidget(),
+                bodyBuilder: (context) => BlocProvider.value(
+                  value: productCubit,
+                  child: const QuantityPopUpWidget(),
+                ),
                 direction: PopoverDirection.bottom,
                 height: 50.h,
                 width: 177.w,
@@ -45,7 +56,7 @@ class ProductQuantityAndAddToCartButtonWidget extends StatelessWidget {
             child: Container(
               width: 40.r,
               height: 40.r,
-              padding: EdgeInsets.all(4.r),
+              padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 9.w),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(12.r),
@@ -57,9 +68,23 @@ class ProductQuantityAndAddToCartButtonWidget extends StatelessWidget {
                     "QTY",
                     style: TextStyles.font8BlueGreyMedium,
                   ),
-                  Text(
-                    "1",
-                    style: TextStyles.font14DarkBlueSemiBold,
+                  BlocBuilder<ProductCubit, ProductState>(
+                    bloc: context.read<ProductCubit>(),
+                    buildWhen: (previous, current) =>
+                        current is ProductQuantityUpdated,
+                    builder: (context, state) {
+                      if (state is ProductQuantityUpdated) {
+                        return Text(
+                          state.quantity.toString(),
+                          style: TextStyles.font14DarkBlueSemiBold,
+                        );
+                      } else {
+                        return Text(
+                          "1",
+                          style: TextStyles.font14DarkBlueSemiBold,
+                        );
+                      }
+                    },
                   ),
                 ],
               ),
@@ -68,7 +93,14 @@ class ProductQuantityAndAddToCartButtonWidget extends StatelessWidget {
           Gap(8.w),
           Expanded(
             child: CustomMaterialButton(
-              onClicked: () {},
+              onClicked: () {
+                ProductEntity product = context.read<ProductCubit>().product;
+                int quantity = context.read<ProductCubit>().productQuantity;
+
+                context
+                    .read<CartCubit>()
+                    .addProductToCart(product.id!, quantity);
+              },
               height: 40.h,
               backgroundColor: ColorsManager.red,
               title: "ADD TO CART",

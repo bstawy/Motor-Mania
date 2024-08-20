@@ -7,7 +7,15 @@ import '../../features/auth/login/logic/login_cubit.dart';
 import '../../features/auth/register/data/data_sources/register_remote_data_source.dart';
 import '../../features/auth/register/data/repos/register_repo.dart';
 import '../../features/auth/register/logic/register_cubit.dart';
+import '../../features/car_brands/data/data_sources/car_brands_remote_data_source.dart';
+import '../../features/car_brands/data/data_sources/car_brands_remote_data_source_impl.dart';
+import '../../features/car_brands/data/repos_impl/car_brands_repo_impl.dart';
+import '../../features/car_brands/domain/repos/car_brands_repo.dart';
+import '../../features/car_brands/domain/use_cases/add_car_use_case.dart';
+import '../../features/car_brands/domain/use_cases/get_car_brands_use_case.dart';
+import '../../features/car_brands/presentation/logic/car_brands_cubit.dart';
 import '../../features/cart/data/data_sources/cart_data_sources.dart';
+import '../../features/cart/data/data_sources/cart_local_data_source.dart';
 import '../../features/cart/data/data_sources/cart_remote_data_source.dart';
 import '../../features/cart/data/repos_impl/cart_repo_impl.dart';
 import '../../features/cart/domain/repos/cart_repo.dart';
@@ -22,6 +30,7 @@ import '../../features/category/domain/repos/category_repository.dart';
 import '../../features/category/domain/use_cases/get_category_products_use_cases.dart';
 import '../../features/category/presentation/logic/category_cubit.dart';
 import '../../features/favorites/data/data_source/favorites_data_sources.dart';
+import '../../features/favorites/data/data_source/favorites_local_data_source.dart';
 import '../../features/favorites/data/data_source/favorites_remote_data_source_impl.dart';
 import '../../features/favorites/data/repos_impl/favorites_repo_impl.dart';
 import '../../features/favorites/domain/repos/favorites_repo.dart';
@@ -29,16 +38,26 @@ import '../../features/favorites/domain/use_cases/add_to_favorites_use_case.dart
 import '../../features/favorites/domain/use_cases/get_all_favorites_use_case.dart';
 import '../../features/favorites/domain/use_cases/remove_from_favorites_use_case.dart';
 import '../../features/favorites/presentation/logic/favorites_cubit.dart';
+import '../../features/garage/data/data_sources/garage_remote_data_source.dart';
+import '../../features/garage/data/data_sources/garage_remote_data_source_impl.dart';
+import '../../features/garage/data/repos_impl/garage_repo_impl.dart';
+import '../../features/garage/domain/repos/garage_repo.dart';
+import '../../features/garage/domain/use_cases/get_garage_cars_use_case.dart';
+import '../../features/garage/domain/use_cases/remove_car_use_case.dart';
+import '../../features/garage/domain/use_cases/select_car_use_case.dart';
+import '../../features/garage/presentation/logic/garage_cubit.dart';
 import '../../features/home/data/data_sources/home_data_sources.dart';
 import '../../features/home/data/data_sources/home_remote_data_source_impl.dart';
 import '../../features/home/data/repos_impl/home_repo_impl.dart';
 import '../../features/home/domain/repos/home_repo.dart';
 import '../../features/home/domain/use_cases/get_home_categories_use_case.dart';
+import '../../features/home/domain/use_cases/get_home_offers_use_case.dart';
 import '../../features/home/domain/use_cases/get_home_products_use_case.dart';
 import '../../features/home/domain/use_cases/get_user_selected_car_use_case.dart';
+import '../../features/home/domain/use_cases/select_next_car_use_case.dart';
+import '../../features/home/domain/use_cases/select_previous_car_use_case.dart';
 import '../../features/home/presentation/logic/home_cubit/home_cubit.dart';
 import '../../features/home/presentation/logic/user_cubit/user_cubit.dart';
-import '../../features/layout/logic/layout_cubit.dart';
 import '../../features/product_details/data/data_sources/product_data_sources.dart';
 import '../../features/product_details/data/data_sources/product_remote_data_source_impl.dart';
 import '../../features/product_details/data/repos_impl/product_repo_impl.dart';
@@ -51,6 +70,7 @@ import '../../features/search/data/repos_impl/search_repo_impl.dart';
 import '../../features/search/domain/repos/search_repo.dart';
 import '../../features/search/domain/use_cases/search_use_case.dart';
 import '../../features/search/presentation/logic/search_cubit.dart';
+import '../caching/hive_manager.dart';
 import '../helpers/app_bloc_observer.dart';
 import '../networking/crud_manager.dart';
 import '../networking/dio/dio_factory.dart';
@@ -58,7 +78,7 @@ import '../networking/dio/dio_factory.dart';
 final getIt = GetIt.instance;
 
 Future<void> initGetIt() async {
-  // Dio & ApiService
+  // Dio & ApiService & HiveManager
   Dio freeDio = DioFactory.getFreeDio();
   Dio tokenDio = DioFactory.getTokenDio();
 
@@ -67,6 +87,10 @@ Future<void> initGetIt() async {
       freeDio: freeDio,
       tokenDio: tokenDio,
     ),
+  );
+
+  getIt.registerLazySingleton<HiveManager>(
+    () => HiveManager.getInstance(),
   );
 
   // BLoc observer
@@ -84,9 +108,6 @@ Future<void> initGetIt() async {
   getIt.registerFactory<LoginRepo>(() => LoginRepo(getIt()));
   getIt.registerFactory<LoginCubit>(() => LoginCubit(getIt()));
 
-  // layout
-  getIt.registerSingleton<LayoutCubit>(LayoutCubit());
-
   // home
   getIt.registerFactory<HomeDataSources>(
     () => HomeRemoteDataSourceImpl(getIt()),
@@ -96,6 +117,15 @@ Future<void> initGetIt() async {
   );
   getIt.registerFactory<GetUserSelectedCarUseCase>(
     () => GetUserSelectedCarUseCase(getIt()),
+  );
+  getIt.registerFactory<SelectNextCarUseCase>(
+    () => SelectNextCarUseCase(getIt()),
+  );
+  getIt.registerFactory<SelectPreviousCarUseCase>(
+    () => SelectPreviousCarUseCase(getIt()),
+  );
+  getIt.registerFactory<GetHomeOffersUseCase>(
+    () => GetHomeOffersUseCase(getIt()),
   );
   getIt.registerFactory<GetHomeCategoriesUseCase>(
     () => GetHomeCategoriesUseCase(getIt()),
@@ -107,11 +137,12 @@ Future<void> initGetIt() async {
     () => HomeCubit(
       getIt(),
       getIt(),
+      getIt(),
     ),
   );
 
   // User
-  getIt.registerFactory<UserCubit>(() => UserCubit(getIt()));
+  getIt.registerFactory<UserCubit>(() => UserCubit(getIt(), getIt(), getIt()));
 
   // Category
   getIt.registerFactory<CategoryDataSources>(
@@ -141,8 +172,11 @@ Future<void> initGetIt() async {
   getIt.registerFactory<FavoritesDataSources>(
     () => FavoritesRemoteDataSourceImpl(getIt()),
   );
+  getIt.registerFactory<FavoritesLocalDataSource>(
+    () => FavoritesLocalDataSource(getIt()),
+  );
   getIt.registerFactory<FavoritesRepo>(
-    () => FavoritesRepoImpl(getIt()),
+    () => FavoritesRepoImpl(getIt(), getIt()),
   );
   getIt.registerFactory<GetAllFavoritesUseCase>(
     () => GetAllFavoritesUseCase(getIt()),
@@ -175,8 +209,11 @@ Future<void> initGetIt() async {
   getIt.registerFactory<CartDataSources>(
     () => CartRemoteDataSource(getIt()),
   );
+  getIt.registerFactory<CartLocalDataSource>(
+    () => CartLocalDataSource(getIt()),
+  );
   getIt.registerFactory<CartRepo>(
-    () => CartRepoImpl(getIt()),
+    () => CartRepoImpl(getIt(), getIt(), getIt()),
   );
   getIt.registerFactory<GetCartProductsUseCase>(
     () => GetCartProductsUseCase(getIt()),
@@ -188,4 +225,41 @@ Future<void> initGetIt() async {
     () => RemoveProductFromCartUseCase(getIt()),
   );
   getIt.registerFactory<CartCubit>(() => CartCubit(getIt(), getIt(), getIt()));
+
+  //garage
+  getIt.registerFactory<GarageRemoteDataSource>(
+    () => GarageRemoteDataSourceImpl(getIt()),
+  );
+  getIt.registerFactory<GarageRepo>(
+    () => GarageRepoImpl(getIt()),
+  );
+  getIt.registerFactory<GetGarageCarsUseCase>(
+    () => GetGarageCarsUseCase(getIt()),
+  );
+  getIt.registerFactory<SelectCarUseCase>(
+    () => SelectCarUseCase(getIt()),
+  );
+  getIt.registerFactory<RemoveCarUseCase>(
+    () => RemoveCarUseCase(getIt()),
+  );
+  getIt.registerFactory<GarageCubit>(() => GarageCubit(
+        getIt(),
+        getIt(),
+        getIt(),
+      ));
+
+  //car brands
+  getIt.registerFactory<CarBrandsRemoteDataSource>(
+    () => CarBrandsRemoteDataSourceImpl(getIt()),
+  );
+  getIt.registerFactory<CarBrandsRepo>(
+    () => CarBrandsRepoImpl(getIt()),
+  );
+  getIt.registerFactory<GetCarBrandsUseCase>(
+    () => GetCarBrandsUseCase(getIt()),
+  );
+  getIt.registerFactory<AddCarUseCase>(
+    () => AddCarUseCase(getIt()),
+  );
+  getIt.registerFactory<CarBrandsCubit>(() => CarBrandsCubit(getIt(), getIt()));
 }

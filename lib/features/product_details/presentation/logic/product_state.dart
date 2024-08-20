@@ -18,6 +18,12 @@ class ProductError extends ProductState {
   ProductError(this.failure);
 }
 
+class ProductQuantityUpdated extends ProductState {
+  final int quantity;
+
+  ProductQuantityUpdated(this.quantity);
+}
+
 class SimilarProductsLoading extends ProductState {}
 
 class SimilarProductsLoaded extends ProductState {

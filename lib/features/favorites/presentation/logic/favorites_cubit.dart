@@ -40,8 +40,8 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     );
   }
 
-  Future<void> addToFavorites(String id) async {
-    final response = await _addToFavoritesUseCase.execute(id);
+  Future<void> addToFavorites(dynamic product) async {
+    final response = await _addToFavoritesUseCase.execute(product);
 
     response.fold(
       (serverFailure) {
@@ -54,7 +54,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     );
   }
 
-  Future<void> removeFromFavorites(String id) async {
+  Future<void> removeFromFavorites(int id) async {
     final response = await _removeFromFavoritesUseCase.execute(id);
 
     response.fold(
@@ -68,7 +68,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     );
   }
 
-  bool isFavorite(String id) {
+  bool isFavorite(int id) {
     return favorites.any((element) => element.id == id);
   }
 }

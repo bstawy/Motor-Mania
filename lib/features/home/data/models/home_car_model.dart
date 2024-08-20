@@ -13,7 +13,7 @@ class CarModel extends CarEntity {
     return CarModel(
       id: json['id'],
       brand: json['brand'],
-      model: json['model'],
+      model: (json['model']).toString(),
       year: json['year'],
       imageUrl: json['image_url'],
     );
@@ -21,11 +21,9 @@ class CarModel extends CarEntity {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'brand': brand,
       'model': model,
       'year': year,
-      'image_url': imageUrl,
     };
   }
 }

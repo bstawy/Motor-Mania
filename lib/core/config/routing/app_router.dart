@@ -5,7 +5,11 @@ import '../../../features/auth/login/logic/login_cubit.dart';
 import '../../../features/auth/login/presentation/login_screen.dart';
 import '../../../features/auth/register/logic/register_cubit.dart';
 import '../../../features/auth/register/presentation/register_screen.dart';
+import '../../../features/car_brands/presentation/logic/car_brands_cubit.dart';
+import '../../../features/car_brands/presentation/ui/car_brands_screen.dart';
+import '../../../features/car_brands/presentation/ui/choose_car_brands_screen.dart';
 import '../../../features/cart/presentation/logic/cart_cubit.dart';
+import '../../../features/checkout/checkout_screen.dart';
 import '../../../features/favorites/presentation/logic/favorites_cubit.dart';
 import '../../../features/layout/logic/layout_cubit.dart';
 import '../../../features/layout/presentation/layout_screen.dart';
@@ -17,6 +21,9 @@ import 'no_route_defined_widget.dart';
 import 'routes.dart';
 
 class AppRouter {
+  CartCubit? _cartCubit;
+  CarBrandsCubit? _carBrandsCubit;
+
   Route generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.onBoardingScreens:
@@ -44,15 +51,17 @@ class AppRouter {
         );
 
       case Routes.layoutScreen:
+        _initializeCartCubit();
+
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
             providers: [
-              BlocProvider(create: (context) => getIt<LayoutCubit>()),
+              BlocProvider(create: (context) => LayoutCubit()),
               BlocProvider(
                 create: (context) => getIt<FavoritesCubit>()..getAllFavorites(),
               ),
-              BlocProvider(
-                create: (context) => getIt<CartCubit>()..getCartProducts(),
+              BlocProvider<CartCubit>.value(
+                value: _cartCubit!,
               ),
             ],
             child: const LayoutScreen(),
@@ -61,18 +70,53 @@ class AppRouter {
         );
 
       case Routes.searchScreen:
+        _initializeCartCubit();
+
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
             providers: [
               BlocProvider(
-                create: (context) => getIt<FavoritesCubit>()..getAllFavorites(),
-              ),
-              BlocProvider(
                 create: (context) => getIt<SearchCubit>(),
               ),
-              // TODO: add cart cubit
+              BlocProvider(
+                create: (context) => getIt<FavoritesCubit>()..getAllFavorites(),
+              ),
+              BlocProvider<CartCubit>.value(
+                value: _cartCubit!,
+              ),
             ],
             child: const SearchScreen(),
+          ),
+          settings: settings,
+        );
+
+      case Routes.checkout:
+        _initializeCartCubit();
+
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider<CartCubit>.value(
+            value: _cartCubit!,
+            child: const CheckoutScreen(),
+          ),
+          settings: settings,
+        );
+
+      case Routes.carBrands:
+        _initializeCarBrandsCubit();
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider<CarBrandsCubit>.value(
+            value: _carBrandsCubit!..getCarBrands(),
+            child: const CarBrandsScreen(),
+          ),
+          settings: settings,
+        );
+
+      case Routes.chooseBrand:
+        _initializeCarBrandsCubit();
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider<CarBrandsCubit>.value(
+            value: _carBrandsCubit!,
+            child: const ChooseCarBrandsScreen(),
           ),
           settings: settings,
         );
@@ -83,5 +127,18 @@ class AppRouter {
           settings: settings,
         );
     }
+  }
+
+  void _initializeCartCubit() {
+    _cartCubit ??= getIt<CartCubit>();
+  }
+
+  void _initializeCarBrandsCubit() {
+    _carBrandsCubit ??= getIt<CarBrandsCubit>();
+  }
+
+  void dispose() {
+    _cartCubit?.close();
+    _carBrandsCubit?.close();
   }
 }

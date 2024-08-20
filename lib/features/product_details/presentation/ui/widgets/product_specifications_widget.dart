@@ -43,7 +43,7 @@ class ProductSpecificationsWidget extends StatelessWidget {
           Container(
             width: 1.w,
             height: 50,
-            color: ColorsManager.lighterGrey,
+            color: ColorsManager.whiteBlue,
           ).setHorizontalPadding(12.w),
           SizedBox(
             width: 60.w,
@@ -68,7 +68,7 @@ class ProductSpecificationsWidget extends StatelessWidget {
           Container(
             width: 1.w,
             height: 50,
-            color: ColorsManager.lighterGrey,
+            color: ColorsManager.whiteBlue,
           ).setHorizontalPadding(12.w),
           SizedBox(
             width: 60.w,
@@ -93,7 +93,7 @@ class ProductSpecificationsWidget extends StatelessWidget {
           Container(
             width: 1.w,
             height: 50,
-            color: ColorsManager.lighterGrey,
+            color: ColorsManager.whiteBlue,
           ).setHorizontalPadding(12.w),
           SizedBox(
             width: 60.w,

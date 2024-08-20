@@ -9,7 +9,7 @@ class GetProductDetailsUseCase {
 
   GetProductDetailsUseCase(this._productRepo);
 
-  Future<Either<ServerFailure, ProductEntity>> execute(String id) async {
+  Future<Either<ServerFailure, ProductEntity>> execute(int id) async {
     final response = await _productRepo.getProductDetails(id);
 
     return response.fold((failure) => Left(failure), (product) {

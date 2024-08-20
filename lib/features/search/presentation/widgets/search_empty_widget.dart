@@ -46,7 +46,7 @@ class SearchEmptyWidget extends StatelessWidget {
             Text(
               'Try Search For Another Product.',
               style: TextStyles.font12DarkBlueRegular.copyWith(
-                color: ColorsManager.lightGrey,
+                color: ColorsManager.blueGrey,
               ),
               textAlign: TextAlign.center,
             ),

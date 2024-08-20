@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../../../core/config/text/text_styles.dart';
 import '../../../../../../../core/config/theme/colors_manager.dart';
 import '../../../../../../../core/helpers/extensions/extensions.dart';
 import '../../../../../../../core/widgets/custom_app_bar.dart';
@@ -22,8 +21,6 @@ class CategoryScreen extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(
         title: category.name,
-        titleStyle: TextStyles.font14DarkBlueMedium,
-        leftPadding: 16.w,
       ),
       body: Column(
         children: [

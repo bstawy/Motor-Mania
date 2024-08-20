@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -31,7 +32,7 @@ class ProductItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        openProductBottomSheet(context: context, productId: product.id ?? "");
+        openProductBottomSheet(context: context, productId: product.id ?? 0);
       },
       child: Container(
         width: cardWidth ?? 150.w,
@@ -46,9 +47,18 @@ class ProductItemWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Gap(28.h),
-                SizedBox(
+                CachedNetworkImage(
+                  imageUrl: product.imageUrl ?? "",
+                  placeholder: (context, url) => const Center(
+                    child: CircularProgressIndicator(
+                      color: ColorsManager.darkBlue,
+                    ),
+                  ),
+                  errorWidget: (context, url, error) => const Icon(
+                    Icons.error,
+                    color: ColorsManager.red,
+                  ),
                   height: imageHeight ?? 88.h,
-                  child: Image.network(product.imageUrl ?? ""),
                 ),
                 Gap(12.h),
                 ProductPropertyWidget(
@@ -63,10 +73,11 @@ class ProductItemWidget extends StatelessWidget {
                 Gap(6.h),
                 ProductPriceAndDiscountWidget(
                   price: product.price ?? 0,
-                  firstGap: 6.w,
+                  firstGap: 4.w,
                   oldPrice: product.oldPrice ?? 0,
+                  secondGap: 4.w,
                   priceStyle: TextStyles.font14DarkBlueBold,
-                  oldPriceStyle: TextStyles.font10LightGreyRegular,
+                  oldPriceStyle: TextStyles.font10BlueGreyRegular,
                   discountPercentage: showDiscount ?? true
                       ? product.discountPercentage ?? 0
                       : null,

@@ -129,14 +129,6 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       isTextObscured = false;
       maxLines = widget.maxLines;
     }
-/*
-    // set fill color grey if disabled
-    if (widget.enabled != null && widget.enabled == false) {
-      fillColor = widget.disabledBackgroundColor ?? const Color(0xFFE6E6E6);
-    } else {
-      fillColor = widget.backgroundColor ?? ColorsManager.lightestGrey;
-    }
-    */
   }
 
   @override

@@ -8,7 +8,7 @@ class RemoveFromFavoritesUseCase {
 
   RemoveFromFavoritesUseCase(this._favoritesRepo);
 
-  Future<Either<ServerFailure, String>> execute(String id) async {
+  Future<Either<ServerFailure, String>> execute(int id) async {
     return await _favoritesRepo.removeFromFavorites(id);
   }
 }
