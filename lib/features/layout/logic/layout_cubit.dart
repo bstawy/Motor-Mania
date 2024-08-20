@@ -7,7 +7,9 @@ class LayoutCubit extends Cubit<LayoutState> {
   late PersistentTabController controller;
   bool isBottomSheetOpen = false;
 
-  LayoutCubit() : super(BottomSheetClosedState());
+  LayoutCubit() : super(BottomSheetClosedState()) {
+    controller = PersistentTabController(initialIndex: 0);
+  }
 
   void openBottomSheet() {
     isBottomSheetOpen = true;
@@ -25,5 +27,12 @@ class LayoutCubit extends Cubit<LayoutState> {
 
   void goToPreviousTab() {
     controller.jumpToPreviousTab();
+  }
+
+  @override
+  void emit(LayoutState state) {
+    if (!isClosed) {
+      super.emit(state);
+    }
   }
 }
