@@ -28,13 +28,13 @@ class ProductsListWidget extends StatelessWidget {
         Gap(8.h),
         SizedBox(
           height: 300.h,
-          child: ListView.builder(
+          child: ListView.separated(
             scrollDirection: Axis.horizontal,
             padding: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 16.h),
             itemCount: products.length.clamp(0, 10),
+            separatorBuilder: (context, index) => Gap(8.w),
             itemBuilder: (context, index) {
-              return ProductItemWidget(product: products[index])
-                  .setOnlyPadding(0, 0, 8.w, 0);
+              return ProductItemWidget(product: products[index]);
             },
           ),
         ),
