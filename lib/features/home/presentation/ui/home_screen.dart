@@ -32,32 +32,28 @@ class HomeScreen extends StatelessWidget {
                 ..getHomeProducts();
             },
             child: SingleChildScrollView(
-              child: BlocBuilder<AppManagerCubit, AppManagerState>(
-                builder: (context, state) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const HomeHeaderWidget(),
-                      Visibility(
-                        visible: context.read<AppManagerCubit>().appMode ==
-                            AppMode.user,
-                        maintainState: false,
-                        child: Column(
-                          children: [
-                            Gap(16.h),
-                            const HomeUserOffersWidget(),
-                          ],
-                        ),
-                      ),
-                      Gap(16.h),
-                      const CategoriesList(),
-                      Gap(24.h),
-                      const HomeListWidget(title: "Recommended For You"),
-                      Gap(16.h),
-                      const HomeListWidget(title: "BestSellers"),
-                    ],
-                  );
-                },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const HomeHeaderWidget(),
+                  Visibility(
+                    visible:
+                        context.read<AppManagerCubit>().appMode == AppMode.user,
+                    maintainState: false,
+                    child: Column(
+                      children: [
+                        Gap(16.h),
+                        const HomeUserOffersWidget(),
+                      ],
+                    ),
+                  ),
+                  Gap(16.h),
+                  const CategoriesList(),
+                  Gap(24.h),
+                  const HomeListWidget(title: "Recommended For You"),
+                  Gap(16.h),
+                  const HomeListWidget(title: "BestSellers"),
+                ],
               ),
             ),
           ),

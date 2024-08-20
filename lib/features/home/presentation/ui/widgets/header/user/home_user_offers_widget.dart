@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../../core/helpers/extensions/padding_ext.dart';
-import '../../../../../core/widgets/shimmer_loading_widget.dart';
-import '../../logic/home_cubit/home_cubit.dart';
+import '../../../../../../../core/helpers/extensions/padding_ext.dart';
+import '../../../../../../../core/widgets/shimmer_loading_widget.dart';
+import '../../../../logic/home_cubit/home_cubit.dart';
 
 class HomeUserOffersWidget extends StatelessWidget {
   const HomeUserOffersWidget({super.key});

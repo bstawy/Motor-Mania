@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../core/config/routing/routes.dart';
-import '../../../../../core/config/text/text_styles.dart';
-import '../../../../../core/helpers/extensions/extensions.dart';
-import '../../../../../core/helpers/save_navigation_data.dart';
-import '../../../../../core/widgets/search_bar_widget.dart';
-import 'home_guest_offers_widget.dart';
+import '../../../../../../../core/config/routing/routes.dart';
+import '../../../../../../../core/config/text/text_styles.dart';
+import '../../../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../../../core/helpers/save_navigation_data.dart';
+import '../../../../../../../core/widgets/search_bar_widget.dart';
+import 'guest_offers_widget.dart';
 
-class HomeGuestHeaderWidget extends StatelessWidget {
-  const HomeGuestHeaderWidget({super.key});
+class GuestHeaderWidget extends StatelessWidget {
+  const GuestHeaderWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +37,7 @@ class HomeGuestHeaderWidget extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    saveNavigationData(
-                      Routes.layoutScreen,
-                      0,
-                    );
+                    saveNavigationData(Routes.layoutScreen, 0);
                     context.pushNamed(Routes.loginScreen);
                   },
                   child: Text(
@@ -59,7 +56,7 @@ class HomeGuestHeaderWidget extends StatelessWidget {
           ],
         ).setHorizontalPadding(16.w),
         Gap(24.h),
-        const HomeGuestOffersWidget().setHorizontalPadding(8.w),
+        const GuestOffersWidget(),
       ],
     );
   }
