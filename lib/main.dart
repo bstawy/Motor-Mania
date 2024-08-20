@@ -13,9 +13,9 @@ void main() async {
   Future.wait([
     ScreenUtil.ensureScreenSize(),
     initGetIt(),
-    getIt<HiveManager>().init(),
   ]).then((_) {
     Bloc.observer = getIt<AppBlocObserver>();
+    getIt<HiveManager>().init();
 
     runApp(
       BlocProvider<AppManagerCubit>(
