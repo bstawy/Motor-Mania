@@ -58,7 +58,6 @@ import '../../features/home/domain/use_cases/select_next_car_use_case.dart';
 import '../../features/home/domain/use_cases/select_previous_car_use_case.dart';
 import '../../features/home/presentation/logic/home_cubit/home_cubit.dart';
 import '../../features/home/presentation/logic/user_cubit/user_cubit.dart';
-import '../../features/layout/logic/layout_cubit.dart';
 import '../../features/product_details/data/data_sources/product_data_sources.dart';
 import '../../features/product_details/data/data_sources/product_remote_data_source_impl.dart';
 import '../../features/product_details/data/repos_impl/product_repo_impl.dart';
@@ -108,9 +107,6 @@ Future<void> initGetIt() async {
       () => LoginRemoteDataSource(getIt()));
   getIt.registerFactory<LoginRepo>(() => LoginRepo(getIt()));
   getIt.registerFactory<LoginCubit>(() => LoginCubit(getIt()));
-
-  // layout
-  getIt.registerSingleton<LayoutCubit>(LayoutCubit());
 
   // home
   getIt.registerFactory<HomeDataSources>(
