@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../../core/config/routing/routes.dart';
 import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/helpers/extensions/extensions.dart';
 import '../../../../../core/widgets/custom_material_button.dart';
@@ -30,7 +29,7 @@ class GarageEmptyWidget extends StatelessWidget {
         const Spacer(),
         CustomMaterialButton(
           onClicked: () {
-            context.pushNamed(Routes.loginScreen);
+            // TODO: add new car
           },
           title: "Add New Car",
         ),

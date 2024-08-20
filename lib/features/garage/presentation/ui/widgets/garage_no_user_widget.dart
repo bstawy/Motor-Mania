@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import '../../../../../core/config/routing/routes.dart';
 import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../core/helpers/save_navigation_data.dart';
 import '../../../../../core/widgets/custom_material_button.dart';
 
 class GarageNoUserWidget extends StatelessWidget {
@@ -47,6 +48,10 @@ class GarageNoUserWidget extends StatelessWidget {
         const Spacer(),
         CustomMaterialButton(
           onClicked: () {
+            saveNavigationData(
+              Routes.layoutScreen,
+              2,
+            );
             context.pushNamed(Routes.loginScreen);
           },
           title: "Login",
