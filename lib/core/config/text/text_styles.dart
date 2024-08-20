@@ -89,6 +89,13 @@ class TextStyles {
     fontFamily: 'Montserrat',
   );
 
+  static TextStyle font14RedBold = TextStyle(
+    color: ColorsManager.red,
+    fontSize: 14.sp,
+    fontWeight: FontWeightHelper.bold,
+    fontFamily: 'Montserrat',
+  );
+
   static TextStyle font14DarkBlueSemiBold = TextStyle(
     color: ColorsManager.darkBlue,
     fontSize: 14.sp,
