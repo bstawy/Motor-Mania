@@ -5,11 +5,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
-import '../../../../../core/config/text/text_styles.dart';
-import '../../../../../core/di/dependency_injection.dart';
-import '../../../../category/presentation/logic/category_cubit.dart';
-import '../../../../category/presentation/ui/category_screen.dart';
-import '../../../domain/entities/category_entity.dart';
+import '../../../../../../core/config/text/text_styles.dart';
+import '../../../../../../core/di/dependency_injection.dart';
+import '../../../../../category/presentation/logic/category_cubit.dart';
+import '../../../../../category/presentation/ui/category_screen.dart';
+import '../../../../domain/entities/category_entity.dart';
 
 class CategoriesListItem extends StatelessWidget {
   final HomeCategoryEntity category;
