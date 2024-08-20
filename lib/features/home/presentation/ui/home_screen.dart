@@ -10,9 +10,9 @@ import '../../../../core/config/theme/colors_manager.dart';
 import '../../../../core/helpers/enums/app_modes_enums.dart';
 import '../logic/home_cubit/home_cubit.dart';
 import 'widgets/categories_list_widget.dart';
-import 'widgets/home_header_widget.dart';
+import 'widgets/header/home_header_widget.dart';
+import 'widgets/header/user/home_user_offers_widget.dart';
 import 'widgets/home_list_widget.dart';
-import 'widgets/home_user_offers_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -27,6 +27,7 @@ class HomeScreen extends StatelessWidget {
           child: RefreshIndicator(
             onRefresh: () async {
               context.read<HomeCubit>()
+                ..getHomeOffers()
                 ..getHomeCategories()
                 ..getHomeProducts();
             },
