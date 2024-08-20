@@ -9,7 +9,7 @@ import '../../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../../core/config/theme/colors_manager.dart';
 import '../../../../core/helpers/enums/app_modes_enums.dart';
 import '../logic/home_cubit/home_cubit.dart';
-import 'widgets/categories_list_widget.dart';
+import 'widgets/categories/categories_list_widget.dart';
 import 'widgets/header/home_header_widget.dart';
 import 'widgets/header/user/user_offers_widget.dart';
 import 'widgets/home_list_widget.dart';

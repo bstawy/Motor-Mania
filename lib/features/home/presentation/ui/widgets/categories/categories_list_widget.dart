@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../../core/helpers/extensions/extensions.dart';
-import '../../logic/home_cubit/home_cubit.dart';
-import 'categories/categories_list_loaded_widget.dart';
-import 'categories/categories_list_loading_widget.dart';
+import '../../../../../../core/helpers/extensions/extensions.dart';
+import '../../../logic/home_cubit/home_cubit.dart';
+import 'categories_list_loaded_widget.dart';
+import 'categories_list_loading_widget.dart';
 
 class CategoriesList extends StatelessWidget {
   const CategoriesList({super.key});

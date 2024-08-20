@@ -20,12 +20,9 @@ class HomeListWidget extends StatelessWidget {
     return BlocBuilder<HomeCubit, HomeState>(
       bloc: context.read<HomeCubit>()..getHomeProducts(),
       buildWhen: (previous, current) {
-        if (current is ProductsLoading ||
+        return current is ProductsLoading ||
             current is ProductsLoaded ||
-            current is ProductsErrorState) {
-          return true;
-        }
-        return false;
+            current is ProductsErrorState;
       },
       builder: (context, state) {
         if (state is ProductsLoading) {
