@@ -54,9 +54,13 @@ class AppRouter {
         _initializeCartCubit();
 
         return MaterialPageRoute(
+          // builder: (_) => BlocProvider(
+          //   create: (context) => getIt<LayoutCubit>(),
+          //   child: const LayoutScreen(),
+          // ),
           builder: (_) => MultiBlocProvider(
             providers: [
-              BlocProvider(create: (context) => getIt<LayoutCubit>()),
+              BlocProvider(create: (context) => LayoutCubit()),
               BlocProvider(
                 create: (context) => getIt<FavoritesCubit>()..getAllFavorites(),
               ),
