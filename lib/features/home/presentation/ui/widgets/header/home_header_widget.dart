@@ -8,7 +8,7 @@ import '../../../../../../core/di/dependency_injection.dart';
 import '../../../../../../core/helpers/enums/app_modes_enums.dart';
 import '../../../logic/user_cubit/user_cubit.dart';
 import 'guest/guest_header_widget.dart';
-import 'user/home_user_header_widget.dart';
+import 'user/user_header_widget.dart';
 
 class HomeHeaderWidget extends StatelessWidget {
   const HomeHeaderWidget({super.key});
@@ -33,7 +33,7 @@ class HomeHeaderWidget extends StatelessWidget {
       child: appMode == AppMode.user
           ? BlocProvider<UserCubit>(
               create: (context) => getIt<UserCubit>(),
-              child: const HomeUserHeaderWidget(),
+              child: const UserHeaderWidget(),
             )
           : const GuestHeaderWidget(),
     );

@@ -31,7 +31,7 @@ class UserCubit extends Cubit<UserState> {
   }
 
   void selectNexCar() {
-    emit(UserDataLoading());
+    emit(UserCarSwitching());
 
     _selectNextCarUseCase.execute().then((response) {
       response.fold(
@@ -42,7 +42,7 @@ class UserCubit extends Cubit<UserState> {
   }
 
   void selectPreviousCar() {
-    emit(UserDataLoading());
+    emit(UserCarSwitching());
 
     _selectPreviousCarUseCase.execute().then((response) {
       response.fold(

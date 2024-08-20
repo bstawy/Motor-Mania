@@ -11,7 +11,7 @@ import '../../../../core/helpers/enums/app_modes_enums.dart';
 import '../logic/home_cubit/home_cubit.dart';
 import 'widgets/categories_list_widget.dart';
 import 'widgets/header/home_header_widget.dart';
-import 'widgets/header/user/home_user_offers_widget.dart';
+import 'widgets/header/user/user_offers_widget.dart';
 import 'widgets/home_list_widget.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -43,7 +43,7 @@ class HomeScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         Gap(16.h),
-                        const HomeUserOffersWidget(),
+                        const UserOffersWidget(),
                       ],
                     ),
                   ),

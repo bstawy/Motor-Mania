@@ -7,8 +7,8 @@ import '../../../../../../../core/helpers/extensions/padding_ext.dart';
 import '../../../../../../../core/widgets/shimmer_loading_widget.dart';
 import '../../../../logic/home_cubit/home_cubit.dart';
 
-class HomeUserOffersWidget extends StatelessWidget {
-  const HomeUserOffersWidget({super.key});
+class UserOffersWidget extends StatelessWidget {
+  const UserOffersWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
