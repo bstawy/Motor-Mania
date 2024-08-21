@@ -7,13 +7,12 @@ import '../../features/auth/login/logic/login_cubit.dart';
 import '../../features/auth/register/data/data_sources/register_remote_data_source.dart';
 import '../../features/auth/register/data/repos/register_repo.dart';
 import '../../features/auth/register/logic/register_cubit.dart';
-import '../../features/car_brands/data/data_sources/car_brands_remote_data_source.dart';
-import '../../features/car_brands/data/data_sources/car_brands_remote_data_source_impl.dart';
-import '../../features/car_brands/data/repos_impl/car_brands_repo_impl.dart';
-import '../../features/car_brands/domain/repos/car_brands_repo.dart';
-import '../../features/car_brands/domain/use_cases/add_car_use_case.dart';
-import '../../features/car_brands/domain/use_cases/get_car_brands_use_case.dart';
-import '../../features/car_brands/presentation/logic/car_brands_cubit.dart';
+import '../../features/cars/data/data_sources/car_brands_remote_data_source.dart';
+import '../../features/cars/data/data_sources/car_brands_remote_data_source_impl.dart';
+import '../../features/cars/data/repos_impl/car_brands_repo_impl.dart';
+import '../../features/cars/domain/repos/car_brands_repo.dart';
+import '../../features/cars/domain/use_cases/get_car_brands_use_case.dart';
+import '../../features/cars/presentation/logic/cars_cubit.dart';
 import '../../features/cart/data/data_sources/cart_data_sources.dart';
 import '../../features/cart/data/data_sources/cart_local_data_source.dart';
 import '../../features/cart/data/data_sources/cart_remote_data_source.dart';
@@ -42,6 +41,7 @@ import '../../features/garage/data/data_sources/garage_remote_data_source.dart';
 import '../../features/garage/data/data_sources/garage_remote_data_source_impl.dart';
 import '../../features/garage/data/repos_impl/garage_repo_impl.dart';
 import '../../features/garage/domain/repos/garage_repo.dart';
+import '../../features/garage/domain/use_cases/add_car_use_case.dart';
 import '../../features/garage/domain/use_cases/get_garage_cars_use_case.dart';
 import '../../features/garage/domain/use_cases/remove_car_use_case.dart';
 import '../../features/garage/domain/use_cases/select_car_use_case.dart';
@@ -239,16 +239,17 @@ Future<void> initGetIt() async {
   getIt.registerFactory<SelectCarUseCase>(
     () => SelectCarUseCase(getIt()),
   );
+  getIt.registerFactory<AddCarUseCase>(
+    () => AddCarUseCase(getIt()),
+  );
   getIt.registerFactory<RemoveCarUseCase>(
     () => RemoveCarUseCase(getIt()),
   );
-  getIt.registerFactory<GarageCubit>(() => GarageCubit(
-        getIt(),
-        getIt(),
-        getIt(),
-      ));
+  getIt.registerLazySingleton<GarageCubit>(
+    () => GarageCubit(getIt(), getIt(), getIt(), getIt()),
+  );
 
-  //car brands
+  //cars
   getIt.registerFactory<CarBrandsRemoteDataSource>(
     () => CarBrandsRemoteDataSourceImpl(getIt()),
   );
@@ -258,8 +259,5 @@ Future<void> initGetIt() async {
   getIt.registerFactory<GetCarBrandsUseCase>(
     () => GetCarBrandsUseCase(getIt()),
   );
-  getIt.registerFactory<AddCarUseCase>(
-    () => AddCarUseCase(getIt()),
-  );
-  getIt.registerFactory<CarBrandsCubit>(() => CarBrandsCubit(getIt(), getIt()));
+  getIt.registerLazySingleton<CarsCubit>(() => CarsCubit(getIt()));
 }

@@ -4,11 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/widgets/custom_app_bar.dart';
 import '../../domain/entities/car_brand_entity.dart';
-import '../logic/car_brands_cubit.dart';
+import '../logic/cars_cubit.dart';
 import 'widgets/car_brand_item_widget.dart';
 
-class ChooseCarBrandsScreen extends StatelessWidget {
-  const ChooseCarBrandsScreen({super.key});
+class CarBrandsScreen extends StatelessWidget {
+  const CarBrandsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +16,11 @@ class ChooseCarBrandsScreen extends StatelessWidget {
       appBar: const CustomAppBar(
         title: 'Choose Car Brand',
       ),
-      body: BlocBuilder<CarBrandsCubit, CarBrandsState>(
-        bloc: context.read<CarBrandsCubit>(),
+      body: BlocBuilder<CarsCubit, CarsState>(
+        bloc: context.read<CarsCubit>(),
         builder: (context, state) {
           final List<CarBrandEntity> carBrands =
-              context.read<CarBrandsCubit>().carBrands;
+              context.read<CarsCubit>().carBrands;
 
           return GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

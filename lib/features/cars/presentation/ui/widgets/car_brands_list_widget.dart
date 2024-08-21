@@ -30,7 +30,7 @@ class CarBrandsListWidget extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                context.pushNamed(Routes.chooseBrand);
+                context.pushNamed(Routes.carsBrands);
               },
               child: Text(
                 "See All",

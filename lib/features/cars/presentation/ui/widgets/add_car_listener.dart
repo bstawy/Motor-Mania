@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/helpers/extensions/extensions.dart';
-import '../../logic/car_brands_cubit.dart';
+import '../../../../garage/presentation/logic/garage_cubit.dart';
 import 'car_added_success_sheet_widget.dart';
 
 class AddCarListener extends StatelessWidget {
@@ -10,19 +10,20 @@ class AddCarListener extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<CarBrandsCubit, CarBrandsState>(
-      bloc: context.read<CarBrandsCubit>(),
+    return BlocListener<GarageCubit, GarageState>(
+      bloc: context.read<GarageCubit>(),
       listenWhen: (previous, current) =>
-          current is CarBrandsAdding ||
-          current is CarBrandsAddedSuccess ||
-          current is CarBrandsAddedError,
+          current is AddToGarageLoading ||
+          current is AddToGarageSuccess ||
+          current is AddToGarageError,
       listener: (context, state) {
         switch (state) {
-          case CarBrandsAdding():
+          case AddToGarageLoading():
             context.loadingSnackBar("Adding Car...");
             break;
-          case CarBrandsAddedSuccess():
+          case AddToGarageSuccess():
             ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
             showModalBottomSheet(
               context: context,
               builder: (context) => const CarAddedSuccessSheet(),
@@ -31,7 +32,7 @@ class AddCarListener extends StatelessWidget {
               backgroundColor: Colors.white,
             );
             break;
-          case CarBrandsAddedError():
+          case AddToGarageError():
             ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
             context.errorSnackBar(state.failure.message ?? "Error adding car");

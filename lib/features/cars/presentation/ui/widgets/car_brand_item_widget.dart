@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../core/config/theme/colors_manager.dart';
 import '../../../domain/entities/car_brand_entity.dart';
-import '../../logic/car_brands_cubit.dart';
+import '../../logic/cars_cubit.dart';
 
 class CarBrandItemWidget extends StatelessWidget {
   final CarBrandEntity carBrand;
@@ -18,14 +18,14 @@ class CarBrandItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isSelected =
-        context.read<CarBrandsCubit>().selectedCarBrandId == carBrand.id;
+        context.read<CarsCubit>().selectedCarBrandId == carBrand.id;
 
     return GestureDetector(
       onTap: () {
-        context.read<CarBrandsCubit>().selectCarBrand(carBrand.id!);
+        context.read<CarsCubit>().selectCarBrand(carBrand.id!);
       },
-      child: BlocBuilder<CarBrandsCubit, CarBrandsState>(
-        bloc: context.read<CarBrandsCubit>(),
+      child: BlocBuilder<CarsCubit, CarsState>(
+        bloc: context.read<CarsCubit>(),
         builder: (context, state) {
           return Hero(
             tag: carBrand.id!,

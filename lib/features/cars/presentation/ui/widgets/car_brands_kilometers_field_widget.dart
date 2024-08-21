@@ -6,7 +6,7 @@ import 'package:gap/gap.dart';
 import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors_manager.dart';
 import '../../../../../core/helpers/extensions/extensions.dart';
-import '../../logic/car_brands_cubit.dart';
+import '../../logic/cars_cubit.dart';
 
 class CarBrandsKilometersFieldWidget extends StatefulWidget {
   final bool? isEnabled;
@@ -57,12 +57,11 @@ class _CarBrandsKilometersFieldWidgetState
                   controller: _controller,
                   style: TextStyles.font12DarkBlueSemiBold,
                   keyboardType: TextInputType.number,
-                  enabled:
-                      context.read<CarBrandsCubit>().selectedCarYear != null,
+                  enabled: context.read<CarsCubit>().selectedCarYear != null,
                   onTapOutside: (event) {
                     if (_controller.value.text.isNotEmpty) {
                       context
-                          .read<CarBrandsCubit>()
+                          .read<CarsCubit>()
                           .selectCarKilometers(_controller.value.text);
                     }
                     return FocusScope.of(context).unfocus();
@@ -70,7 +69,7 @@ class _CarBrandsKilometersFieldWidgetState
                   onSubmitted: (value) {
                     if (value.isNotEmpty) {
                       context
-                          .read<CarBrandsCubit>()
+                          .read<CarsCubit>()
                           .selectCarKilometers(_controller.value.text);
                       return;
                     }

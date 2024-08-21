@@ -20,15 +20,16 @@ class CarBrandsLoadingWidget extends StatelessWidget {
         Gap(8.h),
         SizedBox(
           height: 100.h,
-          child: ListView.builder(
+          child: ListView.separated(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
-            itemCount: 4,
             scrollDirection: Axis.horizontal,
+            itemCount: 4,
+            separatorBuilder: (context, index) => Gap(8.w),
             itemBuilder: (context, index) {
               return ShimmerLoadingWidget(
                 width: 100.w,
                 height: 100.h,
-              ).setOnlyPadding(0, 0, 8.w, 0);
+              );
             },
           ),
         ),

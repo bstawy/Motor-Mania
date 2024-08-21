@@ -34,7 +34,7 @@ class CustomMaterialButton extends StatelessWidget {
     this.loading = false,
     this.onClicked,
   });
-  // TODO: needs refactoring
+
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
