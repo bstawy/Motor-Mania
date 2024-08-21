@@ -26,10 +26,10 @@ final class CategoriesLoaded extends HomeState {
   CategoriesLoaded(this.categories);
 }
 
-final class CategoriesErrorState extends HomeState {
+final class CategoriesError extends HomeState {
   final ServerFailure failure;
 
-  CategoriesErrorState(this.failure);
+  CategoriesError(this.failure);
 }
 
 final class ProductsLoading extends HomeState {}
@@ -40,8 +40,8 @@ final class ProductsLoaded extends HomeState {
   ProductsLoaded(this.products);
 }
 
-final class ProductsErrorState extends HomeState {
+final class ProductsError extends HomeState {
   final ServerFailure failure;
 
-  ProductsErrorState(this.failure);
+  ProductsError(this.failure);
 }

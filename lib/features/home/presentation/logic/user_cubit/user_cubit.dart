@@ -19,36 +19,33 @@ class UserCubit extends Cubit<UserState> {
     this._selectPreviousCarUseCase,
   ) : super(UserInitial());
 
-  void fetchUserData() {
+  void fetchUserData() async {
     emit(UserDataLoading());
+    final result = await _getUserSelectedCarUseCase.execute();
 
-    _getUserSelectedCarUseCase.execute().then((response) {
-      response.fold(
-        (failure) => emit(UserDataError(failure)),
-        (userCar) => emit(UserDataLoaded(userCar)),
-      );
-    });
+    result.fold(
+      (error) => emit(UserDataError(error)),
+      (userCar) => emit(UserDataLoaded(userCar)),
+    );
   }
 
-  void selectNexCar() {
+  void selectNexCar() async {
     emit(UserCarSwitching());
+    final result = await _selectNextCarUseCase.execute();
 
-    _selectNextCarUseCase.execute().then((response) {
-      response.fold(
-        (failure) => emit(UserDataError(failure)),
-        (userCar) => emit(UserDataLoaded(userCar)),
-      );
-    });
+    result.fold(
+      (error) => emit(UserDataError(error)),
+      (userCar) => emit(UserDataLoaded(userCar)),
+    );
   }
 
-  void selectPreviousCar() {
+  void selectPreviousCar() async {
     emit(UserCarSwitching());
+    final result = await _selectPreviousCarUseCase.execute();
 
-    _selectPreviousCarUseCase.execute().then((response) {
-      response.fold(
-        (failure) => emit(UserDataError(failure)),
-        (userCar) => emit(UserDataLoaded(userCar)),
-      );
-    });
+    result.fold(
+      (error) => emit(UserDataError(error)),
+      (userCar) => emit(UserDataLoaded(userCar)),
+    );
   }
 }

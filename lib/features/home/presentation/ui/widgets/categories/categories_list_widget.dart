@@ -17,14 +17,14 @@ class CategoriesList extends StatelessWidget {
       buildWhen: (previous, current) {
         return current is CategoriesLoading ||
             current is CategoriesLoaded ||
-            current is CategoriesErrorState;
+            current is CategoriesError;
       },
       builder: (context, state) {
         if (state is CategoriesLoading) {
           return const CategoriesListLoadingWidget();
         } else if (state is CategoriesLoaded) {
           return CategoriesListLoadedWidget(categories: state.categories);
-        } else if (state is CategoriesErrorState) {
+        } else if (state is CategoriesError) {
           return Center(
             child: Text(state.failure.message ?? "").setHorizontalPadding(16.w),
           );

@@ -22,7 +22,7 @@ class HomeListWidget extends StatelessWidget {
       buildWhen: (previous, current) {
         return current is ProductsLoading ||
             current is ProductsLoaded ||
-            current is ProductsErrorState;
+            current is ProductsError;
       },
       builder: (context, state) {
         if (state is ProductsLoading) {
@@ -32,7 +32,7 @@ class HomeListWidget extends StatelessWidget {
             title: title,
             products: state.products,
           );
-        } else if (state is ProductsErrorState) {
+        } else if (state is ProductsError) {
           return Center(
             child: Text(state.failure.message ?? "").setHorizontalPadding(16.w),
           );
