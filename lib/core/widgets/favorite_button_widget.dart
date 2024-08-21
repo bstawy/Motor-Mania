@@ -51,18 +51,10 @@ class FavoriteButtonWidget extends StatelessWidget {
         child: BlocConsumer<FavoritesCubit, FavoritesState>(
           bloc: context.read<FavoritesCubit>(),
           listenWhen: (previous, current) {
-            if (current is AddToFavoritesSuccess ||
-                current is RemoveFromFavoritesSuccess) {
-              return true;
-            }
-            return false;
+            return current is AddToFavoritesSuccess ||
+                current is RemoveFromFavoritesSuccess;
           },
-          buildWhen: (previous, current) {
-            if (current is FavoritesLoaded) {
-              return true;
-            }
-            return false;
-          },
+          buildWhen: (previous, current) => current is FavoritesLoaded,
           listener: (context, state) {
             if (state is AddToFavoritesSuccess) {
               context.successSnackBar("Product Added to your Favorites");

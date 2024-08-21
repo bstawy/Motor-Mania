@@ -26,8 +26,8 @@ final class RemoveFromFavoritesSuccess extends FavoritesState {
   RemoveFromFavoritesSuccess(this.message);
 }
 
-final class ErrorState extends FavoritesState {
+final class FavoritesError extends FavoritesState {
   final ServerFailure failure;
 
-  ErrorState(this.failure);
+  FavoritesError(this.failure);
 }
