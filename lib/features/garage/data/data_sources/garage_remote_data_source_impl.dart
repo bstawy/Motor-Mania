@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 
 import '../../../../core/config/constants/api_constants.dart';
 import '../../../../core/networking/crud_manager.dart';
+import '../models/add_car_model.dart';
 import 'garage_remote_data_source.dart';
 
 class GarageRemoteDataSourceImpl extends GarageRemoteDataSource {
@@ -21,6 +22,17 @@ class GarageRemoteDataSourceImpl extends GarageRemoteDataSource {
     return _crudManager.post(
       EndPoints.selectCar,
       params: param,
+      tokenReq: true,
+    );
+  }
+
+  @override
+  Future<Response> addCar(AddCarModel car) async {
+    final bodyParams = car.toJson();
+
+    return await _crudManager.post(
+      EndPoints.addCar,
+      body: bodyParams,
       tokenReq: true,
     );
   }

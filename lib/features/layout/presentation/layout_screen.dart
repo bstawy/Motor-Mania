@@ -6,6 +6,7 @@ import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import '../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../core/config/theme/colors_manager.dart';
 import '../../../core/di/dependency_injection.dart';
+import '../../cars/presentation/logic/cars_cubit.dart';
 import '../../cart/presentation/logic/cart_cubit.dart';
 import '../../cart/presentation/ui/cart_screen.dart';
 import '../../favorites/presentation/ui/favorites_screen.dart';
@@ -121,8 +122,15 @@ class _LayoutScreenState extends State<LayoutScreen> {
         title: "Favorites",
       ),
       bottomNavBarTab(
-        screen: BlocProvider<GarageCubit>(
-          create: (context) => getIt<GarageCubit>()..getGarageCars(),
+        screen: MultiBlocProvider(
+          providers: [
+            BlocProvider<GarageCubit>(
+              create: (context) => getIt<GarageCubit>()..getGarageCars(),
+            ),
+            BlocProvider<CarsCubit>(
+              create: (context) => getIt<CarsCubit>()..getCarBrands(),
+            ),
+          ],
           child: const GarageScreen(),
         ),
         iconPath: "assets/icons/bottom_nav_selected_garage_icon.svg",

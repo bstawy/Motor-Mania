@@ -7,6 +7,7 @@ import '../../../../home/domain/entities/car_entity.dart';
 import '../../logic/garage_cubit.dart';
 import 'garage_item_widget.dart';
 import 'remove_car_listener.dart';
+import 'selected_car_listener.dart';
 
 class GarageCarsListWidget extends StatelessWidget {
   final List<CarEntity> garageCars;
@@ -21,6 +22,7 @@ class GarageCarsListWidget extends StatelessWidget {
       },
       child: Column(
         children: [
+          const SelectedCarListener(),
           const RemoveCarListener(),
           Expanded(
             child: ListView.builder(

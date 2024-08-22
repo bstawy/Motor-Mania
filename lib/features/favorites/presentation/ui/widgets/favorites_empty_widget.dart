@@ -26,7 +26,7 @@ class FavoritesEmptyWidget extends StatelessWidget {
           Gap(32.h),
           BlocProvider<HomeCubit>(
             create: (context) => getIt<HomeCubit>(),
-            child: const HomeListWidget(title: "Recommended For You"),
+            child: const HomeListWidget(title: "Items you previously viewed"),
           ),
         ],
       ),

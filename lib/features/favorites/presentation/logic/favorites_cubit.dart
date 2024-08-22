@@ -27,7 +27,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
 
     response.fold(
       (serverFailure) {
-        emit(ErrorState(serverFailure));
+        emit(FavoritesError(serverFailure));
       },
       (products) {
         if (products.isEmpty) {
@@ -45,7 +45,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
 
     response.fold(
       (serverFailure) {
-        emit(ErrorState(serverFailure));
+        emit(FavoritesError(serverFailure));
       },
       (message) {
         emit(AddToFavoritesSuccess(message));
@@ -59,7 +59,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
 
     response.fold(
       (serverFailure) {
-        emit(ErrorState(serverFailure));
+        emit(FavoritesError(serverFailure));
       },
       (message) {
         emit(RemoveFromFavoritesSuccess(message));

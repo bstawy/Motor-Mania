@@ -5,6 +5,7 @@ import '../../../home/data/models/home_car_model.dart';
 import '../../../home/domain/entities/car_entity.dart';
 import '../../domain/repos/garage_repo.dart';
 import '../data_sources/garage_remote_data_source.dart';
+import '../models/add_car_model.dart';
 
 class GarageRepoImpl extends GarageRepo {
   final GarageRemoteDataSource _garageRemoteDataSource;
@@ -56,6 +57,30 @@ class GarageRepoImpl extends GarageRepo {
           ),
         );
       }
+    } catch (e) {
+      return Left(
+        ServerFailure(
+          statusCode: 500,
+          message: e.toString(),
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<ServerFailure, bool>> addCar(AddCarModel car) async {
+    try {
+      final response = await _garageRemoteDataSource.addCar(car);
+
+      if (response.statusCode == 200) {
+        return const Right(true);
+      }
+      return Left(
+        ServerFailure(
+          statusCode: response.statusCode,
+          message: response.data['message'],
+        ),
+      );
     } catch (e) {
       return Left(
         ServerFailure(

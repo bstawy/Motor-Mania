@@ -35,12 +35,8 @@ class FavoritesScreen extends StatelessWidget {
           Gap(8.h),
           BlocConsumer<FavoritesCubit, FavoritesState>(
             bloc: context.read<FavoritesCubit>()..getAllFavorites(),
-            listenWhen: (previous, current) {
-              if (current is RemoveFromFavoritesSuccess) {
-                return true;
-              }
-              return false;
-            },
+            listenWhen: (previous, current) =>
+                current is RemoveFromFavoritesSuccess,
             listener: (context, state) {
               context.successSnackBar("Product removed from your favorites");
             },
@@ -61,7 +57,7 @@ class FavoritesScreen extends StatelessWidget {
                 );
               } else if (state is FavoritesEmpty) {
                 return const Expanded(child: FavoritesEmptyWidget());
-              } else if (state is ErrorState) {
+              } else if (state is FavoritesError) {
                 return Center(
                   child: Text(state.failure.message ?? "")
                       .setHorizontalPadding(16.w),

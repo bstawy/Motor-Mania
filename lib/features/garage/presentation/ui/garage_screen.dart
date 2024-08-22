@@ -22,7 +22,7 @@ class GarageScreen extends StatelessWidget {
   Widget _buildAddNewCarButton(BuildContext context) {
     return CustomElevatedButton(
       onPressed: () {
-        context.pushNamed(Routes.carBrands);
+        context.pushNamed(Routes.cars);
       },
       title: "Add New Car",
       titleStyle: TextStyles.font10BlueGreyMedium,
@@ -61,13 +61,10 @@ class GarageScreen extends StatelessWidget {
           : BlocBuilder<GarageCubit, GarageState>(
               bloc: context.read<GarageCubit>()..getGarageCars(),
               buildWhen: (previous, current) {
-                if (current is GarageLoading ||
+                return current is GarageLoading ||
                     current is GarageLoaded ||
                     current is GarageEmpty ||
-                    current is GarageError) {
-                  return true;
-                }
-                return false;
+                    current is GarageError;
               },
               builder: (context, state) {
                 if (state is GarageLoading) {
