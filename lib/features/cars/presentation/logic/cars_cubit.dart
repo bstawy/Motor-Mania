@@ -26,9 +26,9 @@ class CarsCubit extends Cubit<CarsState> {
     response.fold(
       (failure) => emit(CarBrandsError(failure)),
       (carBrands) {
-        selectedCarBrandId = carBrands.first.id!;
         this.carBrands = carBrands;
         emit(CarBrandsLoaded(carBrands));
+        selectCarBrand(carBrands.first.id!);
       },
     );
   }
