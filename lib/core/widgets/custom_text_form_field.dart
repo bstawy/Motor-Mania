@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../config/text/text_styles.dart';
 import '../config/theme/colors_manager.dart';
 
-// TODO: needs refactoring
 class CustomTextFormField extends StatefulWidget {
   final TextEditingController? controller;
   final String hint;

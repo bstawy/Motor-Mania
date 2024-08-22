@@ -13,26 +13,6 @@ class CarBrandsLoadingWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ShimmerLoadingWidget(
-          width: 100.w,
-          height: 20.h,
-        ).setHorizontalPadding(16.w),
-        Gap(8.h),
-        SizedBox(
-          height: 100.h,
-          child: ListView.separated(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            scrollDirection: Axis.horizontal,
-            itemCount: 4,
-            separatorBuilder: (context, index) => Gap(8.w),
-            itemBuilder: (context, index) {
-              return ShimmerLoadingWidget(
-                width: 100.w,
-                height: 100.h,
-              );
-            },
-          ),
-        ),
         Gap(16.h),
         Expanded(
           child: ListView.builder(

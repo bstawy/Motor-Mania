@@ -21,6 +21,7 @@ class CarBrandsScreen extends StatelessWidget {
         builder: (context, state) {
           final List<CarBrandEntity> carBrands =
               context.read<CarsCubit>().carBrands;
+          carBrands.sort((a, b) => a.id!.compareTo(b.id!));
 
           return GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

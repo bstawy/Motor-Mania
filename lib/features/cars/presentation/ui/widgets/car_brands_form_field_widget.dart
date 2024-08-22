@@ -6,13 +6,13 @@ import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors_manager.dart';
 import '../../../../../core/helpers/extensions/extensions.dart';
 
-class CarBrandsFormFieldWidget extends StatefulWidget {
+class CarDataFormFieldWidget extends StatefulWidget {
   final String title;
   final List<dynamic> options;
   final Function(dynamic)? onSelect;
   final bool? isEnabled;
 
-  const CarBrandsFormFieldWidget({
+  const CarDataFormFieldWidget({
     super.key,
     required this.title,
     required this.options,
@@ -21,11 +21,10 @@ class CarBrandsFormFieldWidget extends StatefulWidget {
   });
 
   @override
-  State<CarBrandsFormFieldWidget> createState() =>
-      _CarBrandsFormFieldWidgetState();
+  State<CarDataFormFieldWidget> createState() => _CarDataFormFieldWidgetState();
 }
 
-class _CarBrandsFormFieldWidgetState extends State<CarBrandsFormFieldWidget> {
+class _CarDataFormFieldWidgetState extends State<CarDataFormFieldWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(

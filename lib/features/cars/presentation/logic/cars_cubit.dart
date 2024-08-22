@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/helpers/extensions/extensions.dart';
 import '../../../../core/networking/failure/server_failure.dart';
 import '../../../garage/data/models/add_car_model.dart';
 import '../../../garage/presentation/logic/garage_cubit.dart';
@@ -34,18 +35,23 @@ class CarsCubit extends Cubit<CarsState> {
 
   selectCarBrand(int id, {bool? order}) {
     selectedCarBrandId = id;
+    int selectedCarBrandIndex =
+        carBrands.indexWhere((element) => element.id == id);
+    if (selectedCarBrandIndex > 5) {
+      // Create a copy
+      List<CarBrandEntity> sortedList = [...carBrands];
+      sortedList = sortedList.moveToStart(selectedCarBrandIndex);
+      carBrands = sortedList;
+      debugPrint('Car Brands: $carBrands');
 
-    if (order != null && order) {
-      Set<CarBrandEntity> newCarBrands = {
-        carBrands.firstWhere((element) => element.id == id),
-        ...carBrands,
-      };
+      emit(
+        CarBrandSelected(List.unmodifiable(sortedList)),
+      );
+    } else {
+      debugPrint('Car Brands unsorted: $carBrands');
 
-      carBrands = newCarBrands.toList();
+      emit(CarBrandSelected(List.unmodifiable(carBrands)));
     }
-    // TODO: rearrage where selected brand is first brand
-
-    emit(CarBrandSelected());
   }
 
   selectCarModel(String value) {
