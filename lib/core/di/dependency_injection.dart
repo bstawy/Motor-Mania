@@ -98,13 +98,15 @@ Future<void> initGetIt() async {
 
   // Register
   getIt.registerFactory<RegisterRemoteDataSource>(
-      () => RegisterRemoteDataSource(getIt()));
+    () => RegisterRemoteDataSource(getIt()),
+  );
   getIt.registerFactory<RegisterRepo>(() => RegisterRepo(getIt()));
   getIt.registerFactory<RegisterCubit>(() => RegisterCubit(getIt()));
 
   // login
   getIt.registerFactory<LoginRemoteDataSource>(
-      () => LoginRemoteDataSource(getIt()));
+    () => LoginRemoteDataSource(getIt()),
+  );
   getIt.registerFactory<LoginRepo>(() => LoginRepo(getIt()));
   getIt.registerFactory<LoginCubit>(() => LoginCubit(getIt()));
 
