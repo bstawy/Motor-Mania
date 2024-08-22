@@ -33,38 +33,62 @@ class CarsScreen extends StatelessWidget {
               const AddCarListener(),
               const CarBrandsListWidget(),
               Gap(16.h),
-              CarDataFormFieldWidget(
-                title: "Choose Car Model",
-                options: const [
-                  'Model 1',
-                  'Model 2',
-                  'Model 3',
-                  'Model 4',
-                ],
-                onSelect: (value) {
-                  context.read<CarsCubit>().selectCarModel(value);
-                  context.successSnackBar("Car Model Selected");
+              BlocBuilder<CarsCubit, CarsState>(
+                bloc: context.read<CarsCubit>(),
+                buildWhen: (previous, current) =>
+                    current is CarBrandsLoaded || current is CarBrandSelected,
+                builder: (context, state) {
+                  return CarDataFormFieldWidget(
+                    title: "Choose Car Model",
+                    options: const [
+                      'Model 1',
+                      'Model 2',
+                      'Model 3',
+                      'Model 4',
+                    ],
+                    onSelect: (value) {
+                      context.read<CarsCubit>().selectCarModel(value);
+                      context.successSnackBar("Car Model Selected");
+                    },
+                    isEnabled:
+                        context.read<CarsCubit>().selectedCarBrandId != null,
+                  );
                 },
-                isEnabled: context.read<CarsCubit>().selectedCarBrandId != null,
               ),
               Gap(16.h),
-              CarDataFormFieldWidget(
-                title: "Choose Car Year",
-                options: const [
-                  2015,
-                  2016,
-                  2018,
-                  2020,
-                ],
-                onSelect: (value) {
-                  context.read<CarsCubit>().selectCarYear(value);
-                  context.successSnackBar("Car Year Selected");
+              BlocBuilder<CarsCubit, CarsState>(
+                bloc: context.read<CarsCubit>(),
+                buildWhen: (previous, current) =>
+                    current is CarBrandsLoaded || current is CarModelSelected,
+                builder: (context, state) {
+                  return CarDataFormFieldWidget(
+                    title: "Choose Car Year",
+                    options: const [
+                      2015,
+                      2016,
+                      2018,
+                      2020,
+                    ],
+                    onSelect: (value) {
+                      context.read<CarsCubit>().selectCarYear(value);
+                      context.successSnackBar("Car Year Selected");
+                    },
+                    isEnabled:
+                        context.read<CarsCubit>().selectedCarModel != null,
+                  );
                 },
-                isEnabled: context.read<CarsCubit>().selectedCarModel != null,
               ),
               Gap(16.h),
-              CarBrandsKilometersFieldWidget(
-                isEnabled: context.read<CarsCubit>().selectedCarYear != null,
+              BlocBuilder<CarsCubit, CarsState>(
+                bloc: context.read<CarsCubit>(),
+                buildWhen: (previous, current) =>
+                    current is CarBrandsLoaded || current is CarYearSelected,
+                builder: (context, state) {
+                  return CarBrandsKilometersFieldWidget(
+                    isEnabled:
+                        context.read<CarsCubit>().selectedCarYear != null,
+                  );
+                },
               ),
             ],
           ).setVerticalPadding(16.h),
