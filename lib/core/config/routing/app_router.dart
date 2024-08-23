@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../features/addresses/presentation/ui/addresses_screen.dart';
 import '../../../features/auth/login/logic/login_cubit.dart';
 import '../../../features/auth/login/presentation/login_screen.dart';
 import '../../../features/auth/register/logic/register_cubit.dart';
@@ -137,6 +138,12 @@ class AppRouter {
             value: _carsCubit!,
             child: const CarBrandsScreen(),
           ),
+          settings: settings,
+        );
+
+      case Routes.addresses:
+        return MaterialPageRoute(
+          builder: (_) => const AddressesScreen(),
           settings: settings,
         );
 

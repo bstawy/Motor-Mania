@@ -44,6 +44,9 @@ class ProfileCubit extends Cubit<ProfileState> {
       id: 5,
       title: "Addresses",
       leadingIconPath: "assets/icons/profile_location_icon.svg",
+      onTap: (context) {
+        context.pushNamed(Routes.addresses);
+      },
     ),
     OptionModel(
       id: 6,

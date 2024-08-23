@@ -10,4 +10,5 @@ class Routes {
   static const String paymentMethods = '/payment-methods';
   static const String cars = '/cars';
   static const String carsBrands = '/carsBrands';
+  static const String addresses = '/addresses';
 }
