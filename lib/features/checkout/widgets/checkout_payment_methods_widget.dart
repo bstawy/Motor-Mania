@@ -3,9 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
+import '../../../core/config/routing/routes.dart';
 import '../../../core/config/text/text_styles.dart';
 import '../../../core/config/theme/colors_manager.dart';
-import '../../../core/helpers/extensions/padding_ext.dart';
+import '../../../core/helpers/extensions/extensions.dart';
+import '../../../core/widgets/custom_elevated_button.dart';
 
 class CheckoutPaymentMethodsWidget extends StatefulWidget {
   const CheckoutPaymentMethodsWidget({super.key});
@@ -30,9 +32,24 @@ class _CheckoutPaymentMethodsWidgetState
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          "Payment Methods",
-          style: TextStyles.font14DarkBlueMedium,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "Payment Methods",
+              style: TextStyles.font14DarkBlueMedium,
+            ),
+            SizedBox(
+              height: 23.h,
+              child: CustomElevatedButton(
+                onPressed: () {
+                  context.pushNamed(Routes.paymentMethods);
+                },
+                title: "Edit",
+                iconPath: "assets/icons/edit_icon.svg",
+              ),
+            ),
+          ],
         ),
         Gap(8.h),
         Container(

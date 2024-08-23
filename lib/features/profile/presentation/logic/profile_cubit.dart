@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/config/app_manager/app_manager_cubit.dart';
+import '../../../../core/config/routing/routes.dart';
 import '../../../../core/helpers/enums/app_modes_enums.dart';
 import '../../../../core/helpers/extensions/extensions.dart';
 import '../../models/option_model.dart';
@@ -48,6 +49,9 @@ class ProfileCubit extends Cubit<ProfileState> {
       id: 6,
       title: "Payment",
       leadingIconPath: "assets/icons/card_icon.svg",
+      onTap: (context) {
+        context.pushNamed(Routes.paymentMethods);
+      },
     ),
     OptionModel(
       id: 7,
@@ -66,9 +70,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       id: 9,
       title: "Theme Mode",
       leadingIconPath: "assets/icons/profile_dark_mode_icon.svg",
-      onTap: (BuildContext context) {
-        debugPrint("Dark Mode tapped");
-
+      onTap: (context) {
         showModalBottomSheet(
           context: context,
           builder: (context) => const ChangeThemeBottomSheet(),
@@ -92,7 +94,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       id: 12,
       title: "Logout",
       leadingIconPath: "assets/icons/profile_logout_icon.svg",
-      onTap: (BuildContext context) async {
+      onTap: (context) async {
         if (context.read<AppManagerCubit>().appMode == AppMode.user) {
           showDialog(
             context: context,
@@ -108,8 +110,4 @@ class ProfileCubit extends Cubit<ProfileState> {
   ];
 
   ProfileCubit() : super(ProfileInitial());
-
-  void changeTheme() {
-    // TODO: Implement Dark Mode
-  }
 }
