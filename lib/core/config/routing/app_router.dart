@@ -16,6 +16,7 @@ import '../../../features/garage/presentation/logic/garage_cubit.dart';
 import '../../../features/layout/logic/layout_cubit.dart';
 import '../../../features/layout/presentation/layout_screen.dart';
 import '../../../features/on_boarding/on_boarding_screen.dart';
+import '../../../features/orders/presentation/ui/orders_screen.dart';
 import '../../../features/payment_methods/presentation/ui/payments_screen.dart';
 import '../../../features/search/presentation/logic/search_cubit.dart';
 import '../../../features/search/presentation/search_screen.dart';
@@ -144,6 +145,12 @@ class AppRouter {
       case Routes.addresses:
         return MaterialPageRoute(
           builder: (_) => const AddressesScreen(),
+          settings: settings,
+        );
+
+      case Routes.orders:
+        return MaterialPageRoute(
+          builder: (_) => const OrdersScreen(),
           settings: settings,
         );
 
