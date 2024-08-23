@@ -32,25 +32,27 @@ class ProfileScreen extends StatelessWidget {
               name: "Mohamed Bastawy",
               email: "mohamed.bastawiie@gmail.com",
             ),
-            context.read<AppManagerCubit>().appMode == AppMode.guest
-                ? const SizedBox.shrink()
-                : Column(
-                    children: [
-                      Gap(8.h),
-                      SizedBox(
-                        height: 132.h,
-                        child: const OptionsGridWidget(),
-                      ),
-                      Gap(24.h),
-                      SizedBox(
-                        height: 235.h,
-                        child: OptionsListWidget(
-                          title: "My Account",
-                          options: context.read<ProfileCubit>().accountOptions,
-                        ),
-                      ),
-                    ],
+            Visibility(
+              visible: context.read<AppManagerCubit>().appMode != AppMode.guest,
+              maintainState: true,
+              child: Column(
+                children: [
+                  Gap(8.h),
+                  SizedBox(
+                    height: 132.h,
+                    child: const OptionsGridWidget(),
                   ),
+                  Gap(24.h),
+                  SizedBox(
+                    height: 235.h,
+                    child: OptionsListWidget(
+                      title: "My Account",
+                      options: context.read<ProfileCubit>().accountOptions,
+                    ),
+                  ),
+                ],
+              ),
+            ),
             Gap(16.h),
             SizedBox(
               height: 235.h,
