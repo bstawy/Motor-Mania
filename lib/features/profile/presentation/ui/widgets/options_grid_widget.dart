@@ -28,7 +28,9 @@ class OptionsGridWidget extends StatelessWidget {
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () {
-            options[index].onTap ?? (context);
+            if (options[index].onTap != null) {
+              options[index].onTap!(context);
+            }
           },
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
