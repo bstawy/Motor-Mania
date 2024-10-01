@@ -9,7 +9,7 @@ class GetUserSelectedCarUseCase {
 
   GetUserSelectedCarUseCase(this._homeRepo);
 
-  Future<Either<ServerFailure, CarEntity>> execute() async {
+  Future<Either<ServerFailure, CarEntity?>> execute() async {
     return await _homeRepo.getUserCar();
   }
 }

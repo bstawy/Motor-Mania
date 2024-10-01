@@ -159,6 +159,20 @@ class TextStyles {
     fontFamily: 'Montserrat',
   );
 
+  static TextStyle font12BlueGreyBold = TextStyle(
+    color: ColorsManager.blueGrey,
+    fontSize: 12.sp,
+    fontWeight: FontWeightHelper.bold,
+    fontFamily: 'Montserrat',
+  );
+
+  static TextStyle font12RedBold = TextStyle(
+    color: ColorsManager.red,
+    fontSize: 12.sp,
+    fontWeight: FontWeightHelper.bold,
+    fontFamily: 'Montserrat',
+  );
+
   static TextStyle font12DarkBlueSemiBold = TextStyle(
     color: ColorsManager.darkBlue,
     fontSize: 12.sp,

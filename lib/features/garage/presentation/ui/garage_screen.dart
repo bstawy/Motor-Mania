@@ -72,12 +72,18 @@ class GarageScreen extends StatelessWidget {
                 } else if (state is GarageEmpty) {
                   return const GarageEmptyWidget();
                 } else if (state is GarageLoaded) {
-                  return GarageCarsListWidget(
-                    garageCars: state.cars,
-                  );
+                  return GarageCarsListWidget(garageCars: state.cars);
                 } else if (state is GarageError) {
-                  return Center(
-                    child: Text(state.failure.message ?? ""),
+                  return RefreshIndicator(
+                    onRefresh: () async {
+                      context.read<GarageCubit>().getGarageCars();
+                    },
+                    child: SingleChildScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      child: Center(
+                        child: Text(state.failure.message ?? ""),
+                      ),
+                    ),
                   );
                 } else {
                   return const SizedBox();

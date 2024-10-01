@@ -18,6 +18,20 @@ final class CarBrandsError extends CarsState {
   CarBrandsError(this.failure);
 }
 
+final class CarBrandModelsLoading extends CarsState {}
+
+final class CarBrandModelsLoaded extends CarsState {
+  final List<CarBrandModelEntity> carBrandModels;
+
+  CarBrandModelsLoaded(this.carBrandModels);
+}
+
+final class CarBrandModelsError extends CarsState {
+  final ServerFailure failure;
+
+  CarBrandModelsError(this.failure);
+}
+
 final class CarBrandSelected extends CarsState {
   final List<CarBrandEntity> carBrands;
 

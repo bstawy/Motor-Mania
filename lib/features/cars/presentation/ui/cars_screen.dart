@@ -9,9 +9,9 @@ import '../../../../core/widgets/custom_material_button.dart';
 import '../../../auth/login/logic/login_cubit.dart';
 import '../logic/cars_cubit.dart';
 import 'widgets/add_car_listener.dart';
-import 'widgets/car_brands_form_field_widget.dart';
 import 'widgets/car_brands_kilometers_field_widget.dart';
 import 'widgets/car_brands_list_widget.dart';
+import 'widgets/car_data_form_field_widget.dart';
 
 class CarsScreen extends StatelessWidget {
   const CarsScreen({super.key});
@@ -36,22 +36,22 @@ class CarsScreen extends StatelessWidget {
               BlocBuilder<CarsCubit, CarsState>(
                 bloc: context.read<CarsCubit>(),
                 buildWhen: (previous, current) =>
-                    current is CarBrandsLoaded || current is CarBrandSelected,
+                    current is CarBrandModelsLoaded ||
+                    current is CarBrandSelected,
                 builder: (context, state) {
                   return CarDataFormFieldWidget(
                     title: "Choose Car Model",
-                    options: const [
-                      'Model 1',
-                      'Model 2',
-                      'Model 3',
-                      'Model 4',
-                    ],
+                    options: context
+                        .read<CarsCubit>()
+                        .carModels
+                        .map((e) => e.name)
+                        .toList(),
                     onSelect: (value) {
                       context.read<CarsCubit>().selectCarModel(value);
-                      context.successSnackBar("Car Model Selected");
                     },
                     isEnabled:
-                        context.read<CarsCubit>().selectedCarBrandId != null,
+                        context.read<CarsCubit>().selectedCarBrandId != null &&
+                            context.read<CarsCubit>().carModels.isNotEmpty,
                   );
                 },
               ),
@@ -63,12 +63,11 @@ class CarsScreen extends StatelessWidget {
                 builder: (context, state) {
                   return CarDataFormFieldWidget(
                     title: "Choose Car Year",
-                    options: const [
-                      2015,
-                      2016,
-                      2018,
-                      2020,
-                    ],
+                    options: context
+                        .read<CarsCubit>()
+                        .carModels
+                        .map((e) => e.year)
+                        .toList(),
                     onSelect: (value) {
                       context.read<CarsCubit>().selectCarYear(value);
                       context.successSnackBar("Car Year Selected");

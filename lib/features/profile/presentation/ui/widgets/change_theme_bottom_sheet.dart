@@ -38,7 +38,6 @@ class ChangeThemeBottomSheet extends StatelessWidget {
             Gap(32.h),
             CustomMaterialButton(
               onClicked: () {
-                // TODO: close bottom sheet after finishing the action
                 context.read<AppManagerCubit>().changeTheme(ThemeMode.light);
                 context.read<LayoutCubit>().changeTab(0);
               },

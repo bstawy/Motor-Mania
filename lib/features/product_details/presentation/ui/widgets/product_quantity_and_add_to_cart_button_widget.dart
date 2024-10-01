@@ -7,10 +7,10 @@ import 'package:popover/popover.dart';
 import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors_manager.dart';
 import '../../../../../core/widgets/custom_material_button.dart';
+import '../../../../../core/widgets/quantity_pop_up_widget.dart';
 import '../../../../cart/presentation/logic/cart_cubit.dart';
 import '../../../domain/entities/product_entity.dart';
 import '../../logic/product_cubit.dart';
-import 'quantity_pop_up_widget.dart';
 
 class ProductQuantityAndAddToCartButtonWidget extends StatelessWidget {
   final ProductCubit productCubit;

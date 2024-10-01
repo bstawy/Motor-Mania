@@ -15,37 +15,39 @@ class OrdersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBar(title: 'Orders'),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Gap(16.h),
-          const OrdersSearchWidget(),
-          Gap(16.h),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'On Going',
-                style: TextStyles.font14DarkBlueMedium,
-              ),
-              Gap(8.h),
-              const OrderItemWidget(),
-            ],
-          ),
-          Gap(20.h),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Completed',
-                style: TextStyles.font14DarkBlueMedium,
-              ),
-              Gap(8.h),
-              const OrderItemWidget(isCompleted: true),
-            ],
-          ),
-        ],
-      ).setHorizontalPadding(16.w),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Gap(16.h),
+            const OrdersSearchWidget(),
+            Gap(16.h),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'On Going',
+                  style: TextStyles.font14DarkBlueMedium,
+                ),
+                Gap(8.h),
+                const OrderItemWidget(),
+              ],
+            ),
+            Gap(20.h),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Completed',
+                  style: TextStyles.font14DarkBlueMedium,
+                ),
+                Gap(8.h),
+                const OrderItemWidget(isCompleted: true),
+              ],
+            ),
+          ],
+        ).setHorizontalPadding(16.w),
+      ),
     );
   }
 }

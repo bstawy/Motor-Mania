@@ -20,6 +20,7 @@ import '../../../features/orders/presentation/ui/orders_screen.dart';
 import '../../../features/payment_methods/presentation/ui/payments_screen.dart';
 import '../../../features/search/presentation/logic/search_cubit.dart';
 import '../../../features/search/presentation/search_screen.dart';
+import '../../../features/track_order/presentation/ui/track_order_screen.dart';
 import '../../di/dependency_injection.dart';
 import 'no_route_defined_widget.dart';
 import 'routes.dart';
@@ -123,7 +124,7 @@ class AppRouter {
                 value: _garageCubit!,
               ),
               BlocProvider<CarsCubit>.value(
-                value: _carsCubit!,
+                value: _carsCubit!..getCarBrands(),
               ),
             ],
             child: const CarsScreen(),
@@ -151,6 +152,12 @@ class AppRouter {
       case Routes.orders:
         return MaterialPageRoute(
           builder: (_) => const OrdersScreen(),
+          settings: settings,
+        );
+
+      case Routes.trackOrder:
+        return MaterialPageRoute(
+          builder: (_) => const TrackOrderScreen(),
           settings: settings,
         );
 

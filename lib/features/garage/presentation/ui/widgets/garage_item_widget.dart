@@ -63,7 +63,7 @@ class GarageItemWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "${car.brand} ${car.model} ${car.year}",
+                        "${car.brand} ${car.model}",
                         style: TextStyles.font20DarkBlueBold.copyWith(
                           color: isSelected
                               ? Colors.white

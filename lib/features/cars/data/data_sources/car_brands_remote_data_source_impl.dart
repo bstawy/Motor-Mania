@@ -13,4 +13,15 @@ class CarBrandsRemoteDataSourceImpl extends CarBrandsRemoteDataSource {
   Future<Response> getCarBrands() async {
     return await _crudManager.get(EndPoints.carBrands, tokenReq: true);
   }
+
+  @override
+  Future<Response> getCarBrandModels(int brandId) async {
+    final Map<String, dynamic> param = {'brand_id': brandId};
+
+    return await _crudManager.get(
+      EndPoints.carModels,
+      params: param,
+      tokenReq: true,
+    );
+  }
 }

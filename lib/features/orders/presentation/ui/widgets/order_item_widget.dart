@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
+import '../../../../../core/config/routing/routes.dart';
 import '../../../../../core/config/text/font_weight_helper.dart';
 import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors_manager.dart';
+import '../../../../../core/helpers/extensions/extensions.dart';
 import '../../../../../core/widgets/custom_elevated_button.dart';
 import '../../../../../core/widgets/product_name_and_type_widget.dart';
 import '../../../../../core/widgets/product_property_widget.dart';
@@ -129,7 +131,9 @@ class OrderItemWidget extends StatelessWidget {
                       Gap(8.w),
                       Expanded(
                         child: CustomElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            context.pushNamed(Routes.trackOrder);
+                          },
                           title: "Track Your Order",
                           titleStyle: TextStyles.font8DarkBlueMedium.copyWith(
                             fontWeight: FontWeightHelper.semiBold,
