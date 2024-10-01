@@ -9,6 +9,7 @@ import '../../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../../core/config/theme/colors_manager.dart';
 import '../../../../core/helpers/enums/app_modes_enums.dart';
 import '../logic/home_cubit/home_cubit.dart';
+import '../logic/user_cubit/user_cubit.dart';
 import 'widgets/categories/categories_list_widget.dart';
 import 'widgets/header/home_header_widget.dart';
 import 'widgets/header/user/user_offers_widget.dart';
@@ -19,6 +20,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppMode appMode = context.read<AppManagerCubit>().appMode;
+
     return Scaffold(
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
@@ -26,6 +29,9 @@ class HomeScreen extends StatelessWidget {
           color: ColorsManager.darkBlue,
           child: RefreshIndicator(
             onRefresh: () async {
+              if (appMode == AppMode.user) {
+                context.read<UserCubit>().fetchUserData();
+              }
               context.read<HomeCubit>()
                 ..getHomeOffers()
                 ..getHomeCategories()

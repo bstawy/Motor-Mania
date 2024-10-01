@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:popover/popover.dart';
 
 import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors_manager.dart';
@@ -10,6 +11,7 @@ import '../../../../../core/widgets/custom_elevated_button.dart';
 import '../../../../../core/widgets/product_name_and_type_widget.dart';
 import '../../../../../core/widgets/product_price_widget.dart';
 import '../../../../../core/widgets/product_property_widget.dart';
+import '../../../../../core/widgets/quantity_pop_up_widget.dart';
 import '../../../../favorites/presentation/logic/favorites_cubit.dart';
 import '../../../domain/entities/cart_product_entity.dart';
 import '../../logic/cart_cubit.dart';
@@ -108,7 +110,17 @@ class CartProductItemWidget extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      // TODO: change product amount
+                      showPopover(
+                        context: context,
+                        bodyBuilder: (context) => const QuantityPopUpWidget(),
+                        direction: PopoverDirection.bottom,
+                        height: 50.h,
+                        width: 177.w,
+                        radius: 12.r,
+                        arrowDxOffset: -150.w,
+                        arrowDyOffset: -20.h,
+                        arrowWidth: 0,
+                      );
                     },
                     child: Container(
                       height: 26.h,
@@ -150,7 +162,7 @@ class CartProductItemWidget extends StatelessWidget {
                   const Spacer(),
                   CustomElevatedButton(
                     onPressed: () {
-                      // TODO: add to favorites and remove from cart
+                      // TODO: Fix issue product removed from cart but not added to favorite
                       context
                           .read<FavoritesCubit>()
                           .addToFavorites(cartProduct);

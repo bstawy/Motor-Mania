@@ -6,19 +6,27 @@ import '../../../../core/networking/failure/server_failure.dart';
 import '../../../garage/data/models/add_car_model.dart';
 import '../../../garage/presentation/logic/garage_cubit.dart';
 import '../../domain/entities/car_brand_entity.dart';
+import '../../domain/entities/car_brand_model_entity.dart';
+import '../../domain/use_cases/get_car_brand_models_use_case.dart';
 import '../../domain/use_cases/get_car_brands_use_case.dart';
 
 part 'cars_state.dart';
 
 class CarsCubit extends Cubit<CarsState> {
   final GetCarBrandsUseCase _getCarBrandsUseCase;
+  final GetCarBrandModelsUseCase _getCarBrandModelsUseCase;
   List<CarBrandEntity> carBrands = [];
+  List<CarBrandModelEntity> carModels = [];
+
   int? selectedCarBrandId;
   String? selectedCarModel;
   int? selectedCarYear;
   int? selectedCarKilometers;
 
-  CarsCubit(this._getCarBrandsUseCase) : super(CarBrandsInitial());
+  CarsCubit(
+    this._getCarBrandsUseCase,
+    this._getCarBrandModelsUseCase,
+  ) : super(CarBrandsInitial());
 
   Future<void> getCarBrands() async {
     emit(CarBrandsLoading());
@@ -29,11 +37,25 @@ class CarsCubit extends Cubit<CarsState> {
         this.carBrands = carBrands;
         emit(CarBrandsLoaded(carBrands));
         selectCarBrand(carBrands.first.id!);
+        getCarBrandModels();
+      },
+    );
+  }
+
+  Future<void> getCarBrandModels() async {
+    emit(CarBrandModelsLoading());
+    final response = await _getCarBrandModelsUseCase(selectedCarBrandId ?? 0);
+    response.fold(
+      (failure) => emit(CarBrandsError(failure)),
+      (carBrandModels) {
+        carModels = carBrandModels;
+        emit(CarBrandModelsLoaded(carBrandModels));
       },
     );
   }
 
   selectCarBrand(int id, {bool? order}) {
+    reset();
     selectedCarBrandId = id;
     int selectedCarBrandIndex =
         carBrands.indexWhere((element) => element.id == id);
@@ -42,15 +64,14 @@ class CarsCubit extends Cubit<CarsState> {
       List<CarBrandEntity> sortedList = [...carBrands];
       sortedList = sortedList.moveToStart(selectedCarBrandIndex);
       carBrands = sortedList;
-      debugPrint('Car Brands: $carBrands');
 
       emit(
         CarBrandSelected(List.unmodifiable(sortedList)),
       );
+      getCarBrandModels();
     } else {
-      debugPrint('Car Brands unsorted: $carBrands');
-
       emit(CarBrandSelected(List.unmodifiable(carBrands)));
+      getCarBrandModels();
     }
   }
 
@@ -82,22 +103,12 @@ class CarsCubit extends Cubit<CarsState> {
   }
 
   void addCar(BuildContext context) {
-    debugPrint('==================================');
-    debugPrint('CarsCubit: Add Car State Triggered');
-    // final String brand = carBrands
-    //     .firstWhere((element) => element.id == selectedCarBrandId!)
-    //     .name!;
-
-    // final AddCarModel carData = AddCarModel(
-    //   brand: brand,
-    //   model: selectedCarModel!,
-    //   year: selectedCarYear!,
-    // );
-
     final AddCarModel carData = AddCarModel(
-      brand: "bmw",
-      model: "m3",
-      year: 2013,
+      brand: carBrands
+          .firstWhere((element) => element.id == selectedCarBrandId!)
+          .name!,
+      model: selectedCarModel!,
+      year: selectedCarYear!,
     );
 
     context.read<GarageCubit>().addCar(carData);

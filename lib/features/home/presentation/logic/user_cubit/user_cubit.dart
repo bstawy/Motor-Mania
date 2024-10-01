@@ -25,7 +25,13 @@ class UserCubit extends Cubit<UserState> {
 
     result.fold(
       (error) => emit(UserDataError(error)),
-      (userCar) => emit(UserDataLoaded(userCar)),
+      (userCar) {
+        if (userCar == null) {
+          emit(UserDataEmpty());
+        } else {
+          emit(UserDataLoaded(userCar));
+        }
+      },
     );
   }
 

@@ -11,6 +11,7 @@ import '../../features/cars/data/data_sources/car_brands_remote_data_source.dart
 import '../../features/cars/data/data_sources/car_brands_remote_data_source_impl.dart';
 import '../../features/cars/data/repos_impl/car_brands_repo_impl.dart';
 import '../../features/cars/domain/repos/car_brands_repo.dart';
+import '../../features/cars/domain/use_cases/get_car_brand_models_use_case.dart';
 import '../../features/cars/domain/use_cases/get_car_brands_use_case.dart';
 import '../../features/cars/presentation/logic/cars_cubit.dart';
 import '../../features/cart/data/data_sources/cart_data_sources.dart';
@@ -247,7 +248,7 @@ Future<void> initGetIt() async {
   getIt.registerFactory<RemoveCarUseCase>(
     () => RemoveCarUseCase(getIt()),
   );
-  getIt.registerLazySingleton<GarageCubit>(
+  getIt.registerFactory<GarageCubit>(
     () => GarageCubit(getIt(), getIt(), getIt(), getIt()),
   );
 
@@ -261,5 +262,8 @@ Future<void> initGetIt() async {
   getIt.registerFactory<GetCarBrandsUseCase>(
     () => GetCarBrandsUseCase(getIt()),
   );
-  getIt.registerLazySingleton<CarsCubit>(() => CarsCubit(getIt()));
+  getIt.registerFactory<GetCarBrandModelsUseCase>(
+    () => GetCarBrandModelsUseCase(getIt()),
+  );
+  getIt.registerLazySingleton<CarsCubit>(() => CarsCubit(getIt(), getIt()));
 }

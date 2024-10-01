@@ -6,6 +6,7 @@ import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import '../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../core/config/theme/colors_manager.dart';
 import '../../../core/di/dependency_injection.dart';
+import '../../../core/helpers/enums/app_modes_enums.dart';
 import '../../cars/presentation/logic/cars_cubit.dart';
 import '../../cart/presentation/logic/cart_cubit.dart';
 import '../../cart/presentation/ui/cart_screen.dart';
@@ -13,6 +14,7 @@ import '../../favorites/presentation/ui/favorites_screen.dart';
 import '../../garage/presentation/logic/garage_cubit.dart';
 import '../../garage/presentation/ui/garage_screen.dart';
 import '../../home/presentation/logic/home_cubit/home_cubit.dart';
+import '../../home/presentation/logic/user_cubit/user_cubit.dart';
 import '../../home/presentation/ui/home_screen.dart';
 import '../../profile/presentation/logic/profile_cubit.dart';
 import '../../profile/presentation/ui/profile_screen.dart';
@@ -106,8 +108,16 @@ class _LayoutScreenState extends State<LayoutScreen> {
       AppManagerCubit appManager, BuildContext context) {
     return [
       bottomNavBarTab(
-        screen: BlocProvider<HomeCubit>(
-          create: (context) => getIt<HomeCubit>(),
+        screen: MultiBlocProvider(
+          providers: [
+            BlocProvider<HomeCubit>(
+              create: (context) => getIt<HomeCubit>(),
+            ),
+            if (appManager.appMode == AppMode.user)
+              BlocProvider<UserCubit>(
+                create: (context) => getIt<UserCubit>(),
+              ),
+          ],
           child: const HomeScreen(),
         ),
         iconPath: "assets/icons/bottom_nav_selected_home_icon.svg",
@@ -128,7 +138,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
               create: (context) => getIt<GarageCubit>()..getGarageCars(),
             ),
             BlocProvider<CarsCubit>(
-              create: (context) => getIt<CarsCubit>()..getCarBrands(),
+              create: (context) => getIt<CarsCubit>(),
             ),
           ],
           child: const GarageScreen(),

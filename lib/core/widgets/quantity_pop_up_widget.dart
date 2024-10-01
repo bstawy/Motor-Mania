@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../core/config/text/text_styles.dart';
-import '../../../../../core/config/theme/colors_manager.dart';
-import '../../../../../core/helpers/extensions/extensions.dart';
-import '../../logic/product_cubit.dart';
+import '../../features/product_details/presentation/logic/product_cubit.dart';
+import '../config/text/text_styles.dart';
+import '../config/theme/colors_manager.dart';
+import '../helpers/extensions/extensions.dart';
 
 class QuantityPopUpWidget extends StatelessWidget {
   const QuantityPopUpWidget({super.key});

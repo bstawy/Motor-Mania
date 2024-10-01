@@ -12,6 +12,8 @@ final class UserDataLoaded extends UserState {
   UserDataLoaded(this.userCar);
 }
 
+final class UserDataEmpty extends UserState {}
+
 final class UserCarSwitching extends UserState {}
 
 final class UserDataError extends UserState {

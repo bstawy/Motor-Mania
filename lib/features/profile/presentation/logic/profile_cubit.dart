@@ -18,6 +18,9 @@ class ProfileCubit extends Cubit<ProfileState> {
       title: "Orders",
       subtitle: "Manage & Track",
       leadingIconPath: "assets/icons/profile_orders_icon.svg",
+      onTap: (context) {
+        context.pushNamed(Routes.orders);
+      },
     ),
     OptionModel(
       id: 2,

@@ -8,7 +8,7 @@ import '../entities/home_product_entity.dart';
 import '../entities/offer_entity.dart';
 
 abstract class HomeRepo {
-  Future<Either<ServerFailure, CarEntity>> getUserCar();
+  Future<Either<ServerFailure, CarEntity?>> getUserCar();
   Future<Either<ServerFailure, CarEntity>> switchCar(SwitchEnum switchValue);
   Future<Either<ServerFailure, List<HomeCategoryEntity>>> getHomeCategories();
   Future<Either<ServerFailure, List<HomeProductEntity>>> getHomeProducts();

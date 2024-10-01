@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/helpers/extensions/navigation_ext.dart';
 import '../../../../core/widgets/custom_app_bar.dart';
 import '../../domain/entities/car_brand_entity.dart';
 import '../logic/cars_cubit.dart';
@@ -16,8 +17,12 @@ class CarBrandsScreen extends StatelessWidget {
       appBar: const CustomAppBar(
         title: 'Choose Car Brand',
       ),
-      body: BlocBuilder<CarsCubit, CarsState>(
+      body: BlocConsumer<CarsCubit, CarsState>(
         bloc: context.read<CarsCubit>(),
+        listenWhen: (previous, current) => current is CarBrandSelected,
+        listener: (context, state) {
+          context.pop();
+        },
         builder: (context, state) {
           final List<CarBrandEntity> carBrands =
               context.read<CarsCubit>().carBrands;

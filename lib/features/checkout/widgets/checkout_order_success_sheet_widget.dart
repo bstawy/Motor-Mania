@@ -58,7 +58,10 @@ class CheckoutOrderSuccessSheet extends StatelessWidget {
               Gap(8.h),
               CustomMaterialButton(
                 onClicked: () {
-                  // TODO: navigate to orders screen
+                  context.pushNamedAndRemoveUntil(
+                    Routes.orders,
+                    predicate: (route) => route.isFirst,
+                  );
                 },
                 title: "Track Order",
                 titleStyle: TextStyles.font14RedSemiBold,
