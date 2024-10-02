@@ -13,18 +13,7 @@ class AppManagerCubit extends Cubit<AppManagerState> {
   ThemeMode currentThemeMode = ThemeMode.light;
   int selectedCarId = 0;
 
-  AppManagerCubit() : super(AppManagerInitialState()) {
-    final value = SecureStorageFactory.read('DarkMode');
-    value.then((val) {
-      if (val == 'dark') {
-        currentThemeMode = ThemeMode.dark;
-        themeIsDark = true;
-      } else {
-        currentThemeMode = ThemeMode.light;
-        themeIsDark = false;
-      }
-    });
-  }
+  AppManagerCubit() : super(AppManagerInitialState());
 
   void checkUserLoggedIn() async {
     final String? token = await TokensManager.getAccessToken();
@@ -35,6 +24,17 @@ class AppManagerCubit extends Cubit<AppManagerState> {
     } else {
       appMode = AppMode.guest;
       emit(NoUserLoggedInState());
+    }
+  }
+
+  void checkLoggedUserTheme() async {
+    final value = await SecureStorageFactory.read('DarkMode');
+    if (value == 'dark') {
+      currentThemeMode = ThemeMode.dark;
+      themeIsDark = true;
+    } else {
+      currentThemeMode = ThemeMode.light;
+      themeIsDark = false;
     }
   }
 

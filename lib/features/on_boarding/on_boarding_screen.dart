@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:motor_mania/core/helpers/extensions/theme_ext.dart';
+import 'package:motor_mania/main.dart';
 
 import '../../core/config/routing/routes.dart';
 import '../../core/config/text/font_weight_helper.dart';
@@ -23,37 +24,56 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   int currentPageIndex = 0;
   String buttonText = 'Next';
 
-  final List<OnBoardingModel> _onBoardingList = [
-    OnBoardingModel(
-      title: 'Welcome to',
-      subtitle: 'Motor Mania!',
-      description:
-          'Welcome to the ultimate destination for all your automotive needs. Whether you’re looking for replacement parts, upgrades, or maintenance essentials, we’ve got you covered.',
-      image: 'assets/images/onboarding_car_image_01.png',
-      imageAlignment: Alignment.centerRight,
-    ),
-    OnBoardingModel(
-      title: 'Personalize your',
-      subtitle: 'experience',
-      description:
-          'Enhance your shopping experience by adding your vehicles to \'My Garage\'. This personalized space allows you to manage multiple cars, each with its own profile.',
-      image: 'assets/images/onboarding_car_image_02.png',
-      imageAlignment: Alignment.center,
-    ),
-    OnBoardingModel(
-      title: 'Find the right',
-      subtitle: 'parts quickly',
-      description:
-          'Our advanced filtering system lets you search by part type, brand, price, and more, ensuring you find exactly what you need.',
-      image: 'assets/images/onboarding_car_image_03.png',
-      imageAlignment: Alignment.centerRight,
-    ),
-  ];
+  late List<OnBoardingModel> _onBoardingList;
 
   @override
   void initState() {
     super.initState();
     _pageController = PageController();
+    _onBoardingList = [
+      OnBoardingModel(
+        title: 'Welcome to',
+        subtitle: 'Motor Mania!',
+        description:
+            'Welcome to the ultimate destination for all your automotive needs. Whether you’re looking for replacement parts, upgrades, or maintenance essentials, we’ve got you covered.',
+        image: themeIsDark
+            ? 'assets/images/onboarding_dark_car_image_01.png'
+            : 'assets/images/onboarding_car_image_01.png',
+        imageAlignment: Alignment.centerRight,
+        rightPadding: 0.w,
+        leftPadding: 33.w,
+      ),
+      OnBoardingModel(
+        title: 'Personalize your',
+        subtitle: 'experience',
+        description:
+            'Enhance your shopping experience by adding your vehicles to \'My Garage\'. This personalized space allows you to manage multiple cars, each with its own profile.',
+        image: themeIsDark
+            ? 'assets/images/onboarding_dark_car_image_02.png'
+            : 'assets/images/onboarding_car_image_02.png',
+        imageAlignment: Alignment.center,
+        rightPadding: 33.w,
+        leftPadding: 33.w,
+      ),
+      OnBoardingModel(
+        title: 'Find the right',
+        subtitle: 'parts quickly',
+        description:
+            'Our advanced filtering system lets you search by part type, brand, price, and more, ensuring you find exactly what you need.',
+        image: themeIsDark
+            ? 'assets/images/onboarding_dark_car_image_03.png'
+            : 'assets/images/onboarding_car_image_03.png',
+        imageAlignment: Alignment.centerRight,
+        rightPadding: 0.w,
+        leftPadding: 33.w,
+      ),
+    ];
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 
   @override
@@ -115,11 +135,5 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
   }
 }

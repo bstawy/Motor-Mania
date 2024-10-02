@@ -23,11 +23,17 @@ class OnBoardingItemWidget extends StatelessWidget {
       children: [
         Align(
           alignment: onBoarding.imageAlignment,
-          child: Image.asset(
-            onBoarding.image,
-            height: 280.h,
-            width: 307.w,
-            fit: BoxFit.contain,
+          child: Padding(
+            padding: EdgeInsets.only(
+              left: onBoarding.leftPadding,
+              right: onBoarding.rightPadding,
+            ),
+            child: Image.asset(
+              onBoarding.image,
+              height: 280.h,
+              width: double.infinity,
+              fit: BoxFit.fitWidth,
+            ),
           ),
         ),
         Gap(53.h),

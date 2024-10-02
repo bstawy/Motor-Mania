@@ -16,8 +16,6 @@ class MotorManiaApp extends StatelessWidget {
     return BlocBuilder<AppManagerCubit, AppManagerState>(
       bloc: context.read<AppManagerCubit>()..checkUserLoggedIn(),
       builder: (context, state) {
-        debugPrint(
-            "Current Theme: ${state is ChangeThemeState ? state.currentTheme.toString() : null}");
         return ScreenUtilInit(
           designSize: const Size(375, 812),
           minTextAdapt: true,
