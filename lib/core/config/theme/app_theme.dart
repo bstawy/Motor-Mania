@@ -82,7 +82,7 @@ class AppTheme {
       seedColor: ColorsManager.dark,
       primary: Colors.white,
       surface: ColorsManager.dark,
-      inverseSurface: ColorsManager.lightDarkBlue,
+      inverseSurface: ColorsManager.lightDark,
     ),
     textTheme: TextTheme(
       displayLarge: TextStyle(
