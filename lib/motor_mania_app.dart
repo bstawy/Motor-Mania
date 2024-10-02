@@ -20,16 +20,20 @@ class MotorManiaApp extends StatelessWidget {
             "Current Theme: ${state is ChangeThemeState ? state.currentTheme.toString() : null}");
         return ScreenUtilInit(
           designSize: const Size(375, 812),
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Motor Mania',
-            themeMode: context.read<AppManagerCubit>().currentThemeMode,
-            theme: AppTheme.lightThemeData,
-            darkTheme: AppTheme.darkThemeData,
-            onGenerateRoute: AppRouter().generateRoute,
-            initialRoute: Routes.onBoardingScreens,
-            builder: BotToastInit(),
-          ),
+          minTextAdapt: true,
+          builder: (context, child) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'Motor Mania',
+              themeMode: context.read<AppManagerCubit>().currentThemeMode,
+              theme: AppTheme.lightThemeData,
+              darkTheme: AppTheme.darkThemeData,
+              navigatorKey: AppRouter.navigatorKey,
+              onGenerateRoute: AppRouter().generateRoute,
+              initialRoute: Routes.onBoardingScreens,
+              builder: BotToastInit(),
+            );
+          },
         );
       },
     );

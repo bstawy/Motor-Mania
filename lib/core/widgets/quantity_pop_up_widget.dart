@@ -69,7 +69,7 @@ class QuantityPopUpWidget extends StatelessWidget {
         alignment: Alignment.center,
         child: Text(
           text,
-          style: TextStyles.font14DarkBlueSemiBold,
+          style: TextStyles.font14DarkBlueSemiBold(),
         ),
       ),
     );

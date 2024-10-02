@@ -83,7 +83,7 @@ class CarBrandsListWidget extends StatelessWidget {
           children: [
             Text(
               "Choose Car Brand",
-              style: TextStyles.font14DarkBlueSemiBold,
+              style: TextStyles.font14DarkBlueSemiBold(),
             ),
             GestureDetector(
               onTap: () {

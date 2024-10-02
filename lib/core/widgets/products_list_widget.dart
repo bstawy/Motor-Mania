@@ -23,7 +23,7 @@ class ProductsListWidget extends StatelessWidget {
       children: [
         Text(
           title,
-          style: TextStyles.font14DarkBlueSemiBold,
+          style: TextStyles.font14DarkBlueSemiBold(),
         ).setHorizontalPadding(16.w),
         Gap(8.h),
         SizedBox(

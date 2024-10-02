@@ -95,7 +95,7 @@ class UserNameAndEmailWidget extends StatelessWidget {
                       children: [
                         TextSpan(
                           text: name,
-                          style: TextStyles.font14DarkBlueSemiBold,
+                          style: TextStyles.font14DarkBlueSemiBold(),
                         ),
                         TextSpan(
                           text: "\n$email",

@@ -19,9 +19,7 @@ class CategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: category.name,
-      ),
+      appBar: CustomAppBar(title: category.name),
       body: Column(
         children: [
           Gap(12.h),

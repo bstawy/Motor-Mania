@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:motor_mania/main.dart';
 
 import '../theme/colors_manager.dart';
 import 'font_weight_helper.dart';
@@ -61,13 +62,6 @@ class TextStyles {
     fontFamily: 'Montserrat',
   );
 
-  static TextStyle font16RedBold = TextStyle(
-    color: ColorsManager.red,
-    fontSize: 16.sp,
-    fontWeight: FontWeightHelper.bold,
-    fontFamily: 'Montserrat',
-  );
-
   static TextStyle font16DarkBlueSemiBold = TextStyle(
     color: ColorsManager.darkBlue,
     fontSize: 16.sp,
@@ -96,19 +90,14 @@ class TextStyles {
     fontFamily: 'Montserrat',
   );
 
-  static TextStyle font14RedBold = TextStyle(
-    color: ColorsManager.red,
-    fontSize: 14.sp,
-    fontWeight: FontWeightHelper.bold,
-    fontFamily: 'Montserrat',
-  );
-
-  static TextStyle font14DarkBlueSemiBold = TextStyle(
-    color: ColorsManager.darkBlue,
-    fontSize: 14.sp,
-    fontWeight: FontWeightHelper.semiBold,
-    fontFamily: 'Montserrat',
-  );
+  static TextStyle font14DarkBlueSemiBold() {
+    return TextStyle(
+      color: themeIsDark ? Colors.white : ColorsManager.darkBlue,
+      fontSize: 14.sp,
+      fontWeight: FontWeightHelper.semiBold,
+      fontFamily: 'Montserrat',
+    );
+  }
 
   static TextStyle font14WhiteSemiBold = TextStyle(
     color: Colors.white,
@@ -257,12 +246,6 @@ class TextStyles {
     fontFamily: 'Montserrat',
   );
 
-  static TextStyle font10WhiteSemiBold = TextStyle(
-    color: Colors.white,
-    fontSize: 10.sp,
-    fontWeight: FontWeightHelper.semiBold,
-    fontFamily: 'Montserrat',
-  );
   static TextStyle font10RedSemiBold = TextStyle(
     color: ColorsManager.red,
     fontSize: 10.sp,

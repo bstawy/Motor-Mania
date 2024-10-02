@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:motor_mania/core/config/text/font_weight_helper.dart';
+import 'package:motor_mania/core/config/theme/colors_manager.dart';
+import 'package:motor_mania/core/helpers/extensions/theme_ext.dart';
 
-import '../../../core/config/text/text_styles.dart';
 import '../../../core/helpers/extensions/extensions.dart';
 import '../on_boarding_model.dart';
 
@@ -33,12 +35,16 @@ class OnBoardingItemWidget extends StatelessWidget {
           textAlign: TextAlign.start,
           text: TextSpan(
             text: "${onBoarding.title}\n",
-            style: TextStyles.font24DarkBlueSemiBold,
+            style: context.textStyles.displayMedium?.copyWith(
+              fontWeight: FontWeightHelper.semiBold,
+            ),
             children: [
               TextSpan(
                 text: onBoarding.subtitle,
-                style: TextStyles.font24RedSemiBold.copyWith(
+                style: context.textStyles.displayMedium?.copyWith(
+                  color: ColorsManager.red,
                   fontSize: 40.sp,
+                  fontWeight: FontWeightHelper.semiBold,
                 ),
               ),
             ],
@@ -47,7 +53,10 @@ class OnBoardingItemWidget extends StatelessWidget {
         Gap(16.h),
         Text(
           onBoarding.description,
-          style: TextStyles.font12BlueGreyRegular,
+          style: context.textStyles.headlineSmall?.copyWith(
+            color: ColorsManager.blueGrey,
+            fontWeight: FontWeightHelper.regular,
+          ),
         ).setHorizontalPadding(24.w),
       ],
     );

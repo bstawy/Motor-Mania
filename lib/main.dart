@@ -8,6 +8,7 @@ import 'core/di/dependency_injection.dart';
 import 'core/helpers/app_bloc_observer.dart';
 import 'motor_mania_app.dart';
 
+bool themeIsDark = false;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Future.wait([

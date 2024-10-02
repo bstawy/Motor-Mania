@@ -32,7 +32,7 @@ class _CarDataFormFieldWidgetState extends State<CarDataFormFieldWidget> {
       children: [
         Text(
           widget.title,
-          style: TextStyles.font14DarkBlueSemiBold,
+          style: TextStyles.font14DarkBlueSemiBold(),
         ),
         Gap(8.h),
         GestureDetector(

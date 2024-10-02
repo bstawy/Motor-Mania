@@ -19,7 +19,7 @@ class ProductDescriptionWidget extends StatelessWidget {
       children: [
         Text(
           "Product Details",
-          style: TextStyles.font14DarkBlueSemiBold,
+          style: TextStyles.font14DarkBlueSemiBold(),
         ),
         Gap(8.h),
         Text(

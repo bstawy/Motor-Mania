@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../main.dart';
 import '../config/theme/colors_manager.dart';
 
 class CustomBackButton extends StatelessWidget {
@@ -27,7 +28,7 @@ class CustomBackButton extends StatelessWidget {
           vertical: verticalPadding ?? 8.h,
         ),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: themeIsDark ? ColorsManager.darkBlue : Colors.white,
           borderRadius: BorderRadius.circular(
             borderRadius ?? 15.r,
           ),
@@ -37,7 +38,7 @@ class CustomBackButton extends StatelessWidget {
           alignment: Alignment.center,
           child: Icon(
             Icons.arrow_back_ios,
-            color: ColorsManager.darkBlue,
+            color: themeIsDark ? Colors.white : ColorsManager.darkBlue,
             size: 20.r,
           ),
         ),

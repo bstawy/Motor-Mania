@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../main.dart';
 import '../config/text/text_styles.dart';
+import '../config/theme/colors_manager.dart';
 
 class ProductNameAndTypeWidget extends StatelessWidget {
   final String name, type;
@@ -21,13 +23,19 @@ class ProductNameAndTypeWidget extends StatelessWidget {
       children: [
         Text(
           name,
-          style: nameStyle ?? TextStyles.font14DarkBlueBold,
+          style: nameStyle ??
+              TextStyles.font14DarkBlueBold.copyWith(
+                color: themeIsDark ? Colors.white : ColorsManager.darkBlue,
+              ),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
         Text(
           type,
-          style: typeStyle ?? TextStyles.font10DarkBlueRegular,
+          style: typeStyle ??
+              TextStyles.font10DarkBlueRegular.copyWith(
+                color: themeIsDark ? Colors.white : ColorsManager.darkBlue,
+              ),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),

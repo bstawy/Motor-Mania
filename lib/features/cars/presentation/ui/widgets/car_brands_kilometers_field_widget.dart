@@ -43,7 +43,7 @@ class _CarBrandsKilometersFieldWidgetState
       children: [
         Text(
           "Current Kilometers",
-          style: TextStyles.font14DarkBlueSemiBold,
+          style: TextStyles.font14DarkBlueSemiBold(),
         ),
         Gap(8.h),
         Row(

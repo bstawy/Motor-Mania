@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:motor_mania/main.dart';
 
 import '../../features/favorites/presentation/logic/favorites_cubit.dart';
 import '../config/theme/colors_manager.dart';
@@ -44,7 +45,8 @@ class FavoriteButtonWidget extends StatelessWidget {
         height: height ?? 28.r,
         padding: EdgeInsets.all(6.r),
         decoration: BoxDecoration(
-          color: backgroundColor ?? ColorsManager.whiteGrey,
+          color: backgroundColor ??
+              (themeIsDark ? ColorsManager.dark : ColorsManager.whiteGrey),
           borderRadius: BorderRadius.circular(15.r),
         ),
         alignment: Alignment.center,
@@ -73,6 +75,10 @@ class FavoriteButtonWidget extends StatelessWidget {
                   : "assets/icons/favorite_icon.svg",
               width: iconWidth ?? 16.r,
               height: iconHeight ?? 16.r,
+              colorFilter: ColorFilter.mode(
+                themeIsDark ? Colors.white : ColorsManager.darkBlue,
+                BlendMode.srcIn,
+              ),
             );
           },
         ),

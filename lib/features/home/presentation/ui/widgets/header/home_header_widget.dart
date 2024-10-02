@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:motor_mania/main.dart';
 
 import '../../../../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../../../../core/config/theme/colors_manager.dart';
@@ -22,7 +23,7 @@ class HomeHeaderWidget extends StatelessWidget {
         bottom: 8.h,
       ),
       decoration: BoxDecoration(
-        color: ColorsManager.darkBlue,
+        color: themeIsDark ? ColorsManager.darkBlue : ColorsManager.darkBlue,
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(24.r),
           bottomRight: Radius.circular(24.r),

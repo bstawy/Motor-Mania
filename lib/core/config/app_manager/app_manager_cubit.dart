@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:motor_mania/main.dart';
 
+import '../../caching/secure_storage_factory.dart';
 import '../../caching/tokens_manager.dart';
 import '../../helpers/enums/app_modes_enums.dart';
 
@@ -11,7 +13,18 @@ class AppManagerCubit extends Cubit<AppManagerState> {
   ThemeMode currentThemeMode = ThemeMode.light;
   int selectedCarId = 0;
 
-  AppManagerCubit() : super(AppManagerInitialState());
+  AppManagerCubit() : super(AppManagerInitialState()) {
+    final value = SecureStorageFactory.read('DarkMode');
+    value.then((val) {
+      if (val == 'dark') {
+        currentThemeMode = ThemeMode.dark;
+        themeIsDark = true;
+      } else {
+        currentThemeMode = ThemeMode.light;
+        themeIsDark = false;
+      }
+    });
+  }
 
   void checkUserLoggedIn() async {
     final String? token = await TokensManager.getAccessToken();
@@ -25,8 +38,13 @@ class AppManagerCubit extends Cubit<AppManagerState> {
     }
   }
 
-  void changeTheme(ThemeMode selectedThemeMode) {
+  void changeTheme(ThemeMode selectedThemeMode) async {
     currentThemeMode = selectedThemeMode;
+    await SecureStorageFactory.write(
+      key: 'DarkMode',
+      value: currentThemeMode == ThemeMode.dark ? 'dark' : 'light',
+    );
+    themeIsDark = currentThemeMode == ThemeMode.dark ? true : false;
     emit(ChangeThemeState(currentThemeMode));
   }
 

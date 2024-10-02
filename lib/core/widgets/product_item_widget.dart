@@ -2,9 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:motor_mania/core/helpers/extensions/theme_ext.dart';
 
 import '../../features/home/domain/entities/home_product_entity.dart';
 import '../../features/product_details/presentation/ui/widgets/product_price_and_discount_widget.dart';
+import '../../main.dart';
 import '../config/text/text_styles.dart';
 import '../config/theme/colors_manager.dart';
 import '../helpers/extensions/extensions.dart';
@@ -38,7 +40,7 @@ class ProductItemWidget extends StatelessWidget {
         width: cardWidth ?? 150.w,
         padding: EdgeInsets.all(8.r),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: themeIsDark ? ColorsManager.darkBlue : Colors.white,
           borderRadius: BorderRadius.circular(15.r),
         ),
         child: Stack(
@@ -76,7 +78,7 @@ class ProductItemWidget extends StatelessWidget {
                   firstGap: 4.w,
                   oldPrice: product.oldPrice ?? 0,
                   secondGap: 4.w,
-                  priceStyle: TextStyles.font14DarkBlueBold,
+                  priceStyle: context.textStyles.headlineMedium,
                   oldPriceStyle: TextStyles.font10BlueGreyRegular,
                   discountPercentage: showDiscount ?? true
                       ? product.discountPercentage ?? 0

@@ -76,12 +76,12 @@ class ProductQuantityAndAddToCartButtonWidget extends StatelessWidget {
                       if (state is ProductQuantityUpdated) {
                         return Text(
                           state.quantity.toString(),
-                          style: TextStyles.font14DarkBlueSemiBold,
+                          style: TextStyles.font14DarkBlueSemiBold(),
                         );
                       } else {
                         return Text(
                           "1",
-                          style: TextStyles.font14DarkBlueSemiBold,
+                          style: TextStyles.font14DarkBlueSemiBold(),
                         );
                       }
                     },

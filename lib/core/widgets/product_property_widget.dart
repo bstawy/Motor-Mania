@@ -3,7 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
+import '../../main.dart';
 import '../config/text/text_styles.dart';
+import '../config/theme/colors_manager.dart';
 
 class ProductPropertyWidget extends StatelessWidget {
   final String title;
@@ -25,7 +27,10 @@ class ProductPropertyWidget extends StatelessWidget {
         Gap(4.w),
         Text(
           title,
-          style: titleStyle ?? TextStyles.font8DarkBlueMedium,
+          style: titleStyle ??
+              TextStyles.font8DarkBlueMedium.copyWith(
+                color: themeIsDark ? Colors.white : ColorsManager.darkBlue,
+              ),
         ),
       ],
     );

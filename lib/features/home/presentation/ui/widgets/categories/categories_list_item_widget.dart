@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:motor_mania/core/config/theme/colors_manager.dart';
+import 'package:motor_mania/main.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 import '../../../../../../core/config/text/text_styles.dart';
@@ -33,7 +35,7 @@ class CategoriesListItem extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 13.h, horizontal: 8.w),
         width: 71.w,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: themeIsDark ? ColorsManager.darkBlue : Colors.white,
           borderRadius: BorderRadius.circular(17.r),
         ),
         child: Column(
@@ -42,6 +44,10 @@ class CategoriesListItem extends StatelessWidget {
               category.imageUrl,
               width: 27.w,
               height: 27.h,
+              colorFilter: ColorFilter.mode(
+                themeIsDark ? Colors.white : ColorsManager.darkBlue,
+                BlendMode.srcIn,
+              ),
             ),
             Gap(2.h),
             Text(
