@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../main.dart';
 import '../config/text/text_styles.dart';
-import '../config/theme/colors_manager.dart';
+import '../config/theme/colors/colors_manager.dart';
 import '../helpers/extensions/extensions.dart';
 import 'custom_back_button.dart';
 

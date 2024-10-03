@@ -5,7 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:popover/popover.dart';
 
 import '../../../../../core/config/text/text_styles.dart';
-import '../../../../../core/config/theme/colors_manager.dart';
+import '../../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../../core/widgets/custom_material_button.dart';
 import '../../../../../core/widgets/quantity_pop_up_widget.dart';
 import '../../../../cart/presentation/logic/cart_cubit.dart';

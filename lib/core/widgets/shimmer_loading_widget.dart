@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../config/theme/colors_manager.dart';
+import '../config/theme/colors/colors_manager.dart';
 
 class ShimmerLoadingWidget extends StatelessWidget {
   final Color? baseColor, highlightColor, containerColor;

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../main.dart';
-import '../config/theme/colors_manager.dart';
+import '../config/theme/colors/colors_manager.dart';
 
 class CustomBackButton extends StatelessWidget {
   final double? width, height, horizontalPadding, verticalPadding, borderRadius;

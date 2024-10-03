@@ -6,7 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 import '../../../../../../core/config/text/text_styles.dart';
-import '../../../../../../core/config/theme/colors_manager.dart';
+import '../../../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../../../core/di/dependency_injection.dart';
 import '../../../../../../main.dart';
 import '../../../../../category/presentation/logic/category_cubit.dart';

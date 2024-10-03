@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../../../core/config/theme/colors_manager.dart';
+import '../../../../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../../../../core/helpers/extensions/extensions.dart';
 import '../../../../../../../core/widgets/shimmer_loading_widget.dart';
 

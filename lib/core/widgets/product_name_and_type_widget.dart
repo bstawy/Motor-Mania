@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../main.dart';
 import '../config/text/text_styles.dart';
-import '../config/theme/colors_manager.dart';
+import '../config/theme/colors/colors_manager.dart';
 
 class ProductNameAndTypeWidget extends StatelessWidget {
   final String name, type;

@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../features/favorites/presentation/logic/favorites_cubit.dart';
 import '../../main.dart';
-import '../config/theme/colors_manager.dart';
+import '../config/theme/colors/colors_manager.dart';
 import '../helpers/extensions/extensions.dart';
 
 class FavoriteButtonWidget extends StatelessWidget {

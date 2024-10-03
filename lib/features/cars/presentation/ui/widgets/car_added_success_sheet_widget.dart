@@ -4,7 +4,7 @@ import 'package:gap/gap.dart';
 
 import '../../../../../core/config/routing/routes.dart';
 import '../../../../../core/config/text/text_styles.dart';
-import '../../../../../core/config/theme/colors_manager.dart';
+import '../../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../../core/helpers/extensions/extensions.dart';
 import '../../../../../core/widgets/custom_material_button.dart';
 

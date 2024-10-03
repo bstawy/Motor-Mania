@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/caching/navigation_data_manager.dart';
 import '../../../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../../../core/config/routing/routes.dart';
-import '../../../../../core/config/theme/colors_manager.dart';
+import '../../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../../core/helpers/extensions/extensions.dart';
 import '../../../../../core/widgets/custom_material_button.dart';
 import '../../logic/login_cubit.dart';

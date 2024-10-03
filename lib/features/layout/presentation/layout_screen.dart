@@ -5,7 +5,7 @@ import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 import '../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../core/config/routing/app_router.dart';
-import '../../../core/config/theme/colors_manager.dart';
+import '../../../core/config/theme/colors/colors_manager.dart';
 import '../../../core/di/dependency_injection.dart';
 import '../../../core/helpers/enums/app_modes_enums.dart';
 import '../../../core/helpers/extensions/theme_ext.dart';

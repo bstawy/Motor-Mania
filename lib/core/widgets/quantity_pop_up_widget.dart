@@ -5,7 +5,7 @@ import 'package:gap/gap.dart';
 
 import '../../features/product_details/presentation/logic/product_cubit.dart';
 import '../config/text/text_styles.dart';
-import '../config/theme/colors_manager.dart';
+import '../config/theme/colors/colors_manager.dart';
 import '../helpers/extensions/extensions.dart';
 
 class QuantityPopUpWidget extends StatelessWidget {

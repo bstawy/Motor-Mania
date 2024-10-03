@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import '../../../core/config/text/text_styles.dart';
-import '../../../core/config/theme/colors_manager.dart';
+import '../../../core/config/theme/colors/colors_manager.dart';
 
 class PasswordValidations extends StatelessWidget {
   final bool isPasswordEmpty;

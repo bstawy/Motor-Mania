@@ -4,8 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 import '../../../../core/config/routing/app_router.dart';
-import '../../../../core/config/text/font_weight_helper.dart';
-import '../../../../core/config/theme/colors_manager.dart';
+import '../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../../core/helpers/extensions/theme_ext.dart';
 
 PersistentBottomNavBarItem bottomNavBarTab({
