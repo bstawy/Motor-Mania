@@ -5,9 +5,9 @@ import 'package:gap/gap.dart';
 import '../../../../../../../core/config/routing/routes.dart';
 import '../../../../../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../../../../../core/helpers/extensions/extensions.dart';
-import '../../../../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../../../../core/helpers/save_navigation_data.dart';
 import '../../../../../../../core/widgets/search_bar_widget.dart';
+import '../../../../../../../motor_mania_app.dart';
 import 'guest_offers_widget.dart';
 
 class GuestHeaderWidget extends StatelessWidget {
@@ -24,14 +24,14 @@ class GuestHeaderWidget extends StatelessWidget {
             RichText(
               text: TextSpan(
                 text: 'Hello, ',
-                style: context.textStyles.headlineMedium?.copyWith(
+                style: customTextStyles.headlineMedium?.copyWith(
                   color: Colors.white,
                   fontWeight: FontWeightHelper.light,
                 ),
                 children: [
                   TextSpan(
                     text: 'User',
-                    style: context.textStyles.headlineMedium?.copyWith(
+                    style: customTextStyles.headlineMedium?.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeightHelper.semiBold,
                     ),
@@ -49,7 +49,7 @@ class GuestHeaderWidget extends StatelessWidget {
                   },
                   child: Text(
                     "Login ",
-                    style: context.textStyles.headlineMedium?.copyWith(
+                    style: customTextStyles.headlineMedium?.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeightHelper.semiBold,
                     ),
@@ -57,7 +57,7 @@ class GuestHeaderWidget extends StatelessWidget {
                 ),
                 Text(
                   'First to get all App\'s advantages',
-                  style: context.textStyles.headlineMedium?.copyWith(
+                  style: customTextStyles.headlineMedium?.copyWith(
                     color: Colors.white,
                     fontWeight: FontWeightHelper.light,
                   ),

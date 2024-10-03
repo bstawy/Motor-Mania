@@ -7,6 +7,13 @@ import 'core/config/app_manager/app_manager_cubit.dart';
 import 'core/config/routing/app_router.dart';
 import 'core/config/routing/routes.dart';
 import 'core/config/theme/app_theme.dart';
+import 'core/helpers/extensions/theme_ext.dart';
+
+final TextTheme customTextStyles =
+    AppRouter.navigatorKey.currentContext!.textStyles;
+
+final ColorScheme customColorScheme =
+    AppRouter.navigatorKey.currentContext!.colors;
 
 class MotorManiaApp extends StatelessWidget {
   const MotorManiaApp({super.key});

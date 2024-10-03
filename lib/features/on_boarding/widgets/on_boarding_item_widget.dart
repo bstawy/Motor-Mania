@@ -5,7 +5,7 @@ import 'package:gap/gap.dart';
 import '../../../core/config/theme/colors/colors_manager.dart';
 import '../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../core/helpers/extensions/extensions.dart';
-import '../../../core/helpers/extensions/theme_ext.dart';
+import '../../../motor_mania_app.dart';
 import '../on_boarding_model.dart';
 
 class OnBoardingItemWidget extends StatelessWidget {
@@ -41,13 +41,13 @@ class OnBoardingItemWidget extends StatelessWidget {
           textAlign: TextAlign.start,
           text: TextSpan(
             text: "${onBoarding.title}\n",
-            style: context.textStyles.displayMedium?.copyWith(
+            style: customTextStyles.displayMedium?.copyWith(
               fontWeight: FontWeightHelper.semiBold,
             ),
             children: [
               TextSpan(
                 text: onBoarding.subtitle,
-                style: context.textStyles.displayMedium?.copyWith(
+                style: customTextStyles.displayMedium?.copyWith(
                   color: ColorsManager.red,
                   fontSize: 40.sp,
                   fontWeight: FontWeightHelper.semiBold,
@@ -59,7 +59,7 @@ class OnBoardingItemWidget extends StatelessWidget {
         Gap(16.h),
         Text(
           onBoarding.description,
-          style: context.textStyles.headlineSmall?.copyWith(
+          style: customTextStyles.headlineSmall?.copyWith(
             color: ColorsManager.blueGrey,
             fontWeight: FontWeightHelper.regular,
           ),

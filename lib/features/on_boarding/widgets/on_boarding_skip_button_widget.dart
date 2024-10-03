@@ -6,6 +6,7 @@ import '../../../core/config/routing/routes.dart';
 import '../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../core/helpers/extensions/extensions.dart';
 import '../../../core/helpers/extensions/theme_ext.dart';
+import '../../../motor_mania_app.dart';
 
 class OnBoardingSkipButtonWidget extends StatelessWidget {
   const OnBoardingSkipButtonWidget({super.key});
@@ -33,7 +34,7 @@ class OnBoardingSkipButtonWidget extends StatelessWidget {
           children: [
             Text(
               "Skip",
-              style: context.textStyles.headlineMedium?.copyWith(
+              style: customTextStyles.headlineMedium?.copyWith(
                 fontWeight: FontWeightHelper.semiBold,
               ),
             ),

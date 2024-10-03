@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../../core/config/text/text_styles.dart';
-import '../../../../../core/helpers/extensions/theme_ext.dart';
+import '../../../../../motor_mania_app.dart';
 
 class ProductPriceAndDiscountWidget extends StatelessWidget {
   final num price;
@@ -33,7 +33,7 @@ class ProductPriceAndDiscountWidget extends StatelessWidget {
       children: [
         Text(
           "\$${price.toStringAsFixed(2)}",
-          style: priceStyle ?? context.textStyles.displayLarge,
+          style: priceStyle ?? customTextStyles.displayLarge,
         ),
         Gap(firstGap ?? 16.w),
         Text(

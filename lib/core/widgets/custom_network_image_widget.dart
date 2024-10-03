@@ -6,29 +6,32 @@ import '../config/theme/colors/colors_manager.dart';
 class CustomNetworkImage extends StatelessWidget {
   final String url;
   final double? imageHeight, imageWidth;
+  final BoxFit? fit;
 
   const CustomNetworkImage({
     super.key,
     required this.url,
     this.imageHeight,
     this.imageWidth,
+    this.fit,
   });
 
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
       imageUrl: url,
+      height: imageHeight,
+      width: imageWidth,
+      fit: fit ?? BoxFit.contain,
       placeholder: (context, url) => const Center(
         child: CircularProgressIndicator(
-          color: ColorsManager.darkBlue,
+          color: Colors.white,
         ),
       ),
       errorWidget: (context, url, error) => const Icon(
         Icons.error,
         color: ColorsManager.red,
       ),
-      height: imageHeight,
-      width: imageWidth,
     );
   }
 }

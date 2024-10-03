@@ -3,11 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
+import '../../motor_mania_app.dart';
 import '../config/routing/routes.dart';
 import '../config/theme/colors/colors_manager.dart';
 import '../config/theme/texts/font_weight_helper.dart';
 import '../helpers/extensions/extensions.dart';
-import '../helpers/extensions/theme_ext.dart';
 
 class SearchBarWidget extends StatelessWidget {
   final String? hintText;
@@ -60,7 +60,7 @@ class SearchBarWidget extends StatelessWidget {
             Text(
               hintText ?? "What are you looking for?",
               style: hintStyle ??
-                  context.textStyles.labelLarge?.copyWith(
+                  customTextStyles.labelLarge?.copyWith(
                     color: ColorsManager.blueGrey,
                     fontWeight: FontWeightHelper.light,
                   ),

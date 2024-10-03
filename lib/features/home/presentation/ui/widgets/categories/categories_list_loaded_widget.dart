@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../../../core/helpers/extensions/extensions.dart';
-import '../../../../../../core/helpers/extensions/theme_ext.dart';
+import '../../../../../../motor_mania_app.dart';
 import '../../../../domain/entities/category_entity.dart';
 import 'categories_list_item_widget.dart';
 
@@ -22,7 +22,7 @@ class CategoriesListLoadedWidget extends StatelessWidget {
       children: [
         Text(
           "Categories",
-          style: context.textStyles.titleLarge,
+          style: customTextStyles.titleLarge,
         ).setHorizontalPadding(16.w),
         Gap(8.h),
         SizedBox(

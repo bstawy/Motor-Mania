@@ -5,9 +5,9 @@ import 'package:gap/gap.dart';
 import '../../core/config/routing/routes.dart';
 import '../../core/config/theme/texts/font_weight_helper.dart';
 import '../../core/helpers/extensions/extensions.dart';
-import '../../core/helpers/extensions/theme_ext.dart';
 import '../../core/widgets/custom_material_button.dart';
 import '../../main.dart';
+import '../../motor_mania_app.dart';
 import 'on_boarding_model.dart';
 import 'widgets/on_boarding_item_widget.dart';
 import 'widgets/on_boarding_skip_button_widget.dart';
@@ -127,7 +127,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             }
           },
           title: buttonText,
-          titleStyle: context.textStyles.headlineMedium?.copyWith(
+          titleStyle: customTextStyles.headlineMedium?.copyWith(
             color: Colors.white,
             fontWeight: FontWeightHelper.semiBold,
           ),

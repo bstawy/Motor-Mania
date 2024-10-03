@@ -6,10 +6,10 @@ import 'package:gap/gap.dart';
 import '../../features/home/domain/entities/home_product_entity.dart';
 import '../../features/product_details/presentation/ui/widgets/product_price_and_discount_widget.dart';
 import '../../main.dart';
+import '../../motor_mania_app.dart';
 import '../config/text/text_styles.dart';
 import '../config/theme/colors/colors_manager.dart';
 import '../helpers/extensions/extensions.dart';
-import '../helpers/extensions/theme_ext.dart';
 import '../helpers/open_product_bottom_sheet.dart';
 import 'cart_button_widget.dart';
 import 'favorite_button_widget.dart';
@@ -78,7 +78,7 @@ class ProductItemWidget extends StatelessWidget {
                   firstGap: 4.w,
                   oldPrice: product.oldPrice ?? 0,
                   secondGap: 4.w,
-                  priceStyle: context.textStyles.headlineMedium,
+                  priceStyle: customTextStyles.headlineMedium,
                   oldPriceStyle: TextStyles.font10BlueGreyRegular,
                   discountPercentage: showDiscount ?? true
                       ? product.discountPercentage ?? 0
