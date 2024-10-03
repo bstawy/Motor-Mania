@@ -38,6 +38,7 @@ class HomeScreen extends StatelessWidget {
                 ..getHomeProducts();
             },
             child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

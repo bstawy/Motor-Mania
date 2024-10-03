@@ -100,7 +100,7 @@ class CustomTextStyles {
       fontFamily: 'Montserrat',
     ),
     labelLarge: TextStyle(
-      color: ColorsManager.darkBlue,
+      color: Colors.white,
       fontSize: 10.sp,
       fontWeight: FontWeightHelper.bold,
       fontFamily: 'Montserrat',

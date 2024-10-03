@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../../../core/helpers/enums/app_modes_enums.dart';
-import '../../../../../../main.dart';
 import 'guest/guest_header_widget.dart';
 import 'user/user_header_widget.dart';
 
@@ -23,7 +22,7 @@ class HomeHeaderWidget extends StatelessWidget {
         bottom: 8.h,
       ),
       decoration: BoxDecoration(
-        color: themeIsDark ? ColorsManager.darkBlue : ColorsManager.darkBlue,
+        color: ColorsManager.darkBlue,
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(24.r),
           bottomRight: Radius.circular(24.r),

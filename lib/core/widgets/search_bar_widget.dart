@@ -4,9 +4,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
 import '../config/routing/routes.dart';
-import '../config/text/text_styles.dart';
 import '../config/theme/colors/colors_manager.dart';
+import '../config/theme/texts/font_weight_helper.dart';
 import '../helpers/extensions/extensions.dart';
+import '../helpers/extensions/theme_ext.dart';
 
 class SearchBarWidget extends StatelessWidget {
   final String? hintText;
@@ -58,7 +59,11 @@ class SearchBarWidget extends StatelessWidget {
             Gap(6.w),
             Text(
               hintText ?? "What are you looking for?",
-              style: hintStyle ?? TextStyles.font10BlueGreyLight,
+              style: hintStyle ??
+                  context.textStyles.labelLarge?.copyWith(
+                    color: ColorsManager.blueGrey,
+                    fontWeight: FontWeightHelper.light,
+                  ),
             ),
             const Spacer(),
             InkWell(
