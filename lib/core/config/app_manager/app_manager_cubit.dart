@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:motor_mania/main.dart';
 
+import '../../../main.dart';
 import '../../caching/secure_storage_factory.dart';
 import '../../caching/tokens_manager.dart';
 import '../../helpers/enums/app_modes_enums.dart';

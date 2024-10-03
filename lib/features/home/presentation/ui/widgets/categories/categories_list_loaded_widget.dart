@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:motor_mania/core/helpers/extensions/theme_ext.dart';
 
 import '../../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../domain/entities/category_entity.dart';
 import 'categories_list_item_widget.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:motor_mania/main.dart';
 
+import '../../../main.dart';
 import '../theme/colors_manager.dart';
 import 'font_weight_helper.dart';
 

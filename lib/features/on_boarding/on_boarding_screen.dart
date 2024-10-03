@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:motor_mania/core/helpers/extensions/theme_ext.dart';
-import 'package:motor_mania/main.dart';
 
 import '../../core/config/routing/routes.dart';
 import '../../core/config/text/font_weight_helper.dart';
 import '../../core/helpers/extensions/extensions.dart';
+import '../../core/helpers/extensions/theme_ext.dart';
 import '../../core/widgets/custom_material_button.dart';
+import '../../main.dart';
 import 'on_boarding_model.dart';
 import 'widgets/on_boarding_item_widget.dart';
 import 'widgets/on_boarding_skip_button_widget.dart';

@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:motor_mania/core/helpers/extensions/theme_ext.dart';
 
 import '../../features/home/domain/entities/home_product_entity.dart';
 import '../../features/product_details/presentation/ui/widgets/product_price_and_discount_widget.dart';
@@ -10,6 +9,7 @@ import '../../main.dart';
 import '../config/text/text_styles.dart';
 import '../config/theme/colors_manager.dart';
 import '../helpers/extensions/extensions.dart';
+import '../helpers/extensions/theme_ext.dart';
 import '../helpers/open_product_bottom_sheet.dart';
 import 'cart_button_widget.dart';
 import 'favorite_button_widget.dart';

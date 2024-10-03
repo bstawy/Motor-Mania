@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:motor_mania/main.dart';
 
 import '../../features/favorites/presentation/logic/favorites_cubit.dart';
+import '../../main.dart';
 import '../config/theme/colors_manager.dart';
 import '../helpers/extensions/extensions.dart';
 

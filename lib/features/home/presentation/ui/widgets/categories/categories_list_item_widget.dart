@@ -3,12 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:motor_mania/core/config/theme/colors_manager.dart';
-import 'package:motor_mania/main.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 import '../../../../../../core/config/text/text_styles.dart';
+import '../../../../../../core/config/theme/colors_manager.dart';
 import '../../../../../../core/di/dependency_injection.dart';
+import '../../../../../../main.dart';
 import '../../../../../category/presentation/logic/category_cubit.dart';
 import '../../../../../category/presentation/ui/category_screen.dart';
 import '../../../../domain/entities/category_entity.dart';
@@ -22,13 +22,12 @@ class CategoriesListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        pushScreen(
+        PersistentNavBarNavigator.pushNewScreen(
           context,
           screen: BlocProvider<CategoryCubit>(
             create: (context) => getIt<CategoryCubit>(),
             child: CategoryScreen(category: category),
           ),
-          withNavBar: true,
         );
       },
       child: Container(

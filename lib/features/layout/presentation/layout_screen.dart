@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 import '../../../core/config/app_manager/app_manager_cubit.dart';
+import '../../../core/config/routing/app_router.dart';
 import '../../../core/config/theme/colors_manager.dart';
 import '../../../core/di/dependency_injection.dart';
 import '../../../core/helpers/enums/app_modes_enums.dart';
+import '../../../core/helpers/extensions/theme_ext.dart';
 import '../../cars/presentation/logic/cars_cubit.dart';
-import '../../cart/presentation/logic/cart_cubit.dart';
 import '../../cart/presentation/ui/cart_screen.dart';
 import '../../favorites/presentation/ui/favorites_screen.dart';
 import '../../garage/presentation/logic/garage_cubit.dart';
@@ -52,7 +53,6 @@ class _LayoutScreenState extends State<LayoutScreen> {
     }
   }
 
-  // TODO: show exit confirmation Dialog when back from home screen
   _showExitConfirmationDialog(BuildContext context) async {
     return await showDialog(
       context: context,
@@ -64,103 +64,113 @@ class _LayoutScreenState extends State<LayoutScreen> {
 
   @override
   Widget build(BuildContext context) {
-    AppManagerCubit appManager = context.read<AppManagerCubit>();
-
-    return PersistentTabView(
-      controller: controller,
-      navBarHeight: 70.h,
-      navBarOverlap: const NavBarOverlap.none(),
-      selectedTabContext: (context) {},
-      onTabChanged: (value) {
-        if (value == 3 && context.read<CartCubit>().state is CartLoaded) {
-          context.read<LayoutCubit>().openBottomSheet();
-        } else {
-          context.read<LayoutCubit>().closeBottomSheet();
-        }
-      },
-      tabs: _buildTabs(appManager, context),
-      navBarBuilder: (navBarConfig) {
-        return BlocBuilder<LayoutCubit, LayoutState>(
-          bloc: context.read<LayoutCubit>(),
-          builder: (BuildContext context, state) {
-            return Style2BottomNavBar(
-              navBarConfig: navBarConfig,
-              navBarDecoration: NavBarDecoration(
-                color: ColorsManager.darkBlue,
-                border: Border.all(width: 0),
-                borderRadius: state is BottomSheetOpenedState
-                    ? BorderRadius.zero
-                    : BorderRadius.only(
-                        topLeft: Radius.circular(25.r),
-                        topRight: Radius.circular(25.r),
-                      ),
-                padding: EdgeInsets.symmetric(horizontal: 8.w),
-                shape: BoxShape.rectangle,
-              ),
-            );
+    return BlocBuilder<LayoutCubit, LayoutState>(
+      bloc: context.read<LayoutCubit>(),
+      builder: (context, state) {
+        return PersistentTabView(
+          context,
+          controller: controller,
+          screens: _buildScreens(),
+          items: _navBarsItems(),
+          hideNavigationBarWhenKeyboardAppears: true,
+          handleAndroidBackButtonPress: true,
+          onWillPop: (context) async {
+            return await _showExitConfirmationDialog(context!);
           },
+          padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 17.h),
+          backgroundColor: ColorsManager.darkBlue,
+          confineToSafeArea: true,
+          navBarHeight: 70.h,
+          navBarStyle: NavBarStyle.style7,
+          decoration: NavBarDecoration(
+            borderRadius: state is BottomSheetOpenedState
+                ? BorderRadius.zero
+                : BorderRadius.only(
+                    topLeft: Radius.circular(25.r),
+                    topRight: Radius.circular(25.r),
+                  ),
+            colorBehindNavBar: context.colors.surface,
+          ),
+          animationSettings: const NavBarAnimationSettings(
+            navBarItemAnimation: ItemAnimationSettings(
+              duration: Duration(milliseconds: 300),
+              curve: Curves.ease,
+            ),
+            screenTransitionAnimation: ScreenTransitionAnimationSettings(
+              animateTabTransition: true,
+              duration: Duration(milliseconds: 300),
+              screenTransitionAnimationType:
+                  ScreenTransitionAnimationType.slide,
+            ),
+          ),
         );
       },
     );
   }
 
-  List<PersistentTabConfig> _buildTabs(
-      AppManagerCubit appManager, BuildContext context) {
+  List<Widget> _buildScreens() {
+    final AppManagerCubit appManager =
+        AppRouter.navigatorKey.currentContext!.read<AppManagerCubit>();
+    return [
+      MultiBlocProvider(
+        providers: [
+          BlocProvider<HomeCubit>(
+            create: (context) => getIt<HomeCubit>(),
+          ),
+          if (appManager.appMode == AppMode.user)
+            BlocProvider<UserCubit>(
+              create: (context) => getIt<UserCubit>(),
+            ),
+        ],
+        child: const HomeScreen(),
+      ),
+      const FavoritesScreen(),
+      MultiBlocProvider(
+        providers: [
+          BlocProvider<GarageCubit>(
+            create: (context) => getIt<GarageCubit>()..getGarageCars(),
+          ),
+          BlocProvider<CarsCubit>(
+            create: (context) => getIt<CarsCubit>(),
+          ),
+        ],
+        child: const GarageScreen(),
+      ),
+      const CartScreen(),
+      BlocProvider(
+        create: (context) => ProfileCubit(),
+        child: const ProfileScreen(),
+      ),
+    ];
+  }
+
+  List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
       bottomNavBarTab(
-        screen: MultiBlocProvider(
-          providers: [
-            BlocProvider<HomeCubit>(
-              create: (context) => getIt<HomeCubit>(),
-            ),
-            if (appManager.appMode == AppMode.user)
-              BlocProvider<UserCubit>(
-                create: (context) => getIt<UserCubit>(),
-              ),
-          ],
-          child: const HomeScreen(),
-        ),
-        iconPath: "assets/icons/bottom_nav_selected_home_icon.svg",
-        inactiveIconPath: "assets/icons/bottom_nav_unselected_home_icon.svg",
         title: "Home",
+        activeIconPath: "assets/icons/bottom_nav_selected_home_icon.svg",
+        inactiveIconPath: "assets/icons/bottom_nav_unselected_home_icon.svg",
       ),
       bottomNavBarTab(
-        screen: const FavoritesScreen(),
-        iconPath: "assets/icons/bottom_nav_selected_favorite_icon.svg",
+        title: "Favorites",
+        activeIconPath: "assets/icons/bottom_nav_selected_favorite_icon.svg",
         inactiveIconPath:
             "assets/icons/bottom_nav_unselected_favorite_icon.svg",
-        title: "Favorites",
       ),
       bottomNavBarTab(
-        screen: MultiBlocProvider(
-          providers: [
-            BlocProvider<GarageCubit>(
-              create: (context) => getIt<GarageCubit>()..getGarageCars(),
-            ),
-            BlocProvider<CarsCubit>(
-              create: (context) => getIt<CarsCubit>(),
-            ),
-          ],
-          child: const GarageScreen(),
-        ),
-        iconPath: "assets/icons/bottom_nav_selected_garage_icon.svg",
-        inactiveIconPath: "assets/icons/bottom_nav_unselected_garage_icon.svg",
         title: "Garage",
+        activeIconPath: "assets/icons/bottom_nav_selected_garage_icon.svg",
+        inactiveIconPath: "assets/icons/bottom_nav_unselected_garage_icon.svg",
       ),
       bottomNavBarTab(
-        screen: const CartScreen(),
-        iconPath: "assets/icons/bottom_nav_selected_cart_icon.svg",
-        inactiveIconPath: "assets/icons/bottom_nav_unselected_cart_icon.svg",
         title: "Cart",
+        activeIconPath: "assets/icons/bottom_nav_selected_cart_icon.svg",
+        inactiveIconPath: "assets/icons/bottom_nav_unselected_cart_icon.svg",
       ),
       bottomNavBarTab(
-        screen: BlocProvider(
-          create: (context) => ProfileCubit(),
-          child: const ProfileScreen(),
-        ),
-        iconPath: "assets/icons/bottom_nav_selected_profile_icon.svg",
-        inactiveIconPath: "assets/icons/bottom_nav_unselected_profile_icon.svg",
         title: "Profile",
+        activeIconPath: "assets/icons/bottom_nav_selected_profile_icon.svg",
+        inactiveIconPath: "assets/icons/bottom_nav_unselected_profile_icon.svg",
       ),
     ];
   }

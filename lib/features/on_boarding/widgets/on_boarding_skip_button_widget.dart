@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:motor_mania/core/config/text/font_weight_helper.dart';
-import 'package:motor_mania/core/helpers/extensions/theme_ext.dart';
 
 import '../../../core/config/routing/routes.dart';
+import '../../../core/config/text/font_weight_helper.dart';
 import '../../../core/helpers/extensions/extensions.dart';
+import '../../../core/helpers/extensions/theme_ext.dart';
 
 class OnBoardingSkipButtonWidget extends StatelessWidget {
   const OnBoardingSkipButtonWidget({super.key});

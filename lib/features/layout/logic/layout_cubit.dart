@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 part 'layout_state.dart';
 
@@ -23,10 +23,6 @@ class LayoutCubit extends Cubit<LayoutState> {
 
   void changeTab(int index) {
     controller.jumpToTab(index);
-  }
-
-  void goToPreviousTab() {
-    controller.jumpToPreviousTab();
   }
 
   @override
