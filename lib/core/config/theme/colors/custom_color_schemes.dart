@@ -8,6 +8,7 @@ class CustomColorSchemes {
     seedColor: ColorsManager.darkBlue,
     primary: ColorsManager.darkBlue,
     surface: ColorsManager.whiteGrey,
+    inversePrimary: Colors.white,
     inverseSurface: Colors.white,
   );
 
@@ -16,6 +17,7 @@ class CustomColorSchemes {
     seedColor: ColorsManager.dark,
     primary: Colors.white,
     surface: ColorsManager.dark,
+    inversePrimary: ColorsManager.darkBlue,
     inverseSurface: ColorsManager.lightDark,
   );
 }

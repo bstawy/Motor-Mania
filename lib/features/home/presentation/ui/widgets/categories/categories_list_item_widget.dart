@@ -5,10 +5,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
-import '../../../../../../core/config/text/text_styles.dart';
-import '../../../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../../../../core/di/dependency_injection.dart';
-import '../../../../../../main.dart';
+import '../../../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../../category/presentation/logic/category_cubit.dart';
 import '../../../../../category/presentation/ui/category_screen.dart';
 import '../../../../domain/entities/category_entity.dart';
@@ -20,6 +19,9 @@ class CategoriesListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customColors = context.colors;
+    final customTextStyles = context.textStyles;
+
     return GestureDetector(
       onTap: () {
         PersistentNavBarNavigator.pushNewScreen(
@@ -34,7 +36,7 @@ class CategoriesListItem extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 13.h, horizontal: 8.w),
         width: 71.w,
         decoration: BoxDecoration(
-          color: themeIsDark ? ColorsManager.darkBlue : Colors.white,
+          color: customColors.inversePrimary,
           borderRadius: BorderRadius.circular(17.r),
         ),
         child: Column(
@@ -43,15 +45,19 @@ class CategoriesListItem extends StatelessWidget {
               category.imageUrl,
               width: 27.w,
               height: 27.h,
+
+              // TODO: get dark icons and delete color filter
               colorFilter: ColorFilter.mode(
-                themeIsDark ? Colors.white : ColorsManager.darkBlue,
+                customColors.primary,
                 BlendMode.srcIn,
               ),
             ),
             Gap(2.h),
             Text(
               category.name,
-              style: TextStyles.font12DarkBlueMedium,
+              style: customTextStyles.headlineSmall?.copyWith(
+                fontWeight: FontWeightHelper.medium,
+              ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),

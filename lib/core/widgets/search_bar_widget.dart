@@ -7,6 +7,7 @@ import '../config/routing/routes.dart';
 import '../config/theme/colors/colors_manager.dart';
 import '../config/theme/texts/font_weight_helper.dart';
 import '../helpers/extensions/extensions.dart';
+import '../helpers/extensions/theme_ext.dart';
 
 class SearchBarWidget extends StatelessWidget {
   final String? hintText;
@@ -32,7 +33,7 @@ class SearchBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).textTheme;
+    final customTextStyles = context.textStyles;
 
     return GestureDetector(
       onTap: () {
@@ -61,7 +62,7 @@ class SearchBarWidget extends StatelessWidget {
             Text(
               hintText ?? "What are you looking for?",
               style: hintStyle ??
-                  theme.labelLarge?.copyWith(
+                  customTextStyles.labelLarge?.copyWith(
                     color: ColorsManager.blueGrey,
                     fontWeight: FontWeightHelper.light,
                   ),
@@ -86,8 +87,4 @@ class SearchBarWidget extends StatelessWidget {
       ),
     );
   }
-}
-
-extension on BuildContext {
-  get textStyles => null;
 }
