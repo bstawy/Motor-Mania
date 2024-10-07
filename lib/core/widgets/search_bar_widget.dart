@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
-import '../../motor_mania_app.dart';
 import '../config/routing/routes.dart';
 import '../config/theme/colors/colors_manager.dart';
 import '../config/theme/texts/font_weight_helper.dart';
@@ -33,6 +32,8 @@ class SearchBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).textTheme;
+
     return GestureDetector(
       onTap: () {
         onTap ?? context.pushNamed(Routes.searchScreen);
@@ -60,7 +61,7 @@ class SearchBarWidget extends StatelessWidget {
             Text(
               hintText ?? "What are you looking for?",
               style: hintStyle ??
-                  customTextStyles.labelLarge?.copyWith(
+                  theme.labelLarge?.copyWith(
                     color: ColorsManager.blueGrey,
                     fontWeight: FontWeightHelper.light,
                   ),
@@ -85,4 +86,8 @@ class SearchBarWidget extends StatelessWidget {
       ),
     );
   }
+}
+
+extension on BuildContext {
+  get textStyles => null;
 }

@@ -6,13 +6,14 @@ import '../../../core/config/routing/routes.dart';
 import '../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../core/helpers/extensions/extensions.dart';
 import '../../../core/helpers/extensions/theme_ext.dart';
-import '../../../motor_mania_app.dart';
 
 class OnBoardingSkipButtonWidget extends StatelessWidget {
   const OnBoardingSkipButtonWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final customTextStyles = context.textStyles;
+
     return Container(
       width: 96.w,
       height: 50.h,

@@ -5,14 +5,16 @@ import 'package:gap/gap.dart';
 
 import '../../../../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../../../../core/config/theme/texts/font_weight_helper.dart';
+import '../../../../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../../../../core/widgets/search_bar_widget.dart';
-import '../../../../../../../motor_mania_app.dart';
 
 class UserHeaderSearchAndAddressWidget extends StatelessWidget {
   const UserHeaderSearchAndAddressWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final customTextStyles = context.textStyles;
+
     return Column(
       children: [
         const SearchBarWidget(),

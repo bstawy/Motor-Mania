@@ -8,8 +8,8 @@ import 'package:gap/gap.dart';
 import '../../../../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../../../../core/widgets/custom_network_image_widget.dart';
-import '../../../../../../../motor_mania_app.dart';
 import '../../../../../domain/entities/car_entity.dart';
 import '../../../../logic/user_cubit/user_cubit.dart';
 import 'user_header_search_and_address_widget.dart';
@@ -24,6 +24,8 @@ class UserHeaderLoadedWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customTextStyles = context.textStyles;
+
     return Stack(
       children: [
         Column(
@@ -54,9 +56,21 @@ class UserHeaderLoadedWidget extends StatelessWidget {
               ),
             ),
             Gap(8.h),
-            _buildLastPurchaseItem("ACDelco 480"),
+            _buildLastPurchaseItem(
+              "ACDelco 480",
+              customTextStyles.headlineSmall?.copyWith(
+                color: ColorsManager.blueGrey,
+                fontWeight: FontWeightHelper.medium,
+              ),
+            ),
             Gap(6.h),
-            _buildLastPurchaseItem("Bridgestone Tyre"),
+            _buildLastPurchaseItem(
+              "Bridgestone Tyre",
+              customTextStyles.headlineSmall?.copyWith(
+                color: ColorsManager.blueGrey,
+                fontWeight: FontWeightHelper.medium,
+              ),
+            ),
             Gap(20.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -99,18 +113,12 @@ class UserHeaderLoadedWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildLastPurchaseItem(String title) {
+  Widget _buildLastPurchaseItem(String title, TextStyle? titleStle) {
     return Row(
       children: [
         SvgPicture.asset("assets/icons/checkmark_icon.svg"),
         Gap(6.w),
-        Text(
-          title,
-          style: customTextStyles.headlineSmall?.copyWith(
-            color: ColorsManager.blueGrey,
-            fontWeight: FontWeightHelper.medium,
-          ),
-        ),
+        Text(title, style: titleStle),
       ],
     );
   }

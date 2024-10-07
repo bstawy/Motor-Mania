@@ -64,45 +64,49 @@ class _LayoutScreenState extends State<LayoutScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LayoutCubit, LayoutState>(
-      bloc: context.read<LayoutCubit>(),
+    return BlocBuilder<AppManagerCubit, AppManagerState>(
       builder: (context, state) {
-        return PersistentTabView(
-          context,
-          controller: controller,
-          screens: _buildScreens(),
-          items: _navBarsItems(),
-          hideNavigationBarWhenKeyboardAppears: true,
-          handleAndroidBackButtonPress: true,
-          onWillPop: (context) async {
-            return await _showExitConfirmationDialog(context!);
+        return BlocBuilder<LayoutCubit, LayoutState>(
+          bloc: context.read<LayoutCubit>(),
+          builder: (context, state) {
+            return PersistentTabView(
+              context,
+              controller: controller,
+              screens: _buildScreens(),
+              items: _navBarsItems(),
+              hideNavigationBarWhenKeyboardAppears: true,
+              handleAndroidBackButtonPress: true,
+              onWillPop: (context) async {
+                return await _showExitConfirmationDialog(context!);
+              },
+              padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 17.h),
+              backgroundColor: ColorsManager.darkBlue,
+              confineToSafeArea: true,
+              navBarHeight: 70.h,
+              navBarStyle: NavBarStyle.style7,
+              decoration: NavBarDecoration(
+                borderRadius: state is BottomSheetOpenedState
+                    ? BorderRadius.zero
+                    : BorderRadius.only(
+                        topLeft: Radius.circular(25.r),
+                        topRight: Radius.circular(25.r),
+                      ),
+                colorBehindNavBar: context.colors.surface,
+              ),
+              animationSettings: const NavBarAnimationSettings(
+                navBarItemAnimation: ItemAnimationSettings(
+                  duration: Duration(milliseconds: 300),
+                  curve: Curves.ease,
+                ),
+                screenTransitionAnimation: ScreenTransitionAnimationSettings(
+                  animateTabTransition: true,
+                  duration: Duration(milliseconds: 300),
+                  screenTransitionAnimationType:
+                      ScreenTransitionAnimationType.slide,
+                ),
+              ),
+            );
           },
-          padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 17.h),
-          backgroundColor: ColorsManager.darkBlue,
-          confineToSafeArea: true,
-          navBarHeight: 70.h,
-          navBarStyle: NavBarStyle.style7,
-          decoration: NavBarDecoration(
-            borderRadius: state is BottomSheetOpenedState
-                ? BorderRadius.zero
-                : BorderRadius.only(
-                    topLeft: Radius.circular(25.r),
-                    topRight: Radius.circular(25.r),
-                  ),
-            colorBehindNavBar: context.colors.surface,
-          ),
-          animationSettings: const NavBarAnimationSettings(
-            navBarItemAnimation: ItemAnimationSettings(
-              duration: Duration(milliseconds: 300),
-              curve: Curves.ease,
-            ),
-            screenTransitionAnimation: ScreenTransitionAnimationSettings(
-              animateTabTransition: true,
-              duration: Duration(milliseconds: 300),
-              screenTransitionAnimationType:
-                  ScreenTransitionAnimationType.slide,
-            ),
-          ),
         );
       },
     );

@@ -5,7 +5,7 @@ import 'package:gap/gap.dart';
 import '../../../core/config/theme/colors/colors_manager.dart';
 import '../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../core/helpers/extensions/extensions.dart';
-import '../../../motor_mania_app.dart';
+import '../../../core/helpers/extensions/theme_ext.dart';
 import '../on_boarding_model.dart';
 
 class OnBoardingItemWidget extends StatelessWidget {
@@ -18,6 +18,8 @@ class OnBoardingItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customTextStyles = context.textStyles;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

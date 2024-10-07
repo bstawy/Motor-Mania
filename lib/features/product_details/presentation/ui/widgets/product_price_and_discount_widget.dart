@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../../core/config/text/text_styles.dart';
-import '../../../../../motor_mania_app.dart';
+import '../../../../../core/helpers/extensions/theme_ext.dart';
 
 class ProductPriceAndDiscountWidget extends StatelessWidget {
   final num price;
@@ -28,6 +28,8 @@ class ProductPriceAndDiscountWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customTextStyles = context.textStyles;
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [

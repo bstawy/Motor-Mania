@@ -5,9 +5,9 @@ import 'package:gap/gap.dart';
 import '../../../../../../../core/config/routing/routes.dart';
 import '../../../../../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../../../../core/helpers/save_navigation_data.dart';
 import '../../../../../../../core/widgets/search_bar_widget.dart';
-import '../../../../../../../motor_mania_app.dart';
 import 'guest_offers_widget.dart';
 
 class GuestHeaderWidget extends StatelessWidget {
@@ -15,6 +15,8 @@ class GuestHeaderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customTextStyles = context.textStyles;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
