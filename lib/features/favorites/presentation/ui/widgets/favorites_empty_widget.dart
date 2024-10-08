@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../../../core/di/dependency_injection.dart';
 import '../../../../../core/helpers/assets_manager.dart';
 import '../../../../../core/widgets/empty_screen_widget.dart';
@@ -19,10 +18,8 @@ class FavoritesEmptyWidget extends StatelessWidget {
       child: Column(
         children: [
           EmptyScreenWidget(
-            imagePath: context.read<AppManagerCubit>().currentThemeMode ==
-                    ThemeMode.dark
-                ? AssetsManager.favoritesDarkEmptyImage
-                : AssetsManager.favoritesEmptyImage,
+            imagePath: AssetsManager.favoritesEmptyImage,
+            darkImagePath: AssetsManager.favoritesDarkEmptyImage,
             firstTextSpan: "Ready To Make A ",
             secondTextSpan: "Wish?",
             description:
