@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:motor_mania/core/helpers/assets_manager.dart';
 
 import '../../../../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../../../../core/config/theme/texts/font_weight_helper.dart';
@@ -75,7 +76,7 @@ class UserHeaderLoadedWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SvgPicture.asset("assets/icons/triple_back_icons.svg"),
+                SvgPicture.asset(AssetsManager.tripleBackIcons),
                 Gap(6.w),
                 Text(
                   "Swipe to Change Car",
@@ -85,7 +86,7 @@ class UserHeaderLoadedWidget extends StatelessWidget {
                   ),
                 ),
                 Gap(6.w),
-                SvgPicture.asset("assets/icons/triple_forward_icons.svg"),
+                SvgPicture.asset(AssetsManager.tripleForwardIcons),
               ],
             )
           ],

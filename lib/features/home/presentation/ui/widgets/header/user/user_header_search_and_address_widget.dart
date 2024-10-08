@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:motor_mania/core/helpers/assets_manager.dart';
 
 import '../../../../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../../../../core/config/theme/texts/font_weight_helper.dart';
@@ -21,7 +22,7 @@ class UserHeaderSearchAndAddressWidget extends StatelessWidget {
         Gap(8.h),
         Row(
           children: [
-            SvgPicture.asset("assets/icons/location_icon.svg"),
+            SvgPicture.asset(AssetsManager.locationIcon),
             Gap(6.w),
             Expanded(
               child: Text(

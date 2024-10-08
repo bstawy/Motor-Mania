@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:motor_mania/core/helpers/assets_manager.dart';
 
 import '../config/routing/routes.dart';
 import '../config/theme/colors/colors_manager.dart';
@@ -52,7 +53,7 @@ class SearchBarWidget extends StatelessWidget {
           children: [
             prefixIcon ??
                 SvgPicture.asset(
-                  "assets/icons/search_icon.svg",
+                  AssetsManager.searchIcon,
                   colorFilter: ColorFilter.mode(
                     borderColor ?? ColorsManager.blueGrey,
                     BlendMode.srcIn,
@@ -75,7 +76,7 @@ class SearchBarWidget extends StatelessWidget {
               },
               child: suffixIcon ??
                   SvgPicture.asset(
-                    "assets/icons/barcode_icon.svg",
+                    AssetsManager.barcodeIcon,
                     colorFilter: ColorFilter.mode(
                       borderColor ?? ColorsManager.blueGrey,
                       BlendMode.srcIn,
