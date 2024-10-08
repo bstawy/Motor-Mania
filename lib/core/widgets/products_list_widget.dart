@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:motor_mania/core/helpers/extensions/theme_ext.dart';
 
-import '../config/text/text_styles.dart';
+import '../config/theme/texts/font_weight_helper.dart';
 import '../helpers/extensions/extensions.dart';
 import 'product_item_widget.dart';
 
@@ -18,12 +19,16 @@ class ProductsListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customTextStyles = context.textStyles;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           title,
-          style: TextStyles.font14DarkBlueSemiBold(),
+          style: customTextStyles.headlineMedium?.copyWith(
+            fontWeight: FontWeightHelper.semiBold,
+          ),
         ).setHorizontalPadding(16.w),
         Gap(8.h),
         SizedBox(
