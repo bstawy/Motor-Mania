@@ -76,7 +76,7 @@ class CustomTextStyles {
       fontFamily: 'Montserrat',
     ),
     displaySmall: TextStyle(
-      color: ColorsManager.darkBlue,
+      color: Colors.white,
       fontSize: 20.sp,
       fontWeight: FontWeightHelper.bold,
       fontFamily: 'Montserrat',

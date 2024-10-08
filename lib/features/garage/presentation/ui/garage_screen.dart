@@ -4,9 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../../core/config/routing/routes.dart';
-import '../../../../core/config/text/text_styles.dart';
+import '../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../core/helpers/assets_manager.dart';
 import '../../../../core/helpers/enums/app_modes_enums.dart';
 import '../../../../core/helpers/extensions/navigation_ext.dart';
+import '../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../core/widgets/custom_app_bar.dart';
 import '../../../../core/widgets/custom_elevated_button.dart';
 import '../../../layout/logic/layout_cubit.dart';
@@ -20,13 +22,17 @@ class GarageScreen extends StatelessWidget {
   const GarageScreen({super.key});
 
   Widget _buildAddNewCarButton(BuildContext context) {
+    final customTextStyles = context.textStyles;
+
     return CustomElevatedButton(
       onPressed: () {
         context.pushNamed(Routes.cars);
       },
       title: "Add New Car",
-      titleStyle: TextStyles.font10BlueGreyMedium,
-      iconPath: "assets/icons/add_icon.svg",
+      titleStyle: customTextStyles.labelLarge?.copyWith(
+        color: ColorsManager.blueGrey,
+      ),
+      iconPath: AssetsManager.addIcon,
       iconWidth: 17.w,
       iconHeight: 17.h,
       borderRadiusValue: 12.r,

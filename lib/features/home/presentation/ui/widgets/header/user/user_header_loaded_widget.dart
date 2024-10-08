@@ -117,7 +117,7 @@ class UserHeaderLoadedWidget extends StatelessWidget {
   Widget _buildLastPurchaseItem(String title, TextStyle? titleStle) {
     return Row(
       children: [
-        SvgPicture.asset("assets/icons/checkmark_icon.svg"),
+        SvgPicture.asset(AssetsManager.checkmarkIcon),
         Gap(6.w),
         Text(title, style: titleStle),
       ],

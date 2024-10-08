@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../main.dart';
-import '../config/theme/colors/colors_manager.dart';
+import '../helpers/extensions/theme_ext.dart';
 
 class CustomBackButton extends StatelessWidget {
   final double? width, height, horizontalPadding, verticalPadding, borderRadius;
@@ -20,6 +19,8 @@ class CustomBackButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customColors = context.colors;
+
     return GestureDetector(
       onTap: onPressed ?? () => Navigator.of(context).pop(),
       child: Container(
@@ -28,7 +29,7 @@ class CustomBackButton extends StatelessWidget {
           vertical: verticalPadding ?? 8.h,
         ),
         decoration: BoxDecoration(
-          color: themeIsDark ? ColorsManager.darkBlue : Colors.white,
+          color: customColors.inverseSurface,
           borderRadius: BorderRadius.circular(
             borderRadius ?? 15.r,
           ),
@@ -38,7 +39,7 @@ class CustomBackButton extends StatelessWidget {
           alignment: Alignment.center,
           child: Icon(
             Icons.arrow_back_ios,
-            color: themeIsDark ? Colors.white : ColorsManager.darkBlue,
+            color: customColors.primary,
             size: 20.r,
           ),
         ),
