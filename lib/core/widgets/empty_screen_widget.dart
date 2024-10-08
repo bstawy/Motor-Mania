@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../config/text/text_styles.dart';
+import '../config/app_manager/app_manager_cubit.dart';
+import '../config/theme/colors/colors_manager.dart';
+import '../config/theme/texts/font_weight_helper.dart';
 import '../helpers/extensions/extensions.dart';
+import '../helpers/extensions/theme_ext.dart';
 
 class EmptyScreenWidget extends StatelessWidget {
   final String imagePath;
+  final String? darkImagePath;
   final String? firstTextSpan;
   final String? secondTextSpan;
   final String? thirdTextSpan;
@@ -25,6 +30,7 @@ class EmptyScreenWidget extends StatelessWidget {
   const EmptyScreenWidget({
     super.key,
     required this.imagePath,
+    this.darkImagePath,
     this.firstTextSpan,
     this.secondTextSpan,
     this.thirdTextSpan,
@@ -43,13 +49,26 @@ class EmptyScreenWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customTextStyles = context.textStyles;
+
     return Column(
       children: [
         Gap(48.h),
-        SizedBox(
-          width: imageWidth ?? 300.w,
-          height: imageHeight ?? 240.h,
-          child: Image.asset(imagePath),
+        BlocBuilder<AppManagerCubit, AppManagerState>(
+          bloc: context.read<AppManagerCubit>(),
+          builder: (context, state) {
+            return SizedBox(
+              width: imageWidth ?? 300.w,
+              height: imageHeight ?? 240.h,
+              child: Image.asset(
+                darkImagePath != null &&
+                        state is ChangeThemeState &&
+                        state.currentTheme == ThemeMode.dark
+                    ? darkImagePath!
+                    : imagePath,
+              ),
+            );
+          },
         ),
         Gap(24.h),
         Column(
@@ -59,15 +78,24 @@ class EmptyScreenWidget extends StatelessWidget {
               textAlign: TextAlign.center,
               text: TextSpan(
                 text: firstTextSpan,
-                style: firstTextStyle ?? TextStyles.font24DarkBlueSemiBold,
+                style: customTextStyles.displayMedium?.copyWith(
+                  fontWeight: FontWeightHelper.semiBold,
+                ),
+                //firstTextStyle ?? TextStyles.font24DarkBlueSemiBold,
                 children: [
                   TextSpan(
                     text: secondTextSpan,
-                    style: secondTextStyle ?? TextStyles.font24RedSemiBold,
+                    style: customTextStyles.displayMedium?.copyWith(
+                      color: ColorsManager.red,
+                      fontWeight: FontWeightHelper.semiBold,
+                    ),
+                    // secondTextStyle ?? TextStyles.font24RedSemiBold,
                   ),
                   TextSpan(
                     text: thirdTextSpan,
-                    style: thirdTextStyle ?? TextStyles.font24DarkBlueSemiBold,
+                    style: customTextStyles.displayMedium?.copyWith(
+                      fontWeight: FontWeightHelper.semiBold,
+                    ),
                   ),
                 ],
               ),
@@ -75,7 +103,10 @@ class EmptyScreenWidget extends StatelessWidget {
             Gap(8.h),
             Text(
               description ?? "",
-              style: TextStyles.font12BlueGreyRegular,
+              style: customTextStyles.headlineSmall?.copyWith(
+                color: ColorsManager.blueGrey,
+                fontWeight: FontWeightHelper.regular,
+              ),
               textAlign: TextAlign.center,
             ),
           ],

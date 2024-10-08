@@ -29,7 +29,6 @@ class FavoritesScreen extends StatelessWidget {
         children: [
           Gap(12.h),
           const SearchBarWidget(
-            backgroundColor: Colors.white,
             borderColor: ColorsManager.blueGrey,
           ).setHorizontalPadding(16.w),
           Gap(8.h),
@@ -56,11 +55,24 @@ class FavoritesScreen extends StatelessWidget {
                   ),
                 );
               } else if (state is FavoritesEmpty) {
-                return const Expanded(child: FavoritesEmptyWidget());
+                return Expanded(
+                  child: RefreshIndicator(
+                    onRefresh: () =>
+                        context.read<FavoritesCubit>().getAllFavorites(),
+                    child: const FavoritesEmptyWidget(),
+                  ),
+                );
               } else if (state is FavoritesError) {
-                return Center(
-                  child: Text(state.failure.message ?? "")
-                      .setHorizontalPadding(16.w),
+                return SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: RefreshIndicator(
+                    onRefresh: () =>
+                        context.read<FavoritesCubit>().getAllFavorites(),
+                    child: Center(
+                      child: Text(state.failure.message ?? "")
+                          .setHorizontalPadding(16.w),
+                    ),
+                  ),
                 );
               } else {
                 return const SizedBox();

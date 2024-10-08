@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../main.dart';
-import '../config/text/text_styles.dart';
-import '../config/theme/colors/colors_manager.dart';
+import '../config/theme/texts/font_weight_helper.dart';
 import '../helpers/extensions/extensions.dart';
+import '../helpers/extensions/theme_ext.dart';
 import 'custom_back_button.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -34,14 +33,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customTextStyles = context.textStyles;
     return AppBar(
       forceMaterialTransparency: true,
       leading: leading ?? CustomBackButton(onPressed: onLeadingPressed),
       leadingWidth: 40.w,
       title: Text(title ?? ""),
       titleTextStyle: titleStyle ??
-          TextStyles.font14DarkBlueMedium.copyWith(
-            color: themeIsDark ? Colors.white : ColorsManager.darkBlue,
+          customTextStyles.headlineMedium?.copyWith(
+            fontWeight: FontWeightHelper.medium,
           ),
       actions: actions,
       centerTitle: centerTitle,

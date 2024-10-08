@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/caching/hive_manager.dart';
+import '../../../../../core/caching/tokens_manager.dart';
 import '../../../../../core/config/app_manager/app_manager_cubit.dart';
+import '../../../../../core/config/routing/app_router.dart';
 import '../../../../../core/config/routing/routes.dart';
 import '../../../../../core/config/text/text_styles.dart';
-import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../core/di/dependency_injection.dart';
 
 class LogoutAlertDialogWidget extends StatelessWidget {
   const LogoutAlertDialogWidget({super.key});
@@ -32,9 +35,12 @@ class LogoutAlertDialogWidget extends StatelessWidget {
           onPressed: () async {
             await context.read<AppManagerCubit>().logUserOut();
             if (context.mounted) {
-              context.pushNamedAndRemoveUntil(
+              await getIt<HiveManager>().clearAllBoxes();
+              await TokensManager.deleteTokens();
+
+              AppRouter.navigatorKey.currentState!.pushNamedAndRemoveUntil(
                 Routes.onBoardingScreens,
-                predicate: (route) => false,
+                (route) => false,
               );
             }
           },

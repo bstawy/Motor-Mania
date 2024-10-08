@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:motor_mania/core/helpers/extensions/theme_ext.dart';
 
 import '../config/theme/texts/font_weight_helper.dart';
 import '../helpers/extensions/extensions.dart';
+import '../helpers/extensions/theme_ext.dart';
 import 'product_item_widget.dart';
 
 class ProductsListWidget extends StatelessWidget {
