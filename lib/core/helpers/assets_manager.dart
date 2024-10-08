@@ -3,6 +3,11 @@ class AssetsManager {
   static const String _iconsPath = "assets/icons";
   static const String _imagesPath = "assets/images";
 
+  static String get favoritesEmptyImage =>
+      "$_imagesPath/favorites_empty_image.png";
+  static String get favoritesDarkEmptyImage =>
+      "$_imagesPath/favorites_dark_empty_image.png";
+
   static String get tripleBackIcons => "$_iconsPath/triple_back_icons.svg";
   static String get tripleForwardIcons =>
       "$_iconsPath/triple_forward_icons.svg";
