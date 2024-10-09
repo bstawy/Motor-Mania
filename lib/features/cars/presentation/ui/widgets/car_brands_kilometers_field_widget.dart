@@ -3,9 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../core/helpers/extensions/theme_ext.dart';
 import '../../logic/cars_cubit.dart';
 
 class CarBrandsKilometersFieldWidget extends StatefulWidget {
@@ -38,12 +39,17 @@ class _CarBrandsKilometersFieldWidgetState
 
   @override
   Widget build(BuildContext context) {
+    final customTextStyles = context.textStyles;
+    final customColors = context.colors;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           "Current Kilometers",
-          style: TextStyles.font14DarkBlueSemiBold(),
+          style: customTextStyles.headlineMedium?.copyWith(
+            fontWeight: FontWeightHelper.semiBold,
+          ),
         ),
         Gap(8.h),
         Row(
@@ -55,7 +61,9 @@ class _CarBrandsKilometersFieldWidgetState
                     : context.errorSnackBar("Select a car year first"),
                 child: TextField(
                   controller: _controller,
-                  style: TextStyles.font12DarkBlueSemiBold,
+                  style: customTextStyles.headlineSmall?.copyWith(
+                    fontWeight: FontWeightHelper.semiBold,
+                  ),
                   keyboardType: TextInputType.number,
                   enabled: context.read<CarsCubit>().selectedCarYear != null,
                   onTapOutside: (event) {
@@ -82,24 +90,19 @@ class _CarBrandsKilometersFieldWidgetState
                     isDense: true,
                     filled: true,
                     fillColor: widget.isEnabled!
-                        ? Colors.white
-                        : ColorsManager.darkBlue.withOpacity(0.3),
+                        ? customColors.inverseSurface
+                        : customColors.surface,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(14.r),
-                      borderSide:
-                          const BorderSide(color: Colors.white, width: 0.0),
+                      borderSide: const BorderSide(width: 0.0),
                     ),
                     disabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(14.r),
-                      borderSide: BorderSide(
-                        color: ColorsManager.blueGrey.withOpacity(0.2),
-                        width: 0.0,
-                      ),
+                      borderSide: const BorderSide(width: 0.0),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(14.r),
-                      borderSide:
-                          const BorderSide(color: Colors.white, width: 0.0),
+                      borderSide: const BorderSide(width: 0.0),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(14.r),
@@ -109,7 +112,9 @@ class _CarBrandsKilometersFieldWidgetState
                       ),
                     ),
                     hintText: "Enter Kilometers",
-                    hintStyle: TextStyles.font12DarkBlueRegular,
+                    hintStyle: customTextStyles.headlineSmall?.copyWith(
+                      fontWeight: FontWeightHelper.regular,
+                    ),
                   ),
                 ),
               ),

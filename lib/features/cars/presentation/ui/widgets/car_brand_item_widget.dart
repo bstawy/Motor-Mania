@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../domain/entities/car_brand_entity.dart';
 import '../../logic/cars_cubit.dart';
 
@@ -17,6 +17,7 @@ class CarBrandItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customColors = context.colors;
     bool isSelected =
         context.read<CarsCubit>().selectedCarBrandId == carBrand.id;
 
@@ -34,7 +35,9 @@ class CarBrandItemWidget extends StatelessWidget {
               height: 100.h,
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               decoration: BoxDecoration(
-                color: isSelected ? ColorsManager.darkBlue : Colors.white,
+                color: isSelected
+                    ? customColors.primary
+                    : customColors.inverseSurface,
                 borderRadius: BorderRadius.circular(20.r),
               ),
               alignment: Alignment.center,
@@ -43,7 +46,9 @@ class CarBrandItemWidget extends StatelessWidget {
                 width: 50.w,
                 height: 50.h,
                 colorFilter: ColorFilter.mode(
-                  isSelected ? Colors.white : ColorsManager.darkBlue,
+                  isSelected
+                      ? customColors.inverseSurface
+                      : customColors.primary,
                   BlendMode.srcIn,
                 ),
               ),

@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../core/helpers/extensions/theme_ext.dart';
 
 class CarDataFormFieldWidget extends StatefulWidget {
   final String title;
@@ -27,12 +28,17 @@ class CarDataFormFieldWidget extends StatefulWidget {
 class _CarDataFormFieldWidgetState extends State<CarDataFormFieldWidget> {
   @override
   Widget build(BuildContext context) {
+    final customTextStyles = context.textStyles;
+    final customColors = context.colors;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           widget.title,
-          style: TextStyles.font14DarkBlueSemiBold(),
+          style: customTextStyles.headlineMedium?.copyWith(
+            fontWeight: FontWeightHelper.semiBold,
+          ),
         ),
         Gap(8.h),
         GestureDetector(
@@ -40,15 +46,19 @@ class _CarDataFormFieldWidgetState extends State<CarDataFormFieldWidget> {
               ? null
               : context.errorSnackBar("Select a car model first"),
           child: DropdownButtonFormField(
-            icon: const Icon(
+            icon: Icon(
               Icons.keyboard_arrow_down,
-              color: ColorsManager.darkBlue,
+              color: customColors.primary,
             ),
             hint: Text(
               "Select an option",
-              style: TextStyles.font12DarkBlueRegular,
+              style: customTextStyles.headlineSmall?.copyWith(
+                fontWeight: FontWeightHelper.regular,
+              ),
             ),
-            style: TextStyles.font12DarkBlueSemiBold,
+            style: customTextStyles.headlineSmall?.copyWith(
+              fontWeight: FontWeightHelper.semiBold,
+            ),
             items: widget.isEnabled!
                 ? widget.options
                     .map(
@@ -62,6 +72,7 @@ class _CarDataFormFieldWidgetState extends State<CarDataFormFieldWidget> {
             onChanged: (value) {
               widget.onSelect!(value);
             },
+            dropdownColor: customColors.inversePrimary,
             decoration: InputDecoration(
               contentPadding: EdgeInsets.symmetric(
                 horizontal: 12.w,
@@ -71,22 +82,19 @@ class _CarDataFormFieldWidgetState extends State<CarDataFormFieldWidget> {
               enabled: widget.isEnabled!,
               filled: true,
               fillColor: widget.isEnabled!
-                  ? Colors.white
-                  : ColorsManager.darkBlue.withOpacity(0.3),
+                  ? customColors.inverseSurface
+                  : customColors.surface,
               disabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(14.r),
-                borderSide: BorderSide(
-                  color: ColorsManager.darkBlue.withOpacity(0.3),
-                  width: 0.0,
-                ),
+                borderSide: const BorderSide(width: 0.0),
               ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(14.r),
-                borderSide: const BorderSide(color: Colors.white, width: 0.0),
+                borderSide: const BorderSide(width: 0.0),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(14.r),
-                borderSide: const BorderSide(color: Colors.white, width: 0.0),
+                borderSide: const BorderSide(width: 0.0),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(14.r),

@@ -63,8 +63,9 @@ class GarageItemWidget extends StatelessWidget {
                   margin: EdgeInsets.symmetric(horizontal: 16.w),
                   padding: EdgeInsets.all(16.w),
                   decoration: BoxDecoration(
-                    color:
-                        isSelected ? ColorsManager.red : customColors.onPrimary,
+                    color: isSelected
+                        ? ColorsManager.red
+                        : customColors.inverseSurface,
                     borderRadius: BorderRadius.circular(15.r),
                   ),
                   child: Column(
@@ -143,7 +144,7 @@ class GarageItemWidget extends StatelessWidget {
                   bottom: 0,
                   right: -70.w,
                   child: SizedBox(
-                    height: 130.h,
+                    height: 145.h,
                     width: 268.w,
                     child: CustomNetworkImage(
                       url: car.imageUrl ?? "",

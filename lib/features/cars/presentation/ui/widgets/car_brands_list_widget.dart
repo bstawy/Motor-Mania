@@ -1,11 +1,13 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../../core/config/routing/routes.dart';
-import '../../../../../core/config/text/text_styles.dart';
+import '../../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../../core/widgets/shimmer_loading_widget.dart';
 import '../../../domain/entities/car_brand_entity.dart';
 import '../../logic/cars_cubit.dart';
@@ -28,8 +30,17 @@ class CarBrandsListWidget extends StatelessWidget {
         if (state is CarBrandsLoading) {
           return _buildCarBrandsLoadingWidget();
         } else if (state is CarBrandsError) {
-          return Center(
-            child: Text(state.failure.message ?? "Error loading car brands"),
+          return RefreshIndicator(
+            onRefresh: () async {
+              context.read<CarsCubit>().getCarBrands();
+            },
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: Center(
+                child:
+                    Text(state.failure.message ?? "Error loading car brands"),
+              ),
+            ),
           );
         } else if (state is CarBrandsLoaded || state is CarBrandSelected) {
           List<CarBrandEntity> carBrands = (state is CarBrandsLoaded)
@@ -75,6 +86,8 @@ class CarBrandsListWidget extends StatelessWidget {
   }
 
   Widget carBrandsList(BuildContext context, List<CarBrandEntity> carBrands) {
+    final customTextStyles = context.textStyles;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -83,7 +96,9 @@ class CarBrandsListWidget extends StatelessWidget {
           children: [
             Text(
               "Choose Car Brand",
-              style: TextStyles.font14DarkBlueSemiBold(),
+              style: customTextStyles.headlineMedium?.copyWith(
+                fontWeight: FontWeightHelper.semiBold,
+              ),
             ),
             GestureDetector(
               onTap: () {
@@ -91,7 +106,10 @@ class CarBrandsListWidget extends StatelessWidget {
               },
               child: Text(
                 "See All",
-                style: TextStyles.font10RedRegular,
+                style: customTextStyles.labelLarge?.copyWith(
+                  color: ColorsManager.red,
+                  fontWeight: FontWeightHelper.regular,
+                ),
               ),
             ),
           ],
