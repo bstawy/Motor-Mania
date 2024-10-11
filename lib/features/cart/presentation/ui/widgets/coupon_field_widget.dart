@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../../core/config/theme/texts/font_weight_helper.dart';
+import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../core/helpers/extensions/theme_ext.dart';
 import '../../logic/cart_cubit.dart';
 
 class CouponFieldWidget extends StatefulWidget {
@@ -23,7 +25,16 @@ class _CouponFieldWidgetState extends State<CouponFieldWidget> {
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final customColors = context.colors;
+    final customTextStyles = context.textStyles;
+
     return TextField(
       controller: _controller,
       scrollPadding: EdgeInsets.only(
@@ -31,7 +42,7 @@ class _CouponFieldWidgetState extends State<CouponFieldWidget> {
       ),
       decoration: InputDecoration(
         filled: true,
-        fillColor: Colors.white,
+        fillColor: customColors.inverseSurface,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14.r),
           borderSide: BorderSide.none,
@@ -39,7 +50,7 @@ class _CouponFieldWidgetState extends State<CouponFieldWidget> {
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14.r),
           borderSide: BorderSide(
-            color: ColorsManager.blueGrey,
+            color: customColors.onTertiary,
             width: 1.w,
           ),
         ),
@@ -48,12 +59,21 @@ class _CouponFieldWidgetState extends State<CouponFieldWidget> {
           vertical: 12.h,
         ),
         hintText: "Enter Coupon Code",
-        hintStyle: TextStyles.font12BlueGreyLight,
-        suffix: BlocBuilder<CartCubit, CartState>(
+        hintStyle: customTextStyles.headlineSmall?.copyWith(
+          color: ColorsManager.blueGrey,
+          fontWeight: FontWeightHelper.light,
+        ),
+        suffix: BlocConsumer<CartCubit, CartState>(
+          listenWhen: (previous, current) =>
+              current is CouponApplied || current is CouponError,
           buildWhen: (previous, current) =>
-              current is CouponApplied ||
-              current is CouponRemoved ||
-              current is CouponError,
+              current is CouponApplied || current is CouponRemoved,
+          listener: (context, state) {
+            if (state is CouponError) {
+              context.errorSnackBar(state.message);
+            }
+            FocusScope.of(context).unfocus();
+          },
           builder: (context, state) {
             if (state is CouponApplied) {
               return InkWell(
@@ -63,7 +83,10 @@ class _CouponFieldWidgetState extends State<CouponFieldWidget> {
                 },
                 child: Text(
                   "Remove",
-                  style: TextStyles.font12RedSemiBold,
+                  style: customTextStyles.headlineSmall?.copyWith(
+                    color: ColorsManager.red,
+                    fontWeight: FontWeightHelper.semiBold,
+                  ),
                 ),
               );
             } else {
@@ -75,7 +98,9 @@ class _CouponFieldWidgetState extends State<CouponFieldWidget> {
                 },
                 child: Text(
                   "Apply",
-                  style: TextStyles.font12DarkBlueSemiBold,
+                  style: customTextStyles.headlineSmall?.copyWith(
+                    fontWeight: FontWeightHelper.semiBold,
+                  ),
                 ),
               );
             }
@@ -83,11 +108,5 @@ class _CouponFieldWidgetState extends State<CouponFieldWidget> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 }

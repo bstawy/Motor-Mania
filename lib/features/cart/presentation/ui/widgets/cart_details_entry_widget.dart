@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/config/text/text_styles.dart';
+import '../../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../../core/config/theme/texts/font_weight_helper.dart';
+import '../../../../../core/helpers/extensions/theme_ext.dart';
 
 class CartDetailsEntryWidget extends StatelessWidget {
   final String title;
@@ -17,16 +19,25 @@ class CartDetailsEntryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customTextStyles = context.textStyles;
+
     return Row(
       children: [
         Text(
           title,
-          style: titleStyle ?? TextStyles.font10BlueGreyRegular,
+          style: titleStyle ??
+              customTextStyles.labelLarge?.copyWith(
+                color: ColorsManager.blueGrey,
+                fontWeight: FontWeightHelper.regular,
+              ),
         ),
         const Spacer(),
         Text(
           value,
-          style: valueStyle ?? TextStyles.font10DarkBlueRegular,
+          style: valueStyle ??
+              customTextStyles.labelLarge?.copyWith(
+                fontWeight: FontWeightHelper.regular,
+              ),
         ),
       ],
     );

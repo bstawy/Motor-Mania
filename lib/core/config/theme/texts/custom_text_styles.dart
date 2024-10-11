@@ -49,7 +49,7 @@ class CustomTextStyles {
       fontFamily: 'Montserrat',
     ),
     labelMedium: TextStyle(
-      color: ColorsManager.blueGrey,
+      color: ColorsManager.darkBlue,
       fontSize: 8.sp,
       fontWeight: FontWeightHelper.bold,
       fontFamily: 'Montserrat',
@@ -82,7 +82,7 @@ class CustomTextStyles {
       fontFamily: 'Montserrat',
     ),
     headlineLarge: TextStyle(
-      color: ColorsManager.darkBlue,
+      color: Colors.white,
       fontSize: 16.sp,
       fontWeight: FontWeightHelper.bold,
       fontFamily: 'Montserrat',
@@ -106,7 +106,7 @@ class CustomTextStyles {
       fontFamily: 'Montserrat',
     ),
     labelMedium: TextStyle(
-      color: ColorsManager.blueGrey,
+      color: Colors.white,
       fontSize: 8.sp,
       fontWeight: FontWeightHelper.bold,
       fontFamily: 'Montserrat',

@@ -3,9 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
-import '../../main.dart';
-import '../config/text/text_styles.dart';
-import '../config/theme/colors/colors_manager.dart';
+import '../config/theme/texts/font_weight_helper.dart';
+import '../helpers/extensions/theme_ext.dart';
 
 class ProductPropertyWidget extends StatelessWidget {
   final String title;
@@ -21,6 +20,8 @@ class ProductPropertyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customTextStyles = context.textStyles;
+
     return Row(
       children: [
         SvgPicture.asset(iconPath),
@@ -28,8 +29,8 @@ class ProductPropertyWidget extends StatelessWidget {
         Text(
           title,
           style: titleStyle ??
-              TextStyles.font8DarkBlueMedium.copyWith(
-                color: themeIsDark ? Colors.white : ColorsManager.darkBlue,
+              customTextStyles.labelMedium?.copyWith(
+                fontWeight: FontWeightHelper.medium,
               ),
         ),
       ],

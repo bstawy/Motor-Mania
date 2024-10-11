@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../../core/config/routing/routes.dart';
 import '../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../../core/helpers/assets_manager.dart';
 import '../../../../core/helpers/enums/app_modes_enums.dart';
 import '../../../../core/helpers/extensions/navigation_ext.dart';
@@ -31,6 +32,7 @@ class GarageScreen extends StatelessWidget {
       title: "Add New Car",
       titleStyle: customTextStyles.labelLarge?.copyWith(
         color: ColorsManager.blueGrey,
+        fontWeight: FontWeightHelper.regular,
       ),
       iconPath: AssetsManager.addIcon,
       iconWidth: 17.w,

@@ -85,7 +85,7 @@ class _CarBrandsKilometersFieldWidgetState
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.symmetric(
                       horizontal: 15.w,
-                      vertical: 13.h,
+                      vertical: 16.h,
                     ),
                     isDense: true,
                     filled: true,

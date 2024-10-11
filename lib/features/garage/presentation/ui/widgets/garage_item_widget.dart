@@ -59,7 +59,7 @@ class GarageItemWidget extends StatelessWidget {
             child: Stack(
               children: [
                 Container(
-                  height: 125.h,
+                  height: 130.h,
                   margin: EdgeInsets.symmetric(horizontal: 16.w),
                   padding: EdgeInsets.all(16.w),
                   decoration: BoxDecoration(

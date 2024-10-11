@@ -12,6 +12,8 @@ class AssetsManager {
   static String get garageEmptyImage => "$_imagesPath/garage_empty_image.png";
   static String get garageEmptyDarkImage =>
       "$_imagesPath/garage_empty_dark_image.png";
+  static String get successImage => "$_imagesPath/success_image.png";
+  static String get successDarkImage => "$_imagesPath/success_dark_image.png";
 
   static String get checkmarkIcon => "$_iconsPath/checkmark_icon.svg";
   static String get tripleBackIcons => "$_iconsPath/triple_back_icons.svg";
@@ -23,4 +25,9 @@ class AssetsManager {
   static String get addIcon => "$_iconsPath/add_icon.svg";
   static String get editIcon => "$_iconsPath/edit_icon.svg";
   static String get trashIcon => "$_iconsPath/trash_icon.svg";
+  static String get favoriteLightIcon => "$_iconsPath/favorite_light_icon.svg";
+  static String get freeDeliveryFilledIcon =>
+      "$_iconsPath/free_delivery_filled_icon.svg";
+  static String get verifiedSellerIcon => "$_iconsPath/verify_icon.svg";
+  static String get couponIcon => "$_iconsPath/coupon_icon.svg";
 }

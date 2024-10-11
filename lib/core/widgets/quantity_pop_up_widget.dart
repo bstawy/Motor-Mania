@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../features/product_details/presentation/logic/product_cubit.dart';
-import '../config/text/text_styles.dart';
-import '../config/theme/colors/colors_manager.dart';
+import '../config/routing/app_router.dart';
+import '../config/theme/texts/font_weight_helper.dart';
 import '../helpers/extensions/extensions.dart';
+import '../helpers/extensions/theme_ext.dart';
 
 class QuantityPopUpWidget extends StatelessWidget {
   const QuantityPopUpWidget({super.key});
@@ -18,7 +17,8 @@ class QuantityPopUpWidget extends StatelessWidget {
         _buildQuantityButton(
           text: "1",
           onTap: () {
-            context.read<ProductCubit>().updateProductQuantity(1);
+            // TODO: Implement update product quantity
+            // context.read<ProductCubit>().updateProductQuantity(1);
             context.pop();
           },
         ),
@@ -26,7 +26,7 @@ class QuantityPopUpWidget extends StatelessWidget {
         _buildQuantityButton(
           text: "2",
           onTap: () {
-            context.read<ProductCubit>().updateProductQuantity(2);
+            // context.read<ProductCubit>().updateProductQuantity(2);
             context.pop();
           },
         ),
@@ -34,7 +34,7 @@ class QuantityPopUpWidget extends StatelessWidget {
         _buildQuantityButton(
           text: "3",
           onTap: () {
-            context.read<ProductCubit>().updateProductQuantity(3);
+            // context.read<ProductCubit>().updateProductQuantity(3);
             context.pop();
           },
         ),
@@ -42,7 +42,7 @@ class QuantityPopUpWidget extends StatelessWidget {
         _buildQuantityButton(
           text: "4",
           onTap: () {
-            context.read<ProductCubit>().updateProductQuantity(4);
+            // context.read<ProductCubit>().updateProductQuantity(4);
             context.pop();
           },
         ),
@@ -52,6 +52,10 @@ class QuantityPopUpWidget extends StatelessWidget {
 
   Widget _buildQuantityButton(
       {required String text, required Function() onTap}) {
+    final customTextStyles =
+        AppRouter.navigatorKey.currentState!.context.textStyles;
+    final customColors = AppRouter.navigatorKey.currentState!.context.colors;
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -59,17 +63,20 @@ class QuantityPopUpWidget extends StatelessWidget {
         height: 32.h,
         padding: EdgeInsets.symmetric(horizontal: 9.w, vertical: 4.h),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: customColors.inverseSurface,
           borderRadius: BorderRadius.circular(8.r),
           border: Border.all(
-            color: ColorsManager.whiteBlue,
+            color: customColors.primary,
             width: 1.w,
           ),
         ),
         alignment: Alignment.center,
         child: Text(
           text,
-          style: TextStyles.font14DarkBlueSemiBold(),
+          style: customTextStyles.headlineMedium?.copyWith(
+            color: customColors.primary,
+            fontWeight: FontWeightHelper.semiBold,
+          ),
         ),
       ),
     );

@@ -11,6 +11,8 @@ class CustomColorSchemes {
     inversePrimary: Colors.white,
     inverseSurface: Colors.white,
     onPrimary: ColorsManager.darkBlue,
+    onSecondary: ColorsManager.whiteBlue,
+    onTertiary: ColorsManager.blueGrey,
   );
 
   static final darkColorScheme = ColorScheme.fromSeed(
@@ -21,5 +23,7 @@ class CustomColorSchemes {
     inversePrimary: ColorsManager.darkBlue,
     inverseSurface: ColorsManager.lightDark,
     onPrimary: ColorsManager.lightDark,
+    onSecondary: ColorsManager.blueGrey,
+    onTertiary: ColorsManager.whiteBlue,
   );
 }

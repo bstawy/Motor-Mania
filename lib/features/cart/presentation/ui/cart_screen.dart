@@ -3,8 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../core/config/text/text_styles.dart';
+import '../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../core/config/theme/texts/font_weight_helper.dart';
+import '../../../../core/helpers/assets_manager.dart';
 import '../../../../core/helpers/extensions/extensions.dart';
+import '../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../core/widgets/custom_app_bar.dart';
 import '../../../../core/widgets/custom_elevated_button.dart';
 import '../../../layout/logic/layout_cubit.dart';
@@ -18,6 +21,25 @@ import 'widgets/coupon_field_widget.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
+
+  Widget _buildGoToFavoriteButton(BuildContext context) {
+    final customTextStyles = context.textStyles;
+
+    return CustomElevatedButton(
+      onPressed: () => context.read<LayoutCubit>().changeTab(1),
+      title: "Go To Favorites",
+      titleStyle: customTextStyles.labelLarge?.copyWith(
+        color: ColorsManager.blueGrey,
+        fontWeight: FontWeightHelper.regular,
+      ),
+      iconPath: AssetsManager.favoriteLightIcon,
+      iconWidth: 17.w,
+      iconHeight: 17.h,
+      borderRadiusValue: 12.r,
+      horizontalPadding: 14.w,
+      verticalPadding: 8.h,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,20 +122,6 @@ class CartScreen extends StatelessWidget {
           },
         ),
       ),
-    );
-  }
-
-  Widget _buildGoToFavoriteButton(BuildContext context) {
-    return CustomElevatedButton(
-      onPressed: () => context.read<LayoutCubit>().changeTab(1),
-      title: "Go To Favorites",
-      titleStyle: TextStyles.font10BlueGreyRegular,
-      iconPath: "assets/icons/favorite_light_icon.svg",
-      iconWidth: 17.w,
-      iconHeight: 17.h,
-      borderRadiusValue: 12.r,
-      horizontalPadding: 14.w,
-      verticalPadding: 8.h,
     );
   }
 }
