@@ -6,29 +6,43 @@ import '../../../../../core/caching/tokens_manager.dart';
 import '../../../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../../../core/config/routing/app_router.dart';
 import '../../../../../core/config/routing/routes.dart';
-import '../../../../../core/config/text/text_styles.dart';
+import '../../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../../../core/di/dependency_injection.dart';
+import '../../../../../core/helpers/extensions/theme_ext.dart';
 
 class LogoutAlertDialogWidget extends StatelessWidget {
   const LogoutAlertDialogWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final customTextStyles = context.textStyles;
+    final customColors = context.colors;
+
     return AlertDialog(
+      backgroundColor: customColors.inversePrimary,
       title: Text(
         'Logout',
-        style: TextStyles.font16DarkBlueBold,
+        style: customTextStyles.headlineLarge,
       ),
       content: Text(
         'Are you sure you want to logout?',
-        style: TextStyles.font14DarkBlueMedium,
+        style: customTextStyles.headlineMedium?.copyWith(
+          fontWeight: FontWeightHelper.medium,
+        ),
       ),
       actions: <Widget>[
-        TextButton(
+        ElevatedButton(
           onPressed: () => Navigator.of(context).pop(false),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: ColorsManager.red,
+          ),
           child: Text(
             'No',
-            style: TextStyles.font12RedSemiBold,
+            style: customTextStyles.headlineSmall?.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeightHelper.semiBold,
+            ),
           ),
         ),
         TextButton(
@@ -46,7 +60,9 @@ class LogoutAlertDialogWidget extends StatelessWidget {
           },
           child: Text(
             'Yes',
-            style: TextStyles.font12DarkBlueSemiBold,
+            style: customTextStyles.headlineSmall?.copyWith(
+              fontWeight: FontWeightHelper.semiBold,
+            ),
           ),
         ),
       ],

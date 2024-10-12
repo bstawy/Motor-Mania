@@ -3,8 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../../core/config/theme/texts/font_weight_helper.dart';
+import '../../../../../core/helpers/extensions/theme_ext.dart';
+import '../../../../../main.dart';
 import '../../../models/option_model.dart';
 
 class OptionsListWidget extends StatelessWidget {
@@ -19,26 +21,31 @@ class OptionsListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customTextStyles = context.textStyles;
+    final customColors = context.colors;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           title,
-          style: TextStyles.font14DarkBlueMedium,
+          style: customTextStyles.headlineMedium?.copyWith(
+            color: customColors.primary,
+            fontWeight: FontWeightHelper.medium,
+          ),
         ),
         Gap(8.h),
         Expanded(
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(15),
+              color: customColors.inverseSurface,
+              borderRadius: BorderRadius.circular(15.r),
             ),
             child: ListView.separated(
               physics: const NeverScrollableScrollPhysics(),
               separatorBuilder: (context, index) {
                 return Divider(
                   height: 1,
-                  color: ColorsManager.whiteBlue,
+                  color: ColorsManager.blueGrey,
                   indent: 16.w,
                   endIndent: 16.w,
                 );
@@ -47,16 +54,22 @@ class OptionsListWidget extends StatelessWidget {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    debugPrint("Option ${options[index].title} tapped");
                     if (options[index].onTap != null) {
                       options[index].onTap!(context);
                     }
                   },
                   child: ListTile(
-                    leading: SvgPicture.asset(options[index].leadingIconPath!),
+                    leading: SvgPicture.asset(
+                      themeIsDark
+                          ? options[index].leadingDarkIconPath!
+                          : options[index].leadingIconPath!,
+                    ),
                     title: Text(
                       options[index].title!,
-                      style: TextStyles.font12DarkBlueMedium,
+                      style: customTextStyles.headlineSmall?.copyWith(
+                        color: customColors.primary,
+                        fontWeight: FontWeightHelper.medium,
+                      ),
                     ),
                     trailing: Icon(
                       Icons.arrow_forward_ios,

@@ -4,7 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../core/config/text/text_styles.dart';
+import '../../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../../core/config/theme/texts/font_weight_helper.dart';
+import '../../../../../core/helpers/extensions/theme_ext.dart';
+import '../../../../../main.dart';
 import '../../../models/option_model.dart';
 import '../../logic/profile_cubit.dart';
 
@@ -13,6 +16,9 @@ class OptionsGridWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customColors = context.colors;
+    final customTextStyles = context.textStyles;
+
     final List<OptionModel> options =
         context.read<ProfileCubit>().primaryOptions;
 
@@ -35,13 +41,15 @@ class OptionsGridWidget extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: customColors.inverseSurface,
               borderRadius: BorderRadius.circular(15.r),
             ),
             child: Row(
               children: [
                 SvgPicture.asset(
-                  options[index].leadingIconPath!,
+                  themeIsDark
+                      ? options[index].leadingDarkIconPath!
+                      : options[index].leadingIconPath!,
                   width: 24.w,
                   height: 24.h,
                 ),
@@ -51,14 +59,20 @@ class OptionsGridWidget extends StatelessWidget {
                   children: [
                     Text(
                       options[index].title!,
-                      style: TextStyles.font12DarkBlueSemiBold,
+                      style: customTextStyles.headlineSmall?.copyWith(
+                        color: customColors.primary,
+                        fontWeight: FontWeightHelper.semiBold,
+                      ),
                     ),
                     Text(
                       options[index].subtitle!,
-                      style: TextStyles.font10BlueGreyRegular,
+                      style: customTextStyles.labelLarge?.copyWith(
+                        color: ColorsManager.blueGrey,
+                        fontWeight: FontWeightHelper.regular,
+                      ),
                     ),
                   ],
-                )
+                ),
               ],
             ),
           ),

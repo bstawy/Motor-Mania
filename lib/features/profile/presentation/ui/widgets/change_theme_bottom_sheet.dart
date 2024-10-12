@@ -4,19 +4,23 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../../core/config/app_manager/app_manager_cubit.dart';
-import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../../core/widgets/custom_material_button.dart';
-import '../../../../layout/logic/layout_cubit.dart';
+import '../../../../../main.dart';
 
 class ChangeThemeBottomSheet extends StatelessWidget {
   const ChangeThemeBottomSheet({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final customColors = context.colors;
+    final customTextStyles = context.textStyles;
+
     return DraggableScrollableSheet(
-      initialChildSize: 0.3.h,
+      initialChildSize: 0.32.h,
       expand: false,
       builder: (context, scrollController) {
         return Column(
@@ -25,7 +29,7 @@ class ChangeThemeBottomSheet extends StatelessWidget {
               height: 5.h,
               margin: EdgeInsets.symmetric(horizontal: 0.4.sw),
               decoration: BoxDecoration(
-                color: ColorsManager.blueGrey,
+                color: customColors.onTertiary,
                 borderRadius: BorderRadius.circular(50.r),
               ),
             ),
@@ -33,28 +37,35 @@ class ChangeThemeBottomSheet extends StatelessWidget {
             Text(
               "Choose color theme",
               textAlign: TextAlign.center,
-              style: TextStyles.font16DarkBlueBold,
+              style: customTextStyles.headlineLarge,
             ),
             Gap(32.h),
             CustomMaterialButton(
               onClicked: () {
                 context.read<AppManagerCubit>().changeTheme(ThemeMode.light);
-                context.read<LayoutCubit>().changeTab(0);
+                Navigator.pop(context);
               },
               title: "Light Mode",
-              titleStyle: TextStyles.font14WhiteSemiBold,
-              backgroundColor: ColorsManager.darkBlue,
+              titleStyle: customTextStyles.headlineMedium?.copyWith(
+                color: themeIsDark ? ColorsManager.red : Colors.white,
+                fontWeight: FontWeightHelper.semiBold,
+              ),
+              backgroundColor: customColors.onPrimary,
+              borderColor: themeIsDark ? ColorsManager.red : Colors.transparent,
             ),
-            Gap(8.h),
+            Gap(16.h),
             CustomMaterialButton(
               onClicked: () {
                 context.read<AppManagerCubit>().changeTheme(ThemeMode.dark);
-                context.read<LayoutCubit>().changeTab(0);
+                Navigator.pop(context);
               },
               title: "Dark Mode",
-              titleStyle: TextStyles.font14RedSemiBold,
-              backgroundColor: Colors.white,
-              borderColor: ColorsManager.red,
+              titleStyle: customTextStyles.headlineMedium?.copyWith(
+                color: themeIsDark ? Colors.white : ColorsManager.red,
+                fontWeight: FontWeightHelper.semiBold,
+              ),
+              backgroundColor: customColors.inversePrimary,
+              borderColor: themeIsDark ? Colors.transparent : ColorsManager.red,
             ),
           ],
         ).setOnlyPadding(16.h, 0, 16.w, 16.w);

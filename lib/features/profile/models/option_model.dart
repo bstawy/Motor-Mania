@@ -5,6 +5,7 @@ class OptionModel {
   final String? title;
   final String? subtitle;
   final String? leadingIconPath;
+  final String? leadingDarkIconPath;
   final Function(BuildContext)? onTap;
 
   OptionModel({
@@ -12,6 +13,7 @@ class OptionModel {
     this.title,
     this.subtitle,
     this.leadingIconPath,
+    this.leadingDarkIconPath,
     this.onTap,
   });
 }

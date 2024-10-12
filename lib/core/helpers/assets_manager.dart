@@ -30,4 +30,44 @@ class AssetsManager {
       "$_iconsPath/free_delivery_filled_icon.svg";
   static String get verifiedSellerIcon => "$_iconsPath/verify_icon.svg";
   static String get couponIcon => "$_iconsPath/coupon_icon.svg";
+  static String get profileIcon => "$_iconsPath/profile_icon.svg";
+  static String get profileDarkIcon => "$_iconsPath/profile_dark_icon.svg";
+  static String get profileOrdersIcon => "$_iconsPath/profile_orders_icon.svg";
+  static String get profileOrdersDarkIcon =>
+      "$_iconsPath/profile_orders_dark_icon.svg";
+  static String get profileLowReturnRateIcon =>
+      "$_iconsPath/low_return_rate_icon.svg";
+  static String get profileLowReturnRateDarkIcon =>
+      "$_iconsPath/low_return_rate_dark_icon.svg";
+  static String get profileWalletIcon => "$_iconsPath/wallet_icon.svg";
+  static String get profileWalletDarkIcon => "$_iconsPath/wallet_dark_icon.svg";
+  static String get profileAddressesIcon => "$_iconsPath/addresses_icon.svg";
+  static String get profileAddressesDarkIcon =>
+      "$_iconsPath/addresses_dark_icon.svg";
+  static String get profileSellerIcon => "$_iconsPath/profile_seller_icon.svg";
+  static String get profileSellerDarkIcon =>
+      "$_iconsPath/profile_seller_dark_icon.svg";
+  static String get profileCardIcon => "$_iconsPath/card_icon.svg";
+  static String get profileCardDarkIcon => "$_iconsPath/card_dark_icon.svg";
+  static String get profileWarrantyIcon =>
+      "$_iconsPath/profile_warranty_icon.svg";
+  static String get profileWarrantyDarkIcon =>
+      "$_iconsPath/profile_warranty_dark_icon.svg";
+  static String get profileQrCodeIcon => "$_iconsPath/profile_qr_code_icon.svg";
+  static String get profileQrCodeDarkIcon =>
+      "$_iconsPath/profile_qr_code_dark_icon.svg";
+  static String get profileDarkModeIcon =>
+      "$_iconsPath/profile_dark_mode_icon.svg";
+  static String get profileDarkModeDarkIcon =>
+      "$_iconsPath/profile_dark_mode_dark_icon.svg";
+  static String profileSecurityIcon = "$_iconsPath/profile_security_icon.svg";
+  static String get profileSecurityDarkIcon =>
+      "$_iconsPath/profile_security_dark_icon.svg";
+  static String get profileNotificationsIcon =>
+      "$_iconsPath/profile_notification_icon.svg";
+  static String get profileNotificationsDarkIcon =>
+      "$_iconsPath/profile_notification_dark_icon.svg";
+  static String get profileLogoutIcon => "$_iconsPath/profile_logout_icon.svg";
+  static String get profileLogoutDarkIcon =>
+      "$_iconsPath/profile_logout_dark_icon.svg";
 }

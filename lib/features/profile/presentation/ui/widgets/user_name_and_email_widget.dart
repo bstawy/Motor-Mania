@@ -6,12 +6,15 @@ import 'package:gap/gap.dart';
 
 import '../../../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../../../core/config/routing/routes.dart';
-import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../../core/config/theme/texts/font_weight_helper.dart';
+import '../../../../../core/helpers/assets_manager.dart';
 import '../../../../../core/helpers/enums/app_modes_enums.dart';
 import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../../core/helpers/save_navigation_data.dart';
 import '../../../../../core/widgets/custom_elevated_button.dart';
+import '../../../../../main.dart';
 
 class UserNameAndEmailWidget extends StatelessWidget {
   final String name;
@@ -25,11 +28,14 @@ class UserNameAndEmailWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customColors = context.colors;
+    final customTextStyles = context.textStyles;
+
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: customColors.inverseSurface,
         borderRadius: BorderRadius.circular(15.r),
       ),
       child: context.read<AppManagerCubit>().appMode == AppMode.guest
@@ -38,7 +44,9 @@ class UserNameAndEmailWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SvgPicture.asset(
-                  "assets/icons/profile_icon.svg",
+                  themeIsDark
+                      ? AssetsManager.profileDarkIcon
+                      : AssetsManager.profileIcon,
                   width: 24.r,
                   height: 24.r,
                 ),
@@ -48,11 +56,16 @@ class UserNameAndEmailWidget extends StatelessWidget {
                     textAlign: TextAlign.start,
                     text: TextSpan(
                       text: "Login First, ",
-                      style: TextStyles.font14DarkBlueBold,
+                      style: customTextStyles.headlineMedium?.copyWith(
+                        fontWeight: FontWeightHelper.semiBold,
+                        color: ColorsManager.red,
+                      ),
                       children: [
                         TextSpan(
                           text: "To see Your Profile",
-                          style: TextStyles.font10DarkBlueMedium,
+                          style: customTextStyles.headlineSmall?.copyWith(
+                            fontWeight: FontWeightHelper.semiBold,
+                          ),
                         ),
                       ],
                     ),
@@ -67,12 +80,12 @@ class UserNameAndEmailWidget extends StatelessWidget {
                       context.pushNamed(Routes.loginScreen);
                     },
                     title: "Login",
-                    titleStyle: TextStyles.font10RedBold.copyWith(
+                    titleStyle: customTextStyles.labelLarge?.copyWith(
                       color: Colors.white,
+                      fontWeight: FontWeightHelper.semiBold,
                     ),
                     backgroundColor: ColorsManager.red,
                     borderColor: ColorsManager.red,
-                    //iconPath: "assets/icons/edit_icon.svg",
                   ),
                 ),
               ],
@@ -81,7 +94,9 @@ class UserNameAndEmailWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SvgPicture.asset(
-                  "assets/icons/profile_icon.svg",
+                  themeIsDark
+                      ? AssetsManager.profileDarkIcon
+                      : AssetsManager.profileIcon,
                   width: 24.r,
                   height: 24.r,
                 ),
@@ -91,15 +106,23 @@ class UserNameAndEmailWidget extends StatelessWidget {
                     textAlign: TextAlign.start,
                     text: TextSpan(
                       text: "Welcome, ",
-                      style: TextStyles.font14RedSemiBold,
+                      style: customTextStyles.headlineMedium?.copyWith(
+                        fontWeight: FontWeightHelper.semiBold,
+                        color: ColorsManager.red,
+                      ),
                       children: [
                         TextSpan(
                           text: name,
-                          style: TextStyles.font14DarkBlueSemiBold(),
+                          style: customTextStyles.headlineMedium?.copyWith(
+                            fontWeight: FontWeightHelper.semiBold,
+                          ),
                         ),
                         TextSpan(
                           text: "\n$email",
-                          style: TextStyles.font10BlueGreyMedium,
+                          style: customTextStyles.labelLarge?.copyWith(
+                            color: ColorsManager.blueGrey,
+                            fontWeight: FontWeightHelper.medium,
+                          ),
                         ),
                       ],
                     ),
@@ -107,13 +130,13 @@ class UserNameAndEmailWidget extends StatelessWidget {
                 ),
                 SizedBox(
                   height: 23.h,
-                  width: 50.w,
+                  width: 52.w,
                   child: CustomElevatedButton(
                     onPressed: () {
                       // TODO: go to edit profile screen
                     },
                     title: "Edit",
-                    iconPath: "assets/icons/edit_icon.svg",
+                    iconPath: AssetsManager.editIcon,
                   ),
                 ),
               ],
