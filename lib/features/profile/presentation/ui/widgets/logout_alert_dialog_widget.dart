@@ -32,20 +32,16 @@ class LogoutAlertDialogWidget extends StatelessWidget {
         ),
       ),
       actions: <Widget>[
-        ElevatedButton(
+        TextButton(
           onPressed: () => Navigator.of(context).pop(false),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: ColorsManager.red,
-          ),
           child: Text(
-            'No',
+            'Cancel',
             style: customTextStyles.headlineSmall?.copyWith(
-              color: Colors.white,
               fontWeight: FontWeightHelper.semiBold,
             ),
           ),
         ),
-        TextButton(
+        ElevatedButton(
           onPressed: () async {
             await context.read<AppManagerCubit>().logUserOut();
             if (context.mounted) {
@@ -58,9 +54,13 @@ class LogoutAlertDialogWidget extends StatelessWidget {
               );
             }
           },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: ColorsManager.red,
+          ),
           child: Text(
-            'Yes',
+            'Logout',
             style: customTextStyles.headlineSmall?.copyWith(
+              color: Colors.white,
               fontWeight: FontWeightHelper.semiBold,
             ),
           ),

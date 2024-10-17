@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../config/text/text_styles.dart';
 import '../config/theme/colors/colors_manager.dart';
+import '../config/theme/texts/font_weight_helper.dart';
+import '../helpers/extensions/theme_ext.dart';
 
 class CustomMaterialButton extends StatelessWidget {
   final String? title;
@@ -37,6 +38,8 @@ class CustomMaterialButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customTextStyles = context.textStyles;
+
     return MaterialButton(
       onPressed: loading ? null : onClicked,
       height: height ?? 45.h,
@@ -71,13 +74,21 @@ class CustomMaterialButton extends StatelessWidget {
                         Gap(8.w),
                         Text(
                           title ?? "Continue",
-                          style: titleStyle ?? TextStyles.font14WhiteSemiBold,
+                          style: titleStyle ??
+                              customTextStyles.headlineMedium?.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeightHelper.semiBold,
+                              ),
                         ),
                       ],
                     )
                   : Text(
                       title ?? "Continue",
-                      style: titleStyle ?? TextStyles.font14WhiteSemiBold,
+                      style: titleStyle ??
+                          customTextStyles.headlineMedium?.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeightHelper.semiBold,
+                          ),
                     )),
     );
   }

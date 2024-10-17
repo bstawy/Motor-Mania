@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../core/config/text/text_styles.dart';
+import '../../../../../core/config/theme/texts/font_weight_helper.dart';
+import '../../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../../core/helpers/validators.dart';
 import '../../../widgets/form_text_field.dart';
 import '../../../widgets/password_validations.dart';
@@ -87,6 +88,8 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
+    final customTextStyles = context.textStyles;
+
     return Form(
       key: _formKey,
       child: Column(
@@ -107,19 +110,22 @@ class _LoginFormState extends State<LoginForm> {
             validator: (value) => Validators.validatePassword(value),
             action: TextInputAction.done,
           ),
-          Gap(16.h),
           Visibility(
             visible: _passwordController.text.isNotEmpty,
-            child: PasswordValidations(
-              isPasswordEmpty: _passwordController.text.isEmpty,
-              hasLowerCase: hasLowerCase,
-              hasUpperCase: hasUpperCase,
-              hasSpecialCharacters: hasSpecialCharacter,
-              hasNumber: hasNumber,
-              hasMinLength: hasMinLength,
+            child: Column(
+              children: [
+                Gap(16.h),
+                PasswordValidations(
+                  isPasswordEmpty: _passwordController.text.isEmpty,
+                  hasLowerCase: hasLowerCase,
+                  hasUpperCase: hasUpperCase,
+                  hasSpecialCharacters: hasSpecialCharacter,
+                  hasNumber: hasNumber,
+                  hasMinLength: hasMinLength,
+                ),
+              ],
             ),
           ),
-          Gap(4.h),
           Align(
             alignment: Alignment.centerRight,
             child: TextButton(
@@ -128,7 +134,9 @@ class _LoginFormState extends State<LoginForm> {
               },
               child: Text(
                 "Forget Password?",
-                style: TextStyles.font12DarkBlueRegular,
+                style: customTextStyles.labelLarge?.copyWith(
+                  fontWeight: FontWeightHelper.regular,
+                ),
               ),
             ),
           ),

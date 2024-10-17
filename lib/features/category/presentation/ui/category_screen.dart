@@ -24,7 +24,6 @@ class CategoryScreen extends StatelessWidget {
         children: [
           Gap(12.h),
           const SearchBarWidget(
-            backgroundColor: Colors.white,
             borderColor: ColorsManager.blueGrey,
           ),
           Gap(8.h),

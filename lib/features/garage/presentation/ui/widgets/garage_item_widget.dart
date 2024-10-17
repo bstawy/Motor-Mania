@@ -99,12 +99,15 @@ class GarageItemWidget extends StatelessWidget {
                                   customTextStyles.labelMedium?.copyWith(
                                 fontWeight: FontWeightHelper.medium,
                                 color: isSelected
-                                    ? ColorsManager.whiteBlue
+                                    ? Colors.white
                                     : ColorsManager.blueGrey,
                               ),
                               iconPath: AssetsManager.editIcon,
                               iconColor: isSelected
-                                  ? ColorsManager.whiteBlue
+                                  ? Colors.white
+                                  : ColorsManager.blueGrey,
+                              borderColor: isSelected
+                                  ? Colors.white
                                   : ColorsManager.blueGrey,
                               horizontalPadding: 12.w,
                             ),

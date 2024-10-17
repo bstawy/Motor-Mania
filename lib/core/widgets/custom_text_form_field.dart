@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../config/text/text_styles.dart';
+import '../config/app_manager/app_manager_cubit.dart';
 import '../config/theme/colors/colors_manager.dart';
+import '../config/theme/texts/font_weight_helper.dart';
+import '../helpers/extensions/theme_ext.dart';
 
 class CustomTextFormField extends StatefulWidget {
   final TextEditingController? controller;
@@ -132,6 +135,9 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
 
   @override
   Widget build(BuildContext context) {
+    final customTextStyles = context.textStyles;
+    final customColors = context.colors;
+
     return TextFormField(
       controller: widget.controller,
       initialValue: widget.initialTextValue,
@@ -160,7 +166,10 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                   (widget.scrollPaddingValue!)),
       focusNode: widget.focusNode,
       enabled: widget.enabled,
-      style: widget.inputTextStyle ?? TextStyles.font14DarkBlueRegular,
+      style: widget.inputTextStyle ??
+          customTextStyles.headlineMedium?.copyWith(
+            fontWeight: FontWeightHelper.regular,
+          ),
       decoration: InputDecoration(
         isDense: true, // Used to have full control on padding
         contentPadding: widget.contentPadding ??
@@ -169,10 +178,18 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
               vertical: 12.h,
             ),
         hintText: widget.hint,
-        hintStyle: widget.hintStyle ?? TextStyles.font14BlueGreyRegular,
+        hintStyle: widget.hintStyle ??
+            customTextStyles.headlineSmall?.copyWith(
+              color: ColorsManager.blueGrey,
+              fontWeight: FontWeightHelper.light,
+            ),
         fillColor: (widget.enabled != null && widget.enabled == false)
             ? widget.disabledBackgroundColor ?? ColorsManager.grey
-            : widget.backgroundColor ?? Colors.white,
+            : widget.backgroundColor ??
+                ((context.read<AppManagerCubit>().currentThemeMode ==
+                        ThemeMode.dark)
+                    ? Colors.transparent
+                    : Colors.white),
         filled: widget.isFilled ?? true,
         prefixIcon: widget.prefixIcon,
         prefixIconColor: ColorsManager.whiteGrey,
@@ -193,7 +210,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             OutlineInputBorder(
               borderRadius: BorderRadius.circular(widget.borderRadius ?? 15.r),
               borderSide: BorderSide(
-                color: widget.borderColor ?? ColorsManager.whiteGrey,
+                color: widget.borderColor ?? customColors.inverseSurface,
                 width: widget.borderWidth ?? 1.3,
               ),
             ),
@@ -202,7 +219,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
               borderRadius:
                   BorderRadius.circular(widget.enabledBorderRadius ?? 15.r),
               borderSide: BorderSide(
-                color: widget.enabledBorderColor ?? ColorsManager.whiteGrey,
+                color: widget.enabledBorderColor ?? customColors.inverseSurface,
                 width: widget.enabledBorderWidth ?? 1.3,
               ),
             ),
@@ -212,7 +229,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                   BorderRadius.circular(widget.focusedBorderRadius ?? 15.r),
               borderSide: BorderSide(
                 color: widget.focusedBorderColor ??
-                    ColorsManager.grey.withOpacity(0.5),
+                    customColors.primary.withOpacity(0.5),
                 width: widget.focusedBorderWidth ?? 1.3,
               ),
             ),

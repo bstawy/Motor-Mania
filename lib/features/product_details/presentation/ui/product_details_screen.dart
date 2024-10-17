@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import '../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/helpers/extensions/extensions.dart';
+import '../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../core/widgets/search_bar_widget.dart';
 import '../../../home/presentation/logic/home_cubit/home_cubit.dart';
 import '../../../home/presentation/ui/widgets/home_list_widget.dart';
@@ -25,6 +26,9 @@ class ProductDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customColors = context.colors;
+    final customTextStyles = context.textStyles;
+
     return Column(
       children: [
         Expanded(
@@ -59,13 +63,13 @@ class ProductDetailsScreen extends StatelessWidget {
                               height: 5.h,
                               margin: EdgeInsets.symmetric(horizontal: 0.4.sw),
                               decoration: BoxDecoration(
-                                color: ColorsManager.grey,
+                                color: customColors.onTertiary,
                                 borderRadius: BorderRadius.circular(50.r),
                               ),
                             ),
                             Gap(16.h),
                             const SearchBarWidget(
-                              backgroundColor: Colors.white,
+                              borderColor: ColorsManager.blueGrey,
                             ),
                             Gap(16.h),
                             ProductNameAndFavoriteButtonWidget(

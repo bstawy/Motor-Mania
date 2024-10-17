@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../../core/di/dependency_injection.dart';
+import '../../../../../core/helpers/assets_manager.dart';
 import '../../../../../core/widgets/empty_screen_widget.dart';
 import '../../../../home/presentation/logic/home_cubit/home_cubit.dart';
 import '../../../../home/presentation/ui/widgets/home_list_widget.dart';
@@ -16,8 +17,9 @@ class CartEmptyWidget extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          const EmptyScreenWidget(
-            imagePath: "assets/images/cart_empty_image.png",
+          EmptyScreenWidget(
+            imagePath: AssetsManager.cartEmptyImage,
+            darkImagePath: AssetsManager.cartEmptyDarkImage,
             firstTextSpan: "Your Shopping Cart Looks ",
             secondTextSpan: "Empty!",
             description:

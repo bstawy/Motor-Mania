@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../core/config/text/text_styles.dart';
+import '../../../core/config/theme/texts/font_weight_helper.dart';
+import '../../../core/helpers/extensions/theme_ext.dart';
 import '../../../core/widgets/custom_text_form_field.dart';
 
 class FormTextField extends StatelessWidget {
@@ -27,12 +28,16 @@ class FormTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customTextStyles = context.textStyles;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           title,
-          style: TextStyles.font14DarkBlueMedium,
+          style: customTextStyles.headlineSmall?.copyWith(
+            fontWeight: FontWeightHelper.medium,
+          ),
         ),
         Gap(8.h),
         CustomTextFormField(

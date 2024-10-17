@@ -4,8 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:popover/popover.dart';
 
-import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../../core/config/theme/texts/font_weight_helper.dart';
+import '../../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../../core/widgets/custom_material_button.dart';
 import '../../../../../core/widgets/quantity_pop_up_widget.dart';
 import '../../../../cart/presentation/logic/cart_cubit.dart';
@@ -21,6 +22,9 @@ class ProductQuantityAndAddToCartButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customColors = context.colors;
+    final customTextStyles = context.textStyles;
+
     return Container(
       padding: EdgeInsets.only(
         top: 16.h,
@@ -58,7 +62,7 @@ class ProductQuantityAndAddToCartButtonWidget extends StatelessWidget {
               height: 40.r,
               padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 9.w),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: customColors.surface,
                 borderRadius: BorderRadius.circular(12.r),
               ),
               alignment: Alignment.center,
@@ -66,7 +70,10 @@ class ProductQuantityAndAddToCartButtonWidget extends StatelessWidget {
                 children: [
                   Text(
                     "QTY",
-                    style: TextStyles.font8BlueGreyMedium,
+                    style: customTextStyles.labelMedium?.copyWith(
+                      color: ColorsManager.blueGrey,
+                      fontWeight: FontWeightHelper.medium,
+                    ),
                   ),
                   BlocBuilder<ProductCubit, ProductState>(
                     bloc: context.read<ProductCubit>(),
@@ -76,12 +83,16 @@ class ProductQuantityAndAddToCartButtonWidget extends StatelessWidget {
                       if (state is ProductQuantityUpdated) {
                         return Text(
                           state.quantity.toString(),
-                          style: TextStyles.font14DarkBlueSemiBold(),
+                          style: customTextStyles.headlineMedium?.copyWith(
+                            fontWeight: FontWeightHelper.semiBold,
+                          ),
                         );
                       } else {
                         return Text(
                           "1",
-                          style: TextStyles.font14DarkBlueSemiBold(),
+                          style: customTextStyles.headlineMedium?.copyWith(
+                            fontWeight: FontWeightHelper.semiBold,
+                          ),
                         );
                       }
                     },

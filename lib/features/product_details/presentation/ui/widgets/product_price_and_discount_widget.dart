@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../core/config/text/text_styles.dart';
+import '../../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../../../core/helpers/extensions/theme_ext.dart';
 
 class ProductPriceAndDiscountWidget extends StatelessWidget {
@@ -42,7 +43,9 @@ class ProductPriceAndDiscountWidget extends StatelessWidget {
           "\$${oldPrice.toStringAsFixed(2)}",
           style:
               oldPriceStyle?.copyWith(decoration: TextDecoration.lineThrough) ??
-                  TextStyles.font14BlueGreyRegular.copyWith(
+                  customTextStyles.headlineMedium?.copyWith(
+                    color: ColorsManager.blueGrey,
+                    fontWeight: FontWeightHelper.regular,
                     decoration: TextDecoration.lineThrough,
                   ),
         ),
@@ -54,8 +57,11 @@ class ProductPriceAndDiscountWidget extends StatelessWidget {
                   Text(
                     "$discountPercentage% OFF",
                     overflow: TextOverflow.ellipsis,
-                    style:
-                        discountPercentageStyle ?? TextStyles.font14RedSemiBold,
+                    style: discountPercentageStyle ??
+                        customTextStyles.headlineMedium?.copyWith(
+                          color: ColorsManager.red,
+                          fontWeight: FontWeightHelper.semiBold,
+                        ),
                   ),
                 ],
               ),

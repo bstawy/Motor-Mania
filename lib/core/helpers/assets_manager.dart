@@ -14,6 +14,12 @@ class AssetsManager {
       "$_imagesPath/garage_empty_dark_image.png";
   static String get successImage => "$_imagesPath/success_image.png";
   static String get successDarkImage => "$_imagesPath/success_dark_image.png";
+  static String get searchEmptyImage => "$_imagesPath/search_empty_image.png";
+  static String get searchEmptyDarkImage =>
+      "$_imagesPath/search_empty_dark_image.png";
+  static String get cartEmptyImage => "$_imagesPath/cart_empty_image.png";
+  static String get cartEmptyDarkImage =>
+      "$_imagesPath/cart_empty_dark_image.png";
 
   static String get checkmarkIcon => "$_iconsPath/checkmark_icon.svg";
   static String get tripleBackIcons => "$_iconsPath/triple_back_icons.svg";
@@ -70,4 +76,28 @@ class AssetsManager {
   static String get profileLogoutIcon => "$_iconsPath/profile_logout_icon.svg";
   static String get profileLogoutDarkIcon =>
       "$_iconsPath/profile_logout_dark_icon.svg";
+  static String get starIcon => "$_iconsPath/star_icon.svg";
+  static String get lowStockIcon => "$_iconsPath/low_stock_icon.svg";
+  static String get lowStockDarkIcon => "$_iconsPath/low_stock_dark_icon.svg";
+  static String get freeDeliveryIcon => "$_iconsPath/free_delivery_icon.svg";
+  static String get freeDeliveryDarkIcon =>
+      "$_iconsPath/free_delivery_dark_icon.svg";
+  static String get highRatedIcon => "$_iconsPath/high_rated_icon.svg";
+  static String get highRatedDarkIcon => "$_iconsPath/high_rated_dark_icon.svg";
+  static String get lowReturnIcon => "$_iconsPath/low_return_icon.svg";
+  static String get lowReturnDarkIcon => "$_iconsPath/low_return_dark_icon.svg";
+  static String get cashOnDeliveryIcon =>
+      "$_iconsPath/cash_on_delivery_icon.svg";
+  static String get cashOnDeliveryDarkIcon =>
+      "$_iconsPath/cash_on_delivery_dark_icon.svg";
+  static String get storeIcon => "$_iconsPath/store_icon.svg";
+  static String get storeDarkIcon => "$_iconsPath/store_dark_icon.svg";
+  static String get boxIcon => "$_iconsPath/box_icon.svg";
+  static String get boxDarkIcon => "$_iconsPath/box_dark_icon.svg";
+  static String get partnerIcon => "$_iconsPath/partner_icon.svg";
+  static String get partnerDarkIcon => "$_iconsPath/partner_dark_icon.svg";
+  static String get likeButton => "$_iconsPath/like_icon.svg";
+  static String get likeButtonDark => "$_iconsPath/like_dark_icon.svg";
+  static String get googleIcon => "$_iconsPath/login_google_icon.svg";
+  static String get appleIcon => "$_iconsPath/login_apple_icon.svg";
 }
