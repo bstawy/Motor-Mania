@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../core/config/text/text_styles.dart';
+import '../../../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../../core/config/theme/texts/font_weight_helper.dart';
+import '../../../../../core/helpers/assets_manager.dart';
+import '../../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../../core/widgets/custom_elevated_button.dart';
 import 'address_item_info_widget.dart';
 
@@ -18,13 +22,16 @@ class AddressItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customColors = context.colors;
+    final customTextStyles = context.textStyles;
+
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: 16.w,
         vertical: 16.h,
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: customColors.inverseSurface,
         borderRadius: BorderRadius.circular(15.r),
       ),
       child: Column(
@@ -32,7 +39,10 @@ class AddressItemWidget extends StatelessWidget {
           Row(
             children: [
               SvgPicture.asset(
-                "assets/icons/addresse_icon.svg",
+                context.read<AppManagerCubit>().currentThemeMode ==
+                        ThemeMode.dark
+                    ? AssetsManager.addresseDarkIcon
+                    : AssetsManager.addresseIcon,
                 width: 16.w,
                 height: 20.h,
               ),
@@ -47,12 +57,15 @@ class AddressItemWidget extends StatelessWidget {
                     vertical: 4.h,
                   ),
                   decoration: BoxDecoration(
-                    color: ColorsManager.red,
+                    color: ColorsManager.red.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(8.r),
                   ),
                   child: Text(
                     "Default",
-                    style: TextStyles.font8DarkBlueRegular,
+                    style: customTextStyles.labelMedium?.copyWith(
+                      fontWeight: FontWeightHelper.regular,
+                      color: ColorsManager.red,
+                    ),
                   ),
                 ),
               ),
@@ -64,7 +77,7 @@ class AddressItemWidget extends StatelessWidget {
                     // TODO: Implement edit address
                   },
                   title: "Edit",
-                  iconPath: "assets/icons/edit_icon.svg",
+                  iconPath: AssetsManager.editIcon,
                 ),
               ),
             ],
@@ -72,7 +85,7 @@ class AddressItemWidget extends StatelessWidget {
           Gap(8.h),
           Divider(
             height: 1.h,
-            color: ColorsManager.whiteBlue,
+            color: ColorsManager.blueGrey,
           ),
           Gap(16.h),
           const AddressItemInfoWidget(

@@ -34,6 +34,7 @@ class AssetsManager {
   static String get favoriteLightIcon => "$_iconsPath/favorite_light_icon.svg";
   static String get freeDeliveryFilledIcon =>
       "$_iconsPath/free_delivery_filled_icon.svg";
+  static String get deliveredIcon => "$_iconsPath/delivered_icon.svg";
   static String get verifiedSellerIcon => "$_iconsPath/verify_icon.svg";
   static String get couponIcon => "$_iconsPath/coupon_icon.svg";
   static String get profileIcon => "$_iconsPath/profile_icon.svg";
@@ -100,4 +101,6 @@ class AssetsManager {
   static String get likeButtonDark => "$_iconsPath/like_dark_icon.svg";
   static String get googleIcon => "$_iconsPath/login_google_icon.svg";
   static String get appleIcon => "$_iconsPath/login_apple_icon.svg";
+  static String get addresseIcon => "$_iconsPath/addresse_icon.svg";
+  static String get addresseDarkIcon => "$_iconsPath/addresse_dark_icon.svg";
 }

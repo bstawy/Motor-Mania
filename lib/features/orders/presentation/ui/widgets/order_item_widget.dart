@@ -3,11 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../../core/config/routing/routes.dart';
-import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../../core/config/theme/texts/font_weight_helper.dart';
+import '../../../../../core/helpers/assets_manager.dart';
 import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../../core/widgets/custom_elevated_button.dart';
+import '../../../../../core/widgets/custom_network_image_widget.dart';
 import '../../../../../core/widgets/product_name_and_type_widget.dart';
 import '../../../../../core/widgets/product_property_widget.dart';
 
@@ -18,6 +20,9 @@ class OrderItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customColors = context.colors;
+    final customTextStyles = context.textStyles;
+
     return Container(
       width: 1.sw,
       padding: EdgeInsets.symmetric(
@@ -25,7 +30,7 @@ class OrderItemWidget extends StatelessWidget {
         vertical: 16.h,
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: customColors.inverseSurface,
         borderRadius: BorderRadius.circular(15.r),
       ),
       child: Column(
@@ -35,11 +40,17 @@ class OrderItemWidget extends StatelessWidget {
             textAlign: TextAlign.start,
             text: TextSpan(
               text: "Order ID ",
-              style: TextStyles.font10BlueGreyRegular,
+              style: customTextStyles.labelLarge?.copyWith(
+                color: ColorsManager.blueGrey,
+                fontWeight: FontWeightHelper.regular,
+              ),
               children: [
                 TextSpan(
                   text: "JYUT98528TGRKEH8",
-                  style: TextStyles.font10BlueGreyMedium,
+                  style: customTextStyles.labelLarge?.copyWith(
+                    color: ColorsManager.blueGrey,
+                    fontWeight: FontWeightHelper.medium,
+                  ),
                 ),
               ],
             ),
@@ -50,8 +61,10 @@ class OrderItemWidget extends StatelessWidget {
               SizedBox(
                 width: 80.w,
                 height: 72.h,
-                child: Image.network(
-                    "http://10.0.2.2/motor_mania/uploads/products/brembo_5520.png"),
+                child: const CustomNetworkImage(
+                  url:
+                      "http://10.0.2.2/motor_mania/uploads/products/brembo_5520.png",
+                ),
               ),
               Gap(16.w),
               Column(
@@ -64,14 +77,18 @@ class OrderItemWidget extends StatelessWidget {
                   Gap(12.h),
                   ProductPropertyWidget(
                     title: isCompleted ? "Deliverd" : "Shipped",
-                    titleStyle: TextStyles.font10RedBold,
+                    titleStyle: customTextStyles.labelLarge?.copyWith(
+                      color: ColorsManager.red,
+                    ),
                     iconPath: isCompleted
-                        ? "assets/icons/delivered_icon.svg"
-                        : "assets/icons/free_delivery_filled_icon.svg",
+                        ? AssetsManager.deliveredIcon
+                        : AssetsManager.freeDeliveryFilledIcon,
                   ),
                   Text(
                     "Arriving in 2 days",
-                    style: TextStyles.font10DarkBlueMedium,
+                    style: customTextStyles.labelLarge?.copyWith(
+                      fontWeight: FontWeightHelper.medium,
+                    ),
                   ),
                 ],
               ),
@@ -87,7 +104,7 @@ class OrderItemWidget extends StatelessWidget {
                         child: CustomElevatedButton(
                           onPressed: () {},
                           title: "Seller",
-                          titleStyle: TextStyles.font8DarkBlueMedium.copyWith(
+                          titleStyle: customTextStyles.labelMedium?.copyWith(
                             fontWeight: FontWeightHelper.semiBold,
                           ),
                         ),
@@ -97,7 +114,7 @@ class OrderItemWidget extends StatelessWidget {
                         child: CustomElevatedButton(
                           onPressed: () {},
                           title: "Product",
-                          titleStyle: TextStyles.font8DarkBlueMedium.copyWith(
+                          titleStyle: customTextStyles.labelMedium?.copyWith(
                             fontWeight: FontWeightHelper.semiBold,
                           ),
                         ),
@@ -107,7 +124,7 @@ class OrderItemWidget extends StatelessWidget {
                         child: CustomElevatedButton(
                           onPressed: () {},
                           title: "Delivery",
-                          titleStyle: TextStyles.font8DarkBlueMedium.copyWith(
+                          titleStyle: customTextStyles.labelMedium?.copyWith(
                             fontWeight: FontWeightHelper.semiBold,
                           ),
                         ),
@@ -120,12 +137,13 @@ class OrderItemWidget extends StatelessWidget {
                         child: CustomElevatedButton(
                           onPressed: () {},
                           title: "Cancel Order",
-                          titleStyle: TextStyles.font8DarkBlueMedium.copyWith(
+                          titleStyle: customTextStyles.labelMedium?.copyWith(
                             fontWeight: FontWeightHelper.semiBold,
                             color: ColorsManager.red,
                           ),
                           backgroundColor: ColorsManager.red.withOpacity(0.2),
-                          borderWidth: 0,
+                          borderColor: ColorsManager.red.withOpacity(0.2),
+                          borderWidth: 0.0.w,
                         ),
                       ),
                       Gap(8.w),
@@ -135,7 +153,7 @@ class OrderItemWidget extends StatelessWidget {
                             context.pushNamed(Routes.trackOrder);
                           },
                           title: "Track Your Order",
-                          titleStyle: TextStyles.font8DarkBlueMedium.copyWith(
+                          titleStyle: customTextStyles.labelMedium?.copyWith(
                             fontWeight: FontWeightHelper.semiBold,
                           ),
                         ),

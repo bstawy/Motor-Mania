@@ -44,7 +44,7 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   Gap(24.h),
                   SizedBox(
-                    height: 263.h,
+                    height: 235.h,
                     child: OptionsListWidget(
                       title: "My Account",
                       options: context.read<ProfileCubit>().accountOptions,
@@ -55,7 +55,7 @@ class ProfileScreen extends StatelessWidget {
             ),
             Gap(16.h),
             SizedBox(
-              height: 263.h,
+              height: 235.h,
               child: OptionsListWidget(
                 title: "Settings",
                 options: context.read<ProfileCubit>().settingsOptions,

@@ -3,9 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../core/helpers/extensions/theme_ext.dart';
 
 class OrderIdWidget extends StatelessWidget {
   final String id;
@@ -13,6 +14,8 @@ class OrderIdWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customColors = context.colors;
+    final customTextStyles = context.textStyles;
     return Container(
       width: 1.sw,
       padding: EdgeInsets.symmetric(
@@ -20,7 +23,7 @@ class OrderIdWidget extends StatelessWidget {
         vertical: 16.h,
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: customColors.inverseSurface,
         borderRadius: BorderRadius.circular(15.r),
       ),
       child: Row(
@@ -30,11 +33,17 @@ class OrderIdWidget extends StatelessWidget {
             textAlign: TextAlign.start,
             text: TextSpan(
               text: "Order ID ",
-              style: TextStyles.font12BlueGreyRegular,
+              style: customTextStyles.headlineSmall?.copyWith(
+                color: ColorsManager.blueGrey,
+                fontWeight: FontWeightHelper.regular,
+              ),
               children: [
                 TextSpan(
                   text: id,
-                  style: TextStyles.font12BlueGreySemiBold,
+                  style: customTextStyles.headlineSmall?.copyWith(
+                    color: ColorsManager.blueGrey,
+                    fontWeight: FontWeightHelper.semiBold,
+                  ),
                 ),
               ],
             ),

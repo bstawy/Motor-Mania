@@ -3,14 +3,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../../core/config/theme/texts/font_weight_helper.dart';
+import '../../../../../core/helpers/extensions/theme_ext.dart';
 
 class OrderStepperWidget extends StatelessWidget {
   const OrderStepperWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final customColors = context.colors;
+    final customTextStyles = context.textStyles;
+
     return Container(
       width: 1.sw,
       padding: EdgeInsets.symmetric(
@@ -18,7 +22,7 @@ class OrderStepperWidget extends StatelessWidget {
         vertical: 16.h,
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: customColors.inverseSurface,
         borderRadius: BorderRadius.circular(15.r),
       ),
       child: Column(
@@ -29,18 +33,21 @@ class OrderStepperWidget extends StatelessWidget {
             subtitle: 'Your order has been confirmed',
             iconPath: 'assets/icons/order_confirmed_icon.svg',
             finished: true,
+            textStyles: customTextStyles,
           ),
           _buildStep(
             title: 'Dispatched',
             subtitle: 'Your order has been dispatched',
             iconPath: 'assets/icons/order_dispatched_icon.svg',
             finished: true,
+            textStyles: customTextStyles,
           ),
           _buildStep(
             title: 'Shipped',
             subtitle: 'Your order is on the way',
             iconPath: 'assets/icons/free_delivery_filled_icon.svg',
             finished: false,
+            textStyles: customTextStyles,
           ),
           _buildStep(
             title: 'Delivered',
@@ -48,6 +55,7 @@ class OrderStepperWidget extends StatelessWidget {
             iconPath: 'assets/icons/delivered_icon.svg',
             finished: false,
             isLast: true,
+            textStyles: customTextStyles,
           ),
         ],
       ),
@@ -60,6 +68,7 @@ class OrderStepperWidget extends StatelessWidget {
     required String iconPath,
     required bool finished,
     bool? isLast = false,
+    required TextTheme textStyles,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,14 +100,23 @@ class OrderStepperWidget extends StatelessWidget {
                 Text(
                   title,
                   style: finished
-                      ? TextStyles.font12RedBold
-                      : TextStyles.font12BlueGreyBold,
+                      ? textStyles.headlineSmall?.copyWith(
+                          color: ColorsManager.red,
+                        )
+                      : textStyles.headlineSmall?.copyWith(
+                          color: ColorsManager.blueGrey,
+                        ),
                 ),
                 Text(
                   subtitle,
                   style: finished
-                      ? TextStyles.font10DarkBlueMedium
-                      : TextStyles.font10BlueGreyMedium,
+                      ? textStyles.labelLarge?.copyWith(
+                          fontWeight: FontWeightHelper.medium,
+                        )
+                      : textStyles.labelLarge?.copyWith(
+                          color: ColorsManager.blueGrey,
+                          fontWeight: FontWeightHelper.medium,
+                        ),
                 ),
               ],
             ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/config/text/text_styles.dart';
+import '../../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../../core/config/theme/texts/font_weight_helper.dart';
+import '../../../../../core/helpers/extensions/theme_ext.dart';
 
 class AddressItemInfoWidget extends StatelessWidget {
   final String title;
@@ -14,19 +16,26 @@ class AddressItemInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customTextStyles = context.textStyles;
+
     return Row(
       children: [
         Expanded(
           child: Text(
             title,
-            style: TextStyles.font10BlueGreyRegular,
+            style: customTextStyles.labelLarge?.copyWith(
+              fontWeight: FontWeightHelper.regular,
+              color: ColorsManager.blueGrey,
+            ),
           ),
         ),
         Expanded(
           flex: 2,
           child: Text(
             data,
-            style: TextStyles.font10DarkBlueMedium,
+            style: customTextStyles.labelLarge?.copyWith(
+              fontWeight: FontWeightHelper.medium,
+            ),
           ),
         ),
       ],

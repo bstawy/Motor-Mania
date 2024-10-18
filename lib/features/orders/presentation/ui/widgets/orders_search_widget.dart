@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../../core/config/theme/texts/font_weight_helper.dart';
+import '../../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../../core/widgets/custom_elevated_button.dart';
 
 class OrdersSearchWidget extends StatelessWidget {
@@ -13,6 +14,9 @@ class OrdersSearchWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customTextStyles = context.textStyles;
+    final customColors = context.colors;
+
     return SizedBox(
       height: 32.h,
       child: Row(
@@ -21,10 +25,16 @@ class OrdersSearchWidget extends StatelessWidget {
             flex: 3,
             child: TextField(
               enabled: true,
-              style: TextStyles.font12DarkBlueRegular,
+              readOnly: true,
+              style: customTextStyles.headlineSmall?.copyWith(
+                fontWeight: FontWeightHelper.regular,
+              ),
               decoration: InputDecoration(
                 hintText: 'Find Items',
-                hintStyle: TextStyles.font12BlueGreyLight,
+                hintStyle: customTextStyles.headlineSmall?.copyWith(
+                  color: ColorsManager.blueGrey,
+                  fontWeight: FontWeightHelper.regular,
+                ),
                 prefixIcon: Icon(
                   Icons.search,
                   color: ColorsManager.blueGrey,
@@ -35,12 +45,12 @@ class OrdersSearchWidget extends StatelessWidget {
                   horizontal: 11.w,
                 ),
                 isDense: true,
-                fillColor: Colors.white,
+                fillColor: customColors.inverseSurface,
                 filled: true,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12.r),
                   borderSide: const BorderSide(
-                    color: ColorsManager.whiteBlue,
+                    color: ColorsManager.blueGrey,
                     width: 0.75,
                   ),
                 ),
@@ -54,7 +64,7 @@ class OrdersSearchWidget extends StatelessWidget {
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12.r),
                   borderSide: const BorderSide(
-                    color: ColorsManager.whiteBlue,
+                    color: ColorsManager.blueGrey,
                     width: 0.75,
                   ),
                 ),
@@ -66,10 +76,13 @@ class OrdersSearchWidget extends StatelessWidget {
             child: CustomElevatedButton(
               onPressed: () {},
               title: "Last 7 days",
-              titleStyle: TextStyles.font10BlueGreyMedium,
+              titleStyle: customTextStyles.labelLarge?.copyWith(
+                color: ColorsManager.blueGrey,
+                fontWeight: FontWeightHelper.medium,
+              ),
               borderRadiusValue: 12.r,
-              backgroundColor: ColorsManager.whiteGrey,
-              borderColor: ColorsManager.whiteBlue,
+              backgroundColor: customColors.surface,
+              borderColor: ColorsManager.blueGrey,
             ),
           )
         ],
