@@ -8,6 +8,7 @@ import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import '../../../../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../../../../core/di/dependency_injection.dart';
 import '../../../../../../core/helpers/extensions/theme_ext.dart';
+import '../../../../../../main.dart';
 import '../../../../../category/presentation/logic/category_cubit.dart';
 import '../../../../../category/presentation/ui/category_screen.dart';
 import '../../../../domain/entities/category_entity.dart';
@@ -42,15 +43,11 @@ class CategoriesListItem extends StatelessWidget {
         child: Column(
           children: [
             SvgPicture.network(
-              category.imageUrl,
+              themeIsDark ? category.darkImageUrl : category.imageUrl,
               width: 27.w,
               height: 27.h,
 
               // TODO: get dark icons and delete color filter
-              colorFilter: ColorFilter.mode(
-                customColors.primary,
-                BlendMode.srcIn,
-              ),
             ),
             Gap(2.h),
             Text(

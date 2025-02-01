@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../../core/helpers/extensions/padding_ext.dart';
 import '../../../../../../../core/widgets/shimmer_loading_widget.dart';
+import '../../../../../domain/entities/offer_entity.dart';
 import '../../../../logic/home_cubit/home_cubit.dart';
 
 class UserOffersWidget extends StatelessWidget {
@@ -26,8 +27,15 @@ class UserOffersWidget extends StatelessWidget {
             height: 138.h,
           ).setHorizontalPadding(24.w);
         } else if (state is OffersLoaded) {
+          List<OfferEntity> offers = state.offers;
+
+          offers = offers
+              .where((offer) => offer.id == 4 || offer.id == 5 || offer.id == 6)
+              .toList();
+
           List<String> offersUrl =
               state.offers.map((offer) => offer.imageUrl).toList();
+
           return CarouselSlider(
             items: (offersUrl).map((url) => Image.network(url)).toList(),
             options: CarouselOptions(
