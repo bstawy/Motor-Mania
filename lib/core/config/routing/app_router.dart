@@ -28,7 +28,9 @@ import 'routes.dart';
 class AppRouter {
   static final navigatorKey = GlobalKey<NavigatorState>();
 
+  LayoutCubit? _layoutCubit;
   CartCubit? _cartCubit;
+  FavoritesCubit? _favoritesCubit;
   GarageCubit? _garageCubit;
   CarsCubit? _carsCubit;
 
@@ -59,17 +61,21 @@ class AppRouter {
         );
 
       case Routes.layoutScreen:
+        _initializeLayoutCubit();
         _initializeCartCubit();
+        _initializeFavoritesCubit();
 
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
             providers: [
-              BlocProvider(create: (context) => LayoutCubit()),
-              BlocProvider(
-                create: (context) => getIt<FavoritesCubit>()..getAllFavorites(),
+              BlocProvider.value(
+                value: _layoutCubit!,
               ),
               BlocProvider<CartCubit>.value(
                 value: _cartCubit!,
+              ),
+              BlocProvider.value(
+                value: _favoritesCubit!..getAllFavorites(),
               ),
             ],
             child: const LayoutScreen(),
@@ -79,6 +85,7 @@ class AppRouter {
 
       case Routes.searchScreen:
         _initializeCartCubit();
+        _initializeFavoritesCubit();
 
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
@@ -86,11 +93,14 @@ class AppRouter {
               BlocProvider(
                 create: (context) => getIt<SearchCubit>(),
               ),
-              BlocProvider(
-                create: (context) => getIt<FavoritesCubit>()..getAllFavorites(),
+              BlocProvider<LayoutCubit>.value(
+                value: _layoutCubit!,
               ),
               BlocProvider<CartCubit>.value(
                 value: _cartCubit!,
+              ),
+              BlocProvider.value(
+                value: _favoritesCubit!..getAllFavorites(),
               ),
             ],
             child: const SearchScreen(),
@@ -171,8 +181,16 @@ class AppRouter {
     }
   }
 
+  void _initializeLayoutCubit() {
+    _layoutCubit ??= LayoutCubit();
+  }
+
   void _initializeCartCubit() {
     _cartCubit ??= getIt<CartCubit>();
+  }
+
+  void _initializeFavoritesCubit() {
+    _favoritesCubit ??= getIt<FavoritesCubit>();
   }
 
   void _initializeGarageCubit() {

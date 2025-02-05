@@ -27,7 +27,6 @@ class ProductDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final customColors = context.colors;
-    final customTextStyles = context.textStyles;
 
     return Column(
       children: [

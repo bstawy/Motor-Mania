@@ -1,5 +1,5 @@
 class AssetsManager {
-  static const String _animationsPath = "assets/animation";
+  // static const String _animationsPath = "assets/animation";
   static const String _iconsPath = "assets/icons";
   static const String _imagesPath = "assets/images";
 

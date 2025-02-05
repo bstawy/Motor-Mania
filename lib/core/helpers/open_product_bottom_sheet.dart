@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:motor_mania/features/cart/presentation/logic/cart_cubit.dart';
+import 'package:motor_mania/features/favorites/presentation/logic/favorites_cubit.dart';
 
 import '../../features/layout/logic/layout_cubit.dart';
 import '../../features/product_details/presentation/logic/product_cubit.dart';
@@ -20,9 +22,19 @@ void openProductBottomSheet({
   showModalBottomSheet(
     context: context,
     builder: (context) {
-      return BlocProvider(
-        create: (context) =>
-            getIt<ProductCubit>()..getProductDetails(productId),
+      return MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) =>
+                getIt<ProductCubit>()..getProductDetails(productId),
+          ),
+          BlocProvider(
+            create: (context) => getIt<CartCubit>(),
+          ),
+          BlocProvider(
+            create: (context) => getIt<FavoritesCubit>()..getAllFavorites(),
+          ),
+        ],
         child: const ProductDetailsScreen(),
       );
     },

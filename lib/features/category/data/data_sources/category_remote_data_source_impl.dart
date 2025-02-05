@@ -12,7 +12,7 @@ class CategoryRemoteDataSourceImpl extends CategoryDataSources {
   @override
   Future<Response> getCategoryProducts(int categoryId) async {
     final queryParam = {
-      'id': categoryId,
+      'categoryId': categoryId,
     };
 
     return await _crudManager.get(

@@ -18,7 +18,7 @@ class AppBarSearchWidget extends StatefulWidget {
 
 class _AppBarSearchWidgetState extends State<AppBarSearchWidget> {
   late TextEditingController _searchController;
-  final Debouncer _debouncer = Debouncer(milliseconds: 300);
+  final Debouncer _debouncer = Debouncer(milliseconds: 8000);
   String lastQuery = "";
 
   @override

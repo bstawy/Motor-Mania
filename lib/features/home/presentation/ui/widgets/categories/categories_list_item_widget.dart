@@ -46,7 +46,6 @@ class CategoriesListItem extends StatelessWidget {
               themeIsDark ? category.darkImageUrl : category.imageUrl,
               width: 27.w,
               height: 27.h,
-
               // TODO: get dark icons and delete color filter
             ),
             Gap(2.h),
