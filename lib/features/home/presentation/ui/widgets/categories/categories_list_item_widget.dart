@@ -9,7 +9,6 @@ import '../../../../../../core/config/constants/api_constants.dart';
 import '../../../../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../../../../core/di/dependency_injection.dart';
 import '../../../../../../core/helpers/extensions/theme_ext.dart';
-import '../../../../../../main.dart';
 import '../../../../../category/presentation/logic/category_cubit.dart';
 import '../../../../../category/presentation/ui/category_screen.dart';
 import '../../../../domain/entities/category_entity.dart';
@@ -44,7 +43,7 @@ class CategoriesListItem extends StatelessWidget {
         child: Column(
           children: [
             SvgPicture.network(
-              themeIsDark
+              context.themeIsDark
                   ? (ApiConstants.localHostImagesUrl + category.darkImageUrl)
                   : (ApiConstants.localHostImagesUrl + category.imageUrl),
               width: 27.w,

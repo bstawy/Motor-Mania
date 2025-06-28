@@ -7,7 +7,6 @@ import '../../core/config/theme/texts/font_weight_helper.dart';
 import '../../core/helpers/extensions/extensions.dart';
 import '../../core/helpers/extensions/theme_ext.dart';
 import '../../core/widgets/custom_material_button.dart';
-import '../../main.dart';
 import 'on_boarding_model.dart';
 import 'widgets/on_boarding_item_widget.dart';
 import 'widgets/on_boarding_skip_button_widget.dart';
@@ -36,9 +35,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         subtitle: 'Motor Mania!',
         description:
             'Welcome to the ultimate destination for all your automotive needs. Whether you’re looking for replacement parts, upgrades, or maintenance essentials, we’ve got you covered.',
-        image: themeIsDark
-            ? 'assets/images/onboarding_dark_car_image_01.png'
-            : 'assets/images/onboarding_car_image_01.png',
+        image: 'assets/images/onboarding_car_image_01.png',
+        darkImage: 'assets/images/onboarding_dark_car_image_01.png',
         imageAlignment: Alignment.centerRight,
         rightPadding: 0.w,
         leftPadding: 33.w,
@@ -48,9 +46,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         subtitle: 'experience',
         description:
             'Enhance your shopping experience by adding your vehicles to \'My Garage\'. This personalized space allows you to manage multiple cars, each with its own profile.',
-        image: themeIsDark
-            ? 'assets/images/onboarding_dark_car_image_02.png'
-            : 'assets/images/onboarding_car_image_02.png',
+        image: 'assets/images/onboarding_car_image_02.png',
+        darkImage: 'assets/images/onboarding_dark_car_image_02.png',
         imageAlignment: Alignment.center,
         rightPadding: 33.w,
         leftPadding: 33.w,
@@ -60,9 +57,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         subtitle: 'parts quickly',
         description:
             'Our advanced filtering system lets you search by part type, brand, price, and more, ensuring you find exactly what you need.',
-        image: themeIsDark
-            ? 'assets/images/onboarding_dark_car_image_03.png'
-            : 'assets/images/onboarding_car_image_03.png',
+        image: 'assets/images/onboarding_car_image_03.png',
+        darkImage: 'assets/images/onboarding_dark_car_image_03.png',
         imageAlignment: Alignment.centerRight,
         rightPadding: 0.w,
         leftPadding: 33.w,

@@ -9,7 +9,6 @@ import '../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../core/helpers/assets_manager.dart';
 import '../../../core/helpers/extensions/theme_ext.dart';
 import '../../../core/widgets/custom_material_button.dart';
-import '../../../main.dart';
 
 class CheckoutOrderSuccessSheet extends StatelessWidget {
   const CheckoutOrderSuccessSheet({super.key});
@@ -28,7 +27,7 @@ class CheckoutOrderSuccessSheet extends StatelessWidget {
             SizedBox(
               height: 175.h,
               child: Image.asset(
-                themeIsDark
+                context.themeIsDark
                     ? AssetsManager.successDarkImage
                     : AssetsManager.successImage,
               ),

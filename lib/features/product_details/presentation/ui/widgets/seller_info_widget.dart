@@ -7,7 +7,6 @@ import '../../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../../../core/helpers/assets_manager.dart';
 import '../../../../../core/helpers/extensions/theme_ext.dart';
-import '../../../../../main.dart';
 
 class SellerInfoWidget extends StatelessWidget {
   const SellerInfoWidget({super.key});
@@ -31,7 +30,7 @@ class SellerInfoWidget extends StatelessWidget {
           Row(
             children: [
               SvgPicture.asset(
-                themeIsDark
+                context.themeIsDark
                     ? AssetsManager.storeDarkIcon
                     : AssetsManager.storeIcon,
                 width: 24.w,
@@ -135,7 +134,7 @@ class SellerInfoWidget extends StatelessWidget {
                 child: Row(
                   children: [
                     SvgPicture.asset(
-                      themeIsDark
+                      context.themeIsDark
                           ? AssetsManager.boxDarkIcon
                           : AssetsManager.boxIcon,
                       width: 24.w,
@@ -190,7 +189,7 @@ class SellerInfoWidget extends StatelessWidget {
               Row(
                 children: [
                   SvgPicture.asset(
-                    themeIsDark
+                    context.themeIsDark
                         ? AssetsManager.partnerDarkIcon
                         : AssetsManager.partnerIcon,
                     width: 24.w,
@@ -227,7 +226,7 @@ class SellerInfoWidget extends StatelessWidget {
                 child: Row(
                   children: [
                     SvgPicture.asset(
-                      themeIsDark
+                      context.themeIsDark
                           ? AssetsManager.profileLowReturnRateDarkIcon
                           : AssetsManager.profileLowReturnRateIcon,
                       width: 24.w,
@@ -260,7 +259,7 @@ class SellerInfoWidget extends StatelessWidget {
                 child: Row(
                   children: [
                     SvgPicture.asset(
-                      themeIsDark
+                      context.themeIsDark
                           ? AssetsManager.likeButtonDark
                           : AssetsManager.likeButton,
                       width: 24.w,

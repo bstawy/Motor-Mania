@@ -3,13 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../../core/config/theme/texts/font_weight_helper.dart';
+import '../../../../../core/config/theme/theme_cubit.dart';
 import '../../../../../core/helpers/extensions/extensions.dart';
 import '../../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../../core/widgets/custom_material_button.dart';
-import '../../../../../main.dart';
 
 class ChangeThemeBottomSheet extends StatelessWidget {
   const ChangeThemeBottomSheet({super.key});
@@ -42,30 +41,32 @@ class ChangeThemeBottomSheet extends StatelessWidget {
             Gap(32.h),
             CustomMaterialButton(
               onClicked: () {
-                context.read<AppManagerCubit>().changeTheme(ThemeMode.light);
+                context.read<ThemeCubit>().setTheme(ThemeMode.light);
                 Navigator.pop(context);
               },
               title: "Light Mode",
               titleStyle: customTextStyles.headlineMedium?.copyWith(
-                color: themeIsDark ? ColorsManager.red : Colors.white,
+                color: context.themeIsDark ? ColorsManager.red : Colors.white,
                 fontWeight: FontWeightHelper.semiBold,
               ),
               backgroundColor: customColors.onPrimary,
-              borderColor: themeIsDark ? ColorsManager.red : Colors.transparent,
+              borderColor:
+                  context.themeIsDark ? ColorsManager.red : Colors.transparent,
             ),
             Gap(16.h),
             CustomMaterialButton(
               onClicked: () {
-                context.read<AppManagerCubit>().changeTheme(ThemeMode.dark);
+                context.read<ThemeCubit>().setTheme(ThemeMode.dark);
                 Navigator.pop(context);
               },
               title: "Dark Mode",
               titleStyle: customTextStyles.headlineMedium?.copyWith(
-                color: themeIsDark ? Colors.white : ColorsManager.red,
+                color: context.themeIsDark ? Colors.white : ColorsManager.red,
                 fontWeight: FontWeightHelper.semiBold,
               ),
               backgroundColor: customColors.inversePrimary,
-              borderColor: themeIsDark ? Colors.transparent : ColorsManager.red,
+              borderColor:
+                  context.themeIsDark ? Colors.transparent : ColorsManager.red,
             ),
           ],
         ).setOnlyPadding(16.h, 0, 16.w, 16.w);

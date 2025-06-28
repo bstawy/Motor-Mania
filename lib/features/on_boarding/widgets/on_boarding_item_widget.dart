@@ -31,7 +31,7 @@ class OnBoardingItemWidget extends StatelessWidget {
               right: onBoarding.rightPadding,
             ),
             child: Image.asset(
-              onBoarding.image,
+              context.themeIsDark ? onBoarding.darkImage : onBoarding.image,
               height: 280.h,
               width: double.infinity,
               fit: BoxFit.fitWidth,

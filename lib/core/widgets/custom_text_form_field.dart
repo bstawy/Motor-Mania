@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../config/app_manager/app_manager_cubit.dart';
 import '../config/theme/colors/colors_manager.dart';
 import '../config/theme/texts/font_weight_helper.dart';
 import '../helpers/extensions/theme_ext.dart';
@@ -186,10 +184,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         fillColor: (widget.enabled != null && widget.enabled == false)
             ? widget.disabledBackgroundColor ?? ColorsManager.grey
             : widget.backgroundColor ??
-                ((context.read<AppManagerCubit>().currentThemeMode ==
-                        ThemeMode.dark)
-                    ? Colors.transparent
-                    : Colors.white),
+                ((context.themeIsDark) ? Colors.transparent : Colors.white),
         filled: widget.isFilled ?? true,
         prefixIcon: widget.prefixIcon,
         prefixIconColor: ColorsManager.whiteGrey,

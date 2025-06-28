@@ -7,7 +7,6 @@ import '../../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../../../core/helpers/assets_manager.dart';
 import '../../../../../core/helpers/extensions/theme_ext.dart';
-import '../../../../../main.dart';
 
 class StockAndShippingInfoWidget extends StatelessWidget {
   final int amount;
@@ -29,7 +28,7 @@ class StockAndShippingInfoWidget extends StatelessWidget {
         Row(
           children: [
             SvgPicture.asset(
-              themeIsDark
+              context.themeIsDark
                   ? AssetsManager.lowStockDarkIcon
                   : AssetsManager.lowStockIcon,
               width: 14.w,
