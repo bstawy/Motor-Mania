@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../../../core/config/constants/api_constants.dart';
 import '../../../../../../../core/helpers/extensions/padding_ext.dart';
 import '../../../../../../../core/widgets/shimmer_loading_widget.dart';
 import '../../../../../domain/entities/offer_entity.dart';
@@ -34,10 +35,13 @@ class UserOffersWidget extends StatelessWidget {
               .toList();
 
           List<String> offersUrl =
-              state.offers.map((offer) => offer.imageUrl).toList();
+              offers.map((offer) => offer.imageUrl).toList();
 
           return CarouselSlider(
-            items: (offersUrl).map((url) => Image.network(url)).toList(),
+            items: (offersUrl)
+                .map((url) =>
+                    Image.network(ApiConstants.localHostImagesUrl + url))
+                .toList(),
             options: CarouselOptions(
               height: 138.h,
               viewportFraction: 0.8.r,

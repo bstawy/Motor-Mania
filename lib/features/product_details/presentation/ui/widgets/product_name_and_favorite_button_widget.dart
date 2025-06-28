@@ -22,20 +22,25 @@ class ProductNameAndFavoriteButtonWidget extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              product.name ?? "",
-              style: customTextStyles.displayMedium,
-            ),
-            Text(
-              "${product.compatibleCars?.first.brand} ${product.compatibleCars?.first.model}",
-              style: customTextStyles.headlineMedium?.copyWith(
-                fontWeight: FontWeightHelper.regular,
+        Flexible(
+          flex: 3,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                product.name ?? "",
+                style: customTextStyles.displayMedium,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
               ),
-            ),
-          ],
+              Text(
+                "${product.compatibleCars?.first.brand} ${product.compatibleCars?.first.model}",
+                style: customTextStyles.headlineMedium?.copyWith(
+                  fontWeight: FontWeightHelper.regular,
+                ),
+              ),
+            ],
+          ),
         ),
         const Spacer(),
         FavoriteButtonWidget(

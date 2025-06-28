@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../../core/config/app_manager/app_manager_cubit.dart';
+import '../../../../../core/config/constants/api_constants.dart';
 import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../../core/config/theme/texts/font_weight_helper.dart';
@@ -150,7 +151,8 @@ class GarageItemWidget extends StatelessWidget {
                     height: 145.h,
                     width: 268.w,
                     child: CustomNetworkImage(
-                      url: car.imageUrl ?? "",
+                      url:
+                          '${ApiConstants.localHostImagesUrl}/${car.imageUrl ?? ""}',
                       imageWidth: 130.w,
                       imageHeight: 268.h,
                       fit: BoxFit.fitWidth,

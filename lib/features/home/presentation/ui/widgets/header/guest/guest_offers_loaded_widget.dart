@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
+import '../../../../../../../core/config/constants/api_constants.dart';
+
 class GuestOffersLoadedWidget extends StatefulWidget {
   final List<String> offersUrl;
 
@@ -37,7 +39,10 @@ class _GuestOffersLoadedWidgetState extends State<GuestOffersLoadedWidget> {
       children: [
         CarouselSlider(
           controller: _controller,
-          items: (widget.offersUrl).map((url) => Image.network(url)).toList(),
+          items: (widget.offersUrl)
+              .map(
+                  (url) => Image.network(ApiConstants.localHostImagesUrl + url))
+              .toList(),
           options: CarouselOptions(
             height: 115.h,
             viewportFraction: 1.r,

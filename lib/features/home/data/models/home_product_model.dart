@@ -22,17 +22,17 @@ class HomeProductModel extends HomeProductEntity {
     return HomeProductModel(
       id: json['id'],
       name: json['name'],
-      imageUrl: json['image_url'],
-      oldPrice: json['price'],
-      discountPercentage: json['discount_percentage'],
+      imageUrl: json['imageUrl'],
+      oldPrice: json['oldPrice'],
+      discountPercentage: json['discountPercentage'],
       amount: json['amount'],
       rating: json['rating'],
-      reviewsCount: json['reviews_count'],
-      newProduct: json['new_product'],
-      freeDelivery: json['free_delivery'],
-      shippingInformation: json['shipping_information'],
-      compatibleCars: json['compatible_cars'] != null
-          ? (json['compatible_cars'] as List)
+      reviewsCount: json['reviewsCount'],
+      newProduct: json['newProduct'],
+      freeDelivery: json['freeDelivery'],
+      shippingInformation: json['shippingInformation'],
+      compatibleCars: json['compatibleCars'] != null
+          ? (json['compatibleCars'] as List)
               .map((i) => CarModel.fromJson(i))
               .toList()
           : [],

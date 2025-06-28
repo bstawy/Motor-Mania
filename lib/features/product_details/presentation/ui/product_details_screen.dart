@@ -95,9 +95,8 @@ class ProductDetailsScreen extends StatelessWidget {
                             Gap(12.h),
                             const ProductSpecificationsWidget(),
                             Gap(16.h),
-                            const ProductDescriptionWidget(
-                              description:
-                                  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+                            ProductDescriptionWidget(
+                              description: product.description ?? "",
                             ),
                             Gap(16.h),
                             const SellerInfoWidget(),

@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
+import '../../../../../../../core/config/constants/api_constants.dart';
 import '../../../../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../../../../../core/helpers/assets_manager.dart';
@@ -103,7 +104,7 @@ class UserHeaderLoadedWidget extends StatelessWidget {
               }
             },
             child: CustomNetworkImage(
-              url: car.imageUrl ?? "",
+              url: ('${ApiConstants.localHostImagesUrl}/${car.imageUrl ?? ""}'),
               imageWidth: 290.w,
               imageHeight: 150.h,
               fit: BoxFit.fitWidth,

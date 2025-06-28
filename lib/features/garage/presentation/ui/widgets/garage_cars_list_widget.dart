@@ -30,7 +30,7 @@ class GarageCarsListWidget extends StatelessWidget {
               itemBuilder: (context, index) {
                 return GarageItemWidget(
                   car: garageCars[index],
-                ).setOnlyPadding(0, 8.h, 0, 0);
+                ).setOnlyPadding(0, 4.h, 0, 0);
               },
             ).setOnlyPadding(12.h, 0, 0, 0),
           ),

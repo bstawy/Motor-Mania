@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:popover/popover.dart';
 
+import '../../../../../core/config/constants/api_constants.dart';
 import '../../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../../../core/helpers/assets_manager.dart';
@@ -51,7 +52,8 @@ class CartProductItemWidget extends StatelessWidget {
                   width: 113.w,
                   height: 102.h,
                   child: CustomNetworkImage(
-                    url: cartProduct.product.imageUrl ?? "",
+                    url: ApiConstants.localHostImagesUrl +
+                        (cartProduct.product.imageUrl ?? ""),
                   ),
                 ),
                 Gap(12.w),

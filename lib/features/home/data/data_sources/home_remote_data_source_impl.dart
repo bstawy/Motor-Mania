@@ -34,7 +34,7 @@ class HomeRemoteDataSourceImpl extends HomeDataSources {
   Future<Response> switchCar(SwitchEnum switchValue) async {
     final param = {'next': switchValue.index};
 
-    return _crudManager.post(
+    return _crudManager.get(
       EndPoints.changeCar,
       params: param,
       tokenReq: true,

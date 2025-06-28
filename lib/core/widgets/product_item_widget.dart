@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import '../../features/home/domain/entities/home_product_entity.dart';
 import '../../features/product_details/presentation/ui/widgets/product_price_and_discount_widget.dart';
 import '../../main.dart';
+import '../config/constants/api_constants.dart';
 import '../config/text/text_styles.dart';
 import '../config/theme/colors/colors_manager.dart';
 import '../helpers/extensions/extensions.dart';
@@ -55,7 +56,8 @@ class ProductItemWidget extends StatelessWidget {
               children: [
                 Gap(28.h),
                 CachedNetworkImage(
-                  imageUrl: product.imageUrl ?? "",
+                  imageUrl: ApiConstants.localHostImagesUrl +
+                      (product.imageUrl ?? ""),
                   placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator(
                       color: ColorsManager.darkBlue,

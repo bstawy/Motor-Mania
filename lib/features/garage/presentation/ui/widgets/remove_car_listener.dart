@@ -22,6 +22,7 @@ class RemoveCarListener extends StatelessWidget {
             break;
           case RemoveFromGarageSuccess():
             context.successSnackBar("Car removed successfully");
+            context.read<GarageCubit>().getGarageCars();
             break;
           case RemoveFromGarageError():
             context

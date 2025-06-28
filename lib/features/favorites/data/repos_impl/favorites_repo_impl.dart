@@ -96,7 +96,7 @@ class FavoritesRepoImpl extends FavoritesRepo {
       } else {
         final response = await _remoteDataSource.addToFavorites(product);
 
-        if (response.statusCode == 200) {
+        if (response.statusCode == 201) {
           return Right(response.data['message']);
         }
         return Left(

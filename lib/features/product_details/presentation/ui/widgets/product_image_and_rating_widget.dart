@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
+import '../../../../../core/config/constants/api_constants.dart';
 import '../../../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../../../core/helpers/assets_manager.dart';
 import '../../../../../core/helpers/extensions/theme_ext.dart';
@@ -29,7 +30,8 @@ class ProductImageAndRatingWidget extends StatelessWidget {
         SizedBox(
           height: 210.h,
           width: double.infinity,
-          child: CustomNetworkImage(url: imageUrl),
+          child: CustomNetworkImage(
+              url: ApiConstants.localHostImagesUrl + imageUrl),
         ),
         Positioned(
           bottom: 0,

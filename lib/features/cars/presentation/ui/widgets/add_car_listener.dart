@@ -31,6 +31,8 @@ class AddCarListener extends StatelessWidget {
               useSafeArea: true,
               backgroundColor: Colors.white,
             );
+
+            context.read<GarageCubit>().getGarageCars();
             break;
           case AddToGarageError():
             ScaffoldMessenger.of(context).hideCurrentSnackBar();

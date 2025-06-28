@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
+import '../../../../../../core/config/constants/api_constants.dart';
 import '../../../../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../../../../core/di/dependency_injection.dart';
 import '../../../../../../core/helpers/extensions/theme_ext.dart';
@@ -43,10 +44,11 @@ class CategoriesListItem extends StatelessWidget {
         child: Column(
           children: [
             SvgPicture.network(
-              themeIsDark ? category.darkImageUrl : category.imageUrl,
+              themeIsDark
+                  ? (ApiConstants.localHostImagesUrl + category.darkImageUrl)
+                  : (ApiConstants.localHostImagesUrl + category.imageUrl),
               width: 27.w,
               height: 27.h,
-              // TODO: get dark icons and delete color filter
             ),
             Gap(2.h),
             Text(

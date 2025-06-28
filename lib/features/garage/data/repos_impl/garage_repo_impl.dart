@@ -72,7 +72,7 @@ class GarageRepoImpl extends GarageRepo {
     try {
       final response = await _garageRemoteDataSource.addCar(car);
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         return const Right(true);
       }
       return Left(
