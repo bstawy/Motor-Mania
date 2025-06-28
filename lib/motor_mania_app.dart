@@ -13,21 +13,27 @@ class MotorManiaApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AppManagerCubit, AppManagerState>(
+    return BlocBuilder<AppManagerCubit, AppManagerState>(
       bloc: context.read<AppManagerCubit>()..checkUserLoggedIn(),
-      listener: (context, state) {},
-      child: ScreenUtilInit(
-        designSize: const Size(375, 812),
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Motor Mania',
-          themeMode: ThemeMode.dark,
-          theme: AppTheme.lightThemeData,
-          onGenerateRoute: AppRouter().generateRoute,
-          initialRoute: Routes.onBoardingScreens,
-          builder: BotToastInit(),
-        ),
-      ),
+      builder: (context, state) {
+        return ScreenUtilInit(
+          designSize: const Size(375, 812),
+          minTextAdapt: true,
+          builder: (context, child) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'Motor Mania',
+              themeMode: context.read<AppManagerCubit>().currentThemeMode,
+              theme: AppTheme.lightThemeData,
+              darkTheme: AppTheme.darkThemeData,
+              navigatorKey: AppRouter.navigatorKey,
+              onGenerateRoute: AppRouter().generateRoute,
+              initialRoute: Routes.onBoardingScreens,
+              builder: BotToastInit(),
+            );
+          },
+        );
+      },
     );
   }
 }

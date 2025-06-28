@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:motor_mania/features/home/domain/use_cases/select_next_car_use_case.dart';
 
 import '../../features/auth/login/data/data_sources/login_remote_data_source.dart';
 import '../../features/auth/login/data/repos/login_repo.dart';
@@ -8,6 +7,13 @@ import '../../features/auth/login/logic/login_cubit.dart';
 import '../../features/auth/register/data/data_sources/register_remote_data_source.dart';
 import '../../features/auth/register/data/repos/register_repo.dart';
 import '../../features/auth/register/logic/register_cubit.dart';
+import '../../features/cars/data/data_sources/car_brands_remote_data_source.dart';
+import '../../features/cars/data/data_sources/car_brands_remote_data_source_impl.dart';
+import '../../features/cars/data/repos_impl/car_brands_repo_impl.dart';
+import '../../features/cars/domain/repos/car_brands_repo.dart';
+import '../../features/cars/domain/use_cases/get_car_brand_models_use_case.dart';
+import '../../features/cars/domain/use_cases/get_car_brands_use_case.dart';
+import '../../features/cars/presentation/logic/cars_cubit.dart';
 import '../../features/cart/data/data_sources/cart_data_sources.dart';
 import '../../features/cart/data/data_sources/cart_local_data_source.dart';
 import '../../features/cart/data/data_sources/cart_remote_data_source.dart';
@@ -36,7 +42,9 @@ import '../../features/garage/data/data_sources/garage_remote_data_source.dart';
 import '../../features/garage/data/data_sources/garage_remote_data_source_impl.dart';
 import '../../features/garage/data/repos_impl/garage_repo_impl.dart';
 import '../../features/garage/domain/repos/garage_repo.dart';
+import '../../features/garage/domain/use_cases/add_car_use_case.dart';
 import '../../features/garage/domain/use_cases/get_garage_cars_use_case.dart';
+import '../../features/garage/domain/use_cases/remove_car_use_case.dart';
 import '../../features/garage/domain/use_cases/select_car_use_case.dart';
 import '../../features/garage/presentation/logic/garage_cubit.dart';
 import '../../features/home/data/data_sources/home_data_sources.dart';
@@ -47,10 +55,10 @@ import '../../features/home/domain/use_cases/get_home_categories_use_case.dart';
 import '../../features/home/domain/use_cases/get_home_offers_use_case.dart';
 import '../../features/home/domain/use_cases/get_home_products_use_case.dart';
 import '../../features/home/domain/use_cases/get_user_selected_car_use_case.dart';
+import '../../features/home/domain/use_cases/select_next_car_use_case.dart';
 import '../../features/home/domain/use_cases/select_previous_car_use_case.dart';
 import '../../features/home/presentation/logic/home_cubit/home_cubit.dart';
 import '../../features/home/presentation/logic/user_cubit/user_cubit.dart';
-import '../../features/layout/logic/layout_cubit.dart';
 import '../../features/product_details/data/data_sources/product_data_sources.dart';
 import '../../features/product_details/data/data_sources/product_remote_data_source_impl.dart';
 import '../../features/product_details/data/repos_impl/product_repo_impl.dart';
@@ -91,18 +99,17 @@ Future<void> initGetIt() async {
 
   // Register
   getIt.registerFactory<RegisterRemoteDataSource>(
-      () => RegisterRemoteDataSource(getIt()));
+    () => RegisterRemoteDataSource(getIt()),
+  );
   getIt.registerFactory<RegisterRepo>(() => RegisterRepo(getIt()));
   getIt.registerFactory<RegisterCubit>(() => RegisterCubit(getIt()));
 
   // login
   getIt.registerFactory<LoginRemoteDataSource>(
-      () => LoginRemoteDataSource(getIt()));
+    () => LoginRemoteDataSource(getIt()),
+  );
   getIt.registerFactory<LoginRepo>(() => LoginRepo(getIt()));
   getIt.registerFactory<LoginCubit>(() => LoginCubit(getIt()));
-
-  // layout
-  getIt.registerSingleton<LayoutCubit>(LayoutCubit());
 
   // home
   getIt.registerFactory<HomeDataSources>(
@@ -235,5 +242,28 @@ Future<void> initGetIt() async {
   getIt.registerFactory<SelectCarUseCase>(
     () => SelectCarUseCase(getIt()),
   );
-  getIt.registerFactory<GarageCubit>(() => GarageCubit(getIt(), getIt()));
+  getIt.registerFactory<AddCarUseCase>(
+    () => AddCarUseCase(getIt()),
+  );
+  getIt.registerFactory<RemoveCarUseCase>(
+    () => RemoveCarUseCase(getIt()),
+  );
+  getIt.registerFactory<GarageCubit>(
+    () => GarageCubit(getIt(), getIt(), getIt(), getIt()),
+  );
+
+  //cars
+  getIt.registerFactory<CarBrandsRemoteDataSource>(
+    () => CarBrandsRemoteDataSourceImpl(getIt()),
+  );
+  getIt.registerFactory<CarBrandsRepo>(
+    () => CarBrandsRepoImpl(getIt()),
+  );
+  getIt.registerFactory<GetCarBrandsUseCase>(
+    () => GetCarBrandsUseCase(getIt()),
+  );
+  getIt.registerFactory<GetCarBrandModelsUseCase>(
+    () => GetCarBrandModelsUseCase(getIt()),
+  );
+  getIt.registerLazySingleton<CarsCubit>(() => CarsCubit(getIt(), getIt()));
 }

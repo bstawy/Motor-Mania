@@ -1,8 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:motor_mania/core/helpers/enums/switch_enum.dart';
-import 'package:motor_mania/core/networking/failure/server_failure.dart';
-import 'package:motor_mania/features/home/domain/entities/car_entity.dart';
-import 'package:motor_mania/features/home/domain/repos/home_repo.dart';
+
+import '../../../../core/helpers/enums/switch_enum.dart';
+import '../../../../core/networking/failure/server_failure.dart';
+import '../entities/car_entity.dart';
+import '../repos/home_repo.dart';
 
 class SelectPreviousCarUseCase {
   final HomeRepo _homeRepo;

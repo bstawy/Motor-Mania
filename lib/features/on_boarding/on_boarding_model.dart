@@ -6,6 +6,8 @@ class OnBoardingModel {
   final String description;
   final String image;
   final Alignment imageAlignment;
+  final double rightPadding;
+  final double leftPadding;
 
   OnBoardingModel({
     required this.title,
@@ -13,5 +15,7 @@ class OnBoardingModel {
     required this.description,
     required this.image,
     required this.imageAlignment,
+    required this.rightPadding,
+    required this.leftPadding,
   });
 }

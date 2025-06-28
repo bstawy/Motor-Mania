@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../../core/di/dependency_injection.dart';
+import '../../../../../core/helpers/assets_manager.dart';
 import '../../../../../core/widgets/empty_screen_widget.dart';
 import '../../../../home/presentation/logic/home_cubit/home_cubit.dart';
 import '../../../../home/presentation/ui/widgets/home_list_widget.dart';
@@ -16,8 +17,9 @@ class FavoritesEmptyWidget extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          const EmptyScreenWidget(
-            imagePath: "assets/images/favorites_empty_image.png",
+          EmptyScreenWidget(
+            imagePath: AssetsManager.favoritesEmptyImage,
+            darkImagePath: AssetsManager.favoritesDarkEmptyImage,
             firstTextSpan: "Ready To Make A ",
             secondTextSpan: "Wish?",
             description:
@@ -26,7 +28,7 @@ class FavoritesEmptyWidget extends StatelessWidget {
           Gap(32.h),
           BlocProvider<HomeCubit>(
             create: (context) => getIt<HomeCubit>(),
-            child: const HomeListWidget(title: "Recommended For You"),
+            child: const HomeListWidget(title: "Items you previously viewed"),
           ),
         ],
       ),

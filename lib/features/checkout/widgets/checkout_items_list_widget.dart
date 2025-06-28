@@ -3,8 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../core/config/text/text_styles.dart';
+import '../../../core/config/theme/colors/colors_manager.dart';
+import '../../../core/config/theme/texts/font_weight_helper.dart';
+import '../../../core/helpers/assets_manager.dart';
 import '../../../core/helpers/extensions/extensions.dart';
+import '../../../core/helpers/extensions/theme_ext.dart';
 import '../../../core/widgets/custom_elevated_button.dart';
 import '../../../core/widgets/shimmer_loading_widget.dart';
 import '../../cart/presentation/logic/cart_cubit.dart';
@@ -15,6 +18,8 @@ class CheckoutItemsListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customTextStyles = context.textStyles;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -25,11 +30,16 @@ class CheckoutItemsListWidget extends StatelessWidget {
               textAlign: TextAlign.start,
               text: TextSpan(
                 text: 'Items ',
-                style: TextStyles.font14DarkBlueMedium,
+                style: customTextStyles.headlineMedium?.copyWith(
+                  fontWeight: FontWeightHelper.medium,
+                ),
                 children: [
                   TextSpan(
                     text: '(${context.read<CartCubit>().quantity.toString()})',
-                    style: TextStyles.font10BlueGreyMedium,
+                    style: customTextStyles.labelLarge?.copyWith(
+                      color: ColorsManager.blueGrey,
+                      fontWeight: FontWeightHelper.medium,
+                    ),
                   ),
                 ],
               ),
@@ -41,7 +51,7 @@ class CheckoutItemsListWidget extends StatelessWidget {
                   context.pop();
                 },
                 title: "Edit",
-                iconPath: "assets/icons/edit_icon.svg",
+                iconPath: AssetsManager.editIcon,
               ),
             ),
           ],
@@ -63,7 +73,7 @@ class CheckoutItemsListWidget extends StatelessWidget {
               ).setHorizontalPadding(16.w);
             } else if (state is CartEmpty) {
               return const SizedBox();
-            } else if (state is CartLoaded) {
+            } else {
               return SizedBox(
                 height: 100.h,
                 child: ListView.builder(
@@ -71,18 +81,18 @@ class CheckoutItemsListWidget extends StatelessWidget {
                   padding: EdgeInsets.symmetric(
                     horizontal: 16.w,
                   ),
-                  itemCount: state.cartProducts.length,
+                  itemCount: context.read<CartCubit>().cartProducts.length,
                   itemBuilder: (context, index) {
                     return CheckoutItemWidget(
-                      cartProduct: state.cartProducts[index],
+                      cartProduct:
+                          context.read<CartCubit>().cartProducts[index],
                       isFirst: index == 0,
-                      isLast: index == state.cartProducts.length - 1,
+                      isLast: index ==
+                          context.read<CartCubit>().cartProducts.length - 1,
                     );
                   },
                 ),
               );
-            } else {
-              return const SizedBox();
             }
           },
         ),

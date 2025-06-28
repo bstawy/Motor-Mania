@@ -5,9 +5,11 @@ import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
 
 import '../config/text/text_styles.dart';
+import 'enums/status_enum.dart';
 
 class CustomSnackBar {
-  static _buildCustomBotToast(BuildContext context, bool status, String msg) {
+  static _buildCustomBotToast(
+      BuildContext context, StatusEnum status, String msg) {
     BotToast.showCustomNotification(
       useSafeArea: true,
       crossPage: true,
@@ -16,24 +18,42 @@ class CustomSnackBar {
         milliseconds: 2000,
       ),
       toastBuilder: (void Function() cancelFunc) {
-        return _buildNotificationWidget(context, success: status, msg: msg);
+        return _buildNotificationWidget(context, status: status, msg: msg);
       },
     );
   }
 
   static void showSuccessMessage(BuildContext context, String msg) {
-    _buildCustomBotToast(context, true, msg);
+    _buildCustomBotToast(context, StatusEnum.success, msg);
+  }
+
+  static void showLoadingMessage(BuildContext context, String msg) {
+    _buildCustomBotToast(context, StatusEnum.loading, msg);
   }
 
   static void showErrorMessage(BuildContext context, String msg) {
-    _buildCustomBotToast(context, false, msg);
+    _buildCustomBotToast(context, StatusEnum.error, msg);
   }
 
   static Widget _buildNotificationWidget(
     BuildContext context, {
-    required bool success,
+    required StatusEnum status,
     required String msg,
   }) {
+    late String lottiePath;
+
+    switch (status) {
+      case StatusEnum.loading:
+        lottiePath = "assets/animation/loading_animation.json";
+        break;
+      case StatusEnum.success:
+        lottiePath = "assets/animation/success_animation.json";
+        break;
+      case StatusEnum.error:
+        lottiePath = "assets/animation/error_animation.json";
+        break;
+    }
+
     return IntrinsicHeight(
       child: Container(
         width: double.maxFinite,
@@ -54,9 +74,7 @@ class CustomSnackBar {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Lottie.asset(
-              (success)
-                  ? "assets/animation/success_animation.json"
-                  : "assets/animation/error_animation.json",
+              lottiePath,
               width: 35.w,
               height: 35.h,
               repeat: false,

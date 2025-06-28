@@ -30,8 +30,10 @@ class HomeProductEntity extends Equatable {
   @HiveField(10)
   final bool? freeDelivery;
   @HiveField(11)
-  final List<CarEntity>? compatibleCars;
+  final String? shippingInformation;
   @HiveField(12)
+  final List<CarEntity>? compatibleCars;
+  @HiveField(13)
   final bool? isFavorite;
 
   const HomeProductEntity({
@@ -46,6 +48,7 @@ class HomeProductEntity extends Equatable {
     this.reviewsCount,
     this.newProduct,
     this.freeDelivery,
+    this.shippingInformation,
     this.compatibleCars,
     this.isFavorite = false,
   });
@@ -61,6 +64,7 @@ class HomeProductEntity extends Equatable {
     num? reviewsCount,
     bool? newProduct,
     bool? freeDelivery,
+    String? shippingInformation,
     List<CarEntity>? compatibleCars,
     bool? isFavorite,
   }) {
@@ -76,6 +80,7 @@ class HomeProductEntity extends Equatable {
       reviewsCount: reviewsCount ?? this.reviewsCount,
       newProduct: newProduct ?? this.newProduct,
       freeDelivery: freeDelivery ?? this.freeDelivery,
+      shippingInformation: shippingInformation ?? this.shippingInformation,
       compatibleCars: compatibleCars ?? this.compatibleCars,
       isFavorite: isFavorite ?? this.isFavorite,
     );

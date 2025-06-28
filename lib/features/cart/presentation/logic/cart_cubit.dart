@@ -13,6 +13,7 @@ class CartCubit extends Cubit<CartState> {
   final GetCartProductsUseCase _getCartProductsUseCase;
   final AddProductToCartUseCase _addProductToCartUseCase;
   final RemoveProductFromCartUseCase _removeProductFromCartUseCase;
+  List<CartProductEntity> cartProducts = [];
   int quantity = 0;
   num subTotal = 0.0;
   num discount = 0.0;
@@ -35,6 +36,7 @@ class CartCubit extends Cubit<CartState> {
         } else {
           calculateSubTotal(cartProducts);
           quantity = cartProducts.length;
+          this.cartProducts = cartProducts;
           emit(CartLoaded(cartProducts));
         }
       },

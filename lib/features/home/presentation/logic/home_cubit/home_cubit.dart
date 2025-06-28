@@ -22,34 +22,33 @@ class HomeCubit extends Cubit<HomeState> {
     this._getHomeProductsUseCase,
   ) : super(HomeInitial());
 
-  void getHomeOffers() {
+  void getHomeOffers() async {
     emit(OffersLoading());
-    _getHomeOffersUseCase.execute().then((response) {
-      response.fold(
-        (failure) => emit(OffersError(failure)),
-        (offers) => emit(OffersLoaded(offers)),
-      );
-    });
+    final result = await _getHomeOffersUseCase.execute();
+
+    result.fold(
+      (error) => emit(OffersError(error)),
+      (offers) => emit(OffersLoaded(offers)),
+    );
   }
 
-  void getHomeCategories() {
+  void getHomeCategories() async {
     emit(CategoriesLoading());
-    _getHomeCategoriesUseCase.execute().then((response) {
-      response.fold(
-        (error) => emit(CategoriesErrorState(error)),
-        (categories) => emit(CategoriesLoaded(categories)),
-      );
-    });
+    final result = await _getHomeCategoriesUseCase.execute();
+
+    result.fold(
+      (error) => emit(CategoriesError(error)),
+      (categories) => emit(CategoriesLoaded(categories)),
+    );
   }
 
-  void getHomeProducts() {
+  void getHomeProducts() async {
     emit(ProductsLoading());
+    final result = await _getHomeProductsUseCase.execute();
 
-    _getHomeProductsUseCase.execute().then((response) {
-      response.fold(
-        (error) => emit(ProductsErrorState(error)),
-        (products) => emit(ProductsLoaded(products)),
-      );
-    });
+    result.fold(
+      (error) => emit(ProductsError(error)),
+      (products) => emit(ProductsLoaded(products)),
+    );
   }
 }

@@ -4,10 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../core/config/text/font_weight_helper.dart';
-import '../../../../../core/config/text/text_styles.dart';
-import '../../../../../core/config/theme/colors_manager.dart';
+import '../../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../../core/config/theme/texts/font_weight_helper.dart';
+import '../../../../../core/helpers/assets_manager.dart';
 import '../../../../../core/helpers/extensions/snackbar_ext.dart';
+import '../../../../../core/helpers/extensions/theme_ext.dart';
 import '../../logic/cart_cubit.dart';
 import 'cart_details_entry_widget.dart';
 
@@ -16,6 +17,9 @@ class CartDetailsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customColors = context.colors;
+    final customTextStyles = context.textStyles;
+
     return Container(
       width: 1.sw,
       padding: EdgeInsets.symmetric(
@@ -23,7 +27,7 @@ class CartDetailsWidget extends StatelessWidget {
         vertical: 16.h,
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: customColors.inverseSurface,
         borderRadius: BorderRadius.circular(14.r),
       ),
       child: BlocConsumer<CartCubit, CartState>(
@@ -65,9 +69,9 @@ class CartDetailsWidget extends StatelessWidget {
               CartDetailsEntryWidget(
                 title: "Shipping Fees",
                 value: "Free",
-                valueStyle: TextStyles.font10DarkBlueMedium.copyWith(
-                  fontWeight: FontWeightHelper.semiBold,
+                valueStyle: customTextStyles.labelLarge?.copyWith(
                   color: ColorsManager.red,
+                  fontWeight: FontWeightHelper.semiBold,
                 ),
               ),
               Gap(4.h),
@@ -76,13 +80,13 @@ class CartDetailsWidget extends StatelessWidget {
                 value: state is CouponApplied
                     ? "-\$${context.read<CartCubit>().discount.toStringAsFixed(2)}"
                     : "\$0.00",
-                titleStyle: TextStyles.font10DarkBlueMedium.copyWith(
-                  fontWeight: FontWeightHelper.semiBold,
+                titleStyle: customTextStyles.labelLarge?.copyWith(
                   color: ColorsManager.red,
+                  fontWeight: FontWeightHelper.semiBold,
                 ),
-                valueStyle: TextStyles.font10DarkBlueMedium.copyWith(
-                  fontWeight: FontWeightHelper.semiBold,
+                valueStyle: customTextStyles.labelLarge?.copyWith(
                   color: ColorsManager.red,
+                  fontWeight: FontWeightHelper.semiBold,
                 ),
               ),
               Gap(8.h),
@@ -103,14 +107,14 @@ class CartDetailsWidget extends StatelessWidget {
                   child: Row(
                     children: [
                       SvgPicture.asset(
-                        "assets/icons/coupon_icon.svg",
+                        AssetsManager.couponIcon,
                       ),
                       Gap(4.w),
                       Text(
                         "Hurry! You Got a Discount",
-                        style: TextStyles.font8BlueGreyBold.copyWith(
+                        style: customTextStyles.labelMedium?.copyWith(
                           color: ColorsManager.red,
-                          fontWeight: FontWeightHelper.semiBold,
+                          fontWeight: FontWeightHelper.medium,
                         ),
                       ),
                     ],
@@ -119,7 +123,7 @@ class CartDetailsWidget extends StatelessWidget {
               ),
               Gap(4.h),
               Divider(
-                color: const Color(0xffDFE2E7),
+                color: ColorsManager.blueGrey,
                 thickness: 1.h,
               ),
               Gap(4.h),
@@ -129,11 +133,12 @@ class CartDetailsWidget extends StatelessWidget {
                     textAlign: TextAlign.start,
                     text: TextSpan(
                       text: 'Total ',
-                      style: TextStyles.font16DarkBlueBold,
+                      style: customTextStyles.headlineLarge,
                       children: [
                         TextSpan(
                           text: '(Incl. VAT)',
-                          style: TextStyles.font8BlueGreyMedium.copyWith(
+                          style: customTextStyles.labelMedium?.copyWith(
+                            color: ColorsManager.blueGrey,
                             fontWeight: FontWeightHelper.regular,
                           ),
                         ),
@@ -143,7 +148,7 @@ class CartDetailsWidget extends StatelessWidget {
                   const Spacer(),
                   Text(
                     "\$${context.read<CartCubit>().subTotal.toStringAsFixed(2)}",
-                    style: TextStyles.font16DarkBlueBold,
+                    style: customTextStyles.headlineLarge,
                   ),
                 ],
               ),

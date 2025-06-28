@@ -6,6 +6,7 @@ class HomeProductModel extends HomeProductEntity {
     required super.id,
     required super.name,
     required super.imageUrl,
+    required super.oldPrice,
     super.price,
     required super.discountPercentage,
     required super.amount,
@@ -13,24 +14,25 @@ class HomeProductModel extends HomeProductEntity {
     required super.reviewsCount,
     required super.newProduct,
     required super.freeDelivery,
+    required super.shippingInformation,
     required super.compatibleCars,
-    required super.oldPrice,
   });
 
   factory HomeProductModel.fromJson(Map<String, dynamic> json) {
     return HomeProductModel(
       id: json['id'],
       name: json['name'],
-      imageUrl: json['image_url'],
-      oldPrice: json['price'],
-      discountPercentage: json['discount_percentage'],
+      imageUrl: json['imageUrl'],
+      oldPrice: json['oldPrice'],
+      discountPercentage: json['discountPercentage'],
       amount: json['amount'],
       rating: json['rating'],
-      reviewsCount: json['reviews_count'],
-      newProduct: json['new_product'],
-      freeDelivery: json['free_delivery'],
-      compatibleCars: json['compatible_cars'] != null
-          ? (json['compatible_cars'] as List)
+      reviewsCount: json['reviewsCount'],
+      newProduct: json['newProduct'],
+      freeDelivery: json['freeDelivery'],
+      shippingInformation: json['shippingInformation'],
+      compatibleCars: json['compatibleCars'] != null
+          ? (json['compatibleCars'] as List)
               .map((i) => CarModel.fromJson(i))
               .toList()
           : [],

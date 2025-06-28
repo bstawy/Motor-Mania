@@ -4,7 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../features/favorites/presentation/logic/favorites_cubit.dart';
-import '../config/theme/colors_manager.dart';
+import '../../main.dart';
+import '../config/theme/colors/colors_manager.dart';
 import '../helpers/extensions/extensions.dart';
 
 class FavoriteButtonWidget extends StatelessWidget {
@@ -44,25 +45,18 @@ class FavoriteButtonWidget extends StatelessWidget {
         height: height ?? 28.r,
         padding: EdgeInsets.all(6.r),
         decoration: BoxDecoration(
-          color: backgroundColor ?? ColorsManager.whiteGrey,
+          color: backgroundColor ??
+              (themeIsDark ? ColorsManager.dark : ColorsManager.whiteGrey),
           borderRadius: BorderRadius.circular(15.r),
         ),
         alignment: Alignment.center,
         child: BlocConsumer<FavoritesCubit, FavoritesState>(
           bloc: context.read<FavoritesCubit>(),
           listenWhen: (previous, current) {
-            if (current is AddToFavoritesSuccess ||
-                current is RemoveFromFavoritesSuccess) {
-              return true;
-            }
-            return false;
+            return current is AddToFavoritesSuccess ||
+                current is RemoveFromFavoritesSuccess;
           },
-          buildWhen: (previous, current) {
-            if (current is FavoritesLoaded) {
-              return true;
-            }
-            return false;
-          },
+          buildWhen: (previous, current) => current is FavoritesLoaded,
           listener: (context, state) {
             if (state is AddToFavoritesSuccess) {
               context.successSnackBar("Product Added to your Favorites");
@@ -81,6 +75,10 @@ class FavoriteButtonWidget extends StatelessWidget {
                   : "assets/icons/favorite_icon.svg",
               width: iconWidth ?? 16.r,
               height: iconHeight ?? 16.r,
+              colorFilter: ColorFilter.mode(
+                themeIsDark ? Colors.white : ColorsManager.darkBlue,
+                BlendMode.srcIn,
+              ),
             );
           },
         ),

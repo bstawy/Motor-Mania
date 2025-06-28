@@ -4,10 +4,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../../core/config/app_manager/app_manager_cubit.dart';
+import '../../../../../core/config/constants/api_constants.dart';
 import '../../../../../core/config/text/text_styles.dart';
-import '../../../../../core/config/theme/colors_manager.dart';
+import '../../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../../core/config/theme/texts/font_weight_helper.dart';
+import '../../../../../core/helpers/assets_manager.dart';
 import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../../core/widgets/custom_elevated_button.dart';
+import '../../../../../core/widgets/custom_network_image_widget.dart';
 import '../../../../home/domain/entities/car_entity.dart';
 import '../../logic/garage_cubit.dart';
 
@@ -18,6 +23,9 @@ class GarageItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customColors = context.colors;
+    final customTextStyles = context.textStyles;
+
     return BlocConsumer<GarageCubit, GarageState>(
       bloc: context.read<GarageCubit>(),
       buildWhen: (previous, current) => current is SelectCarSuccess,
@@ -52,23 +60,24 @@ class GarageItemWidget extends StatelessWidget {
             child: Stack(
               children: [
                 Container(
-                  height: 125.h,
+                  height: 130.h,
                   margin: EdgeInsets.symmetric(horizontal: 16.w),
                   padding: EdgeInsets.all(16.w),
                   decoration: BoxDecoration(
-                    color: isSelected ? ColorsManager.red : Colors.white,
+                    color: isSelected
+                        ? ColorsManager.red
+                        : customColors.inverseSurface,
                     borderRadius: BorderRadius.circular(15.r),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "${car.brand} ${car.model} ${car.year}",
-                        style: TextStyles.font20DarkBlueBold.copyWith(
-                          color: isSelected
-                              ? Colors.white
-                              : ColorsManager.darkBlue,
-                        ),
+                        "${car.brand} ${car.model}",
+                        style: isSelected
+                            ? customTextStyles.displaySmall
+                                ?.copyWith(color: Colors.white)
+                            : customTextStyles.displaySmall,
                       ),
                       Gap(4.h),
                       Text(
@@ -88,14 +97,18 @@ class GarageItemWidget extends StatelessWidget {
                               onPressed: () {},
                               title: "Edit Details",
                               titleStyle:
-                                  TextStyles.font8BlueGreyMedium.copyWith(
+                                  customTextStyles.labelMedium?.copyWith(
+                                fontWeight: FontWeightHelper.medium,
                                 color: isSelected
-                                    ? ColorsManager.whiteBlue
+                                    ? Colors.white
                                     : ColorsManager.blueGrey,
                               ),
-                              iconPath: "assets/icons/edit_icon.svg",
+                              iconPath: AssetsManager.editIcon,
                               iconColor: isSelected
-                                  ? ColorsManager.whiteBlue
+                                  ? Colors.white
+                                  : ColorsManager.blueGrey,
+                              borderColor: isSelected
+                                  ? Colors.white
                                   : ColorsManager.blueGrey,
                               horizontalPadding: 12.w,
                             ),
@@ -103,8 +116,12 @@ class GarageItemWidget extends StatelessWidget {
                             SizedBox(
                               width: 22.w,
                               child: CustomElevatedButton(
-                                onPressed: () {},
-                                iconPath: "assets/icons/trash_icon.svg",
+                                onPressed: () {
+                                  context
+                                      .read<GarageCubit>()
+                                      .removeCar(car.id!);
+                                },
+                                iconPath: AssetsManager.trashIcon,
                                 iconWidth: 10.w,
                                 iconHeight: 10.r,
                                 iconColor: isSelected
@@ -129,11 +146,17 @@ class GarageItemWidget extends StatelessWidget {
                 ),
                 Positioned(
                   bottom: 0,
-                  right: -70,
+                  right: -70.w,
                   child: SizedBox(
-                    height: 130.h,
+                    height: 145.h,
                     width: 268.w,
-                    child: Image.network(car.imageUrl ?? ""),
+                    child: CustomNetworkImage(
+                      url:
+                          '${ApiConstants.localHostImagesUrl}/${car.imageUrl ?? ""}',
+                      imageWidth: 130.w,
+                      imageHeight: 268.h,
+                      fit: BoxFit.fitWidth,
+                    ),
                   ),
                 ),
               ],

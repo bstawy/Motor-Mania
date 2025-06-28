@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:motor_mania/core/helpers/enums/switch_enum.dart';
+
+import '../../../../core/helpers/enums/switch_enum.dart';
 
 abstract class HomeDataSources {
   Future<Response> getUserCar();

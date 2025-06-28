@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../core/config/text/text_styles.dart';
+import '../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../../core/helpers/extensions/extensions.dart';
+import '../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../core/widgets/custom_app_bar.dart';
 import '../../widgets/custom_account_widget.dart';
 import '../../widgets/social_media_sign_up.dart';
@@ -14,6 +16,8 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customTextStyles = context.textStyles;
+
     return Scaffold(
       appBar: CustomAppBar(leftPadding: 24.w, rightPadding: 24.w),
       body: SafeArea(
@@ -25,12 +29,17 @@ class RegisterScreen extends StatelessWidget {
               Text(
                 'Create Account',
                 textAlign: TextAlign.left,
-                style: TextStyles.font32DarkBlueSemiBold,
+                style: customTextStyles.displayLarge?.copyWith(
+                  fontWeight: FontWeightHelper.semiBold,
+                ),
               ),
               Gap(8.h),
               Text(
                 "Let's Get Started Together",
-                style: TextStyles.font16BlueGreyRegular,
+                style: customTextStyles.headlineMedium?.copyWith(
+                  color: ColorsManager.blueGrey,
+                  fontWeight: FontWeightHelper.regular,
+                ),
               ),
               Gap(32.h),
               const RegisterForm(),

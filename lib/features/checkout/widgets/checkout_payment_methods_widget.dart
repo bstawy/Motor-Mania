@@ -3,9 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
-import '../../../core/config/text/text_styles.dart';
-import '../../../core/config/theme/colors_manager.dart';
-import '../../../core/helpers/extensions/padding_ext.dart';
+import '../../../core/config/routing/routes.dart';
+import '../../../core/config/theme/colors/colors_manager.dart';
+import '../../../core/config/theme/texts/font_weight_helper.dart';
+import '../../../core/helpers/assets_manager.dart';
+import '../../../core/helpers/extensions/extensions.dart';
+import '../../../core/helpers/extensions/theme_ext.dart';
+import '../../../core/widgets/custom_elevated_button.dart';
 
 class CheckoutPaymentMethodsWidget extends StatefulWidget {
   const CheckoutPaymentMethodsWidget({super.key});
@@ -27,12 +31,32 @@ class _CheckoutPaymentMethodsWidgetState
 
   @override
   Widget build(BuildContext context) {
+    final customTextStyles = context.textStyles;
+    final customColors = context.colors;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          "Payment Methods",
-          style: TextStyles.font14DarkBlueMedium,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "Payment Methods",
+              style: customTextStyles.headlineMedium?.copyWith(
+                fontWeight: FontWeightHelper.medium,
+              ),
+            ),
+            SizedBox(
+              height: 23.h,
+              child: CustomElevatedButton(
+                onPressed: () {
+                  context.pushNamed(Routes.paymentMethods);
+                },
+                title: "Edit",
+                iconPath: AssetsManager.editIcon,
+              ),
+            ),
+          ],
         ),
         Gap(8.h),
         Container(
@@ -43,11 +67,12 @@ class _CheckoutPaymentMethodsWidgetState
             right: 16.w,
           ),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: customColors.inverseSurface,
             borderRadius: BorderRadius.circular(15.r),
           ),
           child: Column(
             children: [
+              // TODO: use dark icons
               _buildPaymentItem(
                 index: 0,
                 title: "My Wallet",
@@ -59,7 +84,7 @@ class _CheckoutPaymentMethodsWidgetState
                 margin: EdgeInsets.only(left: 8.w),
                 width: double.infinity,
                 height: 0.75.h,
-                color: ColorsManager.whiteBlue,
+                color: ColorsManager.blueGrey,
               ),
               Gap(8.h),
               _buildPaymentItem(
@@ -73,7 +98,7 @@ class _CheckoutPaymentMethodsWidgetState
                 margin: EdgeInsets.only(left: 8.w),
                 width: double.infinity,
                 height: 0.75.h,
-                color: ColorsManager.whiteBlue,
+                color: ColorsManager.blueGrey,
               ),
               Gap(8.h),
               _buildPaymentItem(
@@ -95,14 +120,22 @@ class _CheckoutPaymentMethodsWidgetState
     required String subTitle,
     required String iconPath,
   }) {
+    final customTextStyles = context.textStyles;
+    final customColors = context.colors;
+
     return RadioListTile(
       title: Text(
         title,
-        style: TextStyles.font10DarkBlueMedium,
+        style: customTextStyles.labelLarge?.copyWith(
+          fontWeight: FontWeightHelper.medium,
+        ),
       ),
       subtitle: Text(
         subTitle,
-        style: TextStyles.font10BlueGreyRegular,
+        style: customTextStyles.labelLarge?.copyWith(
+          color: ColorsManager.blueGrey,
+          fontWeight: FontWeightHelper.regular,
+        ),
       ),
       value: index.toString(),
       groupValue: selectedItem,
@@ -113,7 +146,7 @@ class _CheckoutPaymentMethodsWidgetState
       contentPadding: EdgeInsets.zero,
       visualDensity: VisualDensity.compact,
       dense: true,
-      activeColor: ColorsManager.darkBlue,
+      activeColor: customColors.primary,
     );
   }
 }

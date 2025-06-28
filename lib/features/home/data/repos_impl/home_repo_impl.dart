@@ -1,6 +1,8 @@
-import 'package:dartz/dartz.dart';
-import 'package:motor_mania/core/helpers/enums/switch_enum.dart';
+import 'dart:developer';
 
+import 'package:dartz/dartz.dart';
+
+import '../../../../core/helpers/enums/switch_enum.dart';
 import '../../../../core/networking/failure/server_failure.dart';
 import '../../domain/entities/car_entity.dart';
 import '../../domain/entities/category_entity.dart';
@@ -19,11 +21,15 @@ class HomeRepoImpl extends HomeRepo {
   HomeRepoImpl(this._homeRemoteDataSource);
 
   @override
-  Future<Either<ServerFailure, CarEntity>> getUserCar() async {
+  Future<Either<ServerFailure, CarEntity?>> getUserCar() async {
     try {
       final response = await _homeRemoteDataSource.getUserCar();
 
       if (response.statusCode == 200 && response.data['success'] == true) {
+        if (response.data['message'] == "No cars found.") {
+          log("User has no car");
+          return const Right(null);
+        }
         final CarModel userCar = CarModel.fromJson(response.data['data']);
 
         return Right(userCar);

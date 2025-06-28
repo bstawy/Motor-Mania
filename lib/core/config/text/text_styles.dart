@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../theme/colors_manager.dart';
-import 'font_weight_helper.dart';
+import '../../../main.dart';
+import '../theme/colors/colors_manager.dart';
+import '../theme/texts/font_weight_helper.dart';
 
 class TextStyles {
   static TextStyle font32DarkBlueBold = TextStyle(
@@ -89,12 +90,14 @@ class TextStyles {
     fontFamily: 'Montserrat',
   );
 
-  static TextStyle font14DarkBlueSemiBold = TextStyle(
-    color: ColorsManager.darkBlue,
-    fontSize: 14.sp,
-    fontWeight: FontWeightHelper.semiBold,
-    fontFamily: 'Montserrat',
-  );
+  static TextStyle font14DarkBlueSemiBold() {
+    return TextStyle(
+      color: themeIsDark ? Colors.white : ColorsManager.darkBlue,
+      fontSize: 14.sp,
+      fontWeight: FontWeightHelper.semiBold,
+      fontFamily: 'Montserrat',
+    );
+  }
 
   static TextStyle font14WhiteSemiBold = TextStyle(
     color: Colors.white,
@@ -140,6 +143,20 @@ class TextStyles {
 
   static TextStyle font12DarkBlueBold = TextStyle(
     color: ColorsManager.darkBlue,
+    fontSize: 12.sp,
+    fontWeight: FontWeightHelper.bold,
+    fontFamily: 'Montserrat',
+  );
+
+  static TextStyle font12BlueGreyBold = TextStyle(
+    color: ColorsManager.blueGrey,
+    fontSize: 12.sp,
+    fontWeight: FontWeightHelper.bold,
+    fontFamily: 'Montserrat',
+  );
+
+  static TextStyle font12RedBold = TextStyle(
+    color: ColorsManager.red,
     fontSize: 12.sp,
     fontWeight: FontWeightHelper.bold,
     fontFamily: 'Montserrat',
@@ -229,12 +246,6 @@ class TextStyles {
     fontFamily: 'Montserrat',
   );
 
-  static TextStyle font10WhiteSemiBold = TextStyle(
-    color: Colors.white,
-    fontSize: 10.sp,
-    fontWeight: FontWeightHelper.semiBold,
-    fontFamily: 'Montserrat',
-  );
   static TextStyle font10RedSemiBold = TextStyle(
     color: ColorsManager.red,
     fontSize: 10.sp,
@@ -272,6 +283,13 @@ class TextStyles {
 
   static TextStyle font10BlueGreyRegular = TextStyle(
     color: ColorsManager.blueGrey,
+    fontSize: 10.sp,
+    fontWeight: FontWeightHelper.regular,
+    fontFamily: 'Montserrat',
+  );
+
+  static TextStyle font10RedRegular = TextStyle(
+    color: ColorsManager.red,
     fontSize: 10.sp,
     fontWeight: FontWeightHelper.regular,
     fontFamily: 'Montserrat',

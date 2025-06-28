@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../core/config/text/text_styles.dart';
+import '../../../../../core/config/theme/texts/font_weight_helper.dart';
+import '../../../../../core/helpers/extensions/theme_ext.dart';
 
 class ProductDescriptionWidget extends StatelessWidget {
   final String description;
@@ -14,17 +15,23 @@ class ProductDescriptionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customTextStyles = context.textStyles;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           "Product Details",
-          style: TextStyles.font14DarkBlueSemiBold,
+          style: customTextStyles.headlineMedium?.copyWith(
+            fontWeight: FontWeightHelper.semiBold,
+          ),
         ),
         Gap(8.h),
         Text(
           description,
-          style: TextStyles.font12DarkBlueRegular,
+          style: customTextStyles.headlineMedium?.copyWith(
+            fontWeight: FontWeightHelper.regular,
+          ),
         ),
       ],
     );

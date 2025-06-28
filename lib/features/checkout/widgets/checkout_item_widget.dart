@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../core/config/text/text_styles.dart';
-import '../../../core/config/theme/colors_manager.dart';
+import '../../../core/config/theme/colors/colors_manager.dart';
+import '../../../core/config/theme/texts/font_weight_helper.dart';
+import '../../../core/helpers/extensions/theme_ext.dart';
+import '../../../core/widgets/custom_network_image_widget.dart';
 import '../../../core/widgets/product_name_and_type_widget.dart';
 import '../../../core/widgets/product_price_widget.dart';
 import '../../cart/domain/entities/cart_product_entity.dart';
+import '../../cart/presentation/logic/cart_cubit.dart';
 
 class CheckoutItemWidget extends StatelessWidget {
   final CartProductEntity cartProduct;
@@ -22,20 +26,26 @@ class CheckoutItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BorderRadius? radius;
+    final customColors = context.colors;
+    final customTextStyles = context.textStyles;
 
-    if (isFirst!) {
-      radius = BorderRadius.only(
-        topLeft: Radius.circular(15.r),
-        bottomLeft: Radius.circular(15.r),
-      );
-    } else if (isLast!) {
-      radius = BorderRadius.only(
-        topRight: Radius.circular(15.r),
-        bottomRight: Radius.circular(15.r),
-      );
+    BorderRadius? radius;
+    if (context.read<CartCubit>().cartProducts.length > 1) {
+      if (isFirst!) {
+        radius = BorderRadius.only(
+          topLeft: Radius.circular(15.r),
+          bottomLeft: Radius.circular(15.r),
+        );
+      } else if (isLast!) {
+        radius = BorderRadius.only(
+          topRight: Radius.circular(15.r),
+          bottomRight: Radius.circular(15.r),
+        );
+      } else {
+        radius = BorderRadius.zero;
+      }
     } else {
-      radius = BorderRadius.zero;
+      radius = BorderRadius.circular(15.r);
     }
 
     return Container(
@@ -44,7 +54,7 @@ class CheckoutItemWidget extends StatelessWidget {
         vertical: 16.h,
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: customColors.inverseSurface,
         borderRadius: radius,
       ),
       child: Row(
@@ -55,12 +65,12 @@ class CheckoutItemWidget extends StatelessWidget {
                   margin: EdgeInsets.only(right: 16.w),
                   width: 1.5.w,
                   height: double.infinity,
-                  color: ColorsManager.whiteBlue,
+                  color: ColorsManager.blueGrey,
                 ),
-          SizedBox(
-            width: 70.w,
-            height: 70.h,
-            child: Image.network(cartProduct.product.imageUrl ?? ""),
+          CustomNetworkImage(
+            url: cartProduct.product.imageUrl ?? "",
+            imageHeight: 70.h,
+            imageWidth: 70.w,
           ),
           Gap(12.w),
           Column(
@@ -70,13 +80,17 @@ class CheckoutItemWidget extends StatelessWidget {
               ProductNameAndTypeWidget(
                 name: cartProduct.product.name ?? "",
                 type: cartProduct.product.compatibleCars?.first.brand ?? "",
-                nameStyle: TextStyles.font12DarkBlueSemiBold,
-                typeStyle: TextStyles.font8DarkBlueRegular,
+                nameStyle: customTextStyles.headlineSmall?.copyWith(
+                  fontWeight: FontWeightHelper.semiBold,
+                ),
+                typeStyle: customTextStyles.labelMedium?.copyWith(
+                  fontWeight: FontWeightHelper.regular,
+                ),
               ),
               Gap(4.h),
               ProductPriceWidget(
                 finalPrice: cartProduct.product.price ?? 0,
-                finalPriceStyle: TextStyles.font12DarkBlueBold,
+                finalPriceStyle: customTextStyles.headlineSmall,
               ),
             ],
           ),

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
-import '../../../core/config/text/text_styles.dart';
+import '../../../core/config/app_manager/app_manager_cubit.dart';
+import '../../../core/config/theme/texts/font_weight_helper.dart';
+import '../../../core/helpers/assets_manager.dart';
+import '../../../core/helpers/extensions/theme_ext.dart';
 import '../../../core/widgets/custom_material_button.dart';
 
 class SocialMediaSignUp extends StatelessWidget {
@@ -11,22 +15,43 @@ class SocialMediaSignUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customTextStyles = context.textStyles;
+    final customColors = context.colors;
+
     return Column(
       children: [
         CustomMaterialButton(
           onClicked: () {},
           title: "Sign Up With Google",
-          prefixWidget: SvgPicture.asset("assets/icons/login_google_icon.svg"),
-          backgroundColor: Colors.white,
-          titleStyle: TextStyles.font16DarkBlueSemiBold,
+          prefixWidget: SvgPicture.asset(AssetsManager.googleIcon),
+          backgroundColor: ((context.read<AppManagerCubit>().currentThemeMode ==
+                  ThemeMode.dark)
+              ? Colors.transparent
+              : Colors.white),
+          borderColor: customColors.inverseSurface,
+          titleStyle: customTextStyles.headlineMedium?.copyWith(
+            fontWeight: FontWeightHelper.medium,
+          ),
         ),
         Gap(16.h),
         CustomMaterialButton(
           onClicked: () {},
           title: "Sign Up With Apple",
-          prefixWidget: SvgPicture.asset("assets/icons/login_apple_icon.svg"),
-          backgroundColor: Colors.white,
-          titleStyle: TextStyles.font16DarkBlueSemiBold,
+          prefixWidget: SvgPicture.asset(
+            AssetsManager.appleIcon,
+            colorFilter: ColorFilter.mode(
+              customColors.primary,
+              BlendMode.srcIn,
+            ),
+          ),
+          backgroundColor: ((context.read<AppManagerCubit>().currentThemeMode ==
+                  ThemeMode.dark)
+              ? Colors.transparent
+              : Colors.white),
+          borderColor: customColors.inverseSurface,
+          titleStyle: customTextStyles.headlineMedium?.copyWith(
+            fontWeight: FontWeightHelper.medium,
+          ),
         ),
       ],
     );

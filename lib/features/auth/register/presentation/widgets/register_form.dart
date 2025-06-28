@@ -3,17 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../core/caching/navigation_data_manager.dart';
-import '../../../../../core/config/app_manager/app_manager_cubit.dart';
-import '../../../../../core/config/routing/routes.dart';
-import '../../../../../core/config/theme/colors_manager.dart';
-import '../../../../../core/helpers/extensions/extensions.dart';
 import '../../../../../core/helpers/validators.dart';
-import '../../../../../core/widgets/custom_material_button.dart';
 import '../../../widgets/form_text_field.dart';
 import '../../../widgets/password_validations.dart';
 import '../../data/models/register_request_body.dart';
 import '../../logic/register_cubit.dart';
+import 'register_button_widget.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({super.key});
@@ -34,7 +29,25 @@ class _RegisterFormState extends State<RegisterForm> {
   bool hasNumber = false;
   bool hasMinLength = false;
 
-  bool registering = false;
+  bool isNameValid = false;
+  bool isEmailValid = false;
+  bool isPasswordValid = false;
+
+  void setupNameControllerListener() {
+    _nameController.addListener(() {
+      setState(() {
+        isNameValid = _nameController.text.isNotEmpty;
+      });
+    });
+  }
+
+  void setupEmailControllerListener() {
+    _emailController.addListener(() {
+      setState(() {
+        isEmailValid = Validators.validateEmail(_emailController.text) == null;
+      });
+    });
+  }
 
   void setupPasswordControllerListener() {
     _passwordController.addListener(() {
@@ -45,8 +58,24 @@ class _RegisterFormState extends State<RegisterForm> {
             Validators.hasSpecialCharacter(_passwordController.text);
         hasNumber = Validators.hasNumber(_passwordController.text);
         hasMinLength = Validators.hasMinLength(_passwordController.text);
+        isPasswordValid = hasLowerCase &&
+            hasUpperCase &&
+            hasSpecialCharacter &&
+            hasNumber &&
+            hasMinLength;
       });
     });
+  }
+
+  void register() async {
+    if (_formKey.currentState!.validate()) {
+      final RegisterRequestBodyModel requestBody = RegisterRequestBodyModel(
+        name: _nameController.text,
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+      context.read<RegisterCubit>().registerUser(requestBody: requestBody);
+    }
   }
 
   @override
@@ -113,65 +142,14 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
           ),
           Gap(16.h),
-          BlocConsumer<RegisterCubit, RegisterState>(
-            bloc: context.read<RegisterCubit>(),
-            listener: (context, state) async {
-              if (state is LoadingState) {
-                setState(() {
-                  registering = true;
-                });
-              } else if (state is SuccessState) {
-                context.read<AppManagerCubit>().logUserIn();
-                String navRoute = Routes.layoutScreen;
-                int? args;
-
-                final ScreenNavigationData? navigationData =
-                    await NavigationDataManager.getScreenNavigationData();
-
-                if (navigationData != null) {
-                  navRoute = navigationData.previousScreenRouteName!;
-                  args = navigationData.previousScreenArguments;
-                }
-
-                if (context.mounted) {
-                  context.pushNamedAndRemoveUntil(
-                    navRoute,
-                    predicate: (route) => false,
-                    arguments: args,
-                  );
-                }
-              } else if (state is ErrorState) {
-                context.errorSnackBar(state.message);
-
-                setState(() {
-                  registering = false;
-                });
-              }
-            },
-            builder: (context, state) {
-              return CustomMaterialButton(
-                onClicked: () {
-                  register();
-                },
-                title: "Register",
-                backgroundColor: ColorsManager.red,
-                loading: registering,
-              );
-            },
-          ),
+          RegisterButtonWidget(
+            isNameValid: isNameValid,
+            isEmailValid: isEmailValid,
+            isPasswordValid: isPasswordValid,
+            onPressed: () => register(),
+          )
         ],
       ),
     );
-  }
-
-  void register() async {
-    if (_formKey.currentState!.validate()) {
-      final RegisterRequestBodyModel requestBody = RegisterRequestBodyModel(
-        name: _nameController.text,
-        email: _emailController.text,
-        password: _passwordController.text,
-      );
-      context.read<RegisterCubit>().registerUser(requestBody: requestBody);
-    }
   }
 }

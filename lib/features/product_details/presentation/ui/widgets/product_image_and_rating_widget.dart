@@ -3,7 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../core/config/text/text_styles.dart';
+import '../../../../../core/config/constants/api_constants.dart';
+import '../../../../../core/config/theme/texts/font_weight_helper.dart';
+import '../../../../../core/helpers/assets_manager.dart';
+import '../../../../../core/helpers/extensions/theme_ext.dart';
+import '../../../../../core/widgets/custom_network_image_widget.dart';
 
 class ProductImageAndRatingWidget extends StatelessWidget {
   final String imageUrl;
@@ -19,12 +23,15 @@ class ProductImageAndRatingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customTextStyles = context.textStyles;
+
     return Stack(
       children: [
         SizedBox(
           height: 210.h,
           width: double.infinity,
-          child: Image.network(imageUrl),
+          child: CustomNetworkImage(
+              url: ApiConstants.localHostImagesUrl + imageUrl),
         ),
         Positioned(
           bottom: 0,
@@ -42,7 +49,7 @@ class ProductImageAndRatingWidget extends StatelessWidget {
             child: Row(
               children: [
                 SvgPicture.asset(
-                  "assets/icons/star_icon.svg",
+                  AssetsManager.starIcon,
                   colorFilter: const ColorFilter.mode(
                     Colors.white,
                     BlendMode.srcIn,
@@ -51,7 +58,10 @@ class ProductImageAndRatingWidget extends StatelessWidget {
                 Gap(4.w),
                 Text(
                   "$rating ($reviewsCount)",
-                  style: TextStyles.font10WhiteMedium,
+                  style: customTextStyles.labelLarge?.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeightHelper.medium,
+                  ),
                 ),
               ],
             ),

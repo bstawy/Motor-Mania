@@ -3,7 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../core/config/text/text_styles.dart';
+import '../../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../../core/config/theme/texts/font_weight_helper.dart';
+import '../../../../../core/helpers/assets_manager.dart';
+import '../../../../../core/helpers/extensions/theme_ext.dart';
+import '../../../../../main.dart';
 
 class StockAndShippingInfoWidget extends StatelessWidget {
   final int amount;
@@ -17,13 +21,17 @@ class StockAndShippingInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customTextStyles = context.textStyles;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
             SvgPicture.asset(
-              "assets/icons/low_stock_icon.svg",
+              themeIsDark
+                  ? AssetsManager.lowStockDarkIcon
+                  : AssetsManager.lowStockIcon,
               width: 14.w,
               height: 14.h,
             ),
@@ -32,17 +40,24 @@ class StockAndShippingInfoWidget extends StatelessWidget {
               visible: amount < 5,
               replacement: Text(
                 "In Stock",
-                style: TextStyles.font12DarkBlueMedium,
+                style: customTextStyles.headlineSmall?.copyWith(
+                  fontWeight: FontWeightHelper.medium,
+                ),
               ),
               child: Row(
                 children: [
                   Text(
                     "Only $amount Left ",
-                    style: TextStyles.font12RedSemiBold,
+                    style: customTextStyles.headlineSmall?.copyWith(
+                      color: ColorsManager.red,
+                      fontWeight: FontWeightHelper.semiBold,
+                    ),
                   ),
                   Text(
                     "in Stock",
-                    style: TextStyles.font12DarkBlueMedium,
+                    style: customTextStyles.headlineSmall?.copyWith(
+                      fontWeight: FontWeightHelper.medium,
+                    ),
                   ),
                 ],
               ),
@@ -52,7 +67,9 @@ class StockAndShippingInfoWidget extends StatelessWidget {
         Gap(4.h),
         Text(
           shippingInfo,
-          style: TextStyles.font12DarkBlueMedium,
+          style: customTextStyles.headlineSmall?.copyWith(
+            fontWeight: FontWeightHelper.medium,
+          ),
         ),
       ],
     );

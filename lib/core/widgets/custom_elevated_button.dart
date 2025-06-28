@@ -3,8 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
-import '../config/text/text_styles.dart';
-import '../config/theme/colors_manager.dart';
+import '../config/theme/colors/colors_manager.dart';
+import '../config/theme/texts/font_weight_helper.dart';
+import '../helpers/extensions/theme_ext.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   final String? title;
@@ -37,6 +38,9 @@ class CustomElevatedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customColors = context.colors;
+    final customTextStyles = context.textStyles;
+
     bool isIcon = iconPath != null && title == null;
     bool isTitle = iconPath == null && title != null;
 
@@ -48,7 +52,7 @@ class CustomElevatedButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadiusValue ?? 8.r),
           side: BorderSide(
-            color: borderColor ?? ColorsManager.whiteBlue,
+            color: borderColor ?? customColors.onSecondary,
             width: borderWidth ?? 1.0.w,
           ),
         ),
@@ -70,7 +74,11 @@ class CustomElevatedButton extends StatelessWidget {
           : isTitle
               ? Text(
                   title!,
-                  style: titleStyle ?? TextStyles.font8BlueGreyMedium,
+                  style: titleStyle ??
+                      customTextStyles.labelMedium?.copyWith(
+                        color: ColorsManager.blueGrey,
+                        fontWeight: FontWeightHelper.medium,
+                      ),
                 )
               : Row(
                   children: [
@@ -86,7 +94,11 @@ class CustomElevatedButton extends StatelessWidget {
                     Gap(4.w),
                     Text(
                       title!,
-                      style: titleStyle ?? TextStyles.font8BlueGreyMedium,
+                      style: titleStyle ??
+                          customTextStyles.labelMedium?.copyWith(
+                            color: ColorsManager.blueGrey,
+                            fontWeight: FontWeightHelper.medium,
+                          ),
                     ),
                   ],
                 ),

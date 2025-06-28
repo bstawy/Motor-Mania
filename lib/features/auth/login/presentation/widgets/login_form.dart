@@ -3,18 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../core/caching/navigation_data_manager.dart';
-import '../../../../../core/config/app_manager/app_manager_cubit.dart';
-import '../../../../../core/config/routing/routes.dart';
-import '../../../../../core/config/text/text_styles.dart';
-import '../../../../../core/config/theme/colors_manager.dart';
-import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../core/config/theme/texts/font_weight_helper.dart';
+import '../../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../../core/helpers/validators.dart';
-import '../../../../../core/widgets/custom_material_button.dart';
 import '../../../widgets/form_text_field.dart';
 import '../../../widgets/password_validations.dart';
 import '../../data/models/login_request_body_model.dart';
 import '../../logic/login_cubit.dart';
+import 'login_button_widget.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -36,7 +32,14 @@ class _LoginFormState extends State<LoginForm> {
 
   bool isEmailValid = false;
   bool isPasswordValid = false;
-  bool logging = false;
+
+  void setupEmailControllerListener() {
+    _emailController.addListener(() {
+      setState(() {
+        isEmailValid = Validators.validateEmail(_emailController.text) == null;
+      });
+    });
+  }
 
   void setupPasswordControllerListener() {
     _passwordController.addListener(() {
@@ -57,15 +60,7 @@ class _LoginFormState extends State<LoginForm> {
     });
   }
 
-  void setupEmailControllerListener() {
-    _emailController.addListener(() {
-      setState(() {
-        isEmailValid = Validators.validateEmail(_emailController.text) == null;
-      });
-    });
-  }
-
-  void login(BuildContext context) {
+  void login() {
     if (_formKey.currentState!.validate()) {
       LoginRequestBodyModel requestBody = LoginRequestBodyModel(
         email: _emailController.text,
@@ -85,7 +80,16 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final customTextStyles = context.textStyles;
+
     return Form(
       key: _formKey,
       child: Column(
@@ -106,19 +110,22 @@ class _LoginFormState extends State<LoginForm> {
             validator: (value) => Validators.validatePassword(value),
             action: TextInputAction.done,
           ),
-          Gap(16.h),
           Visibility(
             visible: _passwordController.text.isNotEmpty,
-            child: PasswordValidations(
-              isPasswordEmpty: _passwordController.text.isEmpty,
-              hasLowerCase: hasLowerCase,
-              hasUpperCase: hasUpperCase,
-              hasSpecialCharacters: hasSpecialCharacter,
-              hasNumber: hasNumber,
-              hasMinLength: hasMinLength,
+            child: Column(
+              children: [
+                Gap(16.h),
+                PasswordValidations(
+                  isPasswordEmpty: _passwordController.text.isEmpty,
+                  hasLowerCase: hasLowerCase,
+                  hasUpperCase: hasUpperCase,
+                  hasSpecialCharacters: hasSpecialCharacter,
+                  hasNumber: hasNumber,
+                  hasMinLength: hasMinLength,
+                ),
+              ],
             ),
           ),
-          Gap(4.h),
           Align(
             alignment: Alignment.centerRight,
             child: TextButton(
@@ -127,68 +134,20 @@ class _LoginFormState extends State<LoginForm> {
               },
               child: Text(
                 "Forget Password?",
-                style: TextStyles.font12DarkBlueRegular,
+                style: customTextStyles.labelLarge?.copyWith(
+                  fontWeight: FontWeightHelper.regular,
+                ),
               ),
             ),
           ),
           Gap(16.h),
-          BlocConsumer<LoginCubit, LoginState>(
-            bloc: context.read<LoginCubit>(),
-            listener: (context, state) async {
-              if (state is LoadingState) {
-                setState(() {
-                  logging = true;
-                });
-              } else if (state is SuccessState) {
-                context.read<AppManagerCubit>().logUserIn();
-                String navRoute = Routes.layoutScreen;
-                int? args;
-
-                final ScreenNavigationData? navigationData =
-                    await NavigationDataManager.getScreenNavigationData();
-
-                if (navigationData != null) {
-                  navRoute = navigationData.previousScreenRouteName!;
-                  args = navigationData.previousScreenArguments;
-                }
-
-                if (context.mounted) {
-                  context.pushNamedAndRemoveUntil(
-                    navRoute,
-                    predicate: (route) => false,
-                    arguments: args,
-                  );
-                }
-              } else if (state is ErrorState) {
-                context.errorSnackBar(state.message);
-
-                setState(() {
-                  logging = false;
-                });
-              }
-            },
-            builder: (context, state) {
-              return CustomMaterialButton(
-                onClicked: isEmailValid && isPasswordValid
-                    ? () {
-                        login(context);
-                      }
-                    : null,
-                title: "Login",
-                backgroundColor: ColorsManager.red,
-                loading: logging,
-              );
-            },
+          LoginButtonWidget(
+            isEmailValid: isEmailValid,
+            isPasswordValid: isPasswordValid,
+            onPressed: () => login(),
           ),
         ],
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
   }
 }

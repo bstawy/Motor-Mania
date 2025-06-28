@@ -2,14 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:popover/popover.dart';
 
-import '../../../../../core/config/text/text_styles.dart';
-import '../../../../../core/config/theme/colors_manager.dart';
+import '../../../../../core/config/constants/api_constants.dart';
+import '../../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../../core/config/theme/texts/font_weight_helper.dart';
+import '../../../../../core/helpers/assets_manager.dart';
+import '../../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../../core/helpers/open_product_bottom_sheet.dart';
 import '../../../../../core/widgets/custom_elevated_button.dart';
+import '../../../../../core/widgets/custom_network_image_widget.dart';
 import '../../../../../core/widgets/product_name_and_type_widget.dart';
 import '../../../../../core/widgets/product_price_widget.dart';
 import '../../../../../core/widgets/product_property_widget.dart';
+import '../../../../../core/widgets/quantity_pop_up_widget.dart';
 import '../../../../favorites/presentation/logic/favorites_cubit.dart';
 import '../../../domain/entities/cart_product_entity.dart';
 import '../../logic/cart_cubit.dart';
@@ -21,6 +27,9 @@ class CartProductItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customTextStyles = context.textStyles;
+    final customColors = context.colors;
+
     return GestureDetector(
       onTap: () {
         openProductBottomSheet(
@@ -32,7 +41,7 @@ class CartProductItemWidget extends StatelessWidget {
         width: 1.sw,
         padding: EdgeInsets.all(16.r),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: customColors.inverseSurface,
           borderRadius: BorderRadius.circular(15.r),
         ),
         child: Column(
@@ -42,7 +51,10 @@ class CartProductItemWidget extends StatelessWidget {
                 SizedBox(
                   width: 113.w,
                   height: 102.h,
-                  child: Image.network(cartProduct.product.imageUrl ?? ""),
+                  child: CustomNetworkImage(
+                    url: ApiConstants.localHostImagesUrl +
+                        (cartProduct.product.imageUrl ?? ""),
+                  ),
                 ),
                 Gap(12.w),
                 Column(
@@ -63,21 +75,28 @@ class CartProductItemWidget extends StatelessWidget {
                     Gap(8.h),
                     Text(
                       "Order in 16h 34m,",
-                      style: TextStyles.font10DarkBlueMedium,
+                      style: customTextStyles.labelLarge?.copyWith(
+                        fontWeight: FontWeightHelper.medium,
+                      ),
                     ),
                     RichText(
                       textAlign: TextAlign.start,
                       text: TextSpan(
                         text: 'Get It ',
-                        style: TextStyles.font10DarkBlueBold,
+                        style: customTextStyles.labelLarge,
+                        // TextStyles.font10DarkBlueBold,
                         children: [
                           TextSpan(
                             text: 'by ',
-                            style: TextStyles.font10DarkBlueMedium,
+                            style: customTextStyles.labelLarge?.copyWith(
+                              fontWeight: FontWeightHelper.medium,
+                            ),
                           ),
                           TextSpan(
                             text: 'Fri, 12 July',
-                            style: TextStyles.font10RedBold,
+                            style: customTextStyles.labelLarge?.copyWith(
+                              color: ColorsManager.red,
+                            ),
                           ),
                         ],
                       ),
@@ -85,15 +104,14 @@ class CartProductItemWidget extends StatelessWidget {
                     Gap(5.h),
                     Row(
                       children: [
-                        const ProductPropertyWidget(
+                        ProductPropertyWidget(
                           title: "Free Delivery",
-                          iconPath:
-                              "assets/icons/free_delivery_filled_icon.svg",
+                          iconPath: AssetsManager.freeDeliveryFilledIcon,
                         ),
                         Gap(13.w),
-                        const ProductPropertyWidget(
+                        ProductPropertyWidget(
                           title: "Verified Seller",
-                          iconPath: "assets/icons/verify_icon.svg",
+                          iconPath: AssetsManager.verifiedSellerIcon,
                         ),
                       ],
                     ),
@@ -108,7 +126,18 @@ class CartProductItemWidget extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      // TODO: change product amount
+                      showPopover(
+                        context: context,
+                        bodyBuilder: (context) => const QuantityPopUpWidget(),
+                        direction: PopoverDirection.bottom,
+                        backgroundColor: customColors.inverseSurface,
+                        height: 50.h,
+                        width: 177.w,
+                        radius: 12.r,
+                        arrowDxOffset: -150.w,
+                        arrowDyOffset: -20.h,
+                        arrowWidth: 0,
+                      );
                     },
                     child: Container(
                       height: 26.h,
@@ -118,14 +147,17 @@ class CartProductItemWidget extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8.r),
                         border: Border.all(
-                          color: const Color(0xffDFE2E7),
+                          color: customColors.onSecondary,
                         ),
                       ),
                       child: Row(
                         children: [
                           Text(
                             cartProduct.quantity.toString(),
-                            style: TextStyles.font10BlueGreySemiBold,
+                            style: customTextStyles.labelLarge?.copyWith(
+                              color: ColorsManager.blueGrey,
+                              fontWeight: FontWeightHelper.semiBold,
+                            ),
                           ),
                           Gap(4.w),
                           Icon(
@@ -145,12 +177,13 @@ class CartProductItemWidget extends StatelessWidget {
                           .removeProductFromCart(cartProduct.product.id ?? 0);
                     },
                     title: "Remove",
-                    iconPath: "assets/icons/trash_icon.svg",
+                    iconPath: AssetsManager.trashIcon,
+                    //  "assets/icons/trash_icon.svg",
                   ),
                   const Spacer(),
                   CustomElevatedButton(
                     onPressed: () {
-                      // TODO: add to favorites and remove from cart
+                      // TODO: Fix issue product removed from cart but not added to favorite
                       context
                           .read<FavoritesCubit>()
                           .addToFavorites(cartProduct);
@@ -159,7 +192,7 @@ class CartProductItemWidget extends StatelessWidget {
                           .removeProductFromCart(cartProduct.product.id ?? 0);
                     },
                     title: "Move To Favorites",
-                    iconPath: "assets/icons/favorite_light_icon.svg",
+                    iconPath: AssetsManager.favoriteLightIcon,
                   ),
                 ],
               ),

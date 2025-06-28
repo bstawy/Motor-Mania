@@ -5,6 +5,7 @@ class HomeCategoryModel extends HomeCategoryEntity {
     required super.id,
     required super.name,
     required super.imageUrl,
+    required super.darkImageUrl,
   });
 
   factory HomeCategoryModel.fromJson(Map<String, dynamic> json) {
@@ -12,6 +13,7 @@ class HomeCategoryModel extends HomeCategoryEntity {
       id: json['id'],
       name: json['name'],
       imageUrl: json['image_url'],
+      darkImageUrl: json['dark_image_url'],
     );
   }
 }

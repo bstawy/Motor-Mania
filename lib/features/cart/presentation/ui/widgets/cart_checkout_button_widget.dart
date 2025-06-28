@@ -6,8 +6,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../../../core/config/routing/routes.dart';
 import '../../../../../core/config/text/text_styles.dart';
-import '../../../../../core/config/theme/colors_manager.dart';
+import '../../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../../core/helpers/extensions/navigation_ext.dart';
+import '../../../../../core/helpers/save_navigation_data.dart';
 import '../../../../../core/widgets/custom_material_button.dart';
 import '../../logic/cart_cubit.dart';
 
@@ -53,7 +54,11 @@ class CartCheckoutButtonWidget extends StatelessWidget {
             return _buildCheckoutButton(
               context,
               () {
-                context.pushNamed("/login");
+                saveNavigationData(
+                  Routes.layoutScreen,
+                  3,
+                );
+                context.pushNamed(Routes.loginScreen);
               },
               "LOGIN TO CHECKOUT",
             );
