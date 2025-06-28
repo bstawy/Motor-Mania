@@ -4,38 +4,52 @@ import 'secure_storage_factory.dart';
 class TokensManager {
   static Future<String?> getAccessToken() async {
     String? accessToken =
-        await SecureStorageFactory.read(TokensKeys.accessToken);
+        await CachingPrefsFactory.secureRead(TokensKeys.accessToken);
+    // String? accessToken =
+    //     await CachingPrefsFactory.readString(TokensKeys.accessToken);
 
     return accessToken;
   }
 
   static Future<String?> getRefreshToken() async {
     String? refreshToken =
-        await SecureStorageFactory.read(TokensKeys.refreshToken);
+        await CachingPrefsFactory.secureRead(TokensKeys.refreshToken);
+    // String? refreshToken =
+    //     await CachingPrefsFactory.readString(TokensKeys.refreshToken);
 
     return refreshToken;
   }
 
   static Future<void> setAccessToken(String accessToken) async {
-    await SecureStorageFactory.write(
+    await CachingPrefsFactory.secureWrite(
       key: TokensKeys.accessToken,
       value: accessToken,
     );
+    // await CachingPrefsFactory.writeString(
+    //   key: TokensKeys.accessToken,
+    //   value: accessToken,
+    // );
   }
 
   static Future<void> setRefreshToken(String refreshToken) async {
-    await SecureStorageFactory.write(
+    await CachingPrefsFactory.secureWrite(
       key: TokensKeys.refreshToken,
       value: refreshToken,
     );
+    // await CachingPrefsFactory.writeString(
+    //   key: TokensKeys.refreshToken,
+    //   value: refreshToken,
+    // );
   }
 
   static Future<void> deleteAccessToken() async {
-    await SecureStorageFactory.delete(TokensKeys.accessToken);
+    await CachingPrefsFactory.secureDelete(TokensKeys.accessToken);
+    // await CachingPrefsFactory.deleteData(TokensKeys.accessToken);
   }
 
   static Future<void> deleteRefreshToken() async {
-    await SecureStorageFactory.delete(TokensKeys.refreshToken);
+    await CachingPrefsFactory.secureDelete(TokensKeys.refreshToken);
+    // await CachingPrefsFactory.deleteData(TokensKeys.refreshToken);
   }
 
   static Future<void> deleteTokens() async {

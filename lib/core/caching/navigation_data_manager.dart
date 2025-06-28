@@ -12,15 +12,22 @@ class NavigationDataManager {
     if (kDebugMode) {
       debugPrint('Screen navigation data saved with >>>>>> $jsonString');
     }
-    await SecureStorageFactory.write(
+    await CachingPrefsFactory.secureWrite(
       key: CachingKeys.screenNavigationData,
       value: jsonString,
     );
+    // await CachingPrefsFactory.writeString(
+    //   key: CachingKeys.screenNavigationData,
+    //   value: jsonString,
+    // );
   }
 
   static getScreenNavigationData() async {
-    final jsonString =
-        await SecureStorageFactory.read(CachingKeys.screenNavigationData);
+    final jsonString = await CachingPrefsFactory.secureRead(
+      CachingKeys.screenNavigationData,
+    );
+    // final jsonString =
+    //     await CachingPrefsFactory.readString(CachingKeys.screenNavigationData);
     if (jsonString == null) {
       return null;
     }
@@ -33,7 +40,8 @@ class NavigationDataManager {
   }
 
   static removeScreenNavigationData() async {
-    await SecureStorageFactory.delete(CachingKeys.screenNavigationData);
+    await CachingPrefsFactory.secureDelete(CachingKeys.screenNavigationData);
+    // await CachingPrefsFactory.deleteData(CachingKeys.screenNavigationData);
   }
 }
 

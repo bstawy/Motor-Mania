@@ -5,6 +5,11 @@ sealed class AppManagerState {}
 
 final class AppManagerInitialState extends AppManagerState {}
 
+final class FirstTimeUserState extends AppManagerState {
+  final bool isFirstTimeUser;
+  FirstTimeUserState(this.isFirstTimeUser);
+}
+
 final class UserLoggedInState extends AppManagerState {}
 
 final class NoUserLoggedInState extends AppManagerState {}

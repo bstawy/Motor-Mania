@@ -37,12 +37,19 @@ class _LayoutScreenState extends State<LayoutScreen> {
   void initState() {
     super.initState();
     controller = context.read<LayoutCubit>().controller;
+    _checkFirstTimeUser();
   }
 
   @override
   void didChangeDependencies() {
     getTabIndex();
     super.didChangeDependencies();
+  }
+
+  void _checkFirstTimeUser() {
+    if (context.read<AppManagerCubit>().isFirstTimeUser) {
+      context.read<AppManagerCubit>().setFirstTimeUser(false);
+    }
   }
 
   getTabIndex() {
