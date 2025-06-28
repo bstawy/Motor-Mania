@@ -4,9 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../features/favorites/presentation/logic/favorites_cubit.dart';
-import '../../main.dart';
 import '../config/theme/colors/colors_manager.dart';
 import '../helpers/extensions/extensions.dart';
+import '../helpers/extensions/theme_ext.dart';
 
 class FavoriteButtonWidget extends StatelessWidget {
   final dynamic product;
@@ -46,7 +46,9 @@ class FavoriteButtonWidget extends StatelessWidget {
         padding: EdgeInsets.all(6.r),
         decoration: BoxDecoration(
           color: backgroundColor ??
-              (themeIsDark ? ColorsManager.dark : ColorsManager.whiteGrey),
+              (context.themeIsDark
+                  ? ColorsManager.dark
+                  : ColorsManager.whiteGrey),
           borderRadius: BorderRadius.circular(15.r),
         ),
         alignment: Alignment.center,
@@ -76,7 +78,7 @@ class FavoriteButtonWidget extends StatelessWidget {
               width: iconWidth ?? 16.r,
               height: iconHeight ?? 16.r,
               colorFilter: ColorFilter.mode(
-                themeIsDark ? Colors.white : ColorsManager.darkBlue,
+                context.themeIsDark ? Colors.white : ColorsManager.darkBlue,
                 BlendMode.srcIn,
               ),
             );

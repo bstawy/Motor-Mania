@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
-import '../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../core/helpers/assets_manager.dart';
 import '../../../core/helpers/extensions/theme_ext.dart';
@@ -24,10 +22,8 @@ class SocialMediaSignUp extends StatelessWidget {
           onClicked: () {},
           title: "Sign Up With Google",
           prefixWidget: SvgPicture.asset(AssetsManager.googleIcon),
-          backgroundColor: ((context.read<AppManagerCubit>().currentThemeMode ==
-                  ThemeMode.dark)
-              ? Colors.transparent
-              : Colors.white),
+          backgroundColor:
+              (context.themeIsDark ? Colors.transparent : Colors.white),
           borderColor: customColors.inverseSurface,
           titleStyle: customTextStyles.headlineMedium?.copyWith(
             fontWeight: FontWeightHelper.medium,
@@ -44,10 +40,8 @@ class SocialMediaSignUp extends StatelessWidget {
               BlendMode.srcIn,
             ),
           ),
-          backgroundColor: ((context.read<AppManagerCubit>().currentThemeMode ==
-                  ThemeMode.dark)
-              ? Colors.transparent
-              : Colors.white),
+          backgroundColor:
+              (context.themeIsDark ? Colors.transparent : Colors.white),
           borderColor: customColors.inverseSurface,
           titleStyle: customTextStyles.headlineMedium?.copyWith(
             fontWeight: FontWeightHelper.medium,

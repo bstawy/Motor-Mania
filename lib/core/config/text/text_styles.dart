@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../main.dart';
 import '../theme/colors/colors_manager.dart';
 import '../theme/texts/font_weight_helper.dart';
 
@@ -92,7 +91,7 @@ class TextStyles {
 
   static TextStyle font14DarkBlueSemiBold() {
     return TextStyle(
-      color: themeIsDark ? Colors.white : ColorsManager.darkBlue,
+      color: ColorsManager.darkBlue,
       fontSize: 14.sp,
       fontWeight: FontWeightHelper.semiBold,
       fontFamily: 'Montserrat',

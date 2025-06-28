@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../../../core/helpers/assets_manager.dart';
@@ -39,8 +37,7 @@ class AddressItemWidget extends StatelessWidget {
           Row(
             children: [
               SvgPicture.asset(
-                context.read<AppManagerCubit>().currentThemeMode ==
-                        ThemeMode.dark
+                context.themeIsDark
                     ? AssetsManager.addresseDarkIcon
                     : AssetsManager.addresseIcon,
                 width: 16.w,

@@ -1,5 +1,5 @@
 import '../../../../core/caching/hive_manager.dart';
-import '../../../../core/config/constants/caching_constants.dart';
+import '../../../../core/config/constants/app_constants.dart';
 import '../../domain/entities/cart_product_entity.dart';
 
 class CartLocalDataSource {

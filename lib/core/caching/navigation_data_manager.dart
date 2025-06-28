@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
-import '../config/constants/caching_constants.dart';
+import '../config/constants/app_constants.dart';
 import 'secure_storage_factory.dart';
 
 class NavigationDataManager {
@@ -13,14 +13,14 @@ class NavigationDataManager {
       debugPrint('Screen navigation data saved with >>>>>> $jsonString');
     }
     await SecureStorageFactory.write(
-      key: CachingConstants.screenNavigationData,
+      key: CachingKeys.screenNavigationData,
       value: jsonString,
     );
   }
 
   static getScreenNavigationData() async {
     final jsonString =
-        await SecureStorageFactory.read(CachingConstants.screenNavigationData);
+        await SecureStorageFactory.read(CachingKeys.screenNavigationData);
     if (jsonString == null) {
       return null;
     }
@@ -33,7 +33,7 @@ class NavigationDataManager {
   }
 
   static removeScreenNavigationData() async {
-    await SecureStorageFactory.delete(CachingConstants.screenNavigationData);
+    await SecureStorageFactory.delete(CachingKeys.screenNavigationData);
   }
 }
 

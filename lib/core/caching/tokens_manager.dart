@@ -1,41 +1,41 @@
-import '../config/constants/caching_constants.dart';
+import '../config/constants/app_constants.dart';
 import 'secure_storage_factory.dart';
 
 class TokensManager {
   static Future<String?> getAccessToken() async {
     String? accessToken =
-        await SecureStorageFactory.read(TokensConstants.accessToken);
+        await SecureStorageFactory.read(TokensKeys.accessToken);
 
     return accessToken;
   }
 
   static Future<String?> getRefreshToken() async {
     String? refreshToken =
-        await SecureStorageFactory.read(TokensConstants.refreshToken);
+        await SecureStorageFactory.read(TokensKeys.refreshToken);
 
     return refreshToken;
   }
 
   static Future<void> setAccessToken(String accessToken) async {
     await SecureStorageFactory.write(
-      key: TokensConstants.accessToken,
+      key: TokensKeys.accessToken,
       value: accessToken,
     );
   }
 
   static Future<void> setRefreshToken(String refreshToken) async {
     await SecureStorageFactory.write(
-      key: TokensConstants.refreshToken,
+      key: TokensKeys.refreshToken,
       value: refreshToken,
     );
   }
 
   static Future<void> deleteAccessToken() async {
-    await SecureStorageFactory.delete(TokensConstants.accessToken);
+    await SecureStorageFactory.delete(TokensKeys.accessToken);
   }
 
   static Future<void> deleteRefreshToken() async {
-    await SecureStorageFactory.delete(TokensConstants.refreshToken);
+    await SecureStorageFactory.delete(TokensKeys.refreshToken);
   }
 
   static Future<void> deleteTokens() async {

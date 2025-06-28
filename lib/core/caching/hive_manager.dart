@@ -4,7 +4,7 @@ import '../../features/cart/domain/entities/cart_product_entity.dart';
 import '../../features/home/domain/entities/car_entity.dart';
 import '../../features/home/domain/entities/home_product_entity.dart';
 import '../../features/product_details/domain/entities/product_entity.dart';
-import '../config/constants/caching_constants.dart';
+import '../config/constants/app_constants.dart';
 
 class HiveManager {
   HiveManager._();

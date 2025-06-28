@@ -14,7 +14,6 @@ import '../../../../../core/helpers/extensions/extensions.dart';
 import '../../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../../core/helpers/save_navigation_data.dart';
 import '../../../../../core/widgets/custom_elevated_button.dart';
-import '../../../../../main.dart';
 
 class UserNameAndEmailWidget extends StatelessWidget {
   final String name;
@@ -44,7 +43,7 @@ class UserNameAndEmailWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SvgPicture.asset(
-                  themeIsDark
+                  context.themeIsDark
                       ? AssetsManager.profileDarkIcon
                       : AssetsManager.profileIcon,
                   width: 24.r,
@@ -94,7 +93,7 @@ class UserNameAndEmailWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SvgPicture.asset(
-                  themeIsDark
+                  context.themeIsDark
                       ? AssetsManager.profileDarkIcon
                       : AssetsManager.profileIcon,
                   width: 24.r,

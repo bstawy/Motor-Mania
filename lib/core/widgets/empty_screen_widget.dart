@@ -61,9 +61,7 @@ class EmptyScreenWidget extends StatelessWidget {
               width: imageWidth ?? 300.w,
               height: imageHeight ?? 240.h,
               child: Image.asset(
-                darkImagePath != null &&
-                        context.read<AppManagerCubit>().currentThemeMode ==
-                            ThemeMode.dark
+                darkImagePath != null && context.themeIsDark
                     ? darkImagePath!
                     : imagePath,
               ),

@@ -8,7 +8,6 @@ import '../../../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../../../core/helpers/assets_manager.dart';
 import '../../../../../core/helpers/extensions/extensions.dart';
 import '../../../../../core/helpers/extensions/theme_ext.dart';
-import '../../../../../main.dart';
 
 class ProductSpecificationsWidget extends StatelessWidget {
   const ProductSpecificationsWidget({super.key});
@@ -33,7 +32,7 @@ class ProductSpecificationsWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SvgPicture.asset(
-                  themeIsDark
+                  context.themeIsDark
                       ? AssetsManager.freeDeliveryDarkIcon
                       : AssetsManager.freeDeliveryIcon,
                   width: 24.w,
@@ -62,7 +61,7 @@ class ProductSpecificationsWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SvgPicture.asset(
-                  themeIsDark
+                  context.themeIsDark
                       ? AssetsManager.highRatedDarkIcon
                       : AssetsManager.highRatedIcon,
                   width: 24.w,
@@ -91,7 +90,7 @@ class ProductSpecificationsWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SvgPicture.asset(
-                  themeIsDark
+                  context.themeIsDark
                       ? AssetsManager.lowReturnDarkIcon
                       : AssetsManager.lowReturnIcon,
                   width: 24.w,
@@ -120,7 +119,7 @@ class ProductSpecificationsWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SvgPicture.asset(
-                  themeIsDark
+                  context.themeIsDark
                       ? AssetsManager.cashOnDeliveryDarkIcon
                       : AssetsManager.cashOnDeliveryIcon,
                   width: 24.w,
