@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:motor_mania/core/errors/api_error_handler.dart';
-import 'package:motor_mania/core/errors/api_error_model.dart';
 
+import '../../../../../core/errors/api_error_handler.dart';
+import '../../../../../core/errors/api_error_model.dart';
 import '../../../data/models/register_request_body.dart';
 import '../../../data/repos/auth_repo.dart';
 

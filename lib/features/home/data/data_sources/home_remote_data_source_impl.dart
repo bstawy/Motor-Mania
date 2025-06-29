@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:motor_mania/core/networking/generic_api_call.dart';
 
 import '../../../../core/config/constants/api_constants.dart';
 import '../../../../core/helpers/enums/switch_enum.dart';
 import '../../../../core/networking/api_result.dart';
 import '../../../../core/networking/crud_manager.dart';
+import '../../../../core/networking/generic_api_call.dart';
 import 'home_data_sources.dart';
 
 class HomeRemoteDataSourceImpl extends HomeDataSources {

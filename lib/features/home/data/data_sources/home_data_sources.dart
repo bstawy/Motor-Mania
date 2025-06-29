@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:motor_mania/core/networking/api_result.dart';
 
 import '../../../../core/helpers/enums/switch_enum.dart';
+import '../../../../core/networking/api_result.dart';
 
 abstract class HomeDataSources {
   Future<ApiResult<Response>> getUserCar();

@@ -1,11 +1,10 @@
-import 'package:motor_mania/features/auth/data/models/user_data_model.dart';
-
 import '../../../../core/caching/tokens_manager.dart';
 import '../../../../core/errors/api_exceptions.dart';
 import '../../../../core/networking/api_result.dart';
 import '../data_sources/auth_remote_data_source.dart';
 import '../models/login_request_body_model.dart';
 import '../models/register_request_body.dart';
+import '../models/user_data_model.dart';
 
 class AuthRepo {
   final AuthRemoteDataSource _remoteDataSource;
