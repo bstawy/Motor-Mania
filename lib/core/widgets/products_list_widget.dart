@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
+import '../../features/product_details/domain/entities/product_entity.dart';
 import '../config/theme/texts/font_weight_helper.dart';
 import '../helpers/extensions/extensions.dart';
 import '../helpers/extensions/theme_ext.dart';
@@ -9,7 +10,7 @@ import 'product_item_widget.dart';
 
 class ProductsListWidget extends StatelessWidget {
   final String title;
-  final List<dynamic> products;
+  final List<ProductEntity> products;
 
   const ProductsListWidget({
     super.key,

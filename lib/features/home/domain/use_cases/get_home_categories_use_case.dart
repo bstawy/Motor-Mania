@@ -1,6 +1,4 @@
-import 'package:dartz/dartz.dart';
-
-import '../../../../core/networking/failure/server_failure.dart';
+import '../../../../core/networking/api_result.dart';
 import '../entities/category_entity.dart';
 import '../repos/home_repo.dart';
 
@@ -9,7 +7,7 @@ class GetHomeCategoriesUseCase {
 
   GetHomeCategoriesUseCase(this._homeRepo);
 
-  Future<Either<ServerFailure, List<HomeCategoryEntity>>> execute() async {
+  Future<ApiResult<List<CategoryEntity>?>> execute() async {
     return await _homeRepo.getHomeCategories();
   }
 }

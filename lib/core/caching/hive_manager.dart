@@ -2,7 +2,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../features/cart/domain/entities/cart_product_entity.dart';
 import '../../features/home/domain/entities/car_entity.dart';
-import '../../features/home/domain/entities/home_product_entity.dart';
 import '../../features/product_details/domain/entities/product_entity.dart';
 import '../config/constants/app_constants.dart';
 
@@ -24,13 +23,12 @@ class HiveManager {
 
   void _registerAdapters() {
     Hive.registerAdapter(ProductEntityAdapter());
-    Hive.registerAdapter(HomeProductEntityAdapter());
     Hive.registerAdapter(CartProductEntityAdapter());
     Hive.registerAdapter(CarEntityAdapter());
   }
 
   Future<void> _openHiveBoxes() async {
-    await Hive.openBox<HomeProductEntity>(HiveBoxKeys.favorites);
+    await Hive.openBox<ProductEntity>(HiveBoxKeys.favorites);
     await Hive.openBox<CartProductEntity>(HiveBoxKeys.cart);
   }
 
@@ -61,7 +59,7 @@ class HiveManager {
   }
 
   Future<void> clearAllBoxes() async {
-    await Hive.box<HomeProductEntity>(HiveBoxKeys.favorites).clear();
+    await Hive.box<ProductEntity>(HiveBoxKeys.favorites).clear();
     await Hive.box<CartProductEntity>(HiveBoxKeys.cart).clear();
   }
 }

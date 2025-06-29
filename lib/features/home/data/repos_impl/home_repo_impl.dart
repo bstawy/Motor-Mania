@@ -1,171 +1,91 @@
-import 'dart:developer';
-
-import 'package:dartz/dartz.dart';
-
 import '../../../../core/helpers/enums/switch_enum.dart';
-import '../../../../core/networking/failure/server_failure.dart';
+import '../../../../core/networking/api_result.dart';
+import '../../../product_details/data/models/product_model.dart';
+import '../../../product_details/domain/entities/product_entity.dart';
 import '../../domain/entities/car_entity.dart';
 import '../../domain/entities/category_entity.dart';
-import '../../domain/entities/home_product_entity.dart';
 import '../../domain/entities/offer_entity.dart';
 import '../../domain/repos/home_repo.dart';
 import '../data_sources/home_data_sources.dart';
-import '../models/home_car_model.dart';
-import '../models/home_category_model.dart';
-import '../models/home_product_model.dart';
+import '../models/car_model.dart';
+import '../models/category_model.dart';
 import '../models/offer_model.dart';
 
 class HomeRepoImpl extends HomeRepo {
-  final HomeDataSources _homeRemoteDataSource;
+  final HomeDataSources _remoteDataSource;
 
-  HomeRepoImpl(this._homeRemoteDataSource);
+  HomeRepoImpl(this._remoteDataSource);
 
   @override
-  Future<Either<ServerFailure, CarEntity?>> getUserCar() async {
-    try {
-      final response = await _homeRemoteDataSource.getUserCar();
+  Future<ApiResult<CarEntity?>> getUserCar() async {
+    final response = await _remoteDataSource.getUserCar();
 
-      if (response.statusCode == 200 && response.data['success'] == true) {
-        if (response.data['message'] == "No cars found.") {
-          log("User has no car");
-          return const Right(null);
-        }
-        final CarModel userCar = CarModel.fromJson(response.data['data']);
-
-        return Right(userCar);
-      }
-
-      return Left(
-        ServerFailure(
-          statusCode: response.statusCode,
-          message: response.data['message'],
-        ),
-      );
-    } catch (e) {
-      return Left(
-        ServerFailure(
-          statusCode: 400,
-          message: e.toString(),
-        ),
-      );
-    }
+    return response.fold(
+      (failure) => Failure<CarEntity?>(failure.exception),
+      (success) async {
+        final jsonCar = success.data.data['data'];
+        final CarModel userCar = CarModel.fromJson(jsonCar);
+        return Success(userCar);
+      },
+    );
   }
 
   @override
-  Future<Either<ServerFailure, List<HomeCategoryEntity>>>
-      getHomeCategories() async {
-    try {
-      final response = await _homeRemoteDataSource.getHomeCategories();
+  Future<ApiResult<CarEntity?>> switchCar(SwitchEnum switchValue) async {
+    final response = await _remoteDataSource.switchCar(switchValue);
 
-      if (response.statusCode == 200 && response.data['success'] == true) {
-        final List<HomeCategoryEntity> homeCategories =
-            (response.data['data'] as List)
-                .map((i) => HomeCategoryModel.fromJson(i))
-                .toList();
-
-        return Right(homeCategories);
-      }
-
-      return Left(
-        ServerFailure(
-          statusCode: response.statusCode,
-          message: response.data['message'],
-        ),
-      );
-    } catch (e) {
-      return Left(
-        ServerFailure(
-          statusCode: 400,
-          message: e.toString(),
-        ),
-      );
-    }
+    return response.fold(
+      (failure) => Failure<CarEntity?>(failure.exception),
+      (success) async {
+        final jsonCar = success.data.data['data'];
+        final CarModel switchedCar = CarModel.fromJson(jsonCar);
+        return Success(switchedCar);
+      },
+    );
   }
 
   @override
-  Future<Either<ServerFailure, List<HomeProductEntity>>>
-      getHomeProducts() async {
-    try {
-      final response = await _homeRemoteDataSource.getHomeProducts();
+  Future<ApiResult<List<OfferEntity>?>> getHomeOffers() async {
+    final response = await _remoteDataSource.getOffers();
 
-      if (response.statusCode == 200 && response.data['success'] == true) {
-        final List<HomeProductModel> homeProducts =
-            (response.data['data'] as List)
-                .map((i) => HomeProductModel.fromJson(i))
-                .toList();
-
-        return Right(homeProducts);
-      }
-
-      return Left(
-        ServerFailure(
-          statusCode: response.statusCode,
-          message: response.data['message'],
-        ),
-      );
-    } catch (e) {
-      return Left(
-        ServerFailure(
-          statusCode: 400,
-          message: e.toString(),
-        ),
-      );
-    }
+    return response.fold(
+      (failure) => Failure<List<OfferEntity>?>(failure.exception),
+      (success) {
+        final jsonOffers = success.data.data['data'];
+        final List<OfferModel> offers =
+            (jsonOffers as List).map((i) => OfferModel.fromJson(i)).toList();
+        return Success(offers);
+      },
+    );
   }
 
   @override
-  Future<Either<ServerFailure, List<OfferEntity>>> getHomeOffers() async {
-    try {
-      final response = await _homeRemoteDataSource.getHomeOffers();
+  Future<ApiResult<List<CategoryEntity>?>> getHomeCategories() async {
+    final response = await _remoteDataSource.getCategories();
 
-      if (response.statusCode == 200 && response.data['success'] == true) {
-        final List<OfferEntity> offers = (response.data['data'] as List)
-            .map((i) => OfferModel.fromJson(i))
+    return response.fold(
+      (failure) => Failure<List<CategoryEntity>?>(failure.exception),
+      (success) {
+        final jsonCategories = success.data.data['data'];
+        final List<CategoryModel> categories = (jsonCategories as List)
+            .map((i) => CategoryModel.fromJson(i))
             .toList();
-
-        return Right(offers);
-      }
-
-      return Left(
-        ServerFailure(
-          statusCode: response.statusCode,
-          message: response.data['message'],
-        ),
-      );
-    } catch (e) {
-      return Left(
-        ServerFailure(
-          statusCode: 400,
-          message: e.toString(),
-        ),
-      );
-    }
+        return Success(categories);
+      },
+    );
   }
 
   @override
-  Future<Either<ServerFailure, CarEntity>> switchCar(
-      SwitchEnum switchValue) async {
-    try {
-      final response = await _homeRemoteDataSource.switchCar(switchValue);
+  Future<ApiResult<List<ProductEntity>?>> getHomeProducts() async {
+    final response = await _remoteDataSource.getProducts();
 
-      if (response.statusCode == 200) {
-        final CarEntity userCar = CarModel.fromJson(response.data['data']);
-
-        return Right(userCar);
-      }
-      return Left(
-        ServerFailure(
-          statusCode: response.statusCode,
-          message: response.data['message'],
-        ),
-      );
-    } catch (e) {
-      return Left(
-        ServerFailure(
-          statusCode: 500,
-          message: e.toString(),
-        ),
-      );
-    }
+    return response
+        .fold((failure) => Failure<List<ProductEntity>?>(failure.exception),
+            (success) {
+      final jsonProducts = success.data.data['data'];
+      final List<ProductModel> products =
+          (jsonProducts as List).map((i) => ProductModel.fromJson(i)).toList();
+      return Success(products);
+    });
   }
 }

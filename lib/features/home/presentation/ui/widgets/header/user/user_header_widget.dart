@@ -33,7 +33,7 @@ class UserHeaderWidget extends StatelessWidget {
         if (state is UserCarSwitching) {
           context.loadingSnackBar("Switching car...");
         } else if (state is UserDataError) {
-          context.errorSnackBar(state.failure.message ?? "");
+          context.errorSnackBar(state.error.message ?? "");
         }
       },
       builder: (context, state) {
@@ -42,8 +42,9 @@ class UserHeaderWidget extends StatelessWidget {
         } else if (state is UserDataEmpty) {
           return _buildUserEmptyData();
         } else if (state is UserDataLoaded) {
-          context.read<AppManagerCubit>().selectedCarId = state.userCar.id!;
-          return UserHeaderLoadedWidget(car: state.userCar);
+          context.read<AppManagerCubit>().selectedCarId =
+              state.userCar?.id ?? 0;
+          return UserHeaderLoadedWidget(car: state.userCar!);
         } else {
           return const SizedBox();
         }

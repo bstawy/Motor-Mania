@@ -30,11 +30,11 @@ class HomeListWidget extends StatelessWidget {
         } else if (state is ProductsLoaded) {
           return ProductsListWidget(
             title: title,
-            products: state.products,
+            products: state.products ?? [],
           );
         } else if (state is ProductsError) {
           return Center(
-            child: Text(state.failure.message ?? "").setHorizontalPadding(16.w),
+            child: Text(state.error.message ?? "").setHorizontalPadding(16.w),
           );
         } else {
           return const SizedBox();
