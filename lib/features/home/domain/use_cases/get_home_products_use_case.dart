@@ -8,7 +8,7 @@ class GetHomeProductsUseCase {
 
   GetHomeProductsUseCase(this._homeRepo);
 
-  Future<ApiResult<List<ProductEntity>?>> execute() async {
+  Future<ApiResult<List<ProductEntity>?>> call() async {
     final response = await _homeRepo.getHomeProducts();
 
     return response.fold(

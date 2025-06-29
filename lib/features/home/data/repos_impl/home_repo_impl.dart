@@ -1,13 +1,10 @@
-import '../../../../core/helpers/enums/switch_enum.dart';
 import '../../../../core/networking/api_result.dart';
 import '../../../product_details/data/models/product_model.dart';
 import '../../../product_details/domain/entities/product_entity.dart';
-import '../../domain/entities/car_entity.dart';
 import '../../domain/entities/category_entity.dart';
 import '../../domain/entities/offer_entity.dart';
 import '../../domain/repos/home_repo.dart';
 import '../data_sources/home_data_sources.dart';
-import '../models/car_model.dart';
 import '../models/category_model.dart';
 import '../models/offer_model.dart';
 
@@ -15,34 +12,6 @@ class HomeRepoImpl extends HomeRepo {
   final HomeDataSources _remoteDataSource;
 
   HomeRepoImpl(this._remoteDataSource);
-
-  @override
-  Future<ApiResult<CarEntity?>> getUserCar() async {
-    final response = await _remoteDataSource.getUserCar();
-
-    return response.fold(
-      (failure) => Failure<CarEntity?>(failure.exception),
-      (success) async {
-        final jsonCar = success.data.data['data'];
-        final CarModel userCar = CarModel.fromJson(jsonCar);
-        return Success(userCar);
-      },
-    );
-  }
-
-  @override
-  Future<ApiResult<CarEntity?>> switchCar(SwitchEnum switchValue) async {
-    final response = await _remoteDataSource.switchCar(switchValue);
-
-    return response.fold(
-      (failure) => Failure<CarEntity?>(failure.exception),
-      (success) async {
-        final jsonCar = success.data.data['data'];
-        final CarModel switchedCar = CarModel.fromJson(jsonCar);
-        return Success(switchedCar);
-      },
-    );
-  }
 
   @override
   Future<ApiResult<List<OfferEntity>?>> getHomeOffers() async {

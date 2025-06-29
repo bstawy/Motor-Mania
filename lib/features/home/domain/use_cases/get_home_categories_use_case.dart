@@ -7,7 +7,7 @@ class GetHomeCategoriesUseCase {
 
   GetHomeCategoriesUseCase(this._homeRepo);
 
-  Future<ApiResult<List<CategoryEntity>?>> execute() async {
+  Future<ApiResult<List<CategoryEntity>?>> call() async {
     return await _homeRepo.getHomeCategories();
   }
 }

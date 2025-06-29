@@ -25,7 +25,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   void getHomeOffers() async {
     emit(OffersLoading());
-    final result = await _getHomeOffersUseCase.execute();
+    final result = await _getHomeOffersUseCase();
 
     result.fold(
       (failure) {
@@ -38,7 +38,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   void getHomeCategories() async {
     emit(CategoriesLoading());
-    final result = await _getHomeCategoriesUseCase.execute();
+    final result = await _getHomeCategoriesUseCase();
 
     result.fold(
       (failure) {
@@ -51,7 +51,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   void getHomeProducts() async {
     emit(ProductsLoading());
-    final result = await _getHomeProductsUseCase.execute();
+    final result = await _getHomeProductsUseCase();
 
     result.fold(
       (failure) {

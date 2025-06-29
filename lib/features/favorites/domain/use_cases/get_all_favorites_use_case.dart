@@ -8,7 +8,7 @@ class GetAllFavoritesUseCase {
 
   GetAllFavoritesUseCase(this._favoritesRepo);
 
-  Future<ApiResult<List<ProductEntity>?>> execute() async {
+  Future<ApiResult<List<ProductEntity>?>> call() async {
     final response = await _favoritesRepo.getAllFavorites();
 
     return response.fold(

@@ -6,7 +6,7 @@ class RemoveFromFavoritesUseCase {
 
   RemoveFromFavoritesUseCase(this._favoritesRepo);
 
-  Future<ApiResult<void>> execute(int id) async {
+  Future<ApiResult<void>> call(int id) async {
     return await _favoritesRepo.removeFromFavorites(id);
   }
 }

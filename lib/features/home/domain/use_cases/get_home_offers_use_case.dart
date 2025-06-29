@@ -7,7 +7,7 @@ class GetHomeOffersUseCase {
 
   GetHomeOffersUseCase(this._homeRepo);
 
-  Future<ApiResult<List<OfferEntity>?>> execute() async {
+  Future<ApiResult<List<OfferEntity>?>> call() async {
     return await _homeRepo.getHomeOffers();
   }
 }

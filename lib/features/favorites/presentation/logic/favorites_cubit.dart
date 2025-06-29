@@ -25,7 +25,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
   Future<void> getAllFavorites() async {
     emit(FavoritesLoading());
 
-    final response = await _getAllFavoritesUseCase.execute();
+    final response = await _getAllFavoritesUseCase();
 
     response.fold(
       (failure) {
@@ -46,7 +46,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
   Future<void> addToFavorites(dynamic product) async {
     emit(AddToFavoritesLoading());
 
-    final response = await _addToFavoritesUseCase.execute(product);
+    final response = await _addToFavoritesUseCase(product);
 
     response.fold(
       (failure) {
@@ -63,7 +63,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
   Future<void> removeFromFavorites(int id) async {
     emit(RemoveFromFavoritesLoading());
 
-    final response = await _removeFromFavoritesUseCase.execute(id);
+    final response = await _removeFromFavoritesUseCase(id);
 
     response.fold(
       (failure) {

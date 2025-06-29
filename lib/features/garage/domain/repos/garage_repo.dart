@@ -1,13 +1,13 @@
-import 'package:dartz/dartz.dart';
-
-import '../../../../core/networking/failure/server_failure.dart';
+import '../../../../core/helpers/enums/switch_enum.dart';
+import '../../../../core/networking/api_result.dart';
 import '../../../home/domain/entities/car_entity.dart';
 import '../../data/models/add_car_model.dart';
 
 abstract class GarageRepo {
-  Future<Either<ServerFailure, List<CarEntity>>> getGarageCars();
-  Future<Either<ServerFailure, CarEntity>> selectCar(int carId);
-  Future<Either<ServerFailure, bool>> addCar(AddCarModel car);
-
-  Future<Either<ServerFailure, bool>> removeCar(int carId);
+  Future<ApiResult<List<CarEntity>?>> getGarageCars();
+  Future<ApiResult<CarEntity?>> selectCar(int carId);
+  Future<ApiResult<CarEntity?>> getUserCar();
+  Future<ApiResult<CarEntity?>> switchCar(SwitchEnum switchValue);
+  Future<ApiResult<void>> addCar(AddCarModel car);
+  Future<ApiResult<void>> removeCar(int carId);
 }

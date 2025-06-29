@@ -22,7 +22,7 @@ class UserCubit extends Cubit<UserState> {
 
   void fetchUserData() async {
     emit(UserDataLoading());
-    final result = await _getUserSelectedCarUseCase.execute();
+    final result = await _getUserSelectedCarUseCase();
 
     result.fold(
       (failure) {
@@ -35,7 +35,7 @@ class UserCubit extends Cubit<UserState> {
 
   void selectNexCar() async {
     emit(UserCarSwitching());
-    final result = await _selectNextCarUseCase.execute();
+    final result = await _selectNextCarUseCase();
 
     result.fold(
       (failure) {
@@ -48,7 +48,7 @@ class UserCubit extends Cubit<UserState> {
 
   void selectPreviousCar() async {
     emit(UserCarSwitching());
-    final result = await _selectPreviousCarUseCase.execute();
+    final result = await _selectPreviousCarUseCase();
 
     result.fold(
       (failure) {

@@ -1,6 +1,4 @@
-import 'package:dartz/dartz.dart';
-
-import '../../../../core/networking/failure/server_failure.dart';
+import '../../../../core/networking/api_result.dart';
 import '../repos/garage_repo.dart';
 
 class RemoveCarUseCase {
@@ -8,7 +6,7 @@ class RemoveCarUseCase {
 
   RemoveCarUseCase(this._repo);
 
-  Future<Either<ServerFailure, bool>> call(int carId) async {
+  Future<ApiResult<void>> call(int carId) async {
     return await _repo.removeCar(carId);
   }
 }

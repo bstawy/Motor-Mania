@@ -7,7 +7,7 @@ class AddToFavoritesUseCase {
 
   AddToFavoritesUseCase(this._favoritesRepo);
 
-  Future<ApiResult<void>> execute(ProductEntity product) async {
+  Future<ApiResult<void>> call(ProductEntity product) async {
     return await _favoritesRepo.addToFavorites(product);
   }
 }
