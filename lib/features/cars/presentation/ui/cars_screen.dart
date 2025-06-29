@@ -6,7 +6,7 @@ import 'package:gap/gap.dart';
 import '../../../../core/helpers/extensions/extensions.dart';
 import '../../../../core/widgets/custom_app_bar.dart';
 import '../../../../core/widgets/custom_material_button.dart';
-import '../../../auth/login/logic/login_cubit.dart';
+import '../../../auth/presentation/logic/login_cubit/login_cubit.dart';
 import '../logic/cars_cubit.dart';
 import 'widgets/add_car_listener.dart';
 import 'widgets/car_brands_kilometers_field_widget.dart';

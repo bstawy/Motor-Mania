@@ -1,20 +1,19 @@
 import 'package:dio/dio.dart';
 
 class CrudManager {
-  CrudManager._();
   static CrudManager? _instance;
   static Dio? _freeDio;
   static Dio? _tokenDio;
+
+  CrudManager._();
 
   static getInstance({Dio? freeDio, Dio? tokenDio}) {
     if (_instance == null) {
       _freeDio = freeDio;
       _tokenDio = tokenDio;
       _instance = CrudManager._();
-      return _instance;
-    } else {
-      return _instance;
     }
+    return _instance;
   }
 
   Future<Response> get(

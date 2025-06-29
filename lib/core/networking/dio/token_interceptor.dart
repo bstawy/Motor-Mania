@@ -27,8 +27,7 @@ class TokenInterceptor extends Interceptor {
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) async {
-    if (response.statusCode == 401 &&
-        response.data['message'] == "Token expired") {
+    if (response.statusCode == 401) {
       debugPrint("=====================================");
       debugPrint("Token expired");
       String refreshToken = await TokensManager.getRefreshToken() ?? "";
