@@ -1,8 +1,6 @@
-import 'package:dartz/dartz.dart';
-
 import '../../../../core/helpers/calc_product_final_price.dart';
-import '../../../../core/networking/failure/server_failure.dart';
-import '../../../home/domain/entities/home_product_entity.dart';
+import '../../../../core/networking/api_result.dart';
+import '../../../product_details/domain/entities/product_entity.dart';
 import '../repos/search_repo.dart';
 
 class SearchUseCase {
@@ -10,13 +8,13 @@ class SearchUseCase {
 
   SearchUseCase(this._searchRepo);
 
-  Future<Either<ServerFailure, List<HomeProductEntity>>> search(
-      String query) async {
+  Future<ApiResult<List<ProductEntity>?>> call(String query) async {
     final response = await _searchRepo.search(query);
+
     return response.fold(
-      (serverFailure) => Left(serverFailure),
-      (data) {
-        List<HomeProductEntity> searchResults = data.map((product) {
+      (failure) => Failure<List<ProductEntity>?>(failure.exception),
+      (success) {
+        List<ProductEntity>? products = success.data?.map((product) {
           final finalPrice = calculateFinalPrice(
             product.oldPrice!,
             product.discountPercentage!,
@@ -24,7 +22,7 @@ class SearchUseCase {
           return product.copyWith(price: finalPrice);
         }).toList();
 
-        return Right(searchResults);
+        return Success<List<ProductEntity>?>(products);
       },
     );
   }

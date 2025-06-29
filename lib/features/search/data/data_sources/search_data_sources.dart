@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 
+import '../../../../core/networking/api_result.dart';
+
 abstract class SearchDataSources {
-  Future<Response> search(query);
+  Future<ApiResult<Response>> search(query);
 }
