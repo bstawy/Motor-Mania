@@ -6,22 +6,33 @@ class ApiConstants {
 }
 
 class EndPoints {
+  // Authentication Endpoints
   static const String register = "auth/signup.php";
   static const String login = "auth/login.php";
   static const String refreshToken = "auth/refresh_token.php";
+  static const String logout = "auth/logout.php";
+
+  // Home Endpoints
+  static const String search = "products/searchProduct.php";
   static const String homeOffers = "offers/get_offers.php";
   static const String allCategories = "categories/get_categories.php";
   static const String categoryProducts = "categories/get_category_products.php";
   static const String allProducts = "products/get_all_products.php";
   static const String productDetails = "products/get_product_by_id.php";
-  static const String search = "products/searchProduct.php";
+
+  // Favorites Endpoints
   static const String allFavorites = "favorites/get_favorites.php";
   static const String addToFavorites = "favorites/add_to_favorites.php";
   static const String removeFromFavorites =
       "favorites/delete_from_favorites.php";
+
+  // Cart Endpoints
   static const String allCartProducts = "cart/get_cart_products.php";
   static const String addProductToCart = "cart/add_product.php";
   static const String removeProductFromCart = "cart/remove_product.php";
+  static const String applyCoupon = "cart/apply_coupon.php";
+
+  // Cars Endpoints
   static const String userSelectedCar = "cars/get_default_car.php";
   static const String userCars = "cars/get_garage.php";
   static const String selectCar = "cars/set_default_car.php";

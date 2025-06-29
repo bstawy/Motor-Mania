@@ -32,12 +32,17 @@ final class CartError extends CartState {
   CartError(this.failure);
 }
 
-final class CouponApplied extends CartState {}
+final class ApplyCouponLoading extends CartState {}
 
-final class CouponRemoved extends CartState {}
+final class ApplyCouponSuccess extends CartState {
+  final CouponEntity couponData;
+  ApplyCouponSuccess(this.couponData);
+}
 
-final class CouponError extends CartState {
+final class ApplyCouponError extends CartState {
   final String message;
 
-  CouponError(this.message);
+  ApplyCouponError(this.message);
 }
+
+final class RemoveCoupon extends CartState {}

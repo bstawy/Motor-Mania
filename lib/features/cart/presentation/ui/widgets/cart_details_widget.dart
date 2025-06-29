@@ -34,26 +34,29 @@ class CartDetailsWidget extends StatelessWidget {
         bloc: context.read<CartCubit>(),
         listenWhen: (previous, current) {
           if (current is CartLoaded ||
-              current is CouponApplied ||
-              current is CouponRemoved) {
+              current is ApplyCouponSuccess ||
+              current is RemoveCoupon) {
             return true;
           }
           return false;
         },
         buildWhen: (previous, current) {
-          if (current is CartLoaded ||
-              current is CouponApplied ||
-              current is CouponRemoved) {
+          if (current is ApplyCouponLoading ||
+              current is CartLoaded ||
+              current is ApplyCouponSuccess ||
+              current is RemoveCoupon) {
             return true;
           }
           return false;
         },
         listener: (context, state) {
-          if (state is CouponApplied) {
+          if (state is ApplyCouponLoading) {
+            context.loadingSnackBar("Applying Coupon...");
+          } else if (state is ApplyCouponSuccess) {
             context.successSnackBar("Coupon Applied Successfully");
-          } else if (state is CouponRemoved) {
+          } else if (state is RemoveCoupon) {
             context.successSnackBar("Coupon Removed Successfully");
-          } else if (state is CouponError) {
+          } else if (state is ApplyCouponError) {
             context.errorSnackBar(state.message);
           }
         },
@@ -68,7 +71,9 @@ class CartDetailsWidget extends StatelessWidget {
               Gap(4.h),
               CartDetailsEntryWidget(
                 title: "Shipping Fees",
-                value: "Free",
+                value: context.read<CartCubit>().shippingFees == 0.0
+                    ? "Free"
+                    : "\$${context.read<CartCubit>().shippingFees.toStringAsFixed(2)}",
                 valueStyle: customTextStyles.labelLarge?.copyWith(
                   color: ColorsManager.red,
                   fontWeight: FontWeightHelper.semiBold,
@@ -77,9 +82,8 @@ class CartDetailsWidget extends StatelessWidget {
               Gap(4.h),
               CartDetailsEntryWidget(
                 title: "Discount",
-                value: state is CouponApplied
-                    ? "-\$${context.read<CartCubit>().discount.toStringAsFixed(2)}"
-                    : "\$0.00",
+                value:
+                    "-\$${context.read<CartCubit>().discount.toStringAsFixed(2)}",
                 titleStyle: customTextStyles.labelLarge?.copyWith(
                   color: ColorsManager.red,
                   fontWeight: FontWeightHelper.semiBold,
@@ -91,7 +95,7 @@ class CartDetailsWidget extends StatelessWidget {
               ),
               Gap(8.h),
               Visibility(
-                visible: state is CouponApplied,
+                visible: state is ApplyCouponSuccess,
                 replacement: const SizedBox.shrink(),
                 maintainState: true,
                 child: Container(
@@ -147,7 +151,7 @@ class CartDetailsWidget extends StatelessWidget {
                   ),
                   const Spacer(),
                   Text(
-                    "\$${context.read<CartCubit>().subTotal.toStringAsFixed(2)}",
+                    "\$${context.read<CartCubit>().total.toStringAsFixed(2)}",
                     style: customTextStyles.headlineLarge,
                   ),
                 ],
