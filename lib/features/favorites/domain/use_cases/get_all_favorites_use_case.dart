@@ -1,8 +1,6 @@
-import 'package:dartz/dartz.dart';
-
 import '../../../../core/helpers/calc_product_final_price.dart';
-import '../../../../core/networking/failure/server_failure.dart';
-import '../../../home/domain/entities/home_product_entity.dart';
+import '../../../../core/networking/api_result.dart';
+import '../../../product_details/domain/entities/product_entity.dart';
 import '../repos/favorites_repo.dart';
 
 class GetAllFavoritesUseCase {
@@ -10,21 +8,21 @@ class GetAllFavoritesUseCase {
 
   GetAllFavoritesUseCase(this._favoritesRepo);
 
-  Future<Either<ServerFailure, List<HomeProductEntity>>> execute() async {
+  Future<ApiResult<List<ProductEntity>?>> execute() async {
     final response = await _favoritesRepo.getAllFavorites();
 
     return response.fold(
-      (serverFailure) => Left(serverFailure),
-      (products) {
-        final homeProducts = products.map((product) {
+      (failure) => Failure<List<ProductEntity>?>(failure.exception),
+      (success) {
+        List<ProductEntity>? homeProducts = success.data?.map((product) {
           final finalPrice = calculateFinalPrice(
             product.oldPrice!,
             product.discountPercentage!,
           );
-          return product.copyWith(price: finalPrice, isFavorite: true);
+          return product.copyWith(price: finalPrice);
         }).toList();
 
-        return Right(homeProducts);
+        return Success<List<ProductEntity>?>(homeProducts);
       },
     );
   }

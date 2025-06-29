@@ -1,6 +1,4 @@
-import 'package:dartz/dartz.dart';
-
-import '../../../../core/networking/failure/server_failure.dart';
+import '../../../../core/networking/api_result.dart';
 import '../repos/favorites_repo.dart';
 
 class RemoveFromFavoritesUseCase {
@@ -8,7 +6,7 @@ class RemoveFromFavoritesUseCase {
 
   RemoveFromFavoritesUseCase(this._favoritesRepo);
 
-  Future<Either<ServerFailure, String>> execute(int id) async {
+  Future<ApiResult<void>> execute(int id) async {
     return await _favoritesRepo.removeFromFavorites(id);
   }
 }

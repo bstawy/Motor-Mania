@@ -1,10 +1,8 @@
-import 'package:dartz/dartz.dart';
-
-import '../../../../core/networking/failure/server_failure.dart';
-import '../../../home/domain/entities/home_product_entity.dart';
+import '../../../../core/networking/api_result.dart';
+import '../../../product_details/domain/entities/product_entity.dart';
 
 abstract class FavoritesRepo {
-  Future<Either<ServerFailure, List<HomeProductEntity>>> getAllFavorites();
-  Future<Either<ServerFailure, String>> addToFavorites(dynamic product);
-  Future<Either<ServerFailure, String>> removeFromFavorites(int id);
+  Future<ApiResult<List<ProductEntity>?>> getAllFavorites();
+  Future<ApiResult<void>> addToFavorites(ProductEntity product);
+  Future<ApiResult<void>> removeFromFavorites(int id);
 }
