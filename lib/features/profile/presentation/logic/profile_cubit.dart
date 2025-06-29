@@ -111,24 +111,35 @@ class ProfileCubit extends Cubit<ProfileState> {
       leadingIconPath: AssetsManager.profileNotificationsIcon,
       leadingDarkIconPath: AssetsManager.profileNotificationsDarkIcon,
     ),
-    OptionModel(
-      id: 12,
-      title: "Logout",
-      leadingIconPath: AssetsManager.profileLogoutIcon,
-      leadingDarkIconPath: AssetsManager.profileLogoutDarkIcon,
-      onTap: (context) async {
-        if (context.read<AppManagerCubit>().appMode == AppMode.user) {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return const LogoutAlertDialogWidget();
+    AppRouter.navigatorKey.currentContext!.read<AppManagerCubit>().appMode ==
+            AppMode.guest
+        ? OptionModel(
+            id: 13,
+            title: "Become a Partner",
+            leadingIconPath: AssetsManager.partnerIcon,
+            leadingDarkIconPath: AssetsManager.partnerDarkIcon,
+            onTap: (context) {
+              // context.pushNamed(Routes.becomePartner);
             },
-          );
-        } else {
-          context.errorSnackBar("You are not logged in");
-        }
-      },
-    ),
+          )
+        : OptionModel(
+            id: 12,
+            title: "Logout",
+            leadingIconPath: AssetsManager.profileLogoutIcon,
+            leadingDarkIconPath: AssetsManager.profileLogoutDarkIcon,
+            onTap: (context) async {
+              if (context.read<AppManagerCubit>().appMode == AppMode.user) {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const LogoutAlertDialogWidget();
+                  },
+                );
+              } else {
+                context.errorSnackBar("You are not logged in");
+              }
+            },
+          ),
   ];
 
   ProfileCubit() : super(ProfileInitial());

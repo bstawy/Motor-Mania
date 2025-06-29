@@ -5,10 +5,11 @@ import '../../../../core/caching/tokens_manager.dart';
 import '../../../../core/networking/failure/server_failure.dart';
 import '../../../product_details/domain/repos/product_repo.dart';
 import '../../domain/entities/cart_product_entity.dart';
+import '../../domain/entities/coupon_entity.dart';
 import '../../domain/repos/cart_repo.dart';
 import '../data_sources/cart_data_sources.dart';
 import '../data_sources/cart_local_data_source.dart';
-import '../models/cart_product_model.dart';
+import '../models/coupon_model.dart';
 
 class CartRepoImpl implements CartRepo {
   final CartDataSources _remoteDataSource;
@@ -46,7 +47,7 @@ class CartRepoImpl implements CartRepo {
           if (!data.any(
               (cartProduct) => cartProduct.product.id == product.product.id)) {
             await addProduct(product.product.id!, product.quantity);
-            allCartProducts.add(product as CartProductModel);
+            allCartProducts.add(product);
           }
         }
 
@@ -85,12 +86,12 @@ class CartRepoImpl implements CartRepo {
           }
           bool isNew = true;
 
-          cachedList.map((cartProduct) async {
+          for (final cartProduct in cachedList) {
             if (cartProduct.product.id == productId) {
               await _localDataSource.updateProductQuantity(productId, quantity);
               isNew = false;
             }
-          }).toList();
+          }
 
           if (isNew) {
             final newProduct = CartProductEntity(
@@ -144,6 +145,22 @@ class CartRepoImpl implements CartRepo {
       _localDataSource.removeProduct(productId);
 
       return const Right('Product removed from cart successfully');
+    } else {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<ServerFailure, CouponEntity>> applyCoupon(
+      String couponCode, num cartTotal) async {
+    final response = await _remoteDataSource.applyCoupon(
+      couponCode: couponCode,
+      cartTotal: cartTotal,
+    );
+
+    if (response.statusCode == 200) {
+      final couponResult = response.data['data'];
+      return Right(CouponModel.fromJson(couponResult));
     } else {
       return Left(ServerFailure());
     }

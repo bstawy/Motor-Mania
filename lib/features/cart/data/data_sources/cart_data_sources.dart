@@ -11,4 +11,8 @@ abstract class CartDataSources {
     int quantity,
   );
   Future<Response> removeProduct(int productId);
+  Future<Response> applyCoupon({
+    required String couponCode,
+    required num cartTotal,
+  });
 }

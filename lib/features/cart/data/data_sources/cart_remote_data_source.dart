@@ -73,4 +73,19 @@ class CartRemoteDataSource implements CartDataSources {
       tokenReq: true,
     );
   }
+
+  @override
+  Future<Response> applyCoupon(
+      {required String couponCode, required num cartTotal}) {
+    final Map<String, dynamic> params = {
+      "coupon_code": couponCode,
+      "cart_total": cartTotal,
+    };
+
+    return _crudManager.post(
+      EndPoints.applyCoupon,
+      body: params,
+      tokenReq: true,
+    );
+  }
 }
