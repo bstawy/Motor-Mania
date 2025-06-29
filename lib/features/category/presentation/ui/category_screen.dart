@@ -13,7 +13,8 @@ import '../../../home/domain/entities/category_entity.dart';
 import '../logic/category_cubit.dart';
 
 class CategoryScreen extends StatelessWidget {
-  final HomeCategoryEntity category;
+  final CategoryEntity category;
+
   const CategoryScreen({super.key, required this.category});
 
   @override
@@ -31,13 +32,13 @@ class CategoryScreen extends StatelessWidget {
             bloc: context.read<CategoryCubit>()
               ..getCategoryProducts(category.id),
             builder: (context, state) {
-              if (state is CategoryProductsLoading) {
+              if (state is LoadingState) {
                 return const Expanded(child: ProductsGridLoadingWidget());
-              } else if (state is CategoryProductsLoaded) {
+              } else if (state is SuccessState) {
                 return Expanded(
-                    child: ProductsGridWidget(products: state.products));
+                    child: ProductsGridWidget(products: state.products ?? []));
               } else if (state is ErrorState) {
-                return Center(child: Text(state.failure.message ?? ""));
+                return Center(child: Text(state.error.message ?? ""));
               } else {
                 return const SizedBox();
               }

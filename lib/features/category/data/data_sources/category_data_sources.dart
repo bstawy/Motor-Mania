@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 
+import '../../../../core/networking/api_result.dart';
+
 abstract class CategoryDataSources {
-  Future<Response> getCategoryProducts(int categoryId);
+  Future<ApiResult<Response>> getCategoryProducts(int categoryId);
 }
