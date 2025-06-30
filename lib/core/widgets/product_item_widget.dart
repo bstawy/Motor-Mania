@@ -38,7 +38,7 @@ class ProductItemWidget extends StatelessWidget {
       onTap: () {
         openProductBottomSheet(
           context: context,
-          productId: product.id ?? 0,
+          product: product,
         );
       },
       child: Container(

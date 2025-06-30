@@ -22,13 +22,16 @@ import 'widgets/seller_info_widget.dart';
 import 'widgets/stock_and_shipping_info_widget.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
-  const ProductDetailsScreen({super.key});
+  final ProductEntity product;
+
+  const ProductDetailsScreen({
+    super.key,
+    required this.product,
+  });
 
   @override
   Widget build(BuildContext context) {
     final customColors = context.colors;
-    final ProductEntity product =
-        ModalRoute.of(context)?.settings.arguments as ProductEntity;
 
     return Column(
       children: [

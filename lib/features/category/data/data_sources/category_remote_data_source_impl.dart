@@ -14,7 +14,7 @@ class CategoryRemoteDataSourceImpl extends CategoryDataSources {
   @override
   Future<ApiResult<Response>> getCategoryProducts(int categoryId) async {
     final queryParam = {
-      'categoryId': categoryId,
+      'category_id': categoryId,
     };
 
     return await executeApiCall(() async {

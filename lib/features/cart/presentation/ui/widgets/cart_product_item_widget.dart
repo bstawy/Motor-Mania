@@ -34,7 +34,7 @@ class CartProductItemWidget extends StatelessWidget {
       onTap: () {
         openProductBottomSheet(
           context: context,
-          productId: cartProduct.product.id ?? 0,
+          product: cartProduct.product,
         );
       },
       child: Container(
