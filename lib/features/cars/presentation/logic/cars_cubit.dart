@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:motor_mania/core/errors/api_error_handler.dart';
+import 'package:motor_mania/core/errors/api_error_model.dart';
 
 import '../../../../core/helpers/extensions/extensions.dart';
-import '../../../../core/networking/failure/server_failure.dart';
 import '../../../garage/data/models/add_car_model.dart';
 import '../../../garage/presentation/logic/garage_cubit.dart';
 import '../../domain/entities/car_brand_entity.dart';
@@ -30,12 +31,19 @@ class CarsCubit extends Cubit<CarsState> {
 
   Future<void> getCarBrands() async {
     emit(CarBrandsLoading());
+
     final response = await _getCarBrandsUseCase();
+
     response.fold(
-      (failure) => emit(CarBrandsError(failure)),
-      (carBrands) {
-        this.carBrands = carBrands;
+      (failure) {
+        final ApiErrorModel error = ApiErrorHandler.handle(failure.exception);
+
+        emit(CarBrandsError(error));
+      },
+      (success) {
+        carBrands = success.data ?? [];
         emit(CarBrandsLoaded(carBrands));
+
         selectCarBrand(carBrands.first.id!);
         getCarBrandModels();
       },
@@ -45,11 +53,16 @@ class CarsCubit extends Cubit<CarsState> {
   Future<void> getCarBrandModels() async {
     emit(CarBrandModelsLoading());
     final response = await _getCarBrandModelsUseCase(selectedCarBrandId ?? 0);
+
     response.fold(
-      (failure) => emit(CarBrandsError(failure)),
-      (carBrandModels) {
-        carModels = carBrandModels;
-        emit(CarBrandModelsLoaded(carBrandModels));
+      (failure) {
+        final ApiErrorModel error = ApiErrorHandler.handle(failure.exception);
+
+        emit(CarBrandModelsError(error));
+      },
+      (success) {
+        carModels = success.data ?? [];
+        emit(CarBrandModelsLoaded(carModels));
       },
     );
   }
@@ -75,6 +88,18 @@ class CarsCubit extends Cubit<CarsState> {
     }
   }
 
+  void addCar(BuildContext context) {
+    final AddCarModel carData = AddCarModel(
+      brand: carBrands
+          .firstWhere((element) => element.id == selectedCarBrandId!)
+          .name!,
+      model: selectedCarModel!,
+      year: selectedCarYear!,
+    );
+
+    context.read<GarageCubit>().addCar(carData);
+  }
+
   selectCarModel(String value) {
     selectedCarModel = value;
     emit(CarModelSelected());
@@ -87,7 +112,6 @@ class CarsCubit extends Cubit<CarsState> {
 
   selectCarKilometers(String? value) {
     String kilometer = value ?? '';
-    debugPrint('value: $kilometer');
     if (kilometer.isEmpty) {
       selectedCarKilometers = null;
     }
@@ -100,18 +124,6 @@ class CarsCubit extends Cubit<CarsState> {
         selectedCarModel != null &&
         selectedCarYear != null &&
         selectedCarKilometers != null;
-  }
-
-  void addCar(BuildContext context) {
-    final AddCarModel carData = AddCarModel(
-      brand: carBrands
-          .firstWhere((element) => element.id == selectedCarBrandId!)
-          .name!,
-      model: selectedCarModel!,
-      year: selectedCarYear!,
-    );
-
-    context.read<GarageCubit>().addCar(carData);
   }
 
   void reset() {

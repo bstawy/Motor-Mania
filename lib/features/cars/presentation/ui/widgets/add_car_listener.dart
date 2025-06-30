@@ -37,7 +37,7 @@ class AddCarListener extends StatelessWidget {
           case AddToGarageError():
             ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
-            context.errorSnackBar(state.failure.message ?? "Error adding car");
+            context.errorSnackBar(state.error.message ?? "Error adding car");
             break;
           default:
             break;

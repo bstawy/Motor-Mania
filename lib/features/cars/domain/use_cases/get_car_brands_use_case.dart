@@ -1,6 +1,4 @@
-import 'package:dartz/dartz.dart';
-
-import '../../../../core/networking/failure/server_failure.dart';
+import '../../../../core/networking/api_result.dart';
 import '../entities/car_brand_entity.dart';
 import '../repos/car_brands_repo.dart';
 
@@ -9,7 +7,7 @@ class GetCarBrandsUseCase {
 
   GetCarBrandsUseCase(this._carBrandsRepo);
 
-  Future<Either<ServerFailure, List<CarBrandEntity>>> call() async {
+  Future<ApiResult<List<CarBrandEntity>?>> call() async {
     return await _carBrandsRepo.getCarBrands();
   }
 }

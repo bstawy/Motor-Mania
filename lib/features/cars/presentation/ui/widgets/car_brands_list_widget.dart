@@ -37,14 +37,13 @@ class CarBrandsListWidget extends StatelessWidget {
             child: SingleChildScrollView(
               physics: const AlwaysScrollableScrollPhysics(),
               child: Center(
-                child:
-                    Text(state.failure.message ?? "Error loading car brands"),
+                child: Text(state.error.message ?? "Error loading car brands"),
               ),
             ),
           );
         } else if (state is CarBrandsLoaded || state is CarBrandSelected) {
           List<CarBrandEntity> carBrands = (state is CarBrandsLoaded)
-              ? state.carBrands
+              ? state.carBrands ?? []
               : (state is CarBrandSelected)
                   ? state.carBrands
                   : context.read<CarsCubit>().carBrands;
