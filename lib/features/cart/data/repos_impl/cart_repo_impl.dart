@@ -1,25 +1,21 @@
-import 'package:motor_mania/features/cart/data/models/cart_product_model.dart';
-import 'package:motor_mania/features/product_details/domain/entities/product_entity.dart';
-
 import '../../../../core/caching/tokens_manager.dart';
 import '../../../../core/networking/api_result.dart';
-import '../../../product_details/domain/repos/product_repo.dart';
+import '../../../product_details/domain/entities/product_entity.dart';
 import '../../domain/entities/cart_product_entity.dart';
 import '../../domain/entities/coupon_entity.dart';
 import '../../domain/repos/cart_repo.dart';
 import '../data_sources/cart_data_sources.dart';
 import '../data_sources/cart_local_data_source.dart';
+import '../models/cart_product_model.dart';
 import '../models/coupon_model.dart';
 
 class CartRepoImpl implements CartRepo {
   final CartDataSources _remoteDataSource;
   final CartLocalDataSource _localDataSource;
-  final ProductRepo _productRepo;
 
   CartRepoImpl(
     this._remoteDataSource,
     this._localDataSource,
-    this._productRepo,
   );
 
   @override

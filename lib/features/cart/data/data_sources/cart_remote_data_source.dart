@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:motor_mania/core/networking/generic_api_call.dart';
 
 import '../../../../core/config/constants/api_constants.dart';
 import '../../../../core/networking/api_result.dart';
 import '../../../../core/networking/crud_manager.dart';
+import '../../../../core/networking/generic_api_call.dart';
 import 'cart_data_sources.dart';
 
 class CartRemoteDataSource implements CartDataSources {

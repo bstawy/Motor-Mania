@@ -25,8 +25,8 @@ void openProductBottomSheet({
       return MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) =>
-                getIt<ProductCubit>()..getProductDetails(productId),
+            create: (context) => getIt<ProductCubit>(),
+            // ..getProductDetails(productId),
           ),
           BlocProvider(
             create: (context) => getIt<CartCubit>(),

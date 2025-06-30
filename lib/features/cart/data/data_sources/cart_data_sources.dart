@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:motor_mania/core/networking/api_result.dart';
+
+import '../../../../core/networking/api_result.dart';
 
 abstract class CartDataSources {
   Future<ApiResult<Response>> getCartProducts();

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:motor_mania/core/errors/api_error_handler.dart';
-import 'package:motor_mania/core/errors/api_error_model.dart';
 
+import '../../../../core/errors/api_error_handler.dart';
+import '../../../../core/errors/api_error_model.dart';
 import '../../../../core/helpers/extensions/extensions.dart';
 import '../../../garage/data/models/add_car_model.dart';
 import '../../../garage/presentation/logic/garage_cubit.dart';

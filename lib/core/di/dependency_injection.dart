@@ -165,7 +165,7 @@ Future<void> initGetIt() async {
   getIt.registerFactory<GetProductDetailsUseCase>(
     () => GetProductDetailsUseCase(getIt()),
   );
-  getIt.registerFactory<ProductCubit>(() => ProductCubit(getIt()));
+  getIt.registerFactory<ProductCubit>(() => ProductCubit());
 
   // Favorites
   getIt.registerFactory<FavoritesDataSources>(
@@ -212,7 +212,7 @@ Future<void> initGetIt() async {
     () => CartLocalDataSource(getIt()),
   );
   getIt.registerFactory<CartRepo>(
-    () => CartRepoImpl(getIt(), getIt(), getIt()),
+    () => CartRepoImpl(getIt(), getIt()),
   );
   getIt.registerFactory<GetCartProductsUseCase>(
     () => GetCartProductsUseCase(getIt()),
@@ -257,7 +257,7 @@ Future<void> initGetIt() async {
   );
 
   //cars
-  getIt.registerFactory<CarBrandsRemoteDataSource>(
+  getIt.registerFactory<CarsBrandsRemoteDataSource>(
     () => CarBrandsRemoteDataSourceImpl(getIt()),
   );
   getIt.registerFactory<CarBrandsRepo>(

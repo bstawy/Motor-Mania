@@ -108,9 +108,7 @@ class ProductQuantityAndAddToCartButtonWidget extends StatelessWidget {
                 ProductEntity product = context.read<ProductCubit>().product;
                 int quantity = context.read<ProductCubit>().productQuantity;
 
-                context
-                    .read<CartCubit>()
-                    .addProductToCart(product.id!, quantity);
+                context.read<CartCubit>().addProductToCart(product, quantity);
               },
               height: 40.h,
               backgroundColor: ColorsManager.red,

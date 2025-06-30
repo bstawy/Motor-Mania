@@ -1,6 +1,5 @@
-import 'package:motor_mania/features/product_details/domain/entities/product_entity.dart';
-
 import '../../../../core/networking/api_result.dart';
+import '../../../product_details/domain/entities/product_entity.dart';
 import '../repos/cart_repo.dart';
 
 class AddProductToCartUseCase {

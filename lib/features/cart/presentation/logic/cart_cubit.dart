@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:motor_mania/core/errors/api_error_handler.dart';
-import 'package:motor_mania/core/errors/api_error_model.dart';
-import 'package:motor_mania/features/product_details/domain/entities/product_entity.dart';
 
+import '../../../../core/errors/api_error_handler.dart';
+import '../../../../core/errors/api_error_model.dart';
+import '../../../product_details/domain/entities/product_entity.dart';
 import '../../domain/entities/cart_product_entity.dart';
 import '../../domain/entities/coupon_entity.dart';
 import '../../domain/use_cases/add_product_to_cart_use_case.dart';

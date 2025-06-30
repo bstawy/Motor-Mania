@@ -13,7 +13,7 @@ class ProductLoaded extends ProductState {
 }
 
 class ProductError extends ProductState {
-  final ServerFailure failure;
+  final ApiErrorModel failure;
 
   ProductError(this.failure);
 }
@@ -27,13 +27,13 @@ class ProductQuantityUpdated extends ProductState {
 class SimilarProductsLoading extends ProductState {}
 
 class SimilarProductsLoaded extends ProductState {
-  final List<HomeProductEntity> products;
+  final List<ProductEntity> products;
 
   SimilarProductsLoaded(this.products);
 }
 
 class SimilarProductsError extends ProductState {
-  final ServerFailure failure;
+  final ApiErrorModel failure;
 
   SimilarProductsError(this.failure);
 }
