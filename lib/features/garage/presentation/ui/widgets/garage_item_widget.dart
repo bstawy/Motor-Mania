@@ -37,11 +37,11 @@ class GarageItemWidget extends StatelessWidget {
         if (state is SelectCarSuccess) {
           final selectedCar = state.selectedCar;
 
-          context.read<AppManagerCubit>().selectedCarId = selectedCar.id!;
+          context.read<AppManagerCubit>().selectedCarId = selectedCar?.id ?? 0;
           context.successSnackBar(
-              "Your ${selectedCar.brand} ${selectedCar.model} is now selected.");
+              "Your ${selectedCar?.brand} ${selectedCar?.model} is now selected.");
         } else if (state is SelectCarError) {
-          context.errorSnackBar(state.failure.message ?? "Error selecting car");
+          context.errorSnackBar(state.error.message ?? "Error selecting car");
         } else {
           context.successSnackBar("Loading...");
         }
@@ -49,7 +49,7 @@ class GarageItemWidget extends StatelessWidget {
       builder: (context, state) {
         bool isSelected = false;
         if (state is SelectCarSuccess) {
-          isSelected = car.id == state.selectedCar.id;
+          isSelected = car.id == state.selectedCar?.id;
         } else {
           isSelected = car.id == context.read<AppManagerCubit>().selectedCarId;
         }

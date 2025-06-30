@@ -57,7 +57,7 @@ class CartDetailsWidget extends StatelessWidget {
           } else if (state is RemoveCoupon) {
             context.successSnackBar("Coupon Removed Successfully");
           } else if (state is ApplyCouponError) {
-            context.errorSnackBar(state.message);
+            context.errorSnackBar(state.error.message);
           }
         },
         builder: (context, state) {

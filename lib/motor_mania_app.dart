@@ -8,6 +8,7 @@ import 'core/config/routing/app_router.dart';
 import 'core/config/routing/routes.dart';
 import 'core/config/theme/app_theme.dart';
 import 'core/config/theme/theme_cubit.dart';
+import 'main.dart';
 
 class MotorManiaApp extends StatelessWidget {
   const MotorManiaApp({super.key});
@@ -33,7 +34,7 @@ class MotorManiaApp extends StatelessWidget {
                   themeMode: appTheme,
                   theme: AppTheme.lightThemeData,
                   darkTheme: AppTheme.darkThemeData,
-                  navigatorKey: AppRouter.navigatorKey,
+                  navigatorKey: navigatorKey,
                   onGenerateRoute: AppRouter().generateRoute,
                   initialRoute: isFirstTimeUser
                       ? Routes.onBoardingScreens

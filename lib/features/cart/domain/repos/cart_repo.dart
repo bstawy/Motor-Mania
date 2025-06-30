@@ -1,18 +1,17 @@
-import 'package:dartz/dartz.dart';
-
-import '../../../../core/networking/failure/server_failure.dart';
+import '../../../../core/networking/api_result.dart';
+import '../../../product_details/domain/entities/product_entity.dart';
 import '../entities/cart_product_entity.dart';
 import '../entities/coupon_entity.dart';
 
 abstract class CartRepo {
-  Future<Either<ServerFailure, List<CartProductEntity>>> getCartProducts();
-  Future<Either<ServerFailure, String>> addProduct(
-    int productId,
+  Future<ApiResult<List<CartProductEntity>?>> getCartProducts();
+  Future<ApiResult<void>> addProduct(
+    ProductEntity product,
     int quantity,
   );
-  Future<Either<ServerFailure, String>> removeProduct(int productId);
+  Future<ApiResult<void>> removeProduct(int productId);
 
-  Future<Either<ServerFailure, CouponEntity>> applyCoupon(
+  Future<ApiResult<CouponEntity?>> applyCoupon(
     String couponCode,
     num cartTotal,
   );

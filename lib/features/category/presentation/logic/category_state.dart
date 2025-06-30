@@ -2,18 +2,18 @@ part of 'category_cubit.dart';
 
 sealed class CategoryState {}
 
-final class CategoryInitial extends CategoryState {}
+final class InitialState extends CategoryState {}
 
-final class CategoryProductsLoading extends CategoryState {}
+final class LoadingState extends CategoryState {}
 
-final class CategoryProductsLoaded extends CategoryState {
-  final List<HomeProductEntity> products;
+final class SuccessState extends CategoryState {
+  final List<ProductEntity>? products;
 
-  CategoryProductsLoaded(this.products);
+  SuccessState(this.products);
 }
 
 final class ErrorState extends CategoryState {
-  final ServerFailure failure;
+  final ApiErrorModel error;
 
-  ErrorState(this.failure);
+  ErrorState(this.error);
 }

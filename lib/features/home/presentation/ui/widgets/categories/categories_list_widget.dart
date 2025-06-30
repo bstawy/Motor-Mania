@@ -23,10 +23,10 @@ class CategoriesList extends StatelessWidget {
         if (state is CategoriesLoading) {
           return const CategoriesListLoadingWidget();
         } else if (state is CategoriesLoaded) {
-          return CategoriesListLoadedWidget(categories: state.categories);
+          return CategoriesListLoadedWidget(categories: state.categories ?? []);
         } else if (state is CategoriesError) {
           return Center(
-            child: Text(state.failure.message ?? "").setHorizontalPadding(16.w),
+            child: Text(state.error.message ?? "").setHorizontalPadding(16.w),
           );
         } else {
           return const SizedBox();

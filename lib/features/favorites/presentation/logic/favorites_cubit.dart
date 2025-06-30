@@ -1,7 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/networking/failure/server_failure.dart';
-import '../../../home/domain/entities/home_product_entity.dart';
+import '../../../../core/errors/api_error_handler.dart';
+import '../../../../core/errors/api_error_model.dart';
+import '../../../product_details/domain/entities/product_entity.dart';
 import '../../domain/use_cases/add_to_favorites_use_case.dart';
 import '../../domain/use_cases/get_all_favorites_use_case.dart';
 import '../../domain/use_cases/remove_from_favorites_use_case.dart';
@@ -13,7 +14,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
   final AddToFavoritesUseCase _addToFavoritesUseCase;
   final RemoveFromFavoritesUseCase _removeFromFavoritesUseCase;
 
-  List<HomeProductEntity> favorites = [];
+  List<ProductEntity> favorites = [];
 
   FavoritesCubit(
     this._getAllFavoritesUseCase,
@@ -23,52 +24,60 @@ class FavoritesCubit extends Cubit<FavoritesState> {
 
   Future<void> getAllFavorites() async {
     emit(FavoritesLoading());
-    final response = await _getAllFavoritesUseCase.execute();
+
+    final response = await _getAllFavoritesUseCase();
 
     response.fold(
-      (serverFailure) {
-        emit(FavoritesError(serverFailure));
+      (failure) {
+        final ApiErrorModel error = ApiErrorHandler.handle(failure.exception);
+        emit(FavoritesError(error));
       },
-      (products) {
-        if (products.isEmpty) {
+      (success) {
+        if (success.data?.isEmpty ?? true) {
           emit(FavoritesEmpty());
         } else {
-          favorites = products;
-          emit(FavoritesLoaded(products));
+          favorites = success.data!;
+          emit(FavoritesLoaded(success.data));
         }
       },
     );
   }
 
   Future<void> addToFavorites(dynamic product) async {
-    final response = await _addToFavoritesUseCase.execute(product);
+    emit(AddToFavoritesLoading());
+
+    final response = await _addToFavoritesUseCase(product);
 
     response.fold(
-      (serverFailure) {
-        emit(FavoritesError(serverFailure));
+      (failure) {
+        final ApiErrorModel error = ApiErrorHandler.handle(failure.exception);
+        emit(AddToFavoritesFailure(error));
       },
-      (message) {
-        emit(AddToFavoritesSuccess(message));
+      (success) {
+        emit(AddToFavoritesSuccess());
         getAllFavorites();
       },
     );
   }
 
   Future<void> removeFromFavorites(int id) async {
-    final response = await _removeFromFavoritesUseCase.execute(id);
+    emit(RemoveFromFavoritesLoading());
+
+    final response = await _removeFromFavoritesUseCase(id);
 
     response.fold(
-      (serverFailure) {
-        emit(FavoritesError(serverFailure));
+      (failure) {
+        final ApiErrorModel error = ApiErrorHandler.handle(failure.exception);
+        emit(RemoveFromFavoritesFailure(error));
       },
       (message) {
-        emit(RemoveFromFavoritesSuccess(message));
+        emit(RemoveFromFavoritesSuccess());
         getAllFavorites();
       },
     );
   }
 
   bool isFavorite(int id) {
-    return favorites.any((element) => element.id == id);
+    return favorites.map((product) => product.id).toList().contains(id);
   }
 }

@@ -1,4 +1,4 @@
-import '../../../home/data/models/home_car_model.dart';
+import '../../../home/data/models/car_model.dart';
 import '../../domain/entities/product_entity.dart';
 
 class ProductModel extends ProductEntity {

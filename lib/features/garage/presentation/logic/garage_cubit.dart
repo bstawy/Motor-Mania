@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/networking/failure/server_failure.dart';
+import '../../../../core/errors/api_error_handler.dart';
+import '../../../../core/errors/api_error_model.dart';
 import '../../../home/domain/entities/car_entity.dart';
 import '../../data/models/add_car_model.dart';
 import '../../domain/use_cases/add_car_use_case.dart';
@@ -28,11 +28,17 @@ class GarageCubit extends Cubit<GarageState> {
 
   void getGarageCars() async {
     emit(GarageLoading());
-    final result = await _getGarageCarsUseCase.execute();
 
-    result.fold(
-      (failure) => emit(GarageError(failure)),
-      (cars) {
+    final response = await _getGarageCarsUseCase();
+
+    response.fold(
+      (failure) {
+        final ApiErrorModel error = ApiErrorHandler.handle(failure.exception);
+        emit(GarageError(error));
+      },
+      (success) {
+        final List<CarEntity> cars = success.data ?? [];
+
         if (cars.isEmpty) {
           emit(GarageEmpty());
         } else {
@@ -42,28 +48,28 @@ class GarageCubit extends Cubit<GarageState> {
     );
   }
 
-  void selectCar(int carId) {
+  void selectCar(int carId) async {
     emit(SelectCarLoading());
 
-    _selectCarUseCase.execute(carId).then(
-      (response) {
-        response.fold(
-          (failure) => emit(SelectCarError(failure)),
-          (car) => emit(SelectCarSuccess(car)),
-        );
+    final response = await _selectCarUseCase(carId);
+    response.fold(
+      (failure) {
+        final ApiErrorModel error = ApiErrorHandler.handle(failure.exception);
+        emit(SelectCarError(error));
       },
+      (success) => emit(SelectCarSuccess(success.data)),
     );
   }
 
   void addCar(AddCarModel carData) async {
-    debugPrint('==================================');
-    debugPrint('Add Car State Triggered');
-
     emit(AddToGarageLoading());
 
     final response = await _addCarUseCase(carData);
     response.fold(
-      (failure) => emit(AddToGarageError(failure)),
+      (failure) {
+        final ApiErrorModel error = ApiErrorHandler.handle(failure.exception);
+        emit(AddToGarageError(error));
+      },
       (_) {
         emit(AddToGarageSuccess());
         getGarageCars();
@@ -74,15 +80,16 @@ class GarageCubit extends Cubit<GarageState> {
   Future<void> removeCar(int carId) async {
     emit(RemoveFromGarageLoading());
 
-    _removeCarUseCase(carId).then(
-      (response) {
-        response.fold(
-          (failure) => emit(RemoveFromGarageError(failure)),
-          (_) {
-            emit(RemoveFromGarageSuccess());
-            getGarageCars();
-          },
-        );
+    final response = await _removeCarUseCase(carId);
+
+    response.fold(
+      (failure) {
+        final ApiErrorModel error = ApiErrorHandler.handle(failure.exception);
+        emit(RemoveFromGarageError(error));
+      },
+      (_) {
+        emit(RemoveFromGarageSuccess());
+        getGarageCars();
       },
     );
   }

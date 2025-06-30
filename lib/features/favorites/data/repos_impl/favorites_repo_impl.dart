@@ -1,10 +1,7 @@
-import 'package:dartz/dartz.dart';
-import 'package:flutter/foundation.dart';
-
 import '../../../../core/caching/tokens_manager.dart';
-import '../../../../core/networking/failure/server_failure.dart';
-import '../../../home/data/models/home_product_model.dart';
-import '../../../home/domain/entities/home_product_entity.dart';
+import '../../../../core/networking/api_result.dart';
+import '../../../product_details/data/models/product_model.dart';
+import '../../../product_details/domain/entities/product_entity.dart';
 import '../../domain/repos/favorites_repo.dart';
 import '../data_source/favorites_data_sources.dart';
 import '../data_source/favorites_local_data_source.dart';
@@ -16,136 +13,78 @@ class FavoritesRepoImpl extends FavoritesRepo {
   FavoritesRepoImpl(this._remoteDataSource, this._localDataSource);
 
   @override
-  Future<Either<ServerFailure, List<HomeProductEntity>>>
-      getAllFavorites() async {
-    try {
-      final token = await TokensManager.getAccessToken() ?? "";
+  Future<ApiResult<List<ProductEntity>?>> getAllFavorites() async {
+    // 1- Get the local cached favorites in case of guest mode
+    List<ProductEntity> cachedFavorites =
+        await _localDataSource.getCachedFavoritesList();
 
-      List<HomeProductEntity> cachedFavorites =
-          await _localDataSource.getCachedFavoritesList();
-      debugPrint("cachedFavorites with no token: $cachedFavorites");
+    final token = await TokensManager.getAccessToken() ?? "";
 
-      if (token.isEmpty) {
-        return Right(cachedFavorites);
-      }
+    if (token.isEmpty) {
+      return Success(cachedFavorites);
+    }
 
-      final response = await _remoteDataSource.getAllFavorites();
+    // 2- Get logged user favorites from server
+    final response = await _remoteDataSource.getAllFavorites();
 
-      if (response.statusCode == 200) {
-        final List<HomeProductEntity> favorites =
-            (response.data['data'] as List)
-                .map((product) => HomeProductModel.fromJson(product))
-                .toList();
-        List<HomeProductEntity> allFavorites = favorites;
+    return response.fold((failure) {
+      // Return the cached favorites in case of failure
+      return Success(cachedFavorites);
+    }, (success) async {
+      final List<ProductEntity> remoteFavorites =
+          (success.data.data['data'] as List)
+              .map((product) => ProductModel.fromJson(product))
+              .toList();
 
+      // Merge remote favorites with cached favorites
+      List<ProductEntity> allFavorites = remoteFavorites;
+
+      if (remoteFavorites != cachedFavorites) {
         for (final fav in cachedFavorites) {
-          if (!favorites.any((product) => product.id == fav.id)) {
+          if (!remoteFavorites.any((product) => product.id == fav.id)) {
             await addToFavorites(fav);
             allFavorites.add(fav);
           }
         }
-
-        await _localDataSource.clearFavorites();
-        await _localDataSource.cacheFavoritesList(allFavorites);
-        debugPrint("cachedFavorites: $cachedFavorites");
-        debugPrint("favorites: $favorites");
-        debugPrint("allFavorites: $allFavorites");
-
-        return Right(allFavorites);
       }
+      // Clear the local cache and store the merged favorites
+      await _localDataSource.clearFavorites();
+      await _localDataSource.cacheFavoritesList(allFavorites);
 
-      return Left(
-        ServerFailure(
-          statusCode: response.statusCode,
-          message: response.data['message'],
-        ),
-      );
-    } catch (e) {
-      return Left(
-        ServerFailure(
-          statusCode: 500,
-          message: 'Internal Server Error',
-        ),
-      );
+      return Success(allFavorites);
+    });
+  }
+
+  @override
+  Future<ApiResult<void>> addToFavorites(ProductEntity product) async {
+    final token = await TokensManager.getAccessToken() ?? "";
+
+    if (token.isEmpty) {
+      await _localDataSource.cacheFavoritesItem(product);
+      return Success(null);
+    } else {
+      final response = await _remoteDataSource.addToFavorites(product);
+      return response;
     }
   }
 
   @override
-  Future<Either<ServerFailure, String>> addToFavorites(dynamic product) async {
-    try {
-      final token = await TokensManager.getAccessToken() ?? "";
+  Future<ApiResult<void>> removeFromFavorites(int id) async {
+    final token = await TokensManager.getAccessToken() ?? "";
 
-      if (token.isEmpty) {
-        final HomeProductEntity favProduct = HomeProductEntity(
-          id: product.id,
-          name: product.name,
-          price: product.price,
-          imageUrl: product.imageUrl,
-          amount: product.amount,
-          discountPercentage: product.discountPercentage,
-          oldPrice: product.oldPrice,
-          rating: product.rating,
-          reviewsCount: product.reviewsCount,
-          isFavorite: true,
-          newProduct: product.newProduct,
-          freeDelivery: product.freeDelivery,
-          compatibleCars: product.compatibleCars,
-        );
-        await _localDataSource.cacheFavoritesItem(favProduct);
-        return const Right("Added to favorites");
-      } else {
-        final response = await _remoteDataSource.addToFavorites(product);
+    if (token.isEmpty) {
+      await _localDataSource.removeFavorite(id);
 
-        if (response.statusCode == 201) {
-          return Right(response.data['message']);
-        }
-        return Left(
-          ServerFailure(
-            statusCode: response.statusCode,
-            message: response.data['message'],
-          ),
-        );
-      }
-    } catch (e) {
-      return Left(
-        ServerFailure(
-          statusCode: 500,
-          message: 'Internal Server Error',
-        ),
-      );
-    }
-  }
-
-  @override
-  Future<Either<ServerFailure, String>> removeFromFavorites(int id) async {
-    try {
-      final token = await TokensManager.getAccessToken() ?? "";
-      if (token.isEmpty) {
-        await _localDataSource.removeFavorite(id);
-
-        return const Right('Product removed from Favorites successfully');
-      }
-
+      return Success(null);
+    } else {
       final response = await _remoteDataSource.removeFromFavorites(id);
 
-      if (response.statusCode == 200) {
-        _localDataSource.removeFavorite(id);
-
-        return Right(response.data['message']);
-      }
-      return Left(
-        ServerFailure(
-          statusCode: response.statusCode,
-          message: response.data['message'],
-        ),
-      );
-    } catch (e) {
-      return Left(
-        ServerFailure(
-          statusCode: 500,
-          message: 'Internal Server Error',
-        ),
-      );
+      return response.fold((failure) async {
+        return Failure(failure.exception);
+      }, (success) async {
+        await _localDataSource.removeFavorite(id);
+        return Success(null);
+      });
     }
   }
 }

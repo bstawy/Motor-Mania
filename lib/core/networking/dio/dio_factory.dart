@@ -21,7 +21,7 @@ class DioFactory {
         ..connectTimeout = timeOut
         ..receiveTimeout = timeOut
         ..validateStatus = (statusCode) {
-          return statusCode! <= 500;
+          return statusCode! == 200 || statusCode == 201;
         };
 
       _addFreeDioInterceptors();
@@ -51,17 +51,14 @@ class DioFactory {
   }
 
   static void _addFreeDioInterceptors() {
-    _freeDio!.interceptors.addAll(
-      [
-        !kReleaseMode
-            ? PrettyDioLogger(
-                requestHeader: true,
-                requestBody: true,
-                responseBody: true,
-                responseHeader: false,
-              )
-            : const Interceptor(),
-      ],
+    _freeDio!.interceptors.add(
+      PrettyDioLogger(
+        requestHeader: true,
+        requestBody: true,
+        responseBody: true,
+        responseHeader: false,
+        enabled: !kReleaseMode,
+      ),
     );
   }
 
@@ -69,14 +66,13 @@ class DioFactory {
     _tokenDio!.interceptors.addAll(
       [
         TokenInterceptor(),
-        !kReleaseMode
-            ? PrettyDioLogger(
-                requestHeader: true,
-                requestBody: true,
-                responseBody: true,
-                responseHeader: false,
-              )
-            : const Interceptor(),
+        PrettyDioLogger(
+          requestHeader: true,
+          requestBody: true,
+          responseBody: true,
+          responseHeader: false,
+          enabled: !kReleaseMode,
+        ),
       ],
     );
   }

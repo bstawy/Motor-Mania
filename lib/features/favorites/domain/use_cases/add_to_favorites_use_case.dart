@@ -1,6 +1,5 @@
-import 'package:dartz/dartz.dart';
-
-import '../../../../core/networking/failure/server_failure.dart';
+import '../../../../core/networking/api_result.dart';
+import '../../../product_details/domain/entities/product_entity.dart';
 import '../repos/favorites_repo.dart';
 
 class AddToFavoritesUseCase {
@@ -8,7 +7,7 @@ class AddToFavoritesUseCase {
 
   AddToFavoritesUseCase(this._favoritesRepo);
 
-  Future<Either<ServerFailure, String>> execute(dynamic product) async {
+  Future<ApiResult<void>> call(ProductEntity product) async {
     return await _favoritesRepo.addToFavorites(product);
   }
 }

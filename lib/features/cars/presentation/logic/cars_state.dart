@@ -7,29 +7,29 @@ final class CarBrandsInitial extends CarsState {}
 final class CarBrandsLoading extends CarsState {}
 
 final class CarBrandsLoaded extends CarsState {
-  final List<CarBrandEntity> carBrands;
+  final List<CarBrandEntity>? carBrands;
 
   CarBrandsLoaded(this.carBrands);
 }
 
 final class CarBrandsError extends CarsState {
-  final ServerFailure failure;
+  final ApiErrorModel error;
 
-  CarBrandsError(this.failure);
+  CarBrandsError(this.error);
 }
 
 final class CarBrandModelsLoading extends CarsState {}
 
 final class CarBrandModelsLoaded extends CarsState {
-  final List<CarBrandModelEntity> carBrandModels;
+  final List<CarBrandModelEntity>? carBrandModels;
 
   CarBrandModelsLoaded(this.carBrandModels);
 }
 
 final class CarBrandModelsError extends CarsState {
-  final ServerFailure failure;
+  final ApiErrorModel error;
 
-  CarBrandModelsError(this.failure);
+  CarBrandModelsError(this.error);
 }
 
 final class CarBrandSelected extends CarsState {

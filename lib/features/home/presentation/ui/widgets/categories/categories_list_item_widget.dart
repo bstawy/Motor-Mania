@@ -14,7 +14,7 @@ import '../../../../../category/presentation/ui/category_screen.dart';
 import '../../../../domain/entities/category_entity.dart';
 
 class CategoriesListItem extends StatelessWidget {
-  final HomeCategoryEntity category;
+  final CategoryEntity category;
 
   const CategoriesListItem({super.key, required this.category});
 

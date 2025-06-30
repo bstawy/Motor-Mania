@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../features/home/domain/entities/home_product_entity.dart';
+import '../../features/product_details/domain/entities/product_entity.dart';
 import '../../features/product_details/presentation/ui/widgets/product_price_and_discount_widget.dart';
 import '../config/constants/api_constants.dart';
 import '../config/text/text_styles.dart';
@@ -17,7 +17,7 @@ import 'product_name_and_type_widget.dart';
 import 'product_property_widget.dart';
 
 class ProductItemWidget extends StatelessWidget {
-  final HomeProductEntity product;
+  final ProductEntity product;
   final double? cardWidth;
   final double? imageHeight;
   final bool? showDiscount;
@@ -38,7 +38,7 @@ class ProductItemWidget extends StatelessWidget {
       onTap: () {
         openProductBottomSheet(
           context: context,
-          productId: product.id ?? 0,
+          product: product,
         );
       },
       child: Container(

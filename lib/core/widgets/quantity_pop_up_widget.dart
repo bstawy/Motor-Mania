@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../config/routing/app_router.dart';
+import '../../main.dart';
 import '../config/theme/texts/font_weight_helper.dart';
 import '../helpers/extensions/extensions.dart';
 import '../helpers/extensions/theme_ext.dart';
@@ -52,9 +52,8 @@ class QuantityPopUpWidget extends StatelessWidget {
 
   Widget _buildQuantityButton(
       {required String text, required Function() onTap}) {
-    final customTextStyles =
-        AppRouter.navigatorKey.currentState!.context.textStyles;
-    final customColors = AppRouter.navigatorKey.currentState!.context.colors;
+    final customTextStyles = navigatorKey.currentState!.context.textStyles;
+    final customColors = navigatorKey.currentState!.context.colors;
 
     return GestureDetector(
       onTap: onTap,

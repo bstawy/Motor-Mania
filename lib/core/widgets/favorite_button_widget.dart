@@ -69,7 +69,7 @@ class FavoriteButtonWidget extends StatelessWidget {
           builder: (context, state) {
             if (state is FavoritesLoaded) {
               isFavorite =
-                  state.products.any((element) => element.id == product.id);
+                  context.read<FavoritesCubit>().isFavorite(product.id);
             }
             return SvgPicture.asset(
               isFavorite

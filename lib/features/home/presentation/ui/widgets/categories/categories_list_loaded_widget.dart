@@ -9,7 +9,7 @@ import '../../../../domain/entities/category_entity.dart';
 import 'categories_list_item_widget.dart';
 
 class CategoriesListLoadedWidget extends StatelessWidget {
-  final List<HomeCategoryEntity> categories;
+  final List<CategoryEntity> categories;
 
   const CategoriesListLoadedWidget({
     super.key,

@@ -31,7 +31,7 @@ class GuestOffersWidget extends StatelessWidget {
             highlightColor: const Color(0xFF33354E),
           ).setOnlyPadding(0, 12.h, 16.w, 16.w);
         } else if (state is OffersLoaded) {
-          List<OfferEntity> offers = state.offers;
+          List<OfferEntity> offers = state.offers ?? [];
 
           offers = offers
               .where((offer) => offer.id == 1 || offer.id == 2 || offer.id == 3)
@@ -43,7 +43,7 @@ class GuestOffersWidget extends StatelessWidget {
           return GuestOffersLoadedWidget(offersUrl: guestOffersUrl);
         } else if (state is OffersError) {
           return Text(
-            state.failure.message ?? "",
+            state.error.message ?? "",
             style: const TextStyle(color: Colors.white),
           );
         } else {

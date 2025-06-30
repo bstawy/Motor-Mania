@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/networking/failure/server_failure.dart';
+import '../../../../core/errors/api_error_handler.dart';
+import '../../../../core/errors/api_error_model.dart';
+import '../../../product_details/domain/entities/product_entity.dart';
 import '../../domain/entities/cart_product_entity.dart';
 import '../../domain/entities/coupon_entity.dart';
 import '../../domain/use_cases/add_product_to_cart_use_case.dart';
@@ -34,44 +35,66 @@ class CartCubit extends Cubit<CartState> {
 
   void getCartProducts() async {
     emit(CartLoading());
-    final response = await _getCartProductsUseCase.execute();
+
+    final response = await _getCartProductsUseCase();
+
     response.fold(
-      (failure) => emit(CartError(failure)),
-      (cartProducts) {
-        if (cartProducts.isEmpty) {
-          debugPrint('Cart is empty');
+      (failure) {
+        final ApiErrorModel error = ApiErrorHandler.handle(failure.exception);
+
+        if (error.statusCode == 404) {
           emit(CartEmpty());
         } else {
+          emit(CartError(error));
+        }
+      },
+      (success) {
+        cartProducts = success.data ?? [];
+
+        if (cartProducts.isEmpty) {
+          emit(CartEmpty());
+        } else {
+          quantity = cartProducts.length;
           calculateSubTotal(cartProducts);
           calculateTotal();
-          quantity = cartProducts.length;
-          this.cartProducts = cartProducts;
+
           emit(CartLoaded(cartProducts));
         }
       },
     );
   }
 
-  void addProductToCart(int productId, int quantity) async {
-    emit(CartLoading());
-    final response =
-        await _addProductToCartUseCase.execute(productId, quantity);
+  void addProductToCart(ProductEntity product, int quantity) async {
+    emit(AddToCartLoading());
+
+    final response = await _addProductToCartUseCase(product, quantity);
+
     response.fold(
-      (failure) => emit(CartError(failure)),
-      (message) {
-        emit(AddToCartSuccess(message));
+      (failure) {
+        final ApiErrorModel error = ApiErrorHandler.handle(failure.exception);
+
+        emit(AddToCartError(error));
+      },
+      (success) {
+        emit(AddToCartSuccess());
         getCartProducts();
       },
     );
   }
 
   void removeProductFromCart(int productId) async {
-    emit(CartLoading());
-    final response = await _removeProductFromCartUseCase.execute(productId);
+    emit(RemoveFromCartLoading());
+
+    final response = await _removeProductFromCartUseCase(productId);
+
     response.fold(
-      (failure) => emit(CartError(failure)),
-      (message) {
-        emit(RemoveFromCartSuccess(message));
+      (failure) {
+        final ApiErrorModel error = ApiErrorHandler.handle(failure.exception);
+
+        emit(RemoveFromCartError(error));
+      },
+      (success) {
+        emit(RemoveFromCartSuccess());
         getCartProducts();
       },
     );
@@ -79,18 +102,24 @@ class CartCubit extends Cubit<CartState> {
 
   void applyCoupon(String couponCode, num cartTotal) async {
     emit(ApplyCouponLoading());
-    final response = await _applyCouponUseCase.execute(
-        couponCode: couponCode, cartTotal: cartTotal);
 
-    response.fold((failure) {
-      emit(ApplyCouponError(failure.message ?? 'An error occurred'));
-    }, (success) {
-      couponData = success;
-      discount = success.discountAmount;
-      shippingFees = success.freeShipping ? 0.0 : 10.0;
-      calculateTotal();
-      emit(ApplyCouponSuccess(success));
-    });
+    final response =
+        await _applyCouponUseCase(couponCode: couponCode, cartTotal: cartTotal);
+
+    response.fold(
+      (failure) {
+        final ApiErrorModel error = ApiErrorHandler.handle(failure.exception);
+
+        emit(ApplyCouponError(error));
+      },
+      (success) {
+        couponData = success.data;
+        discount = couponData?.discountAmount ?? 0.0;
+        shippingFees = (couponData?.freeShipping ?? false) ? 0.0 : 10.0;
+        calculateTotal();
+        emit(ApplyCouponSuccess(couponData));
+      },
+    );
   }
 
   void removeCoupon() {

@@ -1,6 +1,4 @@
-import 'package:dartz/dartz.dart';
-
-import '../../../../core/networking/failure/server_failure.dart';
+import '../../../../core/networking/api_result.dart';
 import '../../domain/entities/product_entity.dart';
 import '../../domain/repos/product_repo.dart';
 import '../data_sources/product_data_sources.dart';
@@ -12,26 +10,14 @@ class ProductRepoImpl extends ProductRepo {
   ProductRepoImpl(this._productRemoteDataSource);
 
   @override
-  Future<Either<ServerFailure, ProductEntity>> getProductDetails(int id) async {
-    try {
-      final response = await _productRemoteDataSource.getProductDetails(id);
+  Future<ApiResult<ProductEntity?>> getProductDetails(int id) async {
+    final response = await _productRemoteDataSource.getProductDetails(id);
 
-      if (response.statusCode == 200) {
-        return Right(ProductModel.fromJson(response.data['data']));
-      }
-      return Left(
-        ServerFailure(
-          statusCode: response.statusCode,
-          message: response.statusMessage,
-        ),
-      );
-    } catch (e) {
-      return Left(
-        ServerFailure(
-          statusCode: 500,
-          message: e.toString(),
-        ),
-      );
-    }
+    return response.fold((failure) => Failure(failure.exception), (success) {
+      final jsonProduct = success.data.data['data'];
+
+      final ProductEntity product = ProductModel.fromJson(jsonProduct);
+      return Success(product);
+    });
   }
 }
