@@ -1,8 +1,8 @@
-import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
+import 'package:motor_mania/features/cart/data/models/cart_product_model.dart';
+import 'package:motor_mania/features/product_details/domain/entities/product_entity.dart';
 
 import '../../../../core/caching/tokens_manager.dart';
-import '../../../../core/networking/failure/server_failure.dart';
+import '../../../../core/networking/api_result.dart';
 import '../../../product_details/domain/repos/product_repo.dart';
 import '../../domain/entities/cart_product_entity.dart';
 import '../../domain/entities/coupon_entity.dart';
@@ -23,146 +23,104 @@ class CartRepoImpl implements CartRepo {
   );
 
   @override
-  Future<Either<ServerFailure, List<CartProductEntity>>>
-      getCartProducts() async {
+  Future<ApiResult<List<CartProductEntity>?>> getCartProducts() async {
+    // 1- Get the local cached cart in case of guest mode
+    List<CartProductEntity> cachedCart = await _localDataSource.getCachedList();
+
     final token = await TokensManager.getAccessToken() ?? "";
 
-    List<CartProductEntity> cachedCart = await _localDataSource.getCachedList();
-    debugPrint("cachedCart with no token: $cachedCart");
-
     if (token.isEmpty) {
-      return Right(cachedCart);
+      return Success(cachedCart);
     }
 
+    // 2- Get logged user cart from server
     final response = await _remoteDataSource.getCartProducts();
-    List<CartProductEntity> allCartProducts = [];
 
-    return response.fold(
-      (failure) => Left(ServerFailure()),
-      (data) async {
-        allCartProducts = data;
-        debugPrint("cartProducts: $data");
+    return response.fold((failure) {
+      // Return the cached cart in case of failure
+      return Success(cachedCart);
+    }, (success) async {
+      final List<CartProductEntity> remoteCart =
+          (success.data.data['data'] as List)
+              .map((product) => CartProductModel.fromJson(product))
+              .toList();
 
-        for (final CartProductEntity product in cachedCart) {
-          if (!data.any(
-              (cartProduct) => cartProduct.product.id == product.product.id)) {
-            await addProduct(product.product.id!, product.quantity);
-            allCartProducts.add(product);
+      // Merge remote cart with cached cart
+      List<CartProductEntity> allCartProducts = remoteCart;
+
+      if (remoteCart != cachedCart) {
+        for (final cachedProduct in cachedCart) {
+          if (!remoteCart.any((cartProduct) =>
+              cartProduct.product.id == cachedProduct.product.id)) {
+            await addProduct(cachedProduct.product, cachedProduct.quantity);
+
+            allCartProducts.add(cachedProduct);
           }
         }
-
-        await _localDataSource.clearCart();
-        await _localDataSource.cacheList(allCartProducts);
-        debugPrint("cachedCart: $cachedCart");
-        debugPrint("allCartProducts: $allCartProducts");
-
-        return Right(allCartProducts);
-      },
-    );
-  }
-
-  @override
-  Future<Either<ServerFailure, String>> addProduct(
-    int productId,
-    int quantity,
-  ) async {
-    List<CartProductEntity> cachedList = await _localDataSource.getCachedList();
-    debugPrint("cachedList: $cachedList");
-    final token = await TokensManager.getAccessToken() ?? "";
-
-    if (token.isEmpty) {
-      final response = await _productRepo.getProductDetails(productId);
-
-      return response.fold(
-        (failure) => Left(ServerFailure()),
-        (product) async {
-          if (cachedList.isEmpty) {
-            final newProduct = CartProductEntity(
-              product: product,
-              quantity: quantity,
-            );
-            await _localDataSource.cacheItem(newProduct);
-            return const Right("Added to cart");
-          }
-          bool isNew = true;
-
-          for (final cartProduct in cachedList) {
-            if (cartProduct.product.id == productId) {
-              await _localDataSource.updateProductQuantity(productId, quantity);
-              isNew = false;
-            }
-          }
-
-          if (isNew) {
-            final newProduct = CartProductEntity(
-              product: product,
-              quantity: quantity,
-            );
-            await _localDataSource.cacheItem(newProduct);
-          }
-
-          return const Right("Added to cart");
-        },
-      );
-    } else {
-      final response = await _remoteDataSource.addProduct(
-        productId,
-        quantity,
-      );
-
-      if (response.statusCode == 200) {
-        final product = await _productRepo.getProductDetails(productId);
-        return product.fold(
-          (failure) => Left(ServerFailure()),
-          (product) async {
-            return Right(response.data['message']);
-          },
-        );
-      } else {
-        return Left(
-          ServerFailure(
-            statusCode: 500,
-            message: 'Failed to add product to cart',
-          ),
-        );
       }
-    }
+
+      // Clear the local cache and store the merged cart
+      await _localDataSource.clearCart();
+      await _localDataSource.cacheList(allCartProducts);
+
+      return Success(allCartProducts);
+    });
   }
 
   @override
-  Future<Either<ServerFailure, String>> removeProduct(int productId) async {
+  Future<ApiResult<void>> addProduct(
+      ProductEntity product, int quantity) async {
+    final CartProductEntity cartProduct =
+        CartProductEntity(quantity: quantity, product: product);
+
     final token = await TokensManager.getAccessToken() ?? "";
 
     if (token.isEmpty) {
-      _localDataSource.removeProduct(productId);
-
-      return const Right('Product removed from cart successfully');
-    }
-
-    final response = await _remoteDataSource.removeProduct(productId);
-
-    if (response.statusCode == 200) {
-      _localDataSource.removeProduct(productId);
-
-      return const Right('Product removed from cart successfully');
+      await _localDataSource.cacheItem(cartProduct);
+      return Success(null);
     } else {
-      return Left(ServerFailure());
+      final response =
+          await _remoteDataSource.addProduct(product.id ?? 0, quantity);
+      return response;
     }
   }
 
   @override
-  Future<Either<ServerFailure, CouponEntity>> applyCoupon(
+  Future<ApiResult<void>> removeProduct(int productId) async {
+    final token = await TokensManager.getAccessToken() ?? "";
+
+    if (token.isEmpty) {
+      await _localDataSource.removeProduct(productId);
+
+      return Success(null);
+    } else {
+      final response = await _remoteDataSource.removeProduct(productId);
+
+      return response.fold((failure) async {
+        return Failure(failure.exception);
+      }, (success) async {
+        await _localDataSource.removeProduct(productId);
+        return Success(null);
+      });
+    }
+  }
+
+  @override
+  Future<ApiResult<CouponEntity?>> applyCoupon(
       String couponCode, num cartTotal) async {
     final response = await _remoteDataSource.applyCoupon(
       couponCode: couponCode,
       cartTotal: cartTotal,
     );
 
-    if (response.statusCode == 200) {
-      final couponResult = response.data['data'];
-      return Right(CouponModel.fromJson(couponResult));
-    } else {
-      return Left(ServerFailure());
-    }
+    return response.fold((failure) async {
+      return Failure(failure.exception);
+    }, (success) async {
+      final jsonCoupon = success.data.data['data'];
+
+      final CouponEntity coupon = CouponModel.fromJson(jsonCoupon);
+
+      return Success(coupon);
+    });
   }
 }

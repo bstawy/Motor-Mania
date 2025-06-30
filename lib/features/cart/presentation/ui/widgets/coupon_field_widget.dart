@@ -70,7 +70,7 @@ class _CouponFieldWidgetState extends State<CouponFieldWidget> {
               current is ApplyCouponSuccess || current is RemoveCoupon,
           listener: (context, state) {
             if (state is ApplyCouponError) {
-              context.errorSnackBar(state.message);
+              context.errorSnackBar(state.error.message);
             }
             FocusScope.of(context).unfocus();
           },

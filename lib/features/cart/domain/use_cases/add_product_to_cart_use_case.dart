@@ -1,6 +1,6 @@
-import 'package:dartz/dartz.dart';
+import 'package:motor_mania/features/product_details/domain/entities/product_entity.dart';
 
-import '../../../../core/networking/failure/server_failure.dart';
+import '../../../../core/networking/api_result.dart';
 import '../repos/cart_repo.dart';
 
 class AddProductToCartUseCase {
@@ -8,8 +8,7 @@ class AddProductToCartUseCase {
 
   AddProductToCartUseCase(this._cartRepo);
 
-  Future<Either<ServerFailure, String>> execute(
-      int productId, int quantity) async {
-    return await _cartRepo.addProduct(productId, quantity);
+  Future<ApiResult<void>> call(ProductEntity product, int quantity) async {
+    return await _cartRepo.addProduct(product, quantity);
   }
 }

@@ -1,17 +1,14 @@
-import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-
-import '../../../../core/networking/failure/server_failure.dart';
-import '../../domain/entities/cart_product_entity.dart';
+import 'package:motor_mania/core/networking/api_result.dart';
 
 abstract class CartDataSources {
-  Future<Either<ServerFailure, List<CartProductEntity>>> getCartProducts();
-  Future<Response> addProduct(
+  Future<ApiResult<Response>> getCartProducts();
+  Future<ApiResult<Response>> addProduct(
     int productId,
     int quantity,
   );
-  Future<Response> removeProduct(int productId);
-  Future<Response> applyCoupon({
+  Future<ApiResult<Response>> removeProduct(int productId);
+  Future<ApiResult<Response>> applyCoupon({
     required String couponCode,
     required num cartTotal,
   });

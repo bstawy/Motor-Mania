@@ -90,7 +90,7 @@ class CartScreen extends StatelessWidget {
                     child: CustomScrollView(
                       slivers: [
                         CartProductsListWidget(
-                          cartProducts: state.cartProducts,
+                          cartProducts: state.cartProducts ?? [],
                         ),
                         SliverGap(8.h),
                         const SliverToBoxAdapter(
@@ -105,7 +105,7 @@ class CartScreen extends StatelessWidget {
                     ).setOnlyPadding(12.h, 0, 16.w, 16.w),
                   ),
                   CartCheckoutButtonWidget(
-                    quantity: state.cartProducts.length,
+                    quantity: state.cartProducts?.length ?? 0,
                   ),
                 ],
               );
@@ -113,8 +113,8 @@ class CartScreen extends StatelessWidget {
               return const CartEmptyWidget();
             } else if (state is CartError) {
               return Center(
-                child: Text(state.failure.message ?? "")
-                    .setHorizontalPadding(16.w),
+                child:
+                    Text(state.error.message ?? "").setHorizontalPadding(16.w),
               );
             } else {
               return const SizedBox();
