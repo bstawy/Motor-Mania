@@ -1,12 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
-import '../../features/auth/login/data/data_sources/login_remote_data_source.dart';
-import '../../features/auth/login/data/repos/login_repo.dart';
-import '../../features/auth/login/logic/login_cubit.dart';
-import '../../features/auth/register/data/data_sources/register_remote_data_source.dart';
-import '../../features/auth/register/data/repos/register_repo.dart';
-import '../../features/auth/register/logic/register_cubit.dart';
+import '../../features/auth/data/data_sources/auth_remote_data_source.dart';
+import '../../features/auth/data/repos/auth_repo.dart';
+import '../../features/auth/presentation/logic/login_cubit/login_cubit.dart';
+import '../../features/auth/presentation/logic/register_cubit/register_cubit.dart';
 import '../../features/cars/data/data_sources/car_brands_remote_data_source.dart';
 import '../../features/cars/data/data_sources/car_brands_remote_data_source_impl.dart';
 import '../../features/cars/data/repos_impl/car_brands_repo_impl.dart';
@@ -20,6 +18,7 @@ import '../../features/cart/data/data_sources/cart_remote_data_source.dart';
 import '../../features/cart/data/repos_impl/cart_repo_impl.dart';
 import '../../features/cart/domain/repos/cart_repo.dart';
 import '../../features/cart/domain/use_cases/add_product_to_cart_use_case.dart';
+import '../../features/cart/domain/use_cases/apply_coupon_use_case.dart';
 import '../../features/cart/domain/use_cases/get_cart_products_use_case.dart';
 import '../../features/cart/domain/use_cases/remove_product_from_cart_use_case.dart';
 import '../../features/cart/presentation/logic/cart_cubit.dart';
@@ -73,6 +72,7 @@ import '../../features/search/domain/use_cases/search_use_case.dart';
 import '../../features/search/presentation/logic/search_cubit.dart';
 import '../caching/hive_manager.dart';
 import '../helpers/app_bloc_observer.dart';
+import '../networking/connectivity_service.dart';
 import '../networking/crud_manager.dart';
 import '../networking/dio/dio_factory.dart';
 
@@ -82,6 +82,8 @@ Future<void> initGetIt() async {
   // Dio & ApiService & HiveManager
   Dio freeDio = DioFactory.getFreeDio();
   Dio tokenDio = DioFactory.getTokenDio();
+
+  getIt.registerLazySingleton<ConnectivityService>(() => ConnectivityService());
 
   getIt.registerLazySingleton<CrudManager>(
     () => CrudManager.getInstance(
@@ -97,19 +99,13 @@ Future<void> initGetIt() async {
   // BLoc observer
   getIt.registerSingleton<AppBlocObserver>(AppBlocObserver());
 
-  // Register
-  getIt.registerFactory<RegisterRemoteDataSource>(
-    () => RegisterRemoteDataSource(getIt()),
+  // auth
+  getIt.registerFactory<AuthRemoteDataSource>(
+    () => AuthRemoteDataSource(getIt()),
   );
-  getIt.registerFactory<RegisterRepo>(() => RegisterRepo(getIt()));
-  getIt.registerFactory<RegisterCubit>(() => RegisterCubit(getIt()));
-
-  // login
-  getIt.registerFactory<LoginRemoteDataSource>(
-    () => LoginRemoteDataSource(getIt()),
-  );
-  getIt.registerFactory<LoginRepo>(() => LoginRepo(getIt()));
+  getIt.registerFactory<AuthRepo>(() => AuthRepo(getIt()));
   getIt.registerFactory<LoginCubit>(() => LoginCubit(getIt()));
+  getIt.registerFactory<RegisterCubit>(() => RegisterCubit(getIt()));
 
   // home
   getIt.registerFactory<HomeDataSources>(
@@ -169,7 +165,7 @@ Future<void> initGetIt() async {
   getIt.registerFactory<GetProductDetailsUseCase>(
     () => GetProductDetailsUseCase(getIt()),
   );
-  getIt.registerFactory<ProductCubit>(() => ProductCubit(getIt()));
+  getIt.registerFactory<ProductCubit>(() => ProductCubit());
 
   // Favorites
   getIt.registerFactory<FavoritesDataSources>(
@@ -216,7 +212,7 @@ Future<void> initGetIt() async {
     () => CartLocalDataSource(getIt()),
   );
   getIt.registerFactory<CartRepo>(
-    () => CartRepoImpl(getIt(), getIt(), getIt()),
+    () => CartRepoImpl(getIt(), getIt()),
   );
   getIt.registerFactory<GetCartProductsUseCase>(
     () => GetCartProductsUseCase(getIt()),
@@ -227,7 +223,15 @@ Future<void> initGetIt() async {
   getIt.registerFactory<RemoveProductFromCartUseCase>(
     () => RemoveProductFromCartUseCase(getIt()),
   );
-  getIt.registerFactory<CartCubit>(() => CartCubit(getIt(), getIt(), getIt()));
+  getIt.registerFactory<ApplyCouponUseCase>(
+    () => ApplyCouponUseCase(getIt()),
+  );
+  getIt.registerFactory<CartCubit>(() => CartCubit(
+        getIt(),
+        getIt(),
+        getIt(),
+        getIt(),
+      ));
 
   //garage
   getIt.registerFactory<GarageRemoteDataSource>(
@@ -253,7 +257,7 @@ Future<void> initGetIt() async {
   );
 
   //cars
-  getIt.registerFactory<CarBrandsRemoteDataSource>(
+  getIt.registerFactory<CarsBrandsRemoteDataSource>(
     () => CarBrandsRemoteDataSourceImpl(getIt()),
   );
   getIt.registerFactory<CarBrandsRepo>(

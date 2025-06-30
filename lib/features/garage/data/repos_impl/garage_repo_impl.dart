@@ -1,118 +1,84 @@
-import 'package:dartz/dartz.dart';
-
-import '../../../../core/networking/failure/server_failure.dart';
-import '../../../home/data/models/home_car_model.dart';
+import '../../../../core/helpers/enums/switch_enum.dart';
+import '../../../../core/networking/api_result.dart';
+import '../../../home/data/models/car_model.dart';
 import '../../../home/domain/entities/car_entity.dart';
 import '../../domain/repos/garage_repo.dart';
 import '../data_sources/garage_remote_data_source.dart';
 import '../models/add_car_model.dart';
 
 class GarageRepoImpl extends GarageRepo {
-  final GarageRemoteDataSource _garageRemoteDataSource;
+  final GarageRemoteDataSource _remoteDataSource;
 
-  GarageRepoImpl(this._garageRemoteDataSource);
+  GarageRepoImpl(this._remoteDataSource);
 
   @override
-  Future<Either<ServerFailure, List<CarEntity>>> getGarageCars() async {
-    try {
-      final response = await _garageRemoteDataSource.getGarageCars();
+  Future<ApiResult<List<CarEntity>?>> getGarageCars() async {
+    final response = await _remoteDataSource.getGarageCars();
 
-      if (response.statusCode == 200) {
-        final List<CarEntity> cars = (response.data['data'] as List)
-            .map((car) => CarModel.fromJson(car))
-            .toList();
+    return response.fold(
+      (failure) => Failure(failure.exception),
+      (success) {
+        final jsonCars = success.data.data['data'];
 
-        return Right(cars);
-      } else {
-        return Left(
-          ServerFailure(
-            statusCode: response.statusCode,
-            message: 'Failed to get garage cars',
-          ),
-        );
-      }
-    } catch (e) {
-      return Left(
-        ServerFailure(
-          statusCode: 500,
-          message: e.toString(),
-        ),
-      );
-    }
+        final List<CarModel> cars =
+            (jsonCars as List).map((car) => CarModel.fromJson(car)).toList();
+
+        return Success(cars);
+      },
+    );
   }
 
   @override
-  Future<Either<ServerFailure, CarEntity>> selectCar(int carId) async {
-    try {
-      final response = await _garageRemoteDataSource.selectCar(carId);
+  Future<ApiResult<CarEntity?>> selectCar(int carId) async {
+    final response = await _remoteDataSource.selectCar(carId);
 
-      if (response.statusCode == 200) {
-        final CarEntity car = CarModel.fromJson(response.data['data']);
-        return Right(car);
-      } else {
-        return Left(
-          ServerFailure(
-            statusCode: response.statusCode,
-            message: response.data['message'],
-          ),
-        );
-      }
-    } catch (e) {
-      return Left(
-        ServerFailure(
-          statusCode: 500,
-          message: e.toString(),
-        ),
-      );
-    }
+    return response.fold(
+      (failure) => Failure(failure.exception),
+      (success) {
+        final jsonCar = success.data.data['data'];
+
+        final CarEntity car = CarModel.fromJson(jsonCar);
+
+        return Success(car);
+      },
+    );
   }
 
   @override
-  Future<Either<ServerFailure, bool>> addCar(AddCarModel car) async {
-    try {
-      final response = await _garageRemoteDataSource.addCar(car);
+  Future<ApiResult<CarEntity?>> getUserCar() async {
+    final response = await _remoteDataSource.getUserCar();
 
-      if (response.statusCode == 201) {
-        return const Right(true);
-      }
-      return Left(
-        ServerFailure(
-          statusCode: response.statusCode,
-          message: response.data['message'],
-        ),
-      );
-    } catch (e) {
-      return Left(
-        ServerFailure(
-          statusCode: 500,
-          message: e.toString(),
-        ),
-      );
-    }
+    return response.fold(
+      (failure) => Failure<CarEntity?>(failure.exception),
+      (success) async {
+        final jsonCar = success.data.data['data'];
+        final CarModel userCar = CarModel.fromJson(jsonCar);
+        return Success(userCar);
+      },
+    );
   }
 
   @override
-  Future<Either<ServerFailure, bool>> removeCar(int carId) async {
-    try {
-      final response = await _garageRemoteDataSource.removeCar(carId);
+  Future<ApiResult<CarEntity?>> switchCar(SwitchEnum switchValue) async {
+    final response = await _remoteDataSource.switchCar(switchValue);
 
-      if (response.statusCode == 200) {
-        return const Right(true);
-      } else {
-        return Left(
-          ServerFailure(
-            statusCode: response.statusCode,
-            message: response.data['message'],
-          ),
-        );
-      }
-    } catch (e) {
-      return Left(
-        ServerFailure(
-          statusCode: 500,
-          message: e.toString(),
-        ),
-      );
-    }
+    return response.fold(
+      (failure) => Failure<CarEntity?>(failure.exception),
+      (success) async {
+        final jsonCar = success.data.data['data'];
+        final CarModel switchedCar = CarModel.fromJson(jsonCar);
+        return Success(switchedCar);
+      },
+    );
+  }
+
+  @override
+  Future<ApiResult<void>> addCar(AddCarModel car) async {
+    return await _remoteDataSource.addCar(car);
+  }
+
+  @override
+  Future<ApiResult<void>> removeCar(int carId) async {
+    return await _remoteDataSource.removeCar(carId);
   }
 }

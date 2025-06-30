@@ -39,6 +39,11 @@ class FavoritesScreen extends StatelessWidget {
             listener: (context, state) {
               context.successSnackBar("Product removed from your favorites");
             },
+            buildWhen: (previous, current) =>
+                current is FavoritesLoading ||
+                current is FavoritesLoaded ||
+                current is FavoritesEmpty ||
+                current is FavoritesError,
             builder: (context, state) {
               if (state is FavoritesLoading) {
                 return Expanded(
@@ -50,7 +55,7 @@ class FavoritesScreen extends StatelessWidget {
                   child: RefreshIndicator(
                     onRefresh: () =>
                         context.read<FavoritesCubit>().getAllFavorites(),
-                    child: ProductsGridWidget(products: state.products)
+                    child: ProductsGridWidget(products: state.products!)
                         .setHorizontalPadding(16.w),
                   ),
                 );
@@ -69,7 +74,7 @@ class FavoritesScreen extends StatelessWidget {
                     onRefresh: () =>
                         context.read<FavoritesCubit>().getAllFavorites(),
                     child: Center(
-                      child: Text(state.failure.message ?? "")
+                      child: Text(state.error.message ?? "")
                           .setHorizontalPadding(16.w),
                     ),
                   ),

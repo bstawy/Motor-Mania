@@ -1,9 +1,12 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/networking/failure/server_failure.dart';
+import '../../../../core/errors/api_error_handler.dart';
+import '../../../../core/errors/api_error_model.dart';
+import '../../../product_details/domain/entities/product_entity.dart';
 import '../../domain/entities/cart_product_entity.dart';
+import '../../domain/entities/coupon_entity.dart';
 import '../../domain/use_cases/add_product_to_cart_use_case.dart';
+import '../../domain/use_cases/apply_coupon_use_case.dart';
 import '../../domain/use_cases/get_cart_products_use_case.dart';
 import '../../domain/use_cases/remove_product_from_cart_use_case.dart';
 
@@ -13,59 +16,118 @@ class CartCubit extends Cubit<CartState> {
   final GetCartProductsUseCase _getCartProductsUseCase;
   final AddProductToCartUseCase _addProductToCartUseCase;
   final RemoveProductFromCartUseCase _removeProductFromCartUseCase;
+  final ApplyCouponUseCase _applyCouponUseCase;
+
   List<CartProductEntity> cartProducts = [];
+  CouponEntity? couponData;
   int quantity = 0;
+  num total = 0.0;
   num subTotal = 0.0;
   num discount = 0.0;
+  num shippingFees = 10.0;
 
   CartCubit(
     this._getCartProductsUseCase,
     this._addProductToCartUseCase,
     this._removeProductFromCartUseCase,
+    this._applyCouponUseCase,
   ) : super(CartInitial());
 
   void getCartProducts() async {
     emit(CartLoading());
-    final response = await _getCartProductsUseCase.execute();
+
+    final response = await _getCartProductsUseCase();
+
     response.fold(
-      (failure) => emit(CartError(failure)),
-      (cartProducts) {
-        if (cartProducts.isEmpty) {
-          debugPrint('Cart is empty');
+      (failure) {
+        final ApiErrorModel error = ApiErrorHandler.handle(failure.exception);
+
+        if (error.statusCode == 404) {
           emit(CartEmpty());
         } else {
-          calculateSubTotal(cartProducts);
+          emit(CartError(error));
+        }
+      },
+      (success) {
+        cartProducts = success.data ?? [];
+
+        if (cartProducts.isEmpty) {
+          emit(CartEmpty());
+        } else {
           quantity = cartProducts.length;
-          this.cartProducts = cartProducts;
+          calculateSubTotal(cartProducts);
+          calculateTotal();
+
           emit(CartLoaded(cartProducts));
         }
       },
     );
   }
 
-  void addProductToCart(int productId, int quantity) async {
-    emit(CartLoading());
-    final response =
-        await _addProductToCartUseCase.execute(productId, quantity);
+  void addProductToCart(ProductEntity product, int quantity) async {
+    emit(AddToCartLoading());
+
+    final response = await _addProductToCartUseCase(product, quantity);
+
     response.fold(
-      (failure) => emit(CartError(failure)),
-      (message) {
-        emit(AddToCartSuccess(message));
+      (failure) {
+        final ApiErrorModel error = ApiErrorHandler.handle(failure.exception);
+
+        emit(AddToCartError(error));
+      },
+      (success) {
+        emit(AddToCartSuccess());
         getCartProducts();
       },
     );
   }
 
   void removeProductFromCart(int productId) async {
-    emit(CartLoading());
-    final response = await _removeProductFromCartUseCase.execute(productId);
+    emit(RemoveFromCartLoading());
+
+    final response = await _removeProductFromCartUseCase(productId);
+
     response.fold(
-      (failure) => emit(CartError(failure)),
-      (message) {
-        emit(RemoveFromCartSuccess(message));
+      (failure) {
+        final ApiErrorModel error = ApiErrorHandler.handle(failure.exception);
+
+        emit(RemoveFromCartError(error));
+      },
+      (success) {
+        emit(RemoveFromCartSuccess());
         getCartProducts();
       },
     );
+  }
+
+  void applyCoupon(String couponCode, num cartTotal) async {
+    emit(ApplyCouponLoading());
+
+    final response =
+        await _applyCouponUseCase(couponCode: couponCode, cartTotal: cartTotal);
+
+    response.fold(
+      (failure) {
+        final ApiErrorModel error = ApiErrorHandler.handle(failure.exception);
+
+        emit(ApplyCouponError(error));
+      },
+      (success) {
+        couponData = success.data;
+        discount = couponData?.discountAmount ?? 0.0;
+        shippingFees = (couponData?.freeShipping ?? false) ? 0.0 : 10.0;
+        calculateTotal();
+        emit(ApplyCouponSuccess(couponData));
+      },
+    );
+  }
+
+  void removeCoupon() {
+    couponData = null;
+    shippingFees = 10.0;
+    discount = 0.0;
+    calculateTotal();
+    emit(RemoveCoupon());
   }
 
   void calculateSubTotal(List<CartProductEntity> cartProducts) {
@@ -75,19 +137,7 @@ class CartCubit extends Cubit<CartState> {
     }).toList();
   }
 
-  void applyCoupon(String couponCode) {
-    if (couponCode.toUpperCase() == 'MM20') {
-      discount = subTotal * 0.2;
-      subTotal = subTotal - discount;
-      emit(CouponApplied());
-    } else {
-      emit(CouponError('Invalid coupon code'));
-    }
-  }
-
-  void removeCoupon() {
-    subTotal = subTotal + discount;
-    discount = 0.0;
-    emit(CouponRemoved());
+  void calculateTotal() {
+    total = subTotal + shippingFees - discount;
   }
 }

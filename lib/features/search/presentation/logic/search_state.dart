@@ -7,7 +7,7 @@ final class SearchInitial extends SearchState {}
 final class SearchLoading extends SearchState {}
 
 final class SearchLoaded extends SearchState {
-  final List<HomeProductEntity> products;
+  final List<ProductEntity>? products;
 
   SearchLoaded(this.products);
 }
@@ -15,7 +15,7 @@ final class SearchLoaded extends SearchState {
 final class SearchEmpty extends SearchState {}
 
 final class SearchError extends SearchState {
-  final ServerFailure failure;
+  final ApiErrorModel error;
 
-  SearchError(this.failure);
+  SearchError(this.error);
 }

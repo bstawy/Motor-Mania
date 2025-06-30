@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 
-abstract class CarBrandsRemoteDataSource {
-  Future<Response> getCarBrands();
-  Future<Response> getCarBrandModels(int brandId);
+import '../../../../core/networking/api_result.dart';
+
+abstract class CarsBrandsRemoteDataSource {
+  Future<ApiResult<Response>> getCarBrands();
+  Future<ApiResult<Response>> getCarBrandModels(int brandId);
 }

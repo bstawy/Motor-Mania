@@ -8,40 +8,39 @@ final class HomeInitial extends HomeState {}
 final class OffersLoading extends HomeState {}
 
 final class OffersLoaded extends HomeState {
-  final List<OfferEntity> offers;
+  final List<OfferEntity>? offers;
 
   OffersLoaded(this.offers);
 }
 
 final class OffersError extends HomeState {
-  final ServerFailure failure;
-  OffersError(this.failure);
+  final ApiErrorModel error;
+  OffersError(this.error);
 }
 
 final class CategoriesLoading extends HomeState {}
 
 final class CategoriesLoaded extends HomeState {
-  final List<HomeCategoryEntity> categories;
+  final List<CategoryEntity>? categories;
 
   CategoriesLoaded(this.categories);
 }
 
 final class CategoriesError extends HomeState {
-  final ServerFailure failure;
-
-  CategoriesError(this.failure);
+  final ApiErrorModel error;
+  CategoriesError(this.error);
 }
 
 final class ProductsLoading extends HomeState {}
 
 final class ProductsLoaded extends HomeState {
-  final List<HomeProductEntity> products;
+  final List<ProductEntity>? products;
 
   ProductsLoaded(this.products);
 }
 
 final class ProductsError extends HomeState {
-  final ServerFailure failure;
+  final ApiErrorModel error;
 
-  ProductsError(this.failure);
+  ProductsError(this.error);
 }

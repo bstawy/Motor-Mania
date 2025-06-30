@@ -22,7 +22,12 @@ import 'widgets/seller_info_widget.dart';
 import 'widgets/stock_and_shipping_info_widget.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
-  const ProductDetailsScreen({super.key});
+  final ProductEntity product;
+
+  const ProductDetailsScreen({
+    super.key,
+    required this.product,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -39,78 +44,125 @@ class ProductDetailsScreen extends StatelessWidget {
               return ListView(
                 controller: scrollController,
                 children: [
-                  BlocBuilder<ProductCubit, ProductState>(
-                    bloc: context.read<ProductCubit>(),
-                    buildWhen: (previous, current) {
-                      if (current is ProductLoading ||
-                          current is ProductLoaded ||
-                          current is ProductError) {
-                        return true;
-                      }
-                      return false;
-                    },
-                    builder: (context, state) {
-                      if (state is ProductLoading) {
-                        return const Center(child: CircularProgressIndicator());
-                      } else if (state is ProductLoaded) {
-                        ProductEntity product = state.product;
-
-                        return Column(
-                          children: [
-                            Gap(8.h),
-                            Container(
-                              height: 5.h,
-                              margin: EdgeInsets.symmetric(horizontal: 0.4.sw),
-                              decoration: BoxDecoration(
-                                color: customColors.onTertiary,
-                                borderRadius: BorderRadius.circular(50.r),
-                              ),
-                            ),
-                            Gap(16.h),
-                            const SearchBarWidget(
-                              borderColor: ColorsManager.blueGrey,
-                            ),
-                            Gap(16.h),
-                            ProductNameAndFavoriteButtonWidget(
-                              product: product,
-                            ),
-                            Gap(16.r),
-                            ProductImageAndRatingWidget(
-                              imageUrl: product.imageUrl ?? "",
-                              rating: product.rating ?? 0,
-                              reviewsCount: product.reviewsCount ?? 0,
-                            ),
-                            Gap(24.h),
-                            ProductPriceAndDiscountWidget(
-                              oldPrice: product.oldPrice ?? 0,
-                              price: product.price ?? 0,
-                              discountPercentage:
-                                  product.discountPercentage ?? 0,
-                            ),
-                            Gap(8.h),
-                            StockAndShippingInfoWidget(
-                              amount: product.amount ?? 0,
-                              shippingInfo: product.shippingInformation ?? "",
-                            ),
-                            Gap(12.h),
-                            const ProductSpecificationsWidget(),
-                            Gap(16.h),
-                            ProductDescriptionWidget(
-                              description: product.description ?? "",
-                            ),
-                            Gap(16.h),
-                            const SellerInfoWidget(),
-                          ],
-                        );
-                      } else if (state is ProductError) {
-                        return Center(
-                          child: Text(state.failure.message ?? "Error"),
-                        );
-                      } else {
-                        return const SizedBox();
-                      }
-                    },
+                  Column(
+                    children: [
+                      Gap(8.h),
+                      Container(
+                        height: 5.h,
+                        margin: EdgeInsets.symmetric(horizontal: 0.4.sw),
+                        decoration: BoxDecoration(
+                          color: customColors.onTertiary,
+                          borderRadius: BorderRadius.circular(50.r),
+                        ),
+                      ),
+                      Gap(16.h),
+                      const SearchBarWidget(
+                        borderColor: ColorsManager.blueGrey,
+                      ),
+                      Gap(16.h),
+                      ProductNameAndFavoriteButtonWidget(
+                        product: product,
+                      ),
+                      Gap(16.r),
+                      ProductImageAndRatingWidget(
+                        imageUrl: product.imageUrl ?? "",
+                        rating: product.rating ?? 0,
+                        reviewsCount: product.reviewsCount ?? 0,
+                      ),
+                      Gap(24.h),
+                      ProductPriceAndDiscountWidget(
+                        oldPrice: product.oldPrice ?? 0,
+                        price: product.price ?? 0,
+                        discountPercentage: product.discountPercentage ?? 0,
+                      ),
+                      Gap(8.h),
+                      StockAndShippingInfoWidget(
+                        amount: product.amount ?? 0,
+                        shippingInfo: product.shippingInformation ?? "",
+                      ),
+                      Gap(12.h),
+                      const ProductSpecificationsWidget(),
+                      Gap(16.h),
+                      ProductDescriptionWidget(
+                        description: product.description ?? "",
+                      ),
+                      Gap(16.h),
+                      const SellerInfoWidget(),
+                    ],
                   ).setHorizontalPadding(16.w),
+
+                  // BlocBuilder<ProductCubit, ProductState>(
+                  //   bloc: context.read<ProductCubit>(),
+                  //   buildWhen: (previous, current) {
+                  //     if (current is ProductLoading ||
+                  //         current is ProductLoaded ||
+                  //         current is ProductError) {
+                  //       return true;
+                  //     }
+                  //     return false;
+                  //   },
+                  //   builder: (context, state) {
+                  //     if (state is ProductLoading) {
+                  //       return const Center(child: CircularProgressIndicator());
+                  //     } else if (state is ProductLoaded) {
+                  //       ProductEntity product = state.product;
+
+                  //       return Column(
+                  //         children: [
+                  //           Gap(8.h),
+                  //           Container(
+                  //             height: 5.h,
+                  //             margin: EdgeInsets.symmetric(horizontal: 0.4.sw),
+                  //             decoration: BoxDecoration(
+                  //               color: customColors.onTertiary,
+                  //               borderRadius: BorderRadius.circular(50.r),
+                  //             ),
+                  //           ),
+                  //           Gap(16.h),
+                  //           const SearchBarWidget(
+                  //             borderColor: ColorsManager.blueGrey,
+                  //           ),
+                  //           Gap(16.h),
+                  //           ProductNameAndFavoriteButtonWidget(
+                  //             product: product,
+                  //           ),
+                  //           Gap(16.r),
+                  //           ProductImageAndRatingWidget(
+                  //             imageUrl: product.imageUrl ?? "",
+                  //             rating: product.rating ?? 0,
+                  //             reviewsCount: product.reviewsCount ?? 0,
+                  //           ),
+                  //           Gap(24.h),
+                  //           ProductPriceAndDiscountWidget(
+                  //             oldPrice: product.oldPrice ?? 0,
+                  //             price: product.price ?? 0,
+                  //             discountPercentage:
+                  //                 product.discountPercentage ?? 0,
+                  //           ),
+                  //           Gap(8.h),
+                  //           StockAndShippingInfoWidget(
+                  //             amount: product.amount ?? 0,
+                  //             shippingInfo: product.shippingInformation ?? "",
+                  //           ),
+                  //           Gap(12.h),
+                  //           const ProductSpecificationsWidget(),
+                  //           Gap(16.h),
+                  //           ProductDescriptionWidget(
+                  //             description: product.description ?? "",
+                  //           ),
+                  //           Gap(16.h),
+                  //           const SellerInfoWidget(),
+                  //         ],
+                  //       );
+                  //     } else if (state is ProductError) {
+                  //       return Center(
+                  //         child: Text(state.failure.message ?? "Error"),
+                  //       );
+                  //     } else {
+                  //       return const SizedBox();
+                  //     }
+                  //   },
+                  // ).setHorizontalPadding(16.w),
                   Gap(16.h),
                   BlocProvider<HomeCubit>.value(
                     value: getIt<HomeCubit>(),

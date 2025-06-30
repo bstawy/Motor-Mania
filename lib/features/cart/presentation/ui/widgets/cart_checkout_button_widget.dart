@@ -81,8 +81,8 @@ class CartCheckoutButtonWidget extends StatelessWidget {
             bloc: context.read<CartCubit>(),
             buildWhen: (previous, current) {
               return (current is CartLoaded ||
-                  current is CouponApplied ||
-                  current is CouponRemoved);
+                  current is ApplyCouponSuccess ||
+                  current is RemoveCoupon);
             },
             builder: (context, state) {
               return RichText(
@@ -93,7 +93,7 @@ class CartCheckoutButtonWidget extends StatelessWidget {
                   children: [
                     TextSpan(
                       text:
-                          '\$${context.read<CartCubit>().subTotal.toStringAsFixed(2)}',
+                          '\$${context.read<CartCubit>().total.toStringAsFixed(2)}',
                       style: TextStyles.font12WhiteSemiBold,
                     ),
                   ],

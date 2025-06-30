@@ -4,12 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/caching/hive_manager.dart';
 import '../../../../../core/caching/tokens_manager.dart';
 import '../../../../../core/config/app_manager/app_manager_cubit.dart';
-import '../../../../../core/config/routing/app_router.dart';
 import '../../../../../core/config/routing/routes.dart';
 import '../../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../../../core/di/dependency_injection.dart';
 import '../../../../../core/helpers/extensions/theme_ext.dart';
+import '../../../../../main.dart';
 
 class LogoutAlertDialogWidget extends StatelessWidget {
   const LogoutAlertDialogWidget({super.key});
@@ -48,7 +48,7 @@ class LogoutAlertDialogWidget extends StatelessWidget {
               await getIt<HiveManager>().clearAllBoxes();
               await TokensManager.deleteTokens();
 
-              AppRouter.navigatorKey.currentState!.pushNamedAndRemoveUntil(
+              navigatorKey.currentState!.pushNamedAndRemoveUntil(
                 Routes.onBoardingScreens,
                 (route) => false,
               );

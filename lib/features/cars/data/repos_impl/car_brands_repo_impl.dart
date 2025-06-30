@@ -1,6 +1,4 @@
-import 'package:dartz/dartz.dart';
-
-import '../../../../core/networking/failure/server_failure.dart';
+import '../../../../core/networking/api_result.dart';
 import '../../domain/entities/car_brand_entity.dart';
 import '../../domain/entities/car_brand_model_entity.dart';
 import '../../domain/repos/car_brands_repo.dart';
@@ -9,65 +7,44 @@ import '../models/car_brand_model.dart';
 import '../models/car_brand_model_model.dart';
 
 class CarBrandsRepoImpl extends CarBrandsRepo {
-  final CarBrandsRemoteDataSource _remoteDataSource;
+  final CarsBrandsRemoteDataSource _remoteDataSource;
 
   CarBrandsRepoImpl(this._remoteDataSource);
 
   @override
-  Future<Either<ServerFailure, List<CarBrandEntity>>> getCarBrands() async {
-    try {
-      final response = await _remoteDataSource.getCarBrands();
+  Future<ApiResult<List<CarBrandEntity>?>> getCarBrands() async {
+    final response = await _remoteDataSource.getCarBrands();
 
-      if (response.statusCode == 200) {
-        final List<CarBrandEntity> carBrands = (response.data['data'] as List)
+    return response.fold(
+      (failure) => Failure(failure.exception),
+      (success) {
+        final jsonBrands = success.data.data['data'];
+
+        final List<CarBrandEntity> carBrands = (jsonBrands as List)
             .map((carBrand) => CarBrandModel.fromJson(carBrand))
             .toList();
 
-        return Right(carBrands);
-      }
-      return Left(
-        ServerFailure(
-          statusCode: response.statusCode,
-          message: response.data['message'],
-        ),
-      );
-    } catch (e) {
-      return Left(
-        ServerFailure(
-          statusCode: 500,
-          message: e.toString(),
-        ),
-      );
-    }
+        return Success(carBrands);
+      },
+    );
   }
 
   @override
-  Future<Either<ServerFailure, List<CarBrandModelEntity>>> getCarBrandModels(
+  Future<ApiResult<List<CarBrandModelEntity>?>> getCarBrandModels(
       int brandId) async {
-    try {
-      final response = await _remoteDataSource.getCarBrandModels(brandId);
+    final response = await _remoteDataSource.getCarBrandModels(brandId);
 
-      if (response.statusCode == 200) {
-        final List<CarBrandModelEntity> carBrands = (response.data['data']
-                as List)
-            .map((carBrandModel) => CarBrandModelModel.fromJson(carBrandModel))
+    return response.fold(
+      (failure) => Failure(failure.exception),
+      (success) {
+        final jsonBrandModels = success.data.data['data'];
+
+        final List<CarBrandModelEntity> brandModels = (jsonBrandModels as List)
+            .map((carBrand) => CarBrandModelModel.fromJson(carBrand))
             .toList();
 
-        return Right(carBrands);
-      }
-      return Left(
-        ServerFailure(
-          statusCode: response.statusCode,
-          message: response.data['message'],
-        ),
-      );
-    } catch (e) {
-      return Left(
-        ServerFailure(
-          statusCode: 500,
-          message: e.toString(),
-        ),
-      );
-    }
+        return Success(brandModels);
+      },
+    );
   }
 }

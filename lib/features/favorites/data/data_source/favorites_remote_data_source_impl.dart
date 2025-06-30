@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 
 import '../../../../core/config/constants/api_constants.dart';
+import '../../../../core/networking/api_result.dart';
 import '../../../../core/networking/crud_manager.dart';
-import '../../../home/domain/entities/home_product_entity.dart';
+import '../../../../core/networking/generic_api_call.dart';
+import '../../../product_details/domain/entities/product_entity.dart';
 import 'favorites_data_sources.dart';
 
 class FavoritesRemoteDataSourceImpl extends FavoritesDataSources {
@@ -11,29 +13,37 @@ class FavoritesRemoteDataSourceImpl extends FavoritesDataSources {
   FavoritesRemoteDataSourceImpl(this._crudManager);
 
   @override
-  Future<Response> getAllFavorites() async {
-    return await _crudManager.get(EndPoints.allFavorites, tokenReq: true);
+  Future<ApiResult<Response>> getAllFavorites() async {
+    return await executeApiCall(() async {
+      return await _crudManager.get(
+        EndPoints.allFavorites,
+        tokenReq: true,
+      );
+    });
   }
 
   @override
-  Future<Response> addToFavorites(HomeProductEntity product) async {
+  Future<ApiResult<Response>> addToFavorites(ProductEntity product) async {
     Map<String, dynamic> params = {'id': product.id};
 
-    return await _crudManager.post(
-      EndPoints.addToFavorites,
-      params: params,
-      tokenReq: true,
-    );
+    return await executeApiCall(() async {
+      return await _crudManager.post(
+        EndPoints.addToFavorites,
+        params: params,
+        tokenReq: true,
+      );
+    });
   }
 
   @override
-  Future<Response> removeFromFavorites(int id) async {
+  Future<ApiResult<Response>> removeFromFavorites(int id) async {
     Map<String, dynamic> params = {'id': id};
 
-    return await _crudManager.delete(
-      EndPoints.removeFromFavorites,
-      params: params,
-      tokenReq: true,
-    );
+    return await executeApiCall(() async {
+      return await _crudManager.delete(
+        EndPoints.removeFromFavorites,
+        params: params,
+      );
+    });
   }
 }

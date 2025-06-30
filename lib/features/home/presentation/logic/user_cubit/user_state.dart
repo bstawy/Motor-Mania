@@ -7,7 +7,7 @@ final class UserInitial extends UserState {}
 final class UserDataLoading extends UserState {}
 
 final class UserDataLoaded extends UserState {
-  final CarEntity userCar;
+  final CarEntity? userCar;
 
   UserDataLoaded(this.userCar);
 }
@@ -17,7 +17,7 @@ final class UserDataEmpty extends UserState {}
 final class UserCarSwitching extends UserState {}
 
 final class UserDataError extends UserState {
-  final ServerFailure failure;
+  final ApiErrorModel error;
 
-  UserDataError(this.failure);
+  UserDataError(this.error);
 }

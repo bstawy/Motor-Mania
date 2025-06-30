@@ -28,7 +28,7 @@ class UserOffersWidget extends StatelessWidget {
             height: 138.h,
           ).setHorizontalPadding(24.w);
         } else if (state is OffersLoaded) {
-          List<OfferEntity> offers = state.offers;
+          List<OfferEntity> offers = state.offers!;
 
           offers = offers
               .where((offer) => offer.id == 4 || offer.id == 5 || offer.id == 6)
@@ -52,7 +52,7 @@ class UserOffersWidget extends StatelessWidget {
             ),
           );
         } else if (state is OffersError) {
-          return Text(state.failure.message ?? "");
+          return Text(state.error.message ?? "");
         } else {
           return const SizedBox();
         }

@@ -27,14 +27,13 @@ class SearchScreen extends StatelessWidget {
             return const ProductsGridLoadingWidget()
                 .setHorizontalAndVerticalPadding(16.w, 8.h);
           } else if (state is SearchLoaded) {
-            return ProductsGridWidget(products: state.products)
+            return ProductsGridWidget(products: state.products!)
                 .setOnlyPadding(8.h, 0, 16.w, 16.w);
           } else if (state is SearchEmpty) {
             return const SearchEmptyWidget();
           } else if (state is SearchError) {
             return Center(
-              child:
-                  Text(state.failure.message ?? "").setHorizontalPadding(16.w),
+              child: Text(state.error.message ?? "").setHorizontalPadding(16.w),
             );
           } else {
             return const SizedBox();

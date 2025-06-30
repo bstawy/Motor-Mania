@@ -1,11 +1,9 @@
 import 'package:dio/dio.dart';
 
-import '../../../../core/helpers/enums/switch_enum.dart';
+import '../../../../core/networking/api_result.dart';
 
 abstract class HomeDataSources {
-  Future<Response> getUserCar();
-  Future<Response> switchCar(SwitchEnum switchValue);
-  Future<Response> getHomeCategories();
-  Future<Response> getHomeProducts();
-  Future<Response> getHomeOffers();
+  Future<ApiResult<Response>> getOffers();
+  Future<ApiResult<Response>> getCategories();
+  Future<ApiResult<Response>> getProducts();
 }

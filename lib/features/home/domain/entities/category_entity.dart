@@ -1,24 +1,24 @@
 import 'package:equatable/equatable.dart';
 
-class HomeCategoryEntity extends Equatable {
+class CategoryEntity extends Equatable {
   final int id;
   final String name;
   final String imageUrl;
   final String darkImageUrl;
 
-  const HomeCategoryEntity({
+  const CategoryEntity({
     required this.id,
     required this.name,
     required this.imageUrl,
     required this.darkImageUrl,
   });
 
-  HomeCategoryEntity copyWith({
+  CategoryEntity copyWith({
     String? name,
     String? imageUrl,
     String? darkImageUrl,
   }) {
-    return HomeCategoryEntity(
+    return CategoryEntity(
       id: id,
       name: name ?? this.name,
       imageUrl: imageUrl ?? this.imageUrl,

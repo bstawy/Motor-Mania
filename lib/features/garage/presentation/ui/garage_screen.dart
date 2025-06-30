@@ -80,7 +80,7 @@ class GarageScreen extends StatelessWidget {
                 } else if (state is GarageEmpty) {
                   return const GarageEmptyWidget();
                 } else if (state is GarageLoaded) {
-                  return GarageCarsListWidget(garageCars: state.cars);
+                  return GarageCarsListWidget(garageCars: state.cars ?? []);
                 } else if (state is GarageError) {
                   return RefreshIndicator(
                     onRefresh: () async {
@@ -89,7 +89,7 @@ class GarageScreen extends StatelessWidget {
                     child: SingleChildScrollView(
                       physics: const AlwaysScrollableScrollPhysics(),
                       child: Center(
-                        child: Text(state.failure.message ?? ""),
+                        child: Text(state.error.message ?? ""),
                       ),
                     ),
                   );

@@ -65,17 +65,17 @@ class _CouponFieldWidgetState extends State<CouponFieldWidget> {
         ),
         suffix: BlocConsumer<CartCubit, CartState>(
           listenWhen: (previous, current) =>
-              current is CouponApplied || current is CouponError,
+              current is ApplyCouponSuccess || current is ApplyCouponError,
           buildWhen: (previous, current) =>
-              current is CouponApplied || current is CouponRemoved,
+              current is ApplyCouponSuccess || current is RemoveCoupon,
           listener: (context, state) {
-            if (state is CouponError) {
-              context.errorSnackBar(state.message);
+            if (state is ApplyCouponError) {
+              context.errorSnackBar(state.error.message);
             }
             FocusScope.of(context).unfocus();
           },
           builder: (context, state) {
-            if (state is CouponApplied) {
+            if (state is ApplyCouponSuccess) {
               return InkWell(
                 onTap: () {
                   _controller.clear();
@@ -93,7 +93,8 @@ class _CouponFieldWidgetState extends State<CouponFieldWidget> {
               return InkWell(
                 onTap: () {
                   if (_controller.text.isNotEmpty) {
-                    context.read<CartCubit>().applyCoupon(_controller.text);
+                    context.read<CartCubit>().applyCoupon(
+                        _controller.text, context.read<CartCubit>().subTotal);
                   }
                 },
                 child: Text(

@@ -1,6 +1,4 @@
-import 'package:dartz/dartz.dart';
-
-import '../../../../core/networking/failure/server_failure.dart';
+import '../../../../core/networking/api_result.dart';
 import '../entities/product_entity.dart';
 import '../repos/product_repo.dart';
 
@@ -9,17 +7,20 @@ class GetProductDetailsUseCase {
 
   GetProductDetailsUseCase(this._productRepo);
 
-  Future<Either<ServerFailure, ProductEntity>> execute(int id) async {
+  Future<ApiResult<ProductEntity?>> execute(int id) async {
     final response = await _productRepo.getProductDetails(id);
 
-    return response.fold((failure) => Left(failure), (product) {
-      final finalPrice = calculateFinalPrice(
-        product.oldPrice!,
-        product.discountPercentage!,
-      );
+    return response.fold(
+      (failure) => Failure(failure.exception),
+      (success) {
+        final finalPrice = calculateFinalPrice(
+          success.data?.oldPrice ?? 0,
+          success.data?.discountPercentage ?? 0,
+        );
 
-      return Right(product.copyWith(price: finalPrice));
-    });
+        return Success(success.data?.copyWith(price: finalPrice));
+      },
+    );
   }
 
   double calculateFinalPrice(num oldPrice, num discountPercentage) {
