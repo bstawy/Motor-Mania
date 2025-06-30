@@ -21,7 +21,7 @@ class DioFactory {
         ..connectTimeout = timeOut
         ..receiveTimeout = timeOut
         ..validateStatus = (statusCode) {
-          return statusCode! <= 500;
+          return statusCode! == 200 || statusCode == 201;
         };
 
       _addFreeDioInterceptors();

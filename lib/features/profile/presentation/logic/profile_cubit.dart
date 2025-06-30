@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/config/app_manager/app_manager_cubit.dart';
-import '../../../../core/config/routing/app_router.dart';
 import '../../../../core/config/routing/routes.dart';
 import '../../../../core/helpers/assets_manager.dart';
 import '../../../../core/helpers/enums/app_modes_enums.dart';
 import '../../../../core/helpers/extensions/extensions.dart';
 import '../../../../core/helpers/extensions/theme_ext.dart';
+import '../../../../main.dart';
 import '../../models/option_model.dart';
 import '../ui/widgets/change_theme_bottom_sheet.dart';
 import '../ui/widgets/logout_alert_dialog_widget.dart';
@@ -94,8 +94,7 @@ class ProfileCubit extends Cubit<ProfileState> {
           builder: (context) => const ChangeThemeBottomSheet(),
           isScrollControlled: true,
           useSafeArea: true,
-          backgroundColor:
-              AppRouter.navigatorKey.currentContext!.colors.inverseSurface,
+          backgroundColor: navigatorKey.currentContext!.colors.inverseSurface,
         );
       },
     ),
@@ -111,7 +110,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       leadingIconPath: AssetsManager.profileNotificationsIcon,
       leadingDarkIconPath: AssetsManager.profileNotificationsDarkIcon,
     ),
-    AppRouter.navigatorKey.currentContext!.read<AppManagerCubit>().appMode ==
+    navigatorKey.currentContext!.read<AppManagerCubit>().appMode ==
             AppMode.guest
         ? OptionModel(
             id: 13,

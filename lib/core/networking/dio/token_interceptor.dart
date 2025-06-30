@@ -1,14 +1,22 @@
-import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
+import 'dart:async';
 
+import 'package:dio/dio.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../main.dart';
 import '../../caching/tokens_manager.dart';
 import '../../config/app_manager/app_manager_cubit.dart';
 import '../../config/constants/api_constants.dart';
+import '../../config/routing/routes.dart';
 import '../../di/dependency_injection.dart';
+import '../../helpers/extensions/navigation_ext.dart';
 import '../crud_manager.dart';
 import 'dio_factory.dart';
 
 class TokenInterceptor extends Interceptor {
+  static bool _isRefreshing = false;
+  static final _completer = Completer<void>();
+
   @override
   Future<void> onRequest(
     RequestOptions options,
@@ -20,43 +28,41 @@ class TokenInterceptor extends Interceptor {
     } else {
       options.headers["Authorization"] = "";
     }
-    debugPrint("Access Token: $accessToken");
-
     super.onRequest(options, handler);
   }
 
-  @override
-  void onResponse(Response response, ResponseInterceptorHandler handler) async {
-    if (response.statusCode == 401) {
-      debugPrint("=====================================");
-      debugPrint("Token expired");
-      String refreshToken = await TokensManager.getRefreshToken() ?? "";
+  // @override
+  // void onResponse(Response response, ResponseInterceptorHandler handler) async {
+  //   if (response.statusCode == 401) {
+  //     debugPrint("=====================================");
+  //     debugPrint("Token expired");
+  //     String refreshToken = await TokensManager.getRefreshToken() ?? "";
 
-      if (refreshToken.isNotEmpty) {
-        if (await updateAccessToken(refreshToken)) {
-          final Dio dio = DioFactory.getTokenDio();
+  //     if (refreshToken.isNotEmpty) {
+  //       if (await _refreshTokens()) {
+  //         final Dio dio = DioFactory.getTokenDio();
 
-          response.requestOptions.headers['Authorization'] =
-              TokensManager.getAccessToken();
+  //         response.requestOptions.headers['Authorization'] =
+  //             TokensManager.getAccessToken();
 
-          final opts = Options(
-            method: response.requestOptions.method,
-            headers: response.requestOptions.headers,
-          );
+  //         final opts = Options(
+  //           method: response.requestOptions.method,
+  //           headers: response.requestOptions.headers,
+  //         );
 
-          await dio.request(
-            response.requestOptions.path,
-            options: opts,
-            data: response.requestOptions.data,
-            queryParameters: response.requestOptions.queryParameters,
-          );
-        }
-      } else {
-        await logout();
-      }
-    }
-    super.onResponse(response, handler);
-  }
+  //         await dio.request(
+  //           response.requestOptions.path,
+  //           options: opts,
+  //           data: response.requestOptions.data,
+  //           queryParameters: response.requestOptions.queryParameters,
+  //         );
+  //       }
+  //     } else {
+  //       await logout();
+  //     }
+  //   }
+  //   super.onResponse(response, handler);
+  // }
 
   @override
   Future<void> onError(
@@ -68,46 +74,66 @@ class TokenInterceptor extends Interceptor {
 
       String refreshToken = await TokensManager.getRefreshToken() ?? "";
 
-      if (refreshToken.isNotEmpty) {
-        if (await updateAccessToken(refreshToken)) {
-          err.requestOptions.headers['Authorization'] =
-              'Bearer ${TokensManager.getAccessToken()}';
-          err.requestOptions.method = err.requestOptions.method;
+      if (refreshToken.isEmpty) {
+        await logout();
+        return handler.reject(err);
+      }
 
-          return handler.resolve(await dio.fetch(err.requestOptions));
+      if (!_isRefreshing) {
+        _isRefreshing = true;
+        try {
+          await _refreshTokens();
+          _completer.complete();
+        } catch (e) {
+          // Refresh failed, logout
+          await logout();
+          _completer.completeError(e);
+          return handler.reject(err);
+        } finally {
+          _isRefreshing = false;
         }
       } else {
-        await logout();
+        // Refresh in progress, wait for it to complete
+        await _completer.future;
       }
+
+      // Retry the original request with the new token
+      err.requestOptions.headers["Authorization"] =
+          "Bearer ${await TokensManager.getAccessToken()}";
+      return handler.resolve(await dio.fetch(err.requestOptions));
     }
     super.onError(err, handler);
   }
 
-  Future<bool> updateAccessToken(String refreshToken) async {
-    final CrudManager crud = getIt<CrudManager>();
+  Future<void> _refreshTokens() async {
+    try {
+      final String refreshToken = await TokensManager.getRefreshToken() ?? "";
 
-    final response = await crud
-        .post(EndPoints.refreshToken, body: {"refresh_token": refreshToken});
-
-    if (response.statusCode == 200) {
-      final data = response.data;
-
-      if (data["success"] == true) {
-        await TokensManager.setAccessToken(data["data"]["access_token"]);
-        await TokensManager.setRefreshToken(data["data"]["refresh_token"]);
-        return true;
-      } else {
-        await logout();
-        return false;
+      if (refreshToken.isEmpty) {
+        throw Exception("Refresh token is empty");
       }
-    } else {
-      await logout();
-      return false;
+      final CrudManager crud = getIt<CrudManager>();
+
+      final response = await crud
+          .post(EndPoints.refreshToken, body: {"refresh_token": refreshToken});
+
+      if (response.statusCode != 200) {
+        throw Exception("Failed to refresh tokens");
+      }
+      await TokensManager.setAccessToken(response.data["data"]["access_token"]);
+      await TokensManager.setRefreshToken(
+          response.data["data"]["refresh_token"]);
+    } catch (e) {
+      rethrow;
     }
   }
 
   Future<void> logout() async {
-    final AppManagerCubit appManagerCubit = AppManagerCubit();
-    appManagerCubit.logUserOut();
+    // TODO: refactor this
+    navigatorKey.currentState?.context.read<AppManagerCubit>().logUserOut();
+    navigatorKey.currentState?.context.pushNamedAndRemoveUntil(
+      Routes.layoutScreen,
+      predicate: (route) => false,
+    );
   }
 }

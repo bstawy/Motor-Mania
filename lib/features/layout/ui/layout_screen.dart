@@ -4,11 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 import '../../../core/config/app_manager/app_manager_cubit.dart';
-import '../../../core/config/routing/app_router.dart';
 import '../../../core/config/theme/colors/colors_manager.dart';
 import '../../../core/di/dependency_injection.dart';
 import '../../../core/helpers/enums/app_modes_enums.dart';
 import '../../../core/helpers/extensions/theme_ext.dart';
+import '../../../main.dart';
 import '../../cars/presentation/logic/cars_cubit.dart';
 import '../../cart/presentation/ui/cart_screen.dart';
 import '../../favorites/presentation/ui/favorites_screen.dart';
@@ -121,7 +121,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
 
   List<Widget> _buildScreens() {
     final AppManagerCubit appManager =
-        AppRouter.navigatorKey.currentContext!.read<AppManagerCubit>();
+        navigatorKey.currentContext!.read<AppManagerCubit>();
     return [
       MultiBlocProvider(
         providers: [

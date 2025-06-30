@@ -4,11 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../../../../core/config/app_manager/app_manager_cubit.dart';
-import '../../../../../../../core/config/routing/app_router.dart';
 import '../../../../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../../../../../core/helpers/extensions/extensions.dart';
 import '../../../../../../../core/helpers/extensions/theme_ext.dart';
+import '../../../../../../../main.dart';
 import '../../../../logic/user_cubit/user_cubit.dart';
 import 'user_header_loaded_widget.dart';
 import 'user_header_loading_widget.dart';
@@ -53,8 +53,7 @@ class UserHeaderWidget extends StatelessWidget {
   }
 
   Widget _buildUserEmptyData() {
-    final TextTheme customTextStyles =
-        AppRouter.navigatorKey.currentContext!.textStyles;
+    final TextTheme customTextStyles = navigatorKey.currentContext!.textStyles;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,

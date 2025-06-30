@@ -3,10 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
-import '../../../../core/config/routing/app_router.dart';
 import '../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../../core/helpers/extensions/theme_ext.dart';
+import '../../../../main.dart';
 
 PersistentBottomNavBarItem bottomNavBarTab({
   required String title,
@@ -27,8 +27,7 @@ PersistentBottomNavBarItem bottomNavBarTab({
     title: title,
     activeColorPrimary: Colors.white,
     activeColorSecondary: ColorsManager.red,
-    textStyle: AppRouter.navigatorKey.currentContext!.textStyles.headlineMedium
-        ?.copyWith(
+    textStyle: navigatorKey.currentContext!.textStyles.headlineMedium?.copyWith(
       color: ColorsManager.red,
       fontWeight: FontWeightHelper.semiBold,
     ),

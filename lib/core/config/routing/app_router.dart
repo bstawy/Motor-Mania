@@ -26,8 +26,6 @@ import 'no_route_defined_widget.dart';
 import 'routes.dart';
 
 class AppRouter {
-  static final navigatorKey = GlobalKey<NavigatorState>();
-
   LayoutCubit? _layoutCubit;
   CartCubit? _cartCubit;
   FavoritesCubit? _favoritesCubit;

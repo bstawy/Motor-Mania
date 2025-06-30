@@ -12,6 +12,8 @@ import 'core/di/dependency_injection.dart';
 import 'core/helpers/app_bloc_observer.dart';
 import 'motor_mania_app.dart';
 
+final navigatorKey = GlobalKey<NavigatorState>();
+
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
 
