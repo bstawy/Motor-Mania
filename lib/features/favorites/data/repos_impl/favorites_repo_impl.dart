@@ -33,11 +33,12 @@ class FavoritesRepoImpl extends FavoritesRepo {
     }, (success) async {
       final List<ProductEntity> remoteFavorites =
           (success.data.data['data'] as List)
-              .map((product) => ProductModel.fromJson(product))
+              .map((product) => ProductModel.fromJson(product) as ProductEntity)
               .toList();
 
       // Merge remote favorites with cached favorites
-      List<ProductEntity> allFavorites = remoteFavorites;
+      List<ProductEntity> allFavorites =
+          List<ProductEntity>.from(remoteFavorites);
 
       if (remoteFavorites != cachedFavorites) {
         for (final fav in cachedFavorites) {
