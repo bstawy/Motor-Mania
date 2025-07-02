@@ -42,5 +42,6 @@ class PaymentMethodEntity extends Equatable {
         lastFourDigits,
         expiryMonth,
         expiryYear,
+        isDefault,
       ];
 }
