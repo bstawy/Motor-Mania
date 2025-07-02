@@ -11,8 +11,9 @@ class UserPaymentMethodsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final PaymentMethodsCubit cubit = context.read<PaymentMethodsCubit>();
     return BlocBuilder<PaymentMethodsCubit, PaymentMethodsState>(
-      bloc: context.read<PaymentMethodsCubit>(),
+      bloc: cubit,
       buildWhen: (previous, current) =>
           current is GetPaymentMethodsLoading ||
           current is GetPaymentMethodsSuccess ||
@@ -30,9 +31,8 @@ class UserPaymentMethodsWidget extends StatelessWidget {
               ),
             ),
           );
-        } else if (state is GetPaymentMethodsSuccess) {
-          final paymentMethodsList = state.paymentMethods ?? [];
-          if (paymentMethodsList.isEmpty) {
+        } else {
+          if (cubit.paymentMethods.isEmpty) {
             return SliverToBoxAdapter(
               child: Center(
                 child: Text(
@@ -41,18 +41,10 @@ class UserPaymentMethodsWidget extends StatelessWidget {
                 ),
               ),
             );
+          } else {
+            return UserPaymentMethodsListWidget(
+                paymentMethods: cubit.paymentMethods);
           }
-          return UserPaymentMethodsListWidget(
-              paymentMethods: paymentMethodsList);
-        } else {
-          return SliverToBoxAdapter(
-            child: Center(
-              child: Text(
-                "Unexpected state",
-                style: TextStyles.font10BlueGreyRegular,
-              ),
-            ),
-          );
         }
       },
     );

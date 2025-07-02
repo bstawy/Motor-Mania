@@ -28,6 +28,11 @@ import '../../features/category/data/repos_impl/category_repository_impl.dart';
 import '../../features/category/domain/repos/category_repository.dart';
 import '../../features/category/domain/use_cases/get_category_products_use_cases.dart';
 import '../../features/category/presentation/logic/category_cubit.dart';
+import '../../features/checkout/data/data_sources/checkout_remote_data_source.dart';
+import '../../features/checkout/data/repos/checkout_repo_impl.dart';
+import '../../features/checkout/domain/repos/checkout_repo.dart';
+import '../../features/checkout/domain/use_cases/make_order_use_case.dart';
+import '../../features/checkout/presentation/logic/checkout_cubit.dart';
 import '../../features/favorites/data/data_source/favorites_data_sources.dart';
 import '../../features/favorites/data/data_source/favorites_local_data_source.dart';
 import '../../features/favorites/data/data_source/favorites_remote_data_source_impl.dart';
@@ -267,6 +272,18 @@ Future<void> initGetIt() async {
         getIt(),
         getIt(),
       ));
+
+  // checkout
+  getIt.registerFactory<CheckoutRemoteDataSource>(
+    () => CheckoutRemoteDataSource(getIt()),
+  );
+  getIt.registerFactory<CheckoutRepo>(
+    () => CheckoutRepoImpl(getIt(), getIt()),
+  );
+  getIt.registerFactory<MakeOrderUseCase>(
+    () => MakeOrderUseCase(getIt()),
+  );
+  getIt.registerFactory<CheckoutCubit>(() => CheckoutCubit(getIt()));
 
   //garage
   getIt.registerFactory<GarageRemoteDataSource>(

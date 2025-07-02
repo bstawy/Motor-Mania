@@ -10,7 +10,6 @@ abstract class CartRepo {
     int quantity,
   );
   Future<ApiResult<void>> removeProduct(int productId);
-
   Future<ApiResult<CouponEntity?>> applyCoupon(
     String couponCode,
     num cartTotal,

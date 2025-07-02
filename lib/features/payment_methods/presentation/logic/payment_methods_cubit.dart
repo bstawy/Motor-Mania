@@ -25,6 +25,7 @@ class PaymentMethodsCubit extends Cubit<PaymentMethodsState> {
   ) : super(PaymentMethodsInitial());
 
   String selectedPaymentMethodId = "";
+  List<PaymentMethodEntity> paymentMethods = [];
 
   Future<void> getAllPaymentMethods() async {
     emit(GetPaymentMethodsLoading());
@@ -40,6 +41,7 @@ class PaymentMethodsCubit extends Cubit<PaymentMethodsState> {
         selectedPaymentMethodId = success.data?.isNotEmpty ?? false
             ? success.data?.firstWhere((e) => e.isDefault).id ?? ''
             : "";
+        paymentMethods = success.data ?? [];
         emit(GetPaymentMethodsSuccess(success.data ?? []));
       },
     );
@@ -47,7 +49,7 @@ class PaymentMethodsCubit extends Cubit<PaymentMethodsState> {
 
   void selectPaymentMethod(String paymentMethodId) {
     selectedPaymentMethodId = paymentMethodId;
-    emit(SelectedPaymentMethod(paymentMethodId));
+    emit(SelectDefaultPaymentMethod(paymentMethodId));
   }
 
   Future<void> addNewPaymentMethod({

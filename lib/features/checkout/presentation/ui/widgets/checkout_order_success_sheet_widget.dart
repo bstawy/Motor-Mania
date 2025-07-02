@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
@@ -9,6 +10,7 @@ import '../../../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../../../core/helpers/assets_manager.dart';
 import '../../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../../core/widgets/custom_material_button.dart';
+import '../../../../cart/presentation/logic/cart_cubit.dart';
 
 class CheckoutOrderSuccessSheet extends StatelessWidget {
   const CheckoutOrderSuccessSheet({super.key});
@@ -63,6 +65,7 @@ class CheckoutOrderSuccessSheet extends StatelessWidget {
             Gap(24.h),
             CustomMaterialButton(
               onClicked: () {
+                context.read<CartCubit>().getCartProducts();
                 context.popUntil(
                   Routes.layoutScreen,
                 );
@@ -77,6 +80,7 @@ class CheckoutOrderSuccessSheet extends StatelessWidget {
             Gap(8.h),
             CustomMaterialButton(
               onClicked: () {
+                context.read<CartCubit>().getCartProducts();
                 context.pushNamedAndRemoveUntil(
                   Routes.orders,
                   predicate: (route) => route.isFirst,

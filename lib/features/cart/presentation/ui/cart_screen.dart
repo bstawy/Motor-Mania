@@ -19,8 +19,19 @@ import 'widgets/cart_products_list_widget.dart';
 import 'widgets/cart_products_loading_widget.dart';
 import 'widgets/coupon_field_widget.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
+
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<CartCubit>().getCartProducts();
+  }
 
   Widget _buildGoToFavoriteButton(BuildContext context) {
     final customTextStyles = context.textStyles;
@@ -56,7 +67,7 @@ class CartScreen extends StatelessWidget {
           context.read<CartCubit>().getCartProducts();
         },
         child: BlocConsumer<CartCubit, CartState>(
-          bloc: context.read<CartCubit>()..getCartProducts(),
+          bloc: context.read<CartCubit>(),
           listenWhen: (previous, current) {
             return current is CartLoaded ||
                 current is CartEmpty ||

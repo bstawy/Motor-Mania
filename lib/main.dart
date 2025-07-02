@@ -10,6 +10,9 @@ import 'core/config/app_manager/app_manager_cubit.dart';
 import 'core/config/theme/theme_cubit.dart';
 import 'core/di/dependency_injection.dart';
 import 'core/helpers/app_bloc_observer.dart';
+import 'features/cart/presentation/logic/cart_cubit.dart';
+import 'features/favorites/presentation/logic/favorites_cubit.dart';
+import 'features/layout/logic/layout_cubit.dart';
 import 'motor_mania_app.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -46,6 +49,15 @@ void main() async {
         ),
         BlocProvider(
           create: (context) => appManagerCubit,
+        ),
+        BlocProvider(
+          create: (context) => LayoutCubit(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<FavoritesCubit>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<CartCubit>(),
         ),
       ],
       child: const MotorManiaApp(),

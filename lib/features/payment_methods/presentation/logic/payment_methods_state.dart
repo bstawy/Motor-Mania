@@ -18,10 +18,10 @@ final class GetPaymentMethodsFailure extends PaymentMethodsState {
   GetPaymentMethodsFailure(this.error);
 }
 
-final class SelectedPaymentMethod extends PaymentMethodsState {
+final class SelectDefaultPaymentMethod extends PaymentMethodsState {
   final String paymentMethodId;
 
-  SelectedPaymentMethod(this.paymentMethodId);
+  SelectDefaultPaymentMethod(this.paymentMethodId);
 }
 
 final class AddPaymentMethodLoading extends PaymentMethodsState {}
