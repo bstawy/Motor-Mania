@@ -38,7 +38,8 @@ class CartRepoImpl implements CartRepo {
     }, (success) async {
       final List<CartProductEntity> remoteCart =
           (success.data.data['data'] as List)
-              .map((product) => CartProductModel.fromJson(product))
+              .map((product) =>
+                  CartProductModel.fromJson(product) as CartProductEntity)
               .toList();
 
       // Merge remote cart with cached cart

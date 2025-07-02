@@ -3,14 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../core/config/theme/colors/colors_manager.dart';
-import '../../../core/config/theme/texts/font_weight_helper.dart';
-import '../../../core/helpers/extensions/theme_ext.dart';
-import '../../../core/widgets/custom_network_image_widget.dart';
-import '../../../core/widgets/product_name_and_type_widget.dart';
-import '../../../core/widgets/product_price_widget.dart';
-import '../../cart/domain/entities/cart_product_entity.dart';
-import '../../cart/presentation/logic/cart_cubit.dart';
+import '../../../../../core/config/constants/api_constants.dart';
+import '../../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../../core/config/theme/texts/font_weight_helper.dart';
+import '../../../../../core/helpers/extensions/theme_ext.dart';
+import '../../../../../core/widgets/custom_network_image_widget.dart';
+import '../../../../../core/widgets/product_name_and_type_widget.dart';
+import '../../../../../core/widgets/product_price_widget.dart';
+import '../../../../cart/domain/entities/cart_product_entity.dart';
+import '../../../../cart/presentation/logic/cart_cubit.dart';
 
 class CheckoutItemWidget extends StatelessWidget {
   final CartProductEntity cartProduct;
@@ -68,7 +69,8 @@ class CheckoutItemWidget extends StatelessWidget {
                   color: ColorsManager.blueGrey,
                 ),
           CustomNetworkImage(
-            url: cartProduct.product.imageUrl ?? "",
+            url: ApiConstants.localHostImagesUrl +
+                (cartProduct.product.imageUrl ?? ""),
             imageHeight: 70.h,
             imageWidth: 70.w,
           ),

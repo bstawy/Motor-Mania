@@ -18,6 +18,8 @@ class EndPoints {
   static const String allCategories = "categories/get_categories.php";
   static const String categoryProducts = "categories/get_category_products.php";
   static const String allProducts = "products/get_all_products.php";
+  static const String recommendedProducts = "products/recommended_products.php";
+  static const String bestSellerProducts = "products/best_seller_products.php";
   static const String productDetails = "products/get_product_by_id.php";
 
   // Favorites Endpoints
@@ -32,6 +34,15 @@ class EndPoints {
   static const String removeProductFromCart = "cart/remove_product.php";
   static const String applyCoupon = "cart/apply_coupon.php";
 
+  // Payment Methods Endpoints
+  static const String allPaymentMethods =
+      "payment_methods/get_payment_methods.php";
+  static const String addNewPaymentMethod =
+      "payment_methods/add_payment_method.php";
+  static const String getWalletBalance =
+      "payment_methods/get_wallet_balance.php";
+  static const String depositToWallet = "payment_methods/deposit_to_wallet.php";
+
   // Cars Endpoints
   static const String userSelectedCar = "cars/get_default_car.php";
   static const String userCars = "cars/get_garage.php";
@@ -41,4 +52,7 @@ class EndPoints {
   static const String carModels = "cars/get_models_by_brand.php";
   static const String addCar = "cars/add_car.php";
   static const String removeCar = "cars/delete_car.php";
+
+  // Checkout Endpoints
+  static const String makeOrder = "checkout/checkout.php";
 }

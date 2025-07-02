@@ -9,14 +9,13 @@ import '../../../features/auth/presentation/ui/register/register_screen.dart';
 import '../../../features/cars/presentation/logic/cars_cubit.dart';
 import '../../../features/cars/presentation/ui/car_brands_screen.dart';
 import '../../../features/cars/presentation/ui/cars_screen.dart';
-import '../../../features/cart/presentation/logic/cart_cubit.dart';
-import '../../../features/checkout/checkout_screen.dart';
-import '../../../features/favorites/presentation/logic/favorites_cubit.dart';
+import '../../../features/checkout/presentation/logic/checkout_cubit.dart';
+import '../../../features/checkout/presentation/ui/checkout_screen.dart';
 import '../../../features/garage/presentation/logic/garage_cubit.dart';
-import '../../../features/layout/logic/layout_cubit.dart';
 import '../../../features/layout/ui/layout_screen.dart';
 import '../../../features/on_boarding/on_boarding_screen.dart';
 import '../../../features/orders/presentation/ui/orders_screen.dart';
+import '../../../features/payment_methods/presentation/logic/payment_methods_cubit.dart';
 import '../../../features/payment_methods/presentation/ui/payments_screen.dart';
 import '../../../features/search/presentation/logic/search_cubit.dart';
 import '../../../features/search/presentation/search_screen.dart';
@@ -26,11 +25,9 @@ import 'no_route_defined_widget.dart';
 import 'routes.dart';
 
 class AppRouter {
-  LayoutCubit? _layoutCubit;
-  CartCubit? _cartCubit;
-  FavoritesCubit? _favoritesCubit;
   GarageCubit? _garageCubit;
   CarsCubit? _carsCubit;
+  PaymentMethodsCubit? _paymentMethodsCubit;
 
   Route generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -59,67 +56,48 @@ class AppRouter {
         );
 
       case Routes.layoutScreen:
-        _initializeLayoutCubit();
-        _initializeCartCubit();
-        _initializeFavoritesCubit();
-
         return MaterialPageRoute(
-          builder: (_) => MultiBlocProvider(
-            providers: [
-              BlocProvider.value(
-                value: _layoutCubit!,
-              ),
-              BlocProvider<CartCubit>.value(
-                value: _cartCubit!,
-              ),
-              BlocProvider.value(
-                value: _favoritesCubit!..getAllFavorites(),
-              ),
-            ],
-            child: const LayoutScreen(),
-          ),
+          builder: (_) => const LayoutScreen(),
           settings: settings,
         );
 
       case Routes.searchScreen:
-        _initializeCartCubit();
-        _initializeFavoritesCubit();
-
         return MaterialPageRoute(
-          builder: (_) => MultiBlocProvider(
-            providers: [
-              BlocProvider(
-                create: (context) => getIt<SearchCubit>(),
-              ),
-              BlocProvider<LayoutCubit>.value(
-                value: _layoutCubit!,
-              ),
-              BlocProvider<CartCubit>.value(
-                value: _cartCubit!,
-              ),
-              BlocProvider.value(
-                value: _favoritesCubit!..getAllFavorites(),
-              ),
-            ],
+          builder: (_) => BlocProvider(
+            create: (context) => getIt<SearchCubit>(),
             child: const SearchScreen(),
           ),
           settings: settings,
         );
 
       case Routes.checkout:
-        _initializeCartCubit();
+        _initializePaymentMethodsCubit();
 
         return MaterialPageRoute(
-          builder: (_) => BlocProvider<CartCubit>.value(
-            value: _cartCubit!,
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => getIt<CheckoutCubit>(),
+              ),
+              BlocProvider.value(
+                value: _paymentMethodsCubit!
+                  ..getWalletBalance()
+                  ..getAllPaymentMethods(),
+              ),
+            ],
             child: const CheckoutScreen(),
           ),
           settings: settings,
         );
 
       case Routes.paymentMethods:
+        _initializePaymentMethodsCubit();
+
         return MaterialPageRoute(
-          builder: (_) => const PaymentsScreen(),
+          builder: (_) => BlocProvider.value(
+            value: _paymentMethodsCubit!,
+            child: const PaymentsScreen(),
+          ),
           settings: settings,
         );
 
@@ -179,23 +157,15 @@ class AppRouter {
     }
   }
 
-  void _initializeLayoutCubit() {
-    _layoutCubit ??= LayoutCubit();
-  }
-
-  void _initializeCartCubit() {
-    _cartCubit ??= getIt<CartCubit>();
-  }
-
-  void _initializeFavoritesCubit() {
-    _favoritesCubit ??= getIt<FavoritesCubit>();
-  }
-
   void _initializeGarageCubit() {
     _garageCubit ??= getIt<GarageCubit>();
   }
 
   void _initializeCarsCubit() {
     _carsCubit ??= getIt<CarsCubit>();
+  }
+
+  void _initializePaymentMethodsCubit() {
+    _paymentMethodsCubit ??= getIt<PaymentMethodsCubit>();
   }
 }

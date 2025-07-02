@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../../core/caching/navigation_data_manager.dart';
 import '../../../../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../../../../core/config/routing/routes.dart';
 import '../../../../../../core/config/theme/colors/colors_manager.dart';
@@ -27,9 +28,21 @@ class LoginButtonWidget extends StatelessWidget {
         if (state is SuccessState) {
           context.read<AppManagerCubit>().logUserIn();
 
+          String navRoute = Routes.layoutScreen;
+          int? args;
+
+          final ScreenNavigationData? navigationData =
+              await NavigationDataManager.getScreenNavigationData();
+
+          if (navigationData != null) {
+            navRoute = navigationData.previousScreenRouteName!;
+            args = navigationData.previousScreenArguments;
+          }
+
           if (context.mounted) {
             context.pushNamedAndRemoveUntil(
-              Routes.layoutScreen,
+              navRoute,
+              arguments: args,
               predicate: (route) => false,
             );
           }

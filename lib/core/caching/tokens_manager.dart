@@ -1,4 +1,4 @@
-import '../config/constants/app_constants.dart';
+import '../config/constants/app_constant_keys.dart';
 import 'secure_storage_factory.dart';
 
 class TokensManager {

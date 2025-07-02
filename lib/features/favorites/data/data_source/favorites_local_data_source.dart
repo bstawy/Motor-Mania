@@ -1,5 +1,5 @@
 import '../../../../core/caching/hive_manager.dart';
-import '../../../../core/config/constants/app_constants.dart';
+import '../../../../core/config/constants/app_constant_keys.dart';
 import '../../../product_details/domain/entities/product_entity.dart';
 
 class FavoritesLocalDataSource {

@@ -17,7 +17,8 @@ class AuthRepo {
     return response.fold(
       (failure) => Failure<void>(failure.exception),
       (success) async {
-        return await _saveTokens(success.data.data['tokens']);
+        final UserData userData = UserData.fromJson(success.data.data['data']);
+        return await _saveTokens(userData.tokens);
       },
     );
   }
@@ -29,18 +30,16 @@ class AuthRepo {
     return response.fold(
       (failure) => Failure<void>(failure.exception),
       (success) async {
-        return await _saveTokens(success.data.data['tokens']);
+        final UserData userData = UserData.fromJson(success.data.data['data']);
+        return await _saveTokens(userData.tokens);
       },
     );
   }
 
-  Future<ApiResult<void>> _saveTokens(Map<String, dynamic> tokens) async {
-    final UserTokens userTokens = UserTokens.fromJson(tokens);
-
-    if (userTokens.accessToken.isNotEmpty &&
-        userTokens.refreshToken.isNotEmpty) {
-      await TokensManager.setAccessToken(userTokens.accessToken);
-      await TokensManager.setRefreshToken(userTokens.refreshToken);
+  Future<ApiResult<void>> _saveTokens(UserTokens tokens) async {
+    if (tokens.accessToken.isNotEmpty && tokens.refreshToken.isNotEmpty) {
+      await TokensManager.setAccessToken(tokens.accessToken);
+      await TokensManager.setRefreshToken(tokens.refreshToken);
 
       return Success<void>(null);
     } else {

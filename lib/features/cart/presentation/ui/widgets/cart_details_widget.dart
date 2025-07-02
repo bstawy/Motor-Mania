@@ -13,12 +13,22 @@ import '../../logic/cart_cubit.dart';
 import 'cart_details_entry_widget.dart';
 
 class CartDetailsWidget extends StatelessWidget {
-  const CartDetailsWidget({super.key});
+  final num cashOnDeliveryFees;
+  final bool showCashOnDelivery;
+
+  const CartDetailsWidget({
+    super.key,
+    this.cashOnDeliveryFees = 0.00,
+    this.showCashOnDelivery = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     final customColors = context.colors;
     final customTextStyles = context.textStyles;
+
+    num total = context.read<CartCubit>().total +
+        (showCashOnDelivery ? cashOnDeliveryFees : 0.00);
 
     return Container(
       width: 1.sw,
@@ -77,6 +87,22 @@ class CartDetailsWidget extends StatelessWidget {
                 valueStyle: customTextStyles.labelLarge?.copyWith(
                   color: ColorsManager.red,
                   fontWeight: FontWeightHelper.semiBold,
+                ),
+              ),
+              Visibility(
+                visible: showCashOnDelivery,
+                child: Column(
+                  children: [
+                    Gap(4.h),
+                    CartDetailsEntryWidget(
+                      title: "Cash On Delivery Fees",
+                      value: "\$$cashOnDeliveryFees",
+                      valueStyle: customTextStyles.labelLarge?.copyWith(
+                        color: ColorsManager.red,
+                        fontWeight: FontWeightHelper.semiBold,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Gap(4.h),
@@ -151,7 +177,7 @@ class CartDetailsWidget extends StatelessWidget {
                   ),
                   const Spacer(),
                   Text(
-                    "\$${context.read<CartCubit>().total.toStringAsFixed(2)}",
+                    "\$${total.toStringAsFixed(2)}",
                     style: customTextStyles.headlineLarge,
                   ),
                 ],

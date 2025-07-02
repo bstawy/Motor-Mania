@@ -139,7 +139,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
       MultiBlocProvider(
         providers: [
           BlocProvider<GarageCubit>(
-            create: (context) => getIt<GarageCubit>()..getGarageCars(),
+            create: (context) => getIt<GarageCubit>(),
           ),
           BlocProvider<CarsCubit>(
             create: (context) => getIt<CarsCubit>(),

@@ -3,14 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../core/config/theme/colors/colors_manager.dart';
-import '../../../core/config/theme/texts/font_weight_helper.dart';
-import '../../../core/helpers/assets_manager.dart';
-import '../../../core/helpers/extensions/extensions.dart';
-import '../../../core/helpers/extensions/theme_ext.dart';
-import '../../../core/widgets/custom_elevated_button.dart';
-import '../../../core/widgets/shimmer_loading_widget.dart';
-import '../../cart/presentation/logic/cart_cubit.dart';
+import '../../../../../core/config/text/text_styles.dart';
+import '../../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../../core/config/theme/texts/font_weight_helper.dart';
+import '../../../../../core/helpers/assets_manager.dart';
+import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../core/helpers/extensions/theme_ext.dart';
+import '../../../../../core/widgets/custom_elevated_button.dart';
+import '../../../../../core/widgets/shimmer_loading_widget.dart';
+import '../../../../cart/presentation/logic/cart_cubit.dart';
 import 'checkout_item_widget.dart';
 
 class CheckoutItemsListWidget extends StatelessWidget {
@@ -59,12 +60,6 @@ class CheckoutItemsListWidget extends StatelessWidget {
         Gap(8.h),
         BlocBuilder<CartCubit, CartState>(
           bloc: context.read<CartCubit>(),
-          buildWhen: (previous, current) {
-            return current is CartLoading ||
-                current is CartLoaded ||
-                current is CartEmpty ||
-                current is CartError;
-          },
           builder: (context, state) {
             if (state is CartLoading) {
               return ShimmerLoadingWidget(
@@ -72,7 +67,12 @@ class CheckoutItemsListWidget extends StatelessWidget {
                 width: 1.sw,
               ).setHorizontalPadding(16.w);
             } else if (state is CartEmpty) {
-              return const SizedBox();
+              return Center(
+                child: Text(
+                  "Your cart is empty",
+                  style: TextStyles.font10BlueGreyRegular,
+                ),
+              );
             } else {
               return SizedBox(
                 height: 100.h,
