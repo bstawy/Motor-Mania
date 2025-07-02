@@ -32,6 +32,15 @@ class EndPoints {
   static const String removeProductFromCart = "cart/remove_product.php";
   static const String applyCoupon = "cart/apply_coupon.php";
 
+  // Payment Methods Endpoints
+  static const String allPaymentMethods =
+      "payment_methods/get_payment_methods.php";
+  static const String addNewPaymentMethod =
+      "payment_methods/add_payment_method.php";
+  static const String getWalletBalance =
+      "payment_methods/get_wallet_balance.php";
+  static const String depositToWallet = "payment_methods/deposit_to_wallet.php";
+
   // Cars Endpoints
   static const String userSelectedCar = "cars/get_default_car.php";
   static const String userCars = "cars/get_garage.php";

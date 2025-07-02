@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../config/constants/app_constants.dart';
+import '../../config/constants/app_constant_keys.dart';
 
 extension ContextThemeExtensions on BuildContext {
   TextTheme get textStyles => Theme.of(this).textTheme;

@@ -5,12 +5,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
 import '../../features/cart/presentation/logic/cart_cubit.dart';
+import '../../features/product_details/domain/entities/product_entity.dart';
 import '../config/text/text_styles.dart';
 import '../helpers/extensions/extensions.dart';
 import 'custom_material_button.dart';
 
 class CartButtonWidget extends StatelessWidget {
-  final dynamic product;
+  final ProductEntity product;
 
   const CartButtonWidget({
     super.key,
@@ -22,18 +23,22 @@ class CartButtonWidget extends StatelessWidget {
     return BlocListener<CartCubit, CartState>(
       bloc: context.read<CartCubit>(),
       listenWhen: (previous, current) {
-        return current is AddToCartSuccess || current is CartError;
+        return current is AddToCartLoading ||
+            current is AddToCartSuccess ||
+            current is AddToCartError;
       },
       listener: (BuildContext context, CartState state) {
-        if (state is AddToCartSuccess) {
+        if (state is AddToCartLoading) {
+          context.loadingSnackBar("Adding product to cart...");
+        } else if (state is AddToCartSuccess) {
           context.successSnackBar("Product added to your cart successfully");
-        } else if (state is CartError) {
+        } else if (state is AddToCartError) {
           context.errorSnackBar(state.error.message ?? "An error occurred");
         }
       },
       child: CustomMaterialButton(
         onClicked: () {
-          context.read<CartCubit>().addProductToCart(product.id, 1);
+          context.read<CartCubit>().addProductToCart(product, 1);
         },
         height: 28.h,
         borderRadius: 10.r,

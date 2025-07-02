@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../core/config/theme/texts/font_weight_helper.dart';
-import '../../../core/helpers/extensions/padding_ext.dart';
-import '../../../core/helpers/extensions/theme_ext.dart';
-import '../../cart/presentation/ui/widgets/cart_details_widget.dart';
+import '../../../../../core/config/theme/texts/font_weight_helper.dart';
+import '../../../../../core/helpers/extensions/padding_ext.dart';
+import '../../../../../core/helpers/extensions/theme_ext.dart';
+import '../../../../cart/presentation/ui/widgets/cart_details_widget.dart';
 
 class CheckoutOrderSummaryWidget extends StatelessWidget {
   const CheckoutOrderSummaryWidget({super.key});

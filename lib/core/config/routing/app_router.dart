@@ -10,13 +10,14 @@ import '../../../features/cars/presentation/logic/cars_cubit.dart';
 import '../../../features/cars/presentation/ui/car_brands_screen.dart';
 import '../../../features/cars/presentation/ui/cars_screen.dart';
 import '../../../features/cart/presentation/logic/cart_cubit.dart';
-import '../../../features/checkout/checkout_screen.dart';
+import '../../../features/checkout/presentation/ui/checkout_screen.dart';
 import '../../../features/favorites/presentation/logic/favorites_cubit.dart';
 import '../../../features/garage/presentation/logic/garage_cubit.dart';
 import '../../../features/layout/logic/layout_cubit.dart';
 import '../../../features/layout/ui/layout_screen.dart';
 import '../../../features/on_boarding/on_boarding_screen.dart';
 import '../../../features/orders/presentation/ui/orders_screen.dart';
+import '../../../features/payment_methods/presentation/logic/payment_methods_cubit.dart';
 import '../../../features/payment_methods/presentation/ui/payments_screen.dart';
 import '../../../features/search/presentation/logic/search_cubit.dart';
 import '../../../features/search/presentation/search_screen.dart';
@@ -119,7 +120,11 @@ class AppRouter {
 
       case Routes.paymentMethods:
         return MaterialPageRoute(
-          builder: (_) => const PaymentsScreen(),
+          builder: (_) => BlocProvider(
+            create: (context) =>
+                getIt<PaymentMethodsCubit>()..getAllPaymentMethods(),
+            child: const PaymentsScreen(),
+          ),
           settings: settings,
         );
 

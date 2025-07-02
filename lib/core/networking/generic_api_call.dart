@@ -13,20 +13,20 @@ Future<ApiResult<T>> executeApiCall<T>(Future<T> Function() apiCall) async {
     final isConnected = await getIt<ConnectivityService>().checkConnection();
 
     if (!isConnected) {
-      throw CustomNetworkErrorException();
+      final CustomNetworkErrorException customNetworkErrorException =
+          CustomNetworkErrorException();
+      _printError(
+        'No internet connection',
+        name: 'CustomNetworkErrorException',
+        error: customNetworkErrorException,
+        stackTrace: StackTrace.current,
+      );
+
+      return Failure<T>(customNetworkErrorException);
     }
 
     final data = await apiCall();
     return Success<T>(data);
-  } on CustomNetworkErrorException catch (networkError) {
-    _printError(
-      networkError.message,
-      name: 'CustomNetworkErrorException',
-      error: networkError,
-      stackTrace: StackTrace.current,
-    );
-
-    return Failure<T>(networkError);
   } on DioException catch (dioError) {
     _printError(
       dioError.toString(),

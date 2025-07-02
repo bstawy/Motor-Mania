@@ -58,6 +58,14 @@ import '../../features/home/domain/use_cases/select_next_car_use_case.dart';
 import '../../features/home/domain/use_cases/select_previous_car_use_case.dart';
 import '../../features/home/presentation/logic/home_cubit/home_cubit.dart';
 import '../../features/home/presentation/logic/user_cubit/user_cubit.dart';
+import '../../features/payment_methods/data/data_sources/payment_methods_remote_data_source.dart';
+import '../../features/payment_methods/data/repos_impl/payment_methods_repo_impl.dart';
+import '../../features/payment_methods/domain/repos/payment_methods_repo.dart';
+import '../../features/payment_methods/domain/use_cases/add_new_payment_method_use_case.dart';
+import '../../features/payment_methods/domain/use_cases/deposite_to_wallet_use_case.dart';
+import '../../features/payment_methods/domain/use_cases/get_all_payment_methods_use_case.dart';
+import '../../features/payment_methods/domain/use_cases/get_wallet_balance_use_case.dart';
+import '../../features/payment_methods/presentation/logic/payment_methods_cubit.dart';
 import '../../features/product_details/data/data_sources/product_data_sources.dart';
 import '../../features/product_details/data/data_sources/product_remote_data_source_impl.dart';
 import '../../features/product_details/data/repos_impl/product_repo_impl.dart';
@@ -227,6 +235,33 @@ Future<void> initGetIt() async {
     () => ApplyCouponUseCase(getIt()),
   );
   getIt.registerFactory<CartCubit>(() => CartCubit(
+        getIt(),
+        getIt(),
+        getIt(),
+        getIt(),
+      ));
+
+  // payment methods
+  getIt.registerFactory<PaymentMethodsRemoteDataSource>(
+    () => PaymentMethodsRemoteDataSource(getIt()),
+  );
+
+  getIt.registerFactory<PaymentMethodsRepo>(
+    () => PaymentMethodsRepoImpl(getIt()),
+  );
+  getIt.registerFactory<GetAllPaymentMethodsUseCase>(
+    () => GetAllPaymentMethodsUseCase(getIt()),
+  );
+  getIt.registerFactory<AddNewPaymentMethodUseCase>(
+    () => AddNewPaymentMethodUseCase(getIt()),
+  );
+  getIt.registerFactory<GetWalletBalanceUseCase>(
+    () => GetWalletBalanceUseCase(getIt()),
+  );
+  getIt.registerFactory<DepositeToWalletUseCase>(
+    () => DepositeToWalletUseCase(getIt()),
+  );
+  getIt.registerFactory<PaymentMethodsCubit>(() => PaymentMethodsCubit(
         getIt(),
         getIt(),
         getIt(),

@@ -3,10 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../core/config/text/text_styles.dart';
-import '../../../../../core/widgets/custom_material_button.dart';
-import '../../../core/config/theme/colors/colors_manager.dart';
-import '../../../core/helpers/extensions/theme_ext.dart';
+import '../../../../../../../core/config/text/text_styles.dart';
+import '../../../../../../../core/widgets/custom_material_button.dart';
+import '../../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../../core/helpers/extensions/theme_ext.dart';
 import 'checkout_order_success_sheet_widget.dart';
 
 class CheckoutOrderButtonWidget extends StatelessWidget {

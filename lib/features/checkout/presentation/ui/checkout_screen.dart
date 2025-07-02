@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../core/helpers/extensions/navigation_ext.dart';
-import '../../core/helpers/extensions/padding_ext.dart';
-import '../../core/widgets/custom_app_bar.dart';
-import '../cart/presentation/logic/cart_cubit.dart';
+import '../../../../core/helpers/extensions/navigation_ext.dart';
+import '../../../../core/helpers/extensions/padding_ext.dart';
+import '../../../../core/widgets/custom_app_bar.dart';
+import '../../../cart/presentation/logic/cart_cubit.dart';
 import 'widgets/checkout_address_widget.dart';
 import 'widgets/checkout_items_list_widget.dart';
 import 'widgets/checkout_order_button_widget.dart';
