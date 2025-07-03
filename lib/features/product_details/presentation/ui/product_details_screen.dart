@@ -9,7 +9,7 @@ import '../../../../core/helpers/extensions/extensions.dart';
 import '../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../core/widgets/search_bar_widget.dart';
 import '../../../home/presentation/logic/home_cubit/home_cubit.dart';
-import '../../../home/presentation/ui/widgets/home_list_widget.dart';
+import '../../../home/presentation/ui/widgets/best_seller_products_list_widget.dart';
 import '../../domain/entities/product_entity.dart';
 import '../logic/product_cubit.dart';
 import 'widgets/product_description_widget.dart';
@@ -166,8 +166,7 @@ class ProductDetailsScreen extends StatelessWidget {
                   Gap(16.h),
                   BlocProvider<HomeCubit>.value(
                     value: getIt<HomeCubit>(),
-                    child:
-                        const HomeListWidget(title: "Products Related To This"),
+                    child: const BestSellerProductsListWidget(),
                   ),
                 ],
               ).setOnlyPadding(4.h, 0, 0, 0);

@@ -17,6 +17,8 @@ class CarEntity extends Equatable {
   final String? imageUrl;
   @HiveField(5)
   final int? km;
+  @HiveField(6)
+  final bool? isDefault;
 
   const CarEntity({
     this.id,
@@ -25,22 +27,26 @@ class CarEntity extends Equatable {
     this.year,
     this.imageUrl,
     this.km = 80000,
+    this.isDefault = false,
   });
 
   CarEntity copyWith({
+    int? id,
     String? brand,
     String? model,
     int? year,
     String? imageUrl,
     int? km,
+    bool? isDefault,
   }) {
     return CarEntity(
-      id: id,
+      id: id ?? this.id,
       brand: brand ?? this.brand,
       model: model ?? this.model,
       year: year ?? this.year,
       imageUrl: imageUrl ?? this.imageUrl,
       km: km ?? this.km,
+      isDefault: isDefault ?? this.isDefault,
     );
   }
 
@@ -52,5 +58,6 @@ class CarEntity extends Equatable {
         year,
         imageUrl,
         km,
+        isDefault,
       ];
 }

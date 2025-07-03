@@ -31,16 +31,30 @@ final class CategoriesError extends HomeState {
   CategoriesError(this.error);
 }
 
-final class ProductsLoading extends HomeState {}
+final class RecommendedProductsLoading extends HomeState {}
 
-final class ProductsLoaded extends HomeState {
-  final List<ProductEntity>? products;
+final class RecommendedProductsLoaded extends HomeState {
+  final List<ProductEntity>? recommendedProducts;
 
-  ProductsLoaded(this.products);
+  RecommendedProductsLoaded(this.recommendedProducts);
 }
 
-final class ProductsError extends HomeState {
+final class RecommendedProductsError extends HomeState {
   final ApiErrorModel error;
 
-  ProductsError(this.error);
+  RecommendedProductsError(this.error);
+}
+
+final class BestSellerProductsLoading extends HomeState {}
+
+final class BestSellerProductsLoaded extends HomeState {
+  final List<ProductEntity>? bestSellerProducts;
+
+  BestSellerProductsLoaded(this.bestSellerProducts);
+}
+
+final class BestSellerProductsError extends HomeState {
+  final ApiErrorModel error;
+
+  BestSellerProductsError(this.error);
 }

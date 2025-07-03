@@ -3,13 +3,13 @@ import '../../../../core/networking/api_result.dart';
 import '../../../product_details/domain/entities/product_entity.dart';
 import '../repos/home_repo.dart';
 
-class GetHomeProductsUseCase {
+class GetBestSellerProductsUseCase {
   final HomeRepo _homeRepo;
 
-  GetHomeProductsUseCase(this._homeRepo);
+  GetBestSellerProductsUseCase(this._homeRepo);
 
   Future<ApiResult<List<ProductEntity>?>> call() async {
-    final response = await _homeRepo.getHomeProducts();
+    final response = await _homeRepo.getBestSellerProducts();
 
     return response.fold(
       (failure) => Failure<List<ProductEntity>?>(failure.exception),

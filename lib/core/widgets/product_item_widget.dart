@@ -76,7 +76,9 @@ class ProductItemWidget extends StatelessWidget {
                 ),
                 ProductNameAndTypeWidget(
                   name: product.name ?? "",
-                  type: product.compatibleCars?.first.brand ?? "",
+                  type: product.compatibleCars?.isNotEmpty ?? false
+                      ? product.compatibleCars?.first.brand ?? ''
+                      : "",
                 ),
                 Gap(6.h),
                 ProductPriceAndDiscountWidget(

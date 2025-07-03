@@ -47,12 +47,6 @@ class GarageItemWidget extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        bool isSelected = false;
-        if (state is SelectCarSuccess) {
-          isSelected = car.id == state.selectedCar?.id;
-        } else {
-          isSelected = car.id == context.read<AppManagerCubit>().selectedCarId;
-        }
         return SizedBox(
           height: 145.h,
           child: GestureDetector(
@@ -64,7 +58,7 @@ class GarageItemWidget extends StatelessWidget {
                   margin: EdgeInsets.symmetric(horizontal: 16.w),
                   padding: EdgeInsets.all(16.w),
                   decoration: BoxDecoration(
-                    color: isSelected
+                    color: car.isDefault ?? false
                         ? ColorsManager.red
                         : customColors.inverseSurface,
                     borderRadius: BorderRadius.circular(15.r),
@@ -74,7 +68,7 @@ class GarageItemWidget extends StatelessWidget {
                     children: [
                       Text(
                         "${car.brand} ${car.model}",
-                        style: isSelected
+                        style: car.isDefault ?? false
                             ? customTextStyles.displaySmall
                                 ?.copyWith(color: Colors.white)
                             : customTextStyles.displaySmall,
@@ -83,7 +77,7 @@ class GarageItemWidget extends StatelessWidget {
                       Text(
                         "Your next maintenance will be at 30,000 KM.",
                         style: TextStyles.font10BlueGreyMedium.copyWith(
-                          color: isSelected
+                          color: car.isDefault ?? false
                               ? ColorsManager.whiteBlue
                               : ColorsManager.blueGrey,
                         ),
@@ -99,15 +93,15 @@ class GarageItemWidget extends StatelessWidget {
                               titleStyle:
                                   customTextStyles.labelMedium?.copyWith(
                                 fontWeight: FontWeightHelper.medium,
-                                color: isSelected
+                                color: car.isDefault ?? false
                                     ? Colors.white
                                     : ColorsManager.blueGrey,
                               ),
                               iconPath: AssetsManager.editIcon,
-                              iconColor: isSelected
+                              iconColor: car.isDefault ?? false
                                   ? Colors.white
                                   : ColorsManager.blueGrey,
-                              borderColor: isSelected
+                              borderColor: car.isDefault ?? false
                                   ? Colors.white
                                   : ColorsManager.blueGrey,
                               horizontalPadding: 12.w,
@@ -124,13 +118,13 @@ class GarageItemWidget extends StatelessWidget {
                                 iconPath: AssetsManager.trashIcon,
                                 iconWidth: 10.w,
                                 iconHeight: 10.r,
-                                iconColor: isSelected
+                                iconColor: car.isDefault ?? false
                                     ? Colors.white
                                     : ColorsManager.red,
-                                backgroundColor: isSelected
+                                backgroundColor: car.isDefault ?? false
                                     ? Colors.white.withOpacity(0.2)
                                     : ColorsManager.red.withOpacity(0.2),
-                                borderColor: isSelected
+                                borderColor: car.isDefault ?? false
                                     ? Colors.white.withOpacity(0.2)
                                     : ColorsManager.red.withOpacity(0.2),
                                 borderWidth: 0,
