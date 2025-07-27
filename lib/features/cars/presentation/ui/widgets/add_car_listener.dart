@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notification_center/notification_center.dart';
 
 import '../../../../../core/helpers/extensions/extensions.dart';
 import '../../../../garage/presentation/logic/garage_cubit.dart';
@@ -23,7 +24,7 @@ class AddCarListener extends StatelessWidget {
             break;
           case AddToGarageSuccess():
             ScaffoldMessenger.of(context).hideCurrentSnackBar();
-
+            NotificationCenter().notify('new_vehicle_added');
             showModalBottomSheet(
               context: context,
               builder: (context) => const CarAddedSuccessSheet(),
@@ -32,7 +33,6 @@ class AddCarListener extends StatelessWidget {
               backgroundColor: Colors.white,
             );
 
-            context.read<GarageCubit>().getGarageCars();
             break;
           case AddToGarageError():
             ScaffoldMessenger.of(context).hideCurrentSnackBar();

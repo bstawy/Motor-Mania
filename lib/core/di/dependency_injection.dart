@@ -55,9 +55,10 @@ import '../../features/home/data/data_sources/home_data_sources.dart';
 import '../../features/home/data/data_sources/home_remote_data_source_impl.dart';
 import '../../features/home/data/repos_impl/home_repo_impl.dart';
 import '../../features/home/domain/repos/home_repo.dart';
+import '../../features/home/domain/use_cases/get_best_seller_products_use_case.dart';
 import '../../features/home/domain/use_cases/get_home_categories_use_case.dart';
 import '../../features/home/domain/use_cases/get_home_offers_use_case.dart';
-import '../../features/home/domain/use_cases/get_home_products_use_case.dart';
+import '../../features/home/domain/use_cases/get_recommended_products_use_case.dart';
 import '../../features/home/domain/use_cases/get_user_selected_car_use_case.dart';
 import '../../features/home/domain/use_cases/select_next_car_use_case.dart';
 import '../../features/home/domain/use_cases/select_previous_car_use_case.dart';
@@ -142,11 +143,15 @@ Future<void> initGetIt() async {
   getIt.registerFactory<GetHomeCategoriesUseCase>(
     () => GetHomeCategoriesUseCase(getIt()),
   );
-  getIt.registerFactory<GetHomeProductsUseCase>(
-    () => GetHomeProductsUseCase(getIt()),
+  getIt.registerFactory<GetRecommendedProductsUseCase>(
+    () => GetRecommendedProductsUseCase(getIt()),
+  );
+  getIt.registerFactory<GetBestSellerProductsUseCase>(
+    () => GetBestSellerProductsUseCase(getIt()),
   );
   getIt.registerFactory<HomeCubit>(
     () => HomeCubit(
+      getIt(),
       getIt(),
       getIt(),
       getIt(),

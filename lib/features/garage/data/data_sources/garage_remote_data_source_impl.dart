@@ -16,14 +16,20 @@ class GarageRemoteDataSourceImpl extends GarageRemoteDataSource {
   @override
   Future<ApiResult<Response>> getGarageCars() async {
     return await executeApiCall(() async {
-      return await _crudManager.get(EndPoints.userCars, tokenReq: true);
+      return await _crudManager.get(
+        EndPoints.userCars,
+        tokenReq: true,
+      );
     });
   }
 
   @override
   Future<ApiResult<Response>> getUserCar() async {
     return await executeApiCall(() async {
-      return await _crudManager.get(EndPoints.userSelectedCar, tokenReq: true);
+      return await _crudManager.get(
+        EndPoints.userSelectedCar,
+        tokenReq: true,
+      );
     });
   }
 
@@ -35,6 +41,7 @@ class GarageRemoteDataSourceImpl extends GarageRemoteDataSource {
       return _crudManager.post(
         EndPoints.selectCar,
         params: param,
+        tokenReq: true,
       );
     });
   }
@@ -60,6 +67,7 @@ class GarageRemoteDataSourceImpl extends GarageRemoteDataSource {
       return await _crudManager.post(
         EndPoints.addCar,
         body: bodyParams,
+        tokenReq: true,
       );
     });
   }

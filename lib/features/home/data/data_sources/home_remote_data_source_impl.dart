@@ -26,9 +26,16 @@ class HomeRemoteDataSourceImpl extends HomeDataSources {
   }
 
   @override
-  Future<ApiResult<Response>> getProducts() async {
+  Future<ApiResult<Response>> getRecommendedProducts() async {
     return await executeApiCall(() async {
-      return await _crudManager.get(EndPoints.allProducts);
+      return await _crudManager.get(EndPoints.recommendedProducts);
+    });
+  }
+
+  @override
+  Future<ApiResult<Response>> getBestSellerProducts() async {
+    return await executeApiCall(() async {
+      return await _crudManager.get(EndPoints.bestSellerProducts);
     });
   }
 }

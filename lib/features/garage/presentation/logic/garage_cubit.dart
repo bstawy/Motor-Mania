@@ -26,6 +26,8 @@ class GarageCubit extends Cubit<GarageState> {
     this._removeCarUseCase,
   ) : super(GarageInitial());
 
+  int? defaultCarId;
+
   void getGarageCars() async {
     emit(GarageLoading());
 
@@ -42,6 +44,7 @@ class GarageCubit extends Cubit<GarageState> {
         if (cars.isEmpty) {
           emit(GarageEmpty());
         } else {
+          defaultCarId = cars.firstWhere((car) => car.isDefault ?? false).id;
           emit(GarageLoaded(cars));
         }
       },
@@ -57,8 +60,19 @@ class GarageCubit extends Cubit<GarageState> {
         final ApiErrorModel error = ApiErrorHandler.handle(failure.exception);
         emit(SelectCarError(error));
       },
-      (success) => emit(SelectCarSuccess(success.data)),
+      (success) {
+        final CarEntity selectedCar = success.data!;
+        defaultCarId = selectedCar.id;
+        emit(SelectCarSuccess(selectedCar));
+      },
     );
+  }
+
+  void changeDefaultCar(CarEntity car) {
+    if (defaultCarId == car.id) return; // No change needed
+
+    defaultCarId = car.id;
+    emit(SelectCarSuccess(car));
   }
 
   void addCar(AddCarModel carData) async {
@@ -72,7 +86,6 @@ class GarageCubit extends Cubit<GarageState> {
       },
       (_) {
         emit(AddToGarageSuccess());
-        getGarageCars();
       },
     );
   }

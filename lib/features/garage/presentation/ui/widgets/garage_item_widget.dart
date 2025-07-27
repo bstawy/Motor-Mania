@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:notification_center/notification_center.dart';
 
-import '../../../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../../../core/config/constants/api_constants.dart';
 import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors/colors_manager.dart';
@@ -37,7 +37,7 @@ class GarageItemWidget extends StatelessWidget {
         if (state is SelectCarSuccess) {
           final selectedCar = state.selectedCar;
 
-          context.read<AppManagerCubit>().selectedCarId = selectedCar?.id ?? 0;
+          NotificationCenter().notify('default_vehicle_changed');
           context.successSnackBar(
               "Your ${selectedCar?.brand} ${selectedCar?.model} is now selected.");
         } else if (state is SelectCarError) {
@@ -47,12 +47,8 @@ class GarageItemWidget extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        bool isSelected = false;
-        if (state is SelectCarSuccess) {
-          isSelected = car.id == state.selectedCar?.id;
-        } else {
-          isSelected = car.id == context.read<AppManagerCubit>().selectedCarId;
-        }
+        bool isDefault = context.read<GarageCubit>().defaultCarId == car.id;
+
         return SizedBox(
           height: 145.h,
           child: GestureDetector(
@@ -64,7 +60,7 @@ class GarageItemWidget extends StatelessWidget {
                   margin: EdgeInsets.symmetric(horizontal: 16.w),
                   padding: EdgeInsets.all(16.w),
                   decoration: BoxDecoration(
-                    color: isSelected
+                    color: isDefault
                         ? ColorsManager.red
                         : customColors.inverseSurface,
                     borderRadius: BorderRadius.circular(15.r),
@@ -74,7 +70,7 @@ class GarageItemWidget extends StatelessWidget {
                     children: [
                       Text(
                         "${car.brand} ${car.model}",
-                        style: isSelected
+                        style: isDefault
                             ? customTextStyles.displaySmall
                                 ?.copyWith(color: Colors.white)
                             : customTextStyles.displaySmall,
@@ -83,7 +79,7 @@ class GarageItemWidget extends StatelessWidget {
                       Text(
                         "Your next maintenance will be at 30,000 KM.",
                         style: TextStyles.font10BlueGreyMedium.copyWith(
-                          color: isSelected
+                          color: isDefault
                               ? ColorsManager.whiteBlue
                               : ColorsManager.blueGrey,
                         ),
@@ -99,15 +95,15 @@ class GarageItemWidget extends StatelessWidget {
                               titleStyle:
                                   customTextStyles.labelMedium?.copyWith(
                                 fontWeight: FontWeightHelper.medium,
-                                color: isSelected
+                                color: isDefault
                                     ? Colors.white
                                     : ColorsManager.blueGrey,
                               ),
                               iconPath: AssetsManager.editIcon,
-                              iconColor: isSelected
+                              iconColor: isDefault
                                   ? Colors.white
                                   : ColorsManager.blueGrey,
-                              borderColor: isSelected
+                              borderColor: isDefault
                                   ? Colors.white
                                   : ColorsManager.blueGrey,
                               horizontalPadding: 12.w,
@@ -124,13 +120,13 @@ class GarageItemWidget extends StatelessWidget {
                                 iconPath: AssetsManager.trashIcon,
                                 iconWidth: 10.w,
                                 iconHeight: 10.r,
-                                iconColor: isSelected
+                                iconColor: isDefault
                                     ? Colors.white
                                     : ColorsManager.red,
-                                backgroundColor: isSelected
+                                backgroundColor: isDefault
                                     ? Colors.white.withOpacity(0.2)
                                     : ColorsManager.red.withOpacity(0.2),
-                                borderColor: isSelected
+                                borderColor: isDefault
                                     ? Colors.white.withOpacity(0.2)
                                     : ColorsManager.red.withOpacity(0.2),
                                 borderWidth: 0,

@@ -10,13 +10,35 @@ import '../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../core/helpers/enums/app_modes_enums.dart';
 import '../logic/home_cubit/home_cubit.dart';
 import '../logic/user_cubit/user_cubit.dart';
+import 'widgets/best_seller_products_list_widget.dart';
 import 'widgets/categories/categories_list_widget.dart';
 import 'widgets/header/home_header_widget.dart';
 import 'widgets/header/user/user_offers_widget.dart';
-import 'widgets/home_list_widget.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  late final HomeCubit cubit;
+  @override
+  void initState() {
+    super.initState();
+    cubit = context.read<HomeCubit>();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (context.read<AppManagerCubit>().appMode == AppMode.user) {
+        context.read<UserCubit>().fetchUserData();
+      }
+      cubit
+        ..getHomeOffers()
+        ..getHomeCategories()
+        ..getRecommendedProducts()
+        ..getBestSellerProducts();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +57,8 @@ class HomeScreen extends StatelessWidget {
               context.read<HomeCubit>()
                 ..getHomeOffers()
                 ..getHomeCategories()
-                ..getHomeProducts();
+                ..getRecommendedProducts()
+                ..getBestSellerProducts();
             },
             child: SingleChildScrollView(
               physics: const AlwaysScrollableScrollPhysics(),
@@ -57,9 +80,9 @@ class HomeScreen extends StatelessWidget {
                   Gap(16.h),
                   const CategoriesList(),
                   Gap(24.h),
-                  const HomeListWidget(title: "Recommended For You"),
+                  const BestSellerProductsListWidget(),
                   Gap(16.h),
-                  const HomeListWidget(title: "BestSellers"),
+                  const BestSellerProductsListWidget(),
                 ],
               ),
             ),

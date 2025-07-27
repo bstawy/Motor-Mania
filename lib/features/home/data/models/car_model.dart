@@ -7,6 +7,7 @@ class CarModel extends CarEntity {
     required super.model,
     required super.year,
     required super.imageUrl,
+    required super.isDefault,
   });
 
   factory CarModel.fromJson(Map<String, dynamic> json) {
@@ -16,6 +17,7 @@ class CarModel extends CarEntity {
       model: (json['model']).toString(),
       year: json['year'],
       imageUrl: json['imageUrl'],
+      isDefault: json['isDefault'] ?? false,
     );
   }
 
@@ -24,6 +26,7 @@ class CarModel extends CarEntity {
       'brand': brand,
       'model': model,
       'year': year,
+      'isDefault': isDefault,
     };
   }
 }

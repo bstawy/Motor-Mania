@@ -45,13 +45,27 @@ class HomeRepoImpl extends HomeRepo {
   }
 
   @override
-  Future<ApiResult<List<ProductEntity>?>> getHomeProducts() async {
-    final response = await _remoteDataSource.getProducts();
+  Future<ApiResult<List<ProductEntity>?>> getRecommendedProducts() async {
+    final response = await _remoteDataSource.getRecommendedProducts();
 
     return response
         .fold((failure) => Failure<List<ProductEntity>?>(failure.exception),
             (success) {
-      final jsonProducts = success.data.data['data'];
+      final jsonProducts = success.data.data['data']['products'];
+      final List<ProductModel> products =
+          (jsonProducts as List).map((i) => ProductModel.fromJson(i)).toList();
+      return Success(products);
+    });
+  }
+
+  @override
+  Future<ApiResult<List<ProductEntity>?>> getBestSellerProducts() async {
+    final response = await _remoteDataSource.getBestSellerProducts();
+
+    return response
+        .fold((failure) => Failure<List<ProductEntity>?>(failure.exception),
+            (success) {
+      final jsonProducts = success.data.data['data']['products'];
       final List<ProductModel> products =
           (jsonProducts as List).map((i) => ProductModel.fromJson(i)).toList();
       return Success(products);

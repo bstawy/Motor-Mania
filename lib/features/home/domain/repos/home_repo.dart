@@ -4,7 +4,8 @@ import '../entities/category_entity.dart';
 import '../entities/offer_entity.dart';
 
 abstract class HomeRepo {
-  Future<ApiResult<List<CategoryEntity>?>> getHomeCategories();
-  Future<ApiResult<List<ProductEntity>?>> getHomeProducts();
   Future<ApiResult<List<OfferEntity>?>> getHomeOffers();
+  Future<ApiResult<List<CategoryEntity>?>> getHomeCategories();
+  Future<ApiResult<List<ProductEntity>?>> getRecommendedProducts();
+  Future<ApiResult<List<ProductEntity>?>> getBestSellerProducts();
 }
