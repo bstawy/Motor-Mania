@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notification_center/notification_center.dart';
 
 import '../../../../../core/errors/api_error_handler.dart';
 import '../../../../../core/errors/api_error_model.dart';
@@ -42,7 +43,11 @@ class UserCubit extends Cubit<UserState> {
         final ApiErrorModel error = ApiErrorHandler.handle(failure.exception);
         emit(UserDataError(error));
       },
-      (success) => emit(UserDataLoaded(success.data)),
+      (success) {
+        NotificationCenter().notify('default_vehicle_switched',
+            data: success.data as CarEntity);
+        emit(UserDataLoaded(success.data));
+      },
     );
   }
 
@@ -55,7 +60,11 @@ class UserCubit extends Cubit<UserState> {
         final ApiErrorModel error = ApiErrorHandler.handle(failure.exception);
         emit(UserDataError(error));
       },
-      (success) => emit(UserDataLoaded(success.data)),
+      (success) {
+        NotificationCenter().notify('default_vehicle_switched',
+            data: success.data as CarEntity);
+        emit(UserDataLoaded(success.data));
+      },
     );
   }
 }

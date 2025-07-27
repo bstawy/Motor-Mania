@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:notification_center/notification_center.dart';
 
 import '../../../../../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../../../../../core/config/theme/colors/colors_manager.dart';
@@ -14,8 +15,27 @@ import 'user_header_loaded_widget.dart';
 import 'user_header_loading_widget.dart';
 import 'user_header_search_and_address_widget.dart';
 
-class UserHeaderWidget extends StatelessWidget {
+class UserHeaderWidget extends StatefulWidget {
   const UserHeaderWidget({super.key});
+
+  @override
+  State<UserHeaderWidget> createState() => _UserHeaderWidgetState();
+}
+
+class _UserHeaderWidgetState extends State<UserHeaderWidget> {
+  @override
+  void initState() {
+    super.initState();
+    NotificationCenter().subscribe('default_vehicle_changed', (data) {
+      context.read<UserCubit>().fetchUserData();
+    });
+  }
+
+  @override
+  void dispose() {
+    NotificationCenter().unsubscribe('default_vehicle_changed');
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
