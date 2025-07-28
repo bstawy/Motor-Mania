@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../features/auth/data/models/user_data_model.dart';
 import '../../../main.dart';
 import '../../caching/tokens_manager.dart';
 import '../../config/configs_cubits/app_manager/app_manager_cubit.dart';
@@ -120,9 +121,12 @@ class TokenInterceptor extends Interceptor {
       if (response.statusCode != 200) {
         throw Exception("Failed to refresh tokens");
       }
-      await TokensManager.setAccessToken(response.data["data"]["access_token"]);
-      await TokensManager.setRefreshToken(
-          response.data["data"]["refresh_token"]);
+
+      final tokensJson = response.data["data"]["tokens"];
+      final UserTokens tokens = UserTokens.fromJson(tokensJson);
+
+      await TokensManager.setAccessToken(tokens.accessToken);
+      await TokensManager.setRefreshToken(tokens.refreshToken);
     } catch (e) {
       rethrow;
     }
