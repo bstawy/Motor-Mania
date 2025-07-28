@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../core/helpers/extensions/snackbar_ext.dart';
 import '../../logic/garage_cubit.dart';
 
 class RemoveCarListener extends StatelessWidget {

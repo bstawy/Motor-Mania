@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../../core/config/theme/texts/font_weight_helper.dart';
-import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../core/helpers/extensions/snackbar_ext.dart';
 import '../../../../../core/helpers/extensions/theme_ext.dart';
 import '../../logic/cart_cubit.dart';
 

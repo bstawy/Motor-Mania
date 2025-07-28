@@ -7,7 +7,8 @@ import '../config/routing/routes.dart';
 import '../config/theme/colors/colors_manager.dart';
 import '../config/theme/texts/font_weight_helper.dart';
 import '../helpers/assets_manager.dart';
-import '../helpers/extensions/extensions.dart';
+import '../helpers/extensions/navigation_ext.dart';
+import '../helpers/extensions/snackbar_ext.dart';
 import '../helpers/extensions/theme_ext.dart';
 
 class SearchBarWidget extends StatelessWidget {

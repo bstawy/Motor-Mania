@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../../core/helpers/extensions/padding_ext.dart';
 import '../../../logic/home_cubit/home_cubit.dart';
 import 'categories_list_loaded_widget.dart';
 import 'categories_list_loading_widget.dart';
@@ -13,7 +13,7 @@ class CategoriesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
-      bloc: context.read<HomeCubit>()..getHomeCategories(),
+      bloc: context.read<HomeCubit>(),
       buildWhen: (previous, current) {
         return current is CategoriesLoading ||
             current is CategoriesLoaded ||

@@ -4,10 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:notification_center/notification_center.dart';
 
-import '../../../../../../../core/config/app_manager/app_manager_cubit.dart';
 import '../../../../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../../../../core/config/theme/texts/font_weight_helper.dart';
-import '../../../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../../../core/helpers/extensions/padding_ext.dart';
+import '../../../../../../../core/helpers/extensions/snackbar_ext.dart';
 import '../../../../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../../../../main.dart';
 import '../../../../logic/user_cubit/user_cubit.dart';
@@ -40,7 +40,7 @@ class _UserHeaderWidgetState extends State<UserHeaderWidget> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<UserCubit, UserState>(
-      bloc: context.read<UserCubit>()..fetchUserData(),
+      bloc: context.read<UserCubit>(),
       listenWhen: (previous, current) {
         return current is UserCarSwitching || current is UserDataError;
       },
@@ -62,8 +62,6 @@ class _UserHeaderWidgetState extends State<UserHeaderWidget> {
         } else if (state is UserDataEmpty) {
           return _buildUserEmptyData();
         } else if (state is UserDataLoaded) {
-          context.read<AppManagerCubit>().selectedCarId =
-              state.userCar?.id ?? 0;
           return UserHeaderLoadedWidget(car: state.userCar!);
         } else {
           return const SizedBox();

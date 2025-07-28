@@ -15,7 +15,7 @@ class UserOffersWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
-      bloc: context.read<HomeCubit>()..getHomeOffers(),
+      bloc: context.read<HomeCubit>(),
       buildWhen: (previous, current) {
         return current is OffersLoading ||
             current is OffersLoaded ||

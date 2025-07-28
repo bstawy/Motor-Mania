@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../main.dart';
 import '../../caching/tokens_manager.dart';
-import '../../config/app_manager/app_manager_cubit.dart';
+import '../../config/configs_cubits/app_manager/app_manager_cubit.dart';
 import '../../config/constants/api_constants.dart';
 import '../../config/routing/routes.dart';
 import '../../di/dependency_injection.dart';

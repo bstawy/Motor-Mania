@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../../core/helpers/extensions/padding_ext.dart';
 import '../../../../../../core/widgets/shimmer_loading_widget.dart';
 
 class CategoriesListLoadingWidget extends StatelessWidget {

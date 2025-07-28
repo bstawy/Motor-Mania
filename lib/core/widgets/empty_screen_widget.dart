@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../config/app_manager/app_manager_cubit.dart';
+import '../config/configs_cubits/app_manager/app_manager_cubit.dart';
 import '../config/theme/colors/colors_manager.dart';
 import '../config/theme/texts/font_weight_helper.dart';
-import '../helpers/extensions/extensions.dart';
+import '../helpers/extensions/padding_ext.dart';
 import '../helpers/extensions/theme_ext.dart';
 
 class EmptyScreenWidget extends StatelessWidget {

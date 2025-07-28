@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import '../../../../core/helpers/custom_snackbar.dart';
 
 class ExitConfirmationDialogWidget extends StatelessWidget {
   const ExitConfirmationDialogWidget({super.key});
@@ -12,14 +16,20 @@ class ExitConfirmationDialogWidget extends StatelessWidget {
       actions: <Widget>[
         TextButton(
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.pop(context);
           },
           child: const Text('No'),
         ),
         TextButton(
           onPressed: () {
-            Navigator.of(context).pop();
-            SystemNavigator.pop();
+            if (Platform.isAndroid) {
+              SystemNavigator.pop();
+            } else if (Platform.isIOS) {
+              CustomSnackBar.showErrorMessage(
+                context,
+                'Please use system navigation bar to exit app',
+              );
+            }
           },
           child: const Text('Yes'),
         ),

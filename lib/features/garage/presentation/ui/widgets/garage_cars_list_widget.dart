@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:notification_center/notification_center.dart';
 
-import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../core/helpers/extensions/padding_ext.dart';
 import '../../../../home/domain/entities/car_entity.dart';
 import '../../logic/garage_cubit.dart';
 import 'garage_item_widget.dart';

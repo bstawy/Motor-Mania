@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../core/helpers/extensions/extensions.dart';
+import '../../../../core/helpers/extensions/navigation_ext.dart';
+import '../../../../core/helpers/extensions/padding_ext.dart';
 import '../../../../core/widgets/custom_app_bar.dart';
 import 'widgets/new_payment_list_widget.dart';
 import 'widgets/user_payment_methods.dart';

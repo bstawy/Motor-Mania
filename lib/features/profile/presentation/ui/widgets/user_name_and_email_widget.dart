@@ -4,13 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../core/config/app_manager/app_manager_cubit.dart';
+import '../../../../../core/config/configs_cubits/app_manager/app_manager_cubit.dart';
 import '../../../../../core/config/routing/routes.dart';
 import '../../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../../../core/helpers/assets_manager.dart';
 import '../../../../../core/helpers/enums/app_modes_enums.dart';
-import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../core/helpers/extensions/navigation_ext.dart';
 import '../../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../../core/helpers/save_navigation_data.dart';
 import '../../../../../core/widgets/custom_elevated_button.dart';

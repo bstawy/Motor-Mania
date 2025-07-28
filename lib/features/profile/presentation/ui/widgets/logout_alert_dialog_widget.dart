@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/caching/hive_manager.dart';
 import '../../../../../core/caching/tokens_manager.dart';
-import '../../../../../core/config/app_manager/app_manager_cubit.dart';
+import '../../../../../core/config/configs_cubits/app_manager/app_manager_cubit.dart';
 import '../../../../../core/config/routing/routes.dart';
 import '../../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../../core/config/theme/texts/font_weight_helper.dart';

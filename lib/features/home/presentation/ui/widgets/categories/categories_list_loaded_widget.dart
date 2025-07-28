@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../../../core/config/theme/texts/font_weight_helper.dart';
-import '../../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../../core/helpers/extensions/padding_ext.dart';
 import '../../../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../domain/entities/category_entity.dart';
 import 'categories_list_item_widget.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../core/helpers/extensions/extensions.dart';
+import '../../../core/helpers/extensions/padding_ext.dart';
 import '../../../core/widgets/products_grid_loading_widget.dart';
 import '../../../core/widgets/products_grid_widget.dart';
 import 'logic/search_cubit.dart';

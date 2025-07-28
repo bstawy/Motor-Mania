@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notification_center/notification_center.dart';
 
-import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../core/helpers/extensions/snackbar_ext.dart';
 import '../../../../garage/presentation/logic/garage_cubit.dart';
 import 'car_added_success_sheet_widget.dart';
 

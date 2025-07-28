@@ -56,8 +56,24 @@ class CrudManager {
     }
   }
 
-  Future<void> update() async {
-    // TODO: Update a record
+  Future<Response> update(
+    String endPoint, {
+    Map<String, dynamic>? body,
+    Map<String, dynamic>? params,
+    bool tokenReq = false,
+  }) async {
+    try {
+      final dio = tokenReq ? _tokenDio : _freeDio;
+
+      final response = await dio!.put(
+        endPoint,
+        data: body,
+        queryParameters: params,
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Future<Response> delete(

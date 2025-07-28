@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../caching/secure_storage_factory.dart';
-import '../../caching/tokens_manager.dart';
-import '../../helpers/enums/app_modes_enums.dart';
-import '../constants/app_constant_keys.dart';
+import '../../../caching/secure_storage_factory.dart';
+import '../../../caching/tokens_manager.dart';
+import '../../../helpers/enums/app_modes_enums.dart';
+import '../../constants/app_constant_keys.dart';
 
 part 'app_manager_state.dart';
 
 class AppManagerCubit extends Cubit<AppManagerState> {
   AppMode appMode = AppMode.guest;
   bool isFirstTimeUser = true;
-  int selectedCarId = 0;
 
   AppManagerCubit() : super(AppManagerInitialState());
 

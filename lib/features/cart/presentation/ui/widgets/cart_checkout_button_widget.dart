@@ -3,10 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../../core/config/app_manager/app_manager_cubit.dart';
+import '../../../../../core/config/configs_cubits/app_manager/app_manager_cubit.dart';
 import '../../../../../core/config/routing/routes.dart';
 import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../../core/helpers/assets_manager.dart';
 import '../../../../../core/helpers/extensions/navigation_ext.dart';
 import '../../../../../core/helpers/save_navigation_data.dart';
 import '../../../../../core/widgets/custom_material_button.dart';
@@ -105,7 +106,7 @@ class CartCheckoutButtonWidget extends StatelessWidget {
             actionText ?? "",
             style: TextStyles.font12WhiteSemiBold,
           ),
-          SvgPicture.asset("assets/icons/checkout_icon.svg"),
+          SvgPicture.asset(AssetsManager.checkoutIcon),
         ],
       ),
     );

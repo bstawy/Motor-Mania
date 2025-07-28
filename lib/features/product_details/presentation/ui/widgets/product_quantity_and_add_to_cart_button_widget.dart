@@ -14,10 +14,8 @@ import '../../../domain/entities/product_entity.dart';
 import '../../logic/product_cubit.dart';
 
 class ProductQuantityAndAddToCartButtonWidget extends StatelessWidget {
-  final ProductCubit productCubit;
   const ProductQuantityAndAddToCartButtonWidget({
     super.key,
-    required this.productCubit,
   });
 
   @override
@@ -45,10 +43,7 @@ class ProductQuantityAndAddToCartButtonWidget extends StatelessWidget {
             onTap: () {
               showPopover(
                 context: context,
-                bodyBuilder: (context) => BlocProvider.value(
-                  value: productCubit,
-                  child: const QuantityPopUpWidget(),
-                ),
+                bodyBuilder: (context) => const QuantityPopUpWidget(),
                 direction: PopoverDirection.bottom,
                 height: 50.h,
                 width: 177.w,
@@ -75,27 +70,11 @@ class ProductQuantityAndAddToCartButtonWidget extends StatelessWidget {
                       fontWeight: FontWeightHelper.medium,
                     ),
                   ),
-                  BlocBuilder<ProductCubit, ProductState>(
-                    bloc: context.read<ProductCubit>(),
-                    buildWhen: (previous, current) =>
-                        current is ProductQuantityUpdated,
-                    builder: (context, state) {
-                      if (state is ProductQuantityUpdated) {
-                        return Text(
-                          state.quantity.toString(),
-                          style: customTextStyles.headlineMedium?.copyWith(
-                            fontWeight: FontWeightHelper.semiBold,
-                          ),
-                        );
-                      } else {
-                        return Text(
-                          "1",
-                          style: customTextStyles.headlineMedium?.copyWith(
-                            fontWeight: FontWeightHelper.semiBold,
-                          ),
-                        );
-                      }
-                    },
+                  Text(
+                    '1',
+                    style: customTextStyles.headlineMedium?.copyWith(
+                      fontWeight: FontWeightHelper.semiBold,
+                    ),
                   ),
                 ],
               ),
