@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../../../../core/config/theme/colors/colors_manager.dart';
-import '../../../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../../../core/helpers/extensions/padding_ext.dart';
 import '../../../../../../../core/widgets/shimmer_loading_widget.dart';
 
 class UserHeaderLoadingWidget extends StatelessWidget {

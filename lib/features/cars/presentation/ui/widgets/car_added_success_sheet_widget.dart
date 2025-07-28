@@ -5,7 +5,9 @@ import 'package:gap/gap.dart';
 import '../../../../../core/config/routing/routes.dart';
 import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors/colors_manager.dart';
-import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../core/helpers/assets_manager.dart';
+import '../../../../../core/helpers/extensions/navigation_ext.dart';
+import '../../../../../core/helpers/extensions/padding_ext.dart';
 import '../../../../../core/widgets/custom_material_button.dart';
 
 class CarAddedSuccessSheet extends StatelessWidget {
@@ -22,7 +24,7 @@ class CarAddedSuccessSheet extends StatelessWidget {
             children: [
               SizedBox(
                 height: 175.h,
-                child: Image.asset("assets/images/success_image.png"),
+                child: Image.asset(AssetsManager.successImage),
               ),
               Gap(12.h),
               RichText(

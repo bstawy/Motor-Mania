@@ -8,7 +8,8 @@ import '../../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../../../core/helpers/assets_manager.dart';
 import '../../../../../core/helpers/enums/payment_method_types_enum.dart';
-import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../core/helpers/extensions/navigation_ext.dart';
+import '../../../../../core/helpers/extensions/padding_ext.dart';
 import '../../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../../core/widgets/custom_elevated_button.dart';
 import '../../../../payment_methods/domain/entities/payment_method_entity.dart';
@@ -80,7 +81,7 @@ class CheckoutPaymentMethodsWidget extends StatelessWidget {
                     subTitle: isFailure
                         ? "Error loading balance"
                         : "Available: \$$walletBalance",
-                    iconPath: "assets/icons/wallet_icon.svg",
+                    iconPath: AssetsManager.profileWalletIcon,
                     isLoading: isLoading,
                   );
                 },
@@ -112,7 +113,7 @@ class CheckoutPaymentMethodsWidget extends StatelessWidget {
                     subTitle: defaultPaymentMethod != null
                         ? "*** **** *** ${defaultPaymentMethod.lastFourDigits}"
                         : "Add New Card to Your Account",
-                    iconPath: "assets/icons/card_icon.svg",
+                    iconPath: AssetsManager.profileCardIcon,
                     isLoading: isLoading,
                   );
                 },

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../helpers/extensions/extensions.dart';
+import '../helpers/extensions/padding_ext.dart';
 import 'shimmer_loading_widget.dart';
 
 class ProductsListLoadingWidget extends StatelessWidget {

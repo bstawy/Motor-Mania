@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../core/helpers/extensions/extensions.dart';
+import '../../../../core/helpers/extensions/padding_ext.dart';
+import '../../../../core/helpers/extensions/snackbar_ext.dart';
 import '../../../../core/widgets/custom_app_bar.dart';
 import '../../../../core/widgets/custom_material_button.dart';
 import '../../../auth/presentation/logic/login_cubit/login_cubit.dart';

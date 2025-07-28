@@ -4,7 +4,7 @@ import 'package:gap/gap.dart';
 
 import '../../features/product_details/domain/entities/product_entity.dart';
 import '../config/theme/texts/font_weight_helper.dart';
-import '../helpers/extensions/extensions.dart';
+import '../helpers/extensions/padding_ext.dart';
 import '../helpers/extensions/theme_ext.dart';
 import 'product_item_widget.dart';
 

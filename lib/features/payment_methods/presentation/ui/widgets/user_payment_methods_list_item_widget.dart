@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../../core/helpers/assets_manager.dart';
 import '../../../domain/entities/payment_method_entity.dart';
 import '../../logic/payment_methods_cubit.dart';
 
@@ -18,8 +19,8 @@ class UserPaymentMethodsListItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final PaymentMethodsCubit cubit = context.read<PaymentMethodsCubit>();
     final String iconPath = paymentMethod.cardType.toLowerCase() == "visa"
-        ? "assets/icons/visa_logo_icon.svg"
-        : "assets/icons/mastercard_logo_icon.svg";
+        ? AssetsManager.visaLogoIcon
+        : AssetsManager.mastercardLogoIcon;
 
     return Container(
       padding: EdgeInsets.only(

@@ -7,6 +7,7 @@ class CachingKeys {
   static const String screenNavigationData = "navData";
   static const String firstTimeUser = "first_time_user";
   static const String userTheme = "user_theme";
+  static const String userLanguage = "user_language";
 }
 
 class HiveBoxKeys {

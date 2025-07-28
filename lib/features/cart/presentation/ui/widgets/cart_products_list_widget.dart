@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../core/helpers/extensions/padding_ext.dart';
 import '../../../domain/entities/cart_product_entity.dart';
 import 'cart_product_item_widget.dart';
 

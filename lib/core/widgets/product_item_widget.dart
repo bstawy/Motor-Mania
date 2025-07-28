@@ -8,7 +8,8 @@ import '../../features/product_details/presentation/ui/widgets/product_price_and
 import '../config/constants/api_constants.dart';
 import '../config/text/text_styles.dart';
 import '../config/theme/colors/colors_manager.dart';
-import '../helpers/extensions/extensions.dart';
+import '../helpers/assets_manager.dart';
+import '../helpers/extensions/padding_ext.dart';
 import '../helpers/extensions/theme_ext.dart';
 import '../helpers/open_product_bottom_sheet.dart';
 import 'cart_button_widget.dart';
@@ -71,14 +72,14 @@ class ProductItemWidget extends StatelessWidget {
                 Gap(12.h),
                 ProductPropertyWidget(
                   title: "${product.rating} (${product.reviewsCount})",
-                  iconPath: "assets/icons/star_icon.svg",
+                  iconPath: AssetsManager.starIcon,
                   titleStyle: TextStyles.font8BlueGreyMedium,
                 ),
                 ProductNameAndTypeWidget(
                   name: product.name ?? "",
                   type: product.compatibleCars?.isNotEmpty ?? false
                       ? product.compatibleCars?.first.brand ?? ''
-                      : "",
+                      : "Generic",
                 ),
                 Gap(6.h),
                 ProductPriceAndDiscountWidget(
@@ -99,8 +100,8 @@ class ProductItemWidget extends StatelessWidget {
                       ? "Free Delivery"
                       : "Verified Seller",
                   iconPath: product.freeDelivery ?? true
-                      ? "assets/icons/free_delivery_filled_icon.svg"
-                      : "assets/icons/verify_icon.svg",
+                      ? AssetsManager.freeDeliveryFilledIcon
+                      : AssetsManager.verifiedSellerIcon,
                 ),
                 Gap(8.h),
                 CartButtonWidget(product: product),

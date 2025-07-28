@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../core/helpers/extensions/extensions.dart';
+import '../../../../core/helpers/extensions/padding_ext.dart';
 import '../../../../core/widgets/custom_app_bar.dart';
 import 'widgets/address_item_widget.dart';
 import 'widgets/order_id_widget.dart';

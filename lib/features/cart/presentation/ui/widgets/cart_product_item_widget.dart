@@ -178,7 +178,6 @@ class CartProductItemWidget extends StatelessWidget {
                     },
                     title: "Remove",
                     iconPath: AssetsManager.trashIcon,
-                    //  "assets/icons/trash_icon.svg",
                   ),
                   const Spacer(),
                   CustomElevatedButton(

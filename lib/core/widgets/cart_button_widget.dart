@@ -7,7 +7,8 @@ import 'package:gap/gap.dart';
 import '../../features/cart/presentation/logic/cart_cubit.dart';
 import '../../features/product_details/domain/entities/product_entity.dart';
 import '../config/text/text_styles.dart';
-import '../helpers/extensions/extensions.dart';
+import '../helpers/assets_manager.dart';
+import '../helpers/extensions/snackbar_ext.dart';
 import 'custom_material_button.dart';
 
 class CartButtonWidget extends StatelessWidget {
@@ -47,7 +48,7 @@ class CartButtonWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SvgPicture.asset(
-              "assets/icons/cart_icon.svg",
+              AssetsManager.cartIcon,
               width: 16.r,
               height: 16.r,
             ),

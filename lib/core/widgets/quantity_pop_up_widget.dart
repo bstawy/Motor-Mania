@@ -4,7 +4,8 @@ import 'package:gap/gap.dart';
 
 import '../../main.dart';
 import '../config/theme/texts/font_weight_helper.dart';
-import '../helpers/extensions/extensions.dart';
+import '../helpers/extensions/navigation_ext.dart';
+import '../helpers/extensions/padding_ext.dart';
 import '../helpers/extensions/theme_ext.dart';
 
 class QuantityPopUpWidget extends StatelessWidget {
@@ -18,7 +19,6 @@ class QuantityPopUpWidget extends StatelessWidget {
           text: "1",
           onTap: () {
             // TODO: Implement update product quantity
-            // context.read<ProductCubit>().updateProductQuantity(1);
             context.pop();
           },
         ),
@@ -26,7 +26,6 @@ class QuantityPopUpWidget extends StatelessWidget {
         _buildQuantityButton(
           text: "2",
           onTap: () {
-            // context.read<ProductCubit>().updateProductQuantity(2);
             context.pop();
           },
         ),
@@ -34,7 +33,6 @@ class QuantityPopUpWidget extends StatelessWidget {
         _buildQuantityButton(
           text: "3",
           onTap: () {
-            // context.read<ProductCubit>().updateProductQuantity(3);
             context.pop();
           },
         ),
@@ -42,7 +40,6 @@ class QuantityPopUpWidget extends StatelessWidget {
         _buildQuantityButton(
           text: "4",
           onTap: () {
-            // context.read<ProductCubit>().updateProductQuantity(4);
             context.pop();
           },
         ),

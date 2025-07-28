@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 
 import '../../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../../core/config/theme/texts/font_weight_helper.dart';
+import '../../../../../core/helpers/assets_manager.dart';
 import '../../../../../core/helpers/extensions/theme_ext.dart';
 
 class OrderStepperWidget extends StatelessWidget {
@@ -31,28 +32,28 @@ class OrderStepperWidget extends StatelessWidget {
           _buildStep(
             title: 'Confirmed',
             subtitle: 'Your order has been confirmed',
-            iconPath: 'assets/icons/order_confirmed_icon.svg',
+            iconPath: AssetsManager.orderConfirmedIcon,
             finished: true,
             textStyles: customTextStyles,
           ),
           _buildStep(
             title: 'Dispatched',
             subtitle: 'Your order has been dispatched',
-            iconPath: 'assets/icons/order_dispatched_icon.svg',
+            iconPath: AssetsManager.orderDispatchedIcon,
             finished: true,
             textStyles: customTextStyles,
           ),
           _buildStep(
             title: 'Shipped',
             subtitle: 'Your order is on the way',
-            iconPath: 'assets/icons/free_delivery_filled_icon.svg',
+            iconPath: AssetsManager.freeDeliveryFilledIcon,
             finished: false,
             textStyles: customTextStyles,
           ),
           _buildStep(
             title: 'Delivered',
             subtitle: 'Your order has been delivered',
-            iconPath: 'assets/icons/delivered_icon.svg',
+            iconPath: AssetsManager.deliveredIcon,
             finished: false,
             isLast: true,
             textStyles: customTextStyles,

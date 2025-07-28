@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../core/config/app_manager/app_manager_cubit.dart';
+import '../../../../core/config/configs_cubits/app_manager/app_manager_cubit.dart';
 import '../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../core/helpers/enums/app_modes_enums.dart';
 import '../logic/home_cubit/home_cubit.dart';

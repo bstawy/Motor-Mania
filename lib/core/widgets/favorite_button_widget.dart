@@ -5,7 +5,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../features/favorites/presentation/logic/favorites_cubit.dart';
 import '../config/theme/colors/colors_manager.dart';
-import '../helpers/extensions/extensions.dart';
+import '../helpers/assets_manager.dart';
+import '../helpers/extensions/snackbar_ext.dart';
 import '../helpers/extensions/theme_ext.dart';
 
 class FavoriteButtonWidget extends StatelessWidget {
@@ -73,8 +74,8 @@ class FavoriteButtonWidget extends StatelessWidget {
             }
             return SvgPicture.asset(
               isFavorite
-                  ? "assets/icons/favorite_filled_icon.svg"
-                  : "assets/icons/favorite_icon.svg",
+                  ? AssetsManager.favoriteFilledIcon
+                  : AssetsManager.favoriteIcon,
               width: iconWidth ?? 16.r,
               height: iconHeight ?? 16.r,
               colorFilter: ColorFilter.mode(

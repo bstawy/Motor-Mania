@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
+import '../../helpers/assets_manager.dart';
+import '../../helpers/extensions/theme_ext.dart';
 import '../text/text_styles.dart';
 
 class NoRouteDefinedWidget extends StatelessWidget {
@@ -18,7 +20,9 @@ class NoRouteDefinedWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Image.asset(
-              "assets/images/search_empty_image.png",
+              context.themeIsDark
+                  ? AssetsManager.searchEmptyDarkImage
+                  : AssetsManager.searchEmptyImage,
               height: 300.h,
               width: 150.w,
             ),

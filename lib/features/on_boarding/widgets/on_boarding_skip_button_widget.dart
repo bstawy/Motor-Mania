@@ -4,7 +4,7 @@ import 'package:gap/gap.dart';
 
 import '../../../core/config/routing/routes.dart';
 import '../../../core/config/theme/texts/font_weight_helper.dart';
-import '../../../core/helpers/extensions/extensions.dart';
+import '../../../core/helpers/extensions/navigation_ext.dart';
 import '../../../core/helpers/extensions/theme_ext.dart';
 
 class OnBoardingSkipButtonWidget extends StatelessWidget {

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/config/app_manager/app_manager_cubit.dart';
+import '../../../../core/config/configs_cubits/app_manager/app_manager_cubit.dart';
 import '../../../../core/config/routing/routes.dart';
 import '../../../../core/helpers/assets_manager.dart';
 import '../../../../core/helpers/enums/app_modes_enums.dart';
-import '../../../../core/helpers/extensions/extensions.dart';
+import '../../../../core/helpers/extensions/navigation_ext.dart';
+import '../../../../core/helpers/extensions/snackbar_ext.dart';
 import '../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../main.dart';
 import '../../models/option_model.dart';

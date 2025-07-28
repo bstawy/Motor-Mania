@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../../core/config/theme/colors/colors_manager.dart';
-import '../../../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../../../core/helpers/extensions/padding_ext.dart';
 import '../../../../../../../core/widgets/shimmer_loading_widget.dart';
 import '../../../../../domain/entities/offer_entity.dart';
 import '../../../../logic/home_cubit/home_cubit.dart';

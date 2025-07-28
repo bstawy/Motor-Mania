@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../core/helpers/extensions/extensions.dart';
 import '../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../core/config/theme/texts/font_weight_helper.dart';
 import '../../../../core/helpers/assets_manager.dart';
+import '../../../../core/helpers/extensions/padding_ext.dart';
 import '../../../../core/helpers/extensions/theme_ext.dart';
 
 class SearchEmptyWidget extends StatelessWidget {

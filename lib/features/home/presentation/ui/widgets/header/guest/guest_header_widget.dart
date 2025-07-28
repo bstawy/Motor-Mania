@@ -4,7 +4,8 @@ import 'package:gap/gap.dart';
 
 import '../../../../../../../core/config/routing/routes.dart';
 import '../../../../../../../core/config/theme/texts/font_weight_helper.dart';
-import '../../../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../../../core/helpers/extensions/navigation_ext.dart';
+import '../../../../../../../core/helpers/extensions/padding_ext.dart';
 import '../../../../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../../../../core/helpers/save_navigation_data.dart';
 import '../../../../../../../core/widgets/search_bar_widget.dart';

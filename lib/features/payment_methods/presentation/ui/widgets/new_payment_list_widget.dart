@@ -3,16 +3,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../../core/config/text/text_styles.dart';
+import '../../../../../core/helpers/assets_manager.dart';
 import 'new_payment_expansion_tile_widget.dart';
 
 class NewPaymentListWidget extends StatelessWidget {
   NewPaymentListWidget({super.key});
 
   final List<(String, String)> paymentMethods = [
-    ("Credit or Debit Card", "assets/icons/card_icon.svg"),
-    ("PayPal", "assets/icons/paypal_logo_icon.svg"),
-    ("Apple Pay", "assets/icons/apple_logo_icon.svg"),
-    ("Google Pay", "assets/icons/payment_google_icon.svg"),
+    ("Credit or Debit Card", AssetsManager.profileCardIcon),
+    ("PayPal", AssetsManager.paypalLogoIcon),
+    ("Apple Pay", AssetsManager.appleLogoIcon),
+    ("Google Pay", AssetsManager.googleLogoIcon),
   ];
 
   @override

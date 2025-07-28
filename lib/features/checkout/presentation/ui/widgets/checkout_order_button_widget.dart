@@ -7,8 +7,9 @@ import 'package:gap/gap.dart';
 import '../../../../../../../core/config/text/text_styles.dart';
 import '../../../../../../../core/widgets/custom_material_button.dart';
 import '../../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../../core/helpers/assets_manager.dart';
 import '../../../../../core/helpers/enums/payment_method_types_enum.dart';
-import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../core/helpers/extensions/snackbar_ext.dart';
 import '../../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../cart/presentation/logic/cart_cubit.dart';
 import '../../../../payment_methods/presentation/logic/payment_methods_cubit.dart';
@@ -96,7 +97,7 @@ class CheckoutOrderButtonWidget extends StatelessWidget {
                         "CLICK TO ORDER",
                         style: TextStyles.font12WhiteSemiBold,
                       ),
-                      SvgPicture.asset("assets/icons/checkout_icon.svg"),
+                      SvgPicture.asset(AssetsManager.checkoutIcon),
                     ],
                   ),
                 ),

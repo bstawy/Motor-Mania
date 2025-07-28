@@ -3,9 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
-import '../../../core/config/app_manager/app_manager_cubit.dart';
+import '../../../core/config/configs_cubits/app_manager/app_manager_cubit.dart';
 import '../../../core/config/theme/colors/colors_manager.dart';
 import '../../../core/di/dependency_injection.dart';
+import '../../../core/helpers/assets_manager.dart';
 import '../../../core/helpers/enums/app_modes_enums.dart';
 import '../../../core/helpers/extensions/theme_ext.dart';
 import '../../../main.dart';
@@ -84,7 +85,8 @@ class _LayoutScreenState extends State<LayoutScreen> {
               hideNavigationBarWhenKeyboardAppears: true,
               handleAndroidBackButtonPress: true,
               onWillPop: (context) async {
-                return await _showExitConfirmationDialog(context!);
+                await _showExitConfirmationDialog(context!);
+                return false;
               },
               padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 17.h),
               backgroundColor: ColorsManager.darkBlue,
@@ -159,29 +161,28 @@ class _LayoutScreenState extends State<LayoutScreen> {
     return [
       bottomNavBarTab(
         title: "Home",
-        activeIconPath: "assets/icons/bottom_nav_selected_home_icon.svg",
-        inactiveIconPath: "assets/icons/bottom_nav_unselected_home_icon.svg",
+        activeIconPath: AssetsManager.bottomNavHomeSelectedIcon,
+        inactiveIconPath: AssetsManager.bottomNavHomeUnselectedIcon,
       ),
       bottomNavBarTab(
         title: "Favorites",
-        activeIconPath: "assets/icons/bottom_nav_selected_favorite_icon.svg",
-        inactiveIconPath:
-            "assets/icons/bottom_nav_unselected_favorite_icon.svg",
+        activeIconPath: AssetsManager.bottomNavFavoriteSelectedIcon,
+        inactiveIconPath: AssetsManager.bottomNavFavoriteUnselectedIcon,
       ),
       bottomNavBarTab(
         title: "Garage",
-        activeIconPath: "assets/icons/bottom_nav_selected_garage_icon.svg",
-        inactiveIconPath: "assets/icons/bottom_nav_unselected_garage_icon.svg",
+        activeIconPath: AssetsManager.bottomNavGarageSelectedIcon,
+        inactiveIconPath: AssetsManager.bottomNavGarageUnselectedIcon,
       ),
       bottomNavBarTab(
         title: "Cart",
-        activeIconPath: "assets/icons/bottom_nav_selected_cart_icon.svg",
-        inactiveIconPath: "assets/icons/bottom_nav_unselected_cart_icon.svg",
+        activeIconPath: AssetsManager.bottomNavCartSelectedIcon,
+        inactiveIconPath: AssetsManager.bottomNavCartUnselectedIcon,
       ),
       bottomNavBarTab(
         title: "Profile",
-        activeIconPath: "assets/icons/bottom_nav_selected_profile_icon.svg",
-        inactiveIconPath: "assets/icons/bottom_nav_unselected_profile_icon.svg",
+        activeIconPath: AssetsManager.bottomNavProfileSelectedIcon,
+        inactiveIconPath: AssetsManager.bottomNavProfileUnselectedIcon,
       ),
     ];
   }

@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'core/config/app_manager/app_manager_cubit.dart';
+import 'app_initializer.dart';
+import 'core/config/configs_cubits/app_manager/app_manager_cubit.dart';
 import 'core/config/routing/app_router.dart';
 import 'core/config/routing/routes.dart';
 import 'core/config/theme/app_theme.dart';
-import 'core/config/theme/theme_cubit.dart';
 import 'main.dart';
 
 class MotorManiaApp extends StatelessWidget {
@@ -15,10 +15,8 @@ class MotorManiaApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ThemeCubit, ThemeMode>(
-      builder: (context, state) {
-        final ThemeMode appTheme = state;
-
+    return AppInitializer(
+      builder: (context, userTheme, userLocale) {
         return BlocBuilder<AppManagerCubit, AppManagerState>(
           builder: (context, state) {
             bool isFirstTimeUser =
@@ -31,7 +29,7 @@ class MotorManiaApp extends StatelessWidget {
                 return MaterialApp(
                   debugShowCheckedModeBanner: false,
                   title: 'Motor Mania',
-                  themeMode: appTheme,
+                  themeMode: userTheme,
                   theme: AppTheme.lightThemeData,
                   darkTheme: AppTheme.darkThemeData,
                   navigatorKey: navigatorKey,

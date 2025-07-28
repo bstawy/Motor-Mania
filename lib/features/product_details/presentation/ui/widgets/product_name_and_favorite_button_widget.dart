@@ -19,6 +19,10 @@ class ProductNameAndFavoriteButtonWidget extends StatelessWidget {
     final customTextStyles = context.textStyles;
     final customColors = context.colors;
 
+    final String productSubtitle = product.compatibleCars?.isNotEmpty == true
+        ? "${product.compatibleCars?.first.brand ?? "Generic"} ${product.compatibleCars?.first.model ?? "Model"}"
+        : "Compatible with all vehicles";
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -34,7 +38,7 @@ class ProductNameAndFavoriteButtonWidget extends StatelessWidget {
                 maxLines: 2,
               ),
               Text(
-                "${product.compatibleCars?.first.brand} ${product.compatibleCars?.first.model}",
+                productSubtitle,
                 style: customTextStyles.headlineMedium?.copyWith(
                   fontWeight: FontWeightHelper.regular,
                 ),

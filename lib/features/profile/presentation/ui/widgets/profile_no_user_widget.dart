@@ -4,7 +4,9 @@ import 'package:gap/gap.dart';
 
 import '../../../../../core/config/routing/routes.dart';
 import '../../../../../core/config/text/text_styles.dart';
-import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../core/helpers/assets_manager.dart';
+import '../../../../../core/helpers/extensions/navigation_ext.dart';
+import '../../../../../core/helpers/extensions/padding_ext.dart';
 import '../../../../../core/helpers/save_navigation_data.dart';
 import '../../../../../core/widgets/custom_material_button.dart';
 
@@ -17,7 +19,7 @@ class ProfileNoUserWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Image.asset(
-          "assets/images/login_image.png",
+          AssetsManager.loginImage,
           height: 256.h,
           width: 290.w,
         ),

@@ -25,6 +25,7 @@ class ProductModel extends ProductEntity {
       name: json['name'],
       description: json['description'],
       imageUrl: json['imageUrl'],
+      price: json['current_price'],
       oldPrice: json['oldPrice'],
       discountPercentage: json['discountPercentage'],
       amount: json['amount'],

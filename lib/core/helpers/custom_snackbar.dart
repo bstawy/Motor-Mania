@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
 
 import '../config/text/text_styles.dart';
+import 'assets_manager.dart';
 import 'enums/status_enum.dart';
 
 class CustomSnackBar {
@@ -44,13 +45,13 @@ class CustomSnackBar {
 
     switch (status) {
       case StatusEnum.loading:
-        lottiePath = "assets/animation/loading_animation.json";
+        lottiePath = AssetsManager.loadingAnimation;
         break;
       case StatusEnum.success:
-        lottiePath = "assets/animation/success_animation.json";
+        lottiePath = AssetsManager.successAnimation;
         break;
       case StatusEnum.error:
-        lottiePath = "assets/animation/error_animation.json";
+        lottiePath = AssetsManager.errorAnimation;
         break;
     }
 

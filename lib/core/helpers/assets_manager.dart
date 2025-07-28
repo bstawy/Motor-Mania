@@ -1,8 +1,26 @@
 class AssetsManager {
-  // static const String _animationsPath = "assets/animation";
+  static const String _animationsPath = "assets/animation";
   static const String _iconsPath = "assets/icons";
   static const String _imagesPath = "assets/images";
 
+  static String get loadingAnimation =>
+      "$_animationsPath/loading_animation.json";
+  static String get successAnimation =>
+      "$_animationsPath/success_animation.json";
+  static String get errorAnimation => "$_animationsPath/error_animation.json";
+
+  static String get onboardingFirstCarImage =>
+      "$_imagesPath/onboarding_car_image_01.png";
+  static String get onboardingFirstCarDarkImage =>
+      "$_imagesPath/onboarding_dark_car_image_01.png";
+  static String get onboardingSecondCarImage =>
+      "$_imagesPath/onboarding_car_image_02.png";
+  static String get onboardingSecondCarDarkImage =>
+      "$_imagesPath/onboarding_dark_car_image_02.png";
+  static String get onboardingThirdCarImage =>
+      "$_imagesPath/onboarding_car_image_03.png";
+  static String get onboardingThirdCarDarkImage =>
+      "$_imagesPath/onboarding_dark_car_image_03.png";
   static String get favoritesEmptyImage =>
       "$_imagesPath/favorites_empty_image.png";
   static String get favoritesDarkEmptyImage =>
@@ -21,6 +39,31 @@ class AssetsManager {
   static String get cartEmptyDarkImage =>
       "$_imagesPath/cart_empty_dark_image.png";
 
+  static String get bottomNavHomeSelectedIcon =>
+      "$_iconsPath/bottom_nav_selected_home_icon.svg";
+  static String get bottomNavHomeUnselectedIcon =>
+      "$_iconsPath/bottom_nav_unselected_home_icon.svg";
+  static String get bottomNavFavoriteSelectedIcon =>
+      "$_iconsPath/bottom_nav_selected_favorite_icon.svg";
+  static String get bottomNavFavoriteUnselectedIcon =>
+      "$_iconsPath/bottom_nav_unselected_favorite_icon.svg";
+  static String get bottomNavGarageSelectedIcon =>
+      "$_iconsPath/bottom_nav_selected_garage_icon.svg";
+  static String get bottomNavGarageUnselectedIcon =>
+      "$_iconsPath/bottom_nav_unselected_garage_icon.svg";
+  static String get bottomNavCartSelectedIcon =>
+      "$_iconsPath/bottom_nav_selected_cart_icon.svg";
+  static String get bottomNavCartUnselectedIcon =>
+      "$_iconsPath/bottom_nav_unselected_cart_icon.svg";
+  static String get bottomNavProfileSelectedIcon =>
+      "$_iconsPath/bottom_nav_selected_profile_icon.svg";
+  static String get bottomNavProfileUnselectedIcon =>
+      "$_iconsPath/bottom_nav_unselected_profile_icon.svg";
+  static String get favoriteFilledIcon =>
+      "$_iconsPath/favorite_filled_icon.svg";
+  static String get favoriteIcon => "$_iconsPath/favorite_icon.svg";
+  static String get cartIcon => "$_iconsPath/cart_icon.svg";
+  static String get checkoutIcon => "$_iconsPath/checkout_icon.svg";
   static String get checkmarkIcon => "$_iconsPath/checkmark_icon.svg";
   static String get tripleBackIcons => "$_iconsPath/triple_back_icons.svg";
   static String get tripleForwardIcons =>
@@ -91,6 +134,12 @@ class AssetsManager {
       "$_iconsPath/cash_on_delivery_icon.svg";
   static String get cashOnDeliveryDarkIcon =>
       "$_iconsPath/cash_on_delivery_dark_icon.svg";
+  static String get paypalLogoIcon => "$_iconsPath/paypal_logo_icon.svg";
+  static String get appleLogoIcon => "$_iconsPath/apple_logo_icon.svg";
+  static String get googleLogoIcon => "$_iconsPath/payment_google_icon.svg";
+  static String get visaLogoIcon => "$_iconsPath/visa_logo_icon.svg";
+  static String get mastercardLogoIcon =>
+      "$_iconsPath/mastercard_logo_icon.svg";
   static String get storeIcon => "$_iconsPath/store_icon.svg";
   static String get storeDarkIcon => "$_iconsPath/store_dark_icon.svg";
   static String get boxIcon => "$_iconsPath/box_icon.svg";
@@ -103,4 +152,9 @@ class AssetsManager {
   static String get appleIcon => "$_iconsPath/login_apple_icon.svg";
   static String get addresseIcon => "$_iconsPath/addresse_icon.svg";
   static String get addresseDarkIcon => "$_iconsPath/addresse_dark_icon.svg";
+  static String get copyIcon => "$_iconsPath/copy_icon.svg";
+  static String get orderConfirmedIcon =>
+      "$_iconsPath/order_confirmed_icon.svg";
+  static String get orderDispatchedIcon =>
+      "$_iconsPath/order_dispatched_icon.svg";
 }

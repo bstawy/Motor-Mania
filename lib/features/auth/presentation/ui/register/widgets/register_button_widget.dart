@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/caching/navigation_data_manager.dart';
-import '../../../../../../core/config/app_manager/app_manager_cubit.dart';
+import '../../../../../../core/config/configs_cubits/app_manager/app_manager_cubit.dart';
 import '../../../../../../core/config/routing/routes.dart';
 import '../../../../../../core/config/theme/colors/colors_manager.dart';
-import '../../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../../core/helpers/extensions/navigation_ext.dart';
+import '../../../../../../core/helpers/extensions/snackbar_ext.dart';
 import '../../../../../../core/widgets/custom_material_button.dart';
 import '../../../logic/register_cubit/register_cubit.dart';
 

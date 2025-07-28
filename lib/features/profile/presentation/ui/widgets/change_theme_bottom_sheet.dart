@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
+import '../../../../../core/config/configs_cubits/theme_cubit.dart';
 import '../../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../../core/config/theme/texts/font_weight_helper.dart';
-import '../../../../../core/config/theme/theme_cubit.dart';
-import '../../../../../core/helpers/extensions/extensions.dart';
+import '../../../../../core/helpers/extensions/padding_ext.dart';
 import '../../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../../core/widgets/custom_material_button.dart';
 
