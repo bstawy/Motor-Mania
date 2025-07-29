@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../caching/secure_storage_factory.dart';
+import '../../../caching/secure_storage_manager.dart';
 import '../../../caching/tokens_manager.dart';
 import '../../../helpers/enums/app_modes_enums.dart';
 import '../../constants/app_constant_keys.dart';
@@ -20,7 +20,7 @@ class AppManagerCubit extends Cubit<AppManagerState> {
   }
 
   Future<void> checkFirstTimeUser() async {
-    final String? cachedFirstTimeUser = await CachingPrefsFactory.secureRead(
+    final String? cachedFirstTimeUser = await SecureStorageManager.read(
       CachingKeys.firstTimeUser,
     );
     // isFirstTimeUser =
@@ -34,7 +34,7 @@ class AppManagerCubit extends Cubit<AppManagerState> {
 
   void setFirstTimeUser(bool value) async {
     isFirstTimeUser = value;
-    await CachingPrefsFactory.secureWrite(
+    await SecureStorageManager.write(
       key: CachingKeys.firstTimeUser,
       value: isFirstTimeUser ? 'true' : 'false',
     );

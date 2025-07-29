@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../features/cart/domain/entities/cart_product_entity.dart';
@@ -36,30 +39,60 @@ class HiveManager {
       {required String boxKey, required T data}) async {
     var box = Hive.box<T>(boxKey);
     await box.add(data);
+
+    if (!kReleaseMode) {
+      log('key: $boxKey\nvalue: $data', name: 'HiveManager::CACHE DATA ITEM');
+    }
   }
 
   Future<void> cacheDataList<T>(
       {required String boxKey, required List<T> data}) async {
     var box = Hive.box<T>(boxKey);
     await box.addAll(data);
+
+    if (!kReleaseMode) {
+      log('key: $boxKey\nlength: ${data.length}',
+          name: 'HiveManager::CACHE DATA LIST');
+    }
   }
 
   Future<List<T>> retrieveData<T>(String boxKey) async {
     var box = Hive.box<T>(boxKey);
-    return box.values.toList();
+    var data = box.values.toList();
+
+    if (!kReleaseMode) {
+      log('key: $boxKey\nlength: ${data.length}',
+          name: 'HiveManager::RETRIEVE DATA');
+    }
+
+    return data;
   }
 
-  Future<void> clearData<T>(String boxKey) async {
-    await Hive.box<T>(boxKey).clear();
-  }
-
-  Future<void> clearItem<T>(
+  Future<void> deleteItem<T>(
       {required String boxKey, required int index}) async {
     await Hive.box<T>(boxKey).deleteAt(index);
+
+    if (!kReleaseMode) {
+      log('key: $boxKey\nindex: $index', name: 'HiveManager::DELETE ITEM');
+    }
+  }
+
+  Future<void> clearBox<T>(String boxKey) async {
+    await Hive.box<T>(boxKey).clear();
+
+    if (!kReleaseMode) {
+      log('key: $boxKey', name: 'HiveManager::CLEAR BOX');
+    }
   }
 
   Future<void> clearAllBoxes() async {
-    await Hive.box<ProductEntity>(HiveBoxKeys.favorites).clear();
-    await Hive.box<CartProductEntity>(HiveBoxKeys.cart).clear();
+    final boxKeys = [HiveBoxKeys.favorites, HiveBoxKeys.cart];
+    for (final key in boxKeys) {
+      await clearBox(key);
+    }
+
+    if (!kReleaseMode) {
+      log('clear all boxes', name: 'HiveManager::CLEAR ALL BOXES');
+    }
   }
 }

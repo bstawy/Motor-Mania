@@ -1,10 +1,10 @@
 import '../config/constants/app_constant_keys.dart';
-import 'secure_storage_factory.dart';
+import 'secure_storage_manager.dart';
 
 class TokensManager {
   static Future<String?> getAccessToken() async {
     String? accessToken =
-        await CachingPrefsFactory.secureRead(TokensKeys.accessToken);
+        await SecureStorageManager.read(TokensKeys.accessToken);
     // String? accessToken =
     //     await CachingPrefsFactory.readString(TokensKeys.accessToken);
 
@@ -13,7 +13,7 @@ class TokensManager {
 
   static Future<String?> getRefreshToken() async {
     String? refreshToken =
-        await CachingPrefsFactory.secureRead(TokensKeys.refreshToken);
+        await SecureStorageManager.read(TokensKeys.refreshToken);
     // String? refreshToken =
     //     await CachingPrefsFactory.readString(TokensKeys.refreshToken);
 
@@ -21,7 +21,7 @@ class TokensManager {
   }
 
   static Future<void> setAccessToken(String accessToken) async {
-    await CachingPrefsFactory.secureWrite(
+    await SecureStorageManager.write(
       key: TokensKeys.accessToken,
       value: accessToken,
     );
@@ -32,7 +32,7 @@ class TokensManager {
   }
 
   static Future<void> setRefreshToken(String refreshToken) async {
-    await CachingPrefsFactory.secureWrite(
+    await SecureStorageManager.write(
       key: TokensKeys.refreshToken,
       value: refreshToken,
     );
@@ -43,12 +43,12 @@ class TokensManager {
   }
 
   static Future<void> deleteAccessToken() async {
-    await CachingPrefsFactory.secureDelete(TokensKeys.accessToken);
+    await SecureStorageManager.delete(TokensKeys.accessToken);
     // await CachingPrefsFactory.deleteData(TokensKeys.accessToken);
   }
 
   static Future<void> deleteRefreshToken() async {
-    await CachingPrefsFactory.secureDelete(TokensKeys.refreshToken);
+    await SecureStorageManager.delete(TokensKeys.refreshToken);
     // await CachingPrefsFactory.deleteData(TokensKeys.refreshToken);
   }
 

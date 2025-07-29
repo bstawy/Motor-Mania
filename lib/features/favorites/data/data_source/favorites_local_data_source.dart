@@ -29,13 +29,13 @@ class FavoritesLocalDataSource {
   Future<void> removeFavorite(int productId) async {
     final List<ProductEntity> favorites = await getCachedFavoritesList();
     int index = favorites.indexWhere((product) => product.id == productId);
-    await _hiveManager.clearItem<ProductEntity>(
+    await _hiveManager.deleteItem<ProductEntity>(
       boxKey: HiveBoxKeys.favorites,
       index: index,
     );
   }
 
   Future<void> clearFavorites() async {
-    await _hiveManager.clearData<ProductEntity>(HiveBoxKeys.favorites);
+    await _hiveManager.clearBox<ProductEntity>(HiveBoxKeys.favorites);
   }
 }

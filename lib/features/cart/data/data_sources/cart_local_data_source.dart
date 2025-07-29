@@ -29,7 +29,7 @@ class CartLocalDataSource {
     final List<CartProductEntity> cart = await getCachedList();
     int index =
         cart.indexWhere((cartProduct) => cartProduct.product.id == productId);
-    await _hiveManager.clearItem<CartProductEntity>(
+    await _hiveManager.deleteItem<CartProductEntity>(
       boxKey: HiveBoxKeys.cart,
       index: index,
     );
@@ -58,6 +58,6 @@ class CartLocalDataSource {
   }
 
   Future<void> clearCart() async {
-    await _hiveManager.clearData<CartProductEntity>(HiveBoxKeys.cart);
+    await _hiveManager.clearBox<CartProductEntity>(HiveBoxKeys.cart);
   }
 }
