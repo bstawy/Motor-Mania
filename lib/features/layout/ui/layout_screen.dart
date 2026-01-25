@@ -11,6 +11,7 @@ import '../../../core/helpers/enums/app_modes_enums.dart';
 import '../../../core/helpers/extensions/theme_ext.dart';
 import '../../../main.dart';
 import '../../cars/presentation/logic/cars_cubit.dart';
+import '../../cart/presentation/logic/cart_cubit.dart';
 import '../../cart/presentation/ui/cart_screen.dart';
 import '../../favorites/presentation/ui/favorites_screen.dart';
 import '../../garage/presentation/logic/garage_cubit.dart';
@@ -82,6 +83,20 @@ class _LayoutScreenState extends State<LayoutScreen> {
               controller: controller,
               screens: _buildScreens(),
               items: _navBarsItems(),
+              onItemSelected: (index) {
+                if (state is BottomSheetOpenedState) {
+                  context.read<LayoutCubit>().closeBottomSheet();
+                }
+                if (index == 3) {
+                  if (context.read<CartCubit>().state is CartLoaded ||
+                      context.read<CartCubit>().state is ApplyCouponLoading ||
+                      context.read<CartCubit>().state is ApplyCouponSuccess ||
+                      context.read<CartCubit>().state is ApplyCouponError ||
+                      context.read<CartCubit>().state is RemoveCoupon) {
+                    context.read<LayoutCubit>().openBottomSheet();
+                  }
+                }
+              },
               hideNavigationBarWhenKeyboardAppears: true,
               handleAndroidBackButtonPress: true,
               onWillPop: (context) async {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
@@ -6,6 +7,7 @@ import '../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../core/helpers/extensions/padding_ext.dart';
 import '../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../core/widgets/search_bar_widget.dart';
+import '../../../layout/logic/layout_cubit.dart';
 import '../../domain/entities/product_entity.dart';
 import 'widgets/product_description_widget.dart';
 import 'widgets/product_image_and_rating_widget.dart';
@@ -16,13 +18,30 @@ import 'widgets/product_specifications_widget.dart';
 import 'widgets/seller_info_widget.dart';
 import 'widgets/stock_and_shipping_info_widget.dart';
 
-class ProductDetailsScreen extends StatelessWidget {
+class ProductDetailsScreen extends StatefulWidget {
   final ProductEntity product;
 
   const ProductDetailsScreen({
     super.key,
     required this.product,
   });
+
+  @override
+  State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
+}
+
+class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<LayoutCubit>().isProductDetailsBottomSheetOpen = true;
+  }
+
+  // @override
+  // void dispose() {
+  //   context.read<LayoutCubit>().isProductDetailsBottomSheetOpen = false;
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -56,30 +75,31 @@ class ProductDetailsScreen extends StatelessWidget {
                       ),
                       Gap(16.h),
                       ProductNameAndFavoriteButtonWidget(
-                        product: product,
+                        product: widget.product,
                       ),
                       Gap(16.r),
                       ProductImageAndRatingWidget(
-                        imageUrl: product.imageUrl ?? "",
-                        rating: product.rating ?? 0,
-                        reviewsCount: product.reviewsCount ?? 0,
+                        imageUrl: widget.product.imageUrl ?? "",
+                        rating: widget.product.rating ?? 0,
+                        reviewsCount: widget.product.reviewsCount ?? 0,
                       ),
                       Gap(24.h),
                       ProductPriceAndDiscountWidget(
-                        oldPrice: product.oldPrice ?? 0,
-                        price: product.price ?? 0,
-                        discountPercentage: product.discountPercentage ?? 0,
+                        oldPrice: widget.product.oldPrice ?? 0,
+                        price: widget.product.price ?? 0,
+                        discountPercentage:
+                            widget.product.discountPercentage ?? 0,
                       ),
                       Gap(8.h),
                       StockAndShippingInfoWidget(
-                        amount: product.amount ?? 0,
-                        shippingInfo: product.shippingInformation ?? "",
+                        amount: widget.product.amount ?? 0,
+                        shippingInfo: widget.product.shippingInformation ?? "",
                       ),
                       Gap(12.h),
                       const ProductSpecificationsWidget(),
                       Gap(16.h),
                       ProductDescriptionWidget(
-                        description: product.description ?? "",
+                        description: widget.product.description ?? "",
                       ),
                       Gap(16.h),
                       const SellerInfoWidget(),

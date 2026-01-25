@@ -53,7 +53,7 @@ class ProductEntity extends Equatable {
     this.freeDelivery,
     this.shippingInformation,
     this.compatibleCars,
-    this.isFavorite,
+    this.isFavorite = false,
   });
 
   ProductEntity copyWith({
@@ -100,6 +100,7 @@ class ProductEntity extends Equatable {
         imageUrl,
         price,
         oldPrice,
+        discountPercentage,
         amount,
         rating,
         reviewsCount,

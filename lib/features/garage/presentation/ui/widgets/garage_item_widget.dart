@@ -5,9 +5,9 @@ import 'package:gap/gap.dart';
 import 'package:notification_center/notification_center.dart';
 
 import '../../../../../core/config/constants/api_constants.dart';
-import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors/colors_manager.dart';
 import '../../../../../core/config/theme/texts/font_weight_helper.dart';
+import '../../../../../core/config/theme/texts/text_styles.dart';
 import '../../../../../core/helpers/assets_manager.dart';
 import '../../../../../core/helpers/extensions/padding_ext.dart';
 import '../../../../../core/helpers/extensions/snackbar_ext.dart';

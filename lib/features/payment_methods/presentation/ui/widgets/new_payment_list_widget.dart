@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../../core/config/text/text_styles.dart';
+import '../../../../../core/config/theme/texts/text_styles.dart';
 import '../../../../../core/helpers/assets_manager.dart';
 import 'new_payment_expansion_tile_widget.dart';
 

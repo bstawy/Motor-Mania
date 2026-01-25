@@ -8,7 +8,7 @@ class ProductModel extends ProductEntity {
     required super.description,
     required super.imageUrl,
     required super.oldPrice,
-    super.price,
+    required super.price,
     required super.discountPercentage,
     required super.amount,
     required super.rating,

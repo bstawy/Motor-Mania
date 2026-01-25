@@ -89,6 +89,7 @@ class ProductQuantityAndAddToCartButtonWidget extends StatelessWidget {
 
                 context.read<CartCubit>().addProductToCart(product, quantity);
               },
+              loading: context.watch<CartCubit>().state is CartLoading,
               height: 40.h,
               backgroundColor: ColorsManager.red,
               title: "ADD TO CART",

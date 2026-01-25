@@ -69,23 +69,23 @@ class _CartScreenState extends State<CartScreen> {
         child: BlocConsumer<CartCubit, CartState>(
           bloc: context.read<CartCubit>(),
           listenWhen: (previous, current) {
-            return current is CartLoaded ||
+            return current is CartLoading ||
+                current is CartLoaded ||
                 current is CartEmpty ||
                 current is CartError;
           },
           listener: (context, state) {
-            if (state is CartLoaded) {
-              if (context.read<LayoutCubit>().controller.index == 3) {
+            if (context.read<LayoutCubit>().controller.index == 3) {
+              if (state is CartLoaded) {
                 context.read<LayoutCubit>().openBottomSheet();
-              }
-            } else if (state is CartEmpty || state is CartError) {
-              if (context.read<LayoutCubit>().controller.index == 3) {
+              } else {
                 context.read<LayoutCubit>().closeBottomSheet();
               }
             }
           },
           buildWhen: (previous, current) {
-            return current is CartLoading ||
+            return current is CartInitial ||
+                current is CartLoading ||
                 current is CartLoaded ||
                 current is CartEmpty ||
                 current is CartError;
@@ -95,6 +95,7 @@ class _CartScreenState extends State<CartScreen> {
               return const CartProductsLoadingWidget()
                   .setOnlyPadding(12.h, 0, 16.w, 16.w);
             } else if (state is CartLoaded) {
+              debugPrint("Cart Loaded: ${state.cartProducts ?? 0}");
               return Column(
                 children: [
                   Expanded(

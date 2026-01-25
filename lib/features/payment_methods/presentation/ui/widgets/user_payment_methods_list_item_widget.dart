@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../../core/config/text/text_styles.dart';
 import '../../../../../core/config/theme/colors/colors_manager.dart';
+import '../../../../../core/config/theme/texts/text_styles.dart';
 import '../../../../../core/helpers/assets_manager.dart';
 import '../../../domain/entities/payment_method_entity.dart';
 import '../../logic/payment_methods_cubit.dart';

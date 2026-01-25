@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../helpers/assets_manager.dart';
-import '../../helpers/extensions/theme_ext.dart';
-import '../text/text_styles.dart';
+import '../config/theme/texts/text_styles.dart';
+import '../helpers/assets_manager.dart';
+import '../helpers/extensions/theme_ext.dart';
 
 class NoRouteDefinedWidget extends StatelessWidget {
   final RouteSettings settings;

@@ -4,13 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../features/favorites/presentation/logic/favorites_cubit.dart';
+import '../../features/product_details/domain/entities/product_entity.dart';
 import '../config/theme/colors/colors_manager.dart';
 import '../helpers/assets_manager.dart';
 import '../helpers/extensions/snackbar_ext.dart';
 import '../helpers/extensions/theme_ext.dart';
 
 class FavoriteButtonWidget extends StatelessWidget {
-  final dynamic product;
+  final ProductEntity product;
   final double? width, height;
   final double? iconWidth, iconHeight;
   final Color? backgroundColor;
@@ -27,7 +28,7 @@ class FavoriteButtonWidget extends StatelessWidget {
 
   _toggleFavorite(BuildContext context, bool isFavorite) async {
     if (isFavorite) {
-      await context.read<FavoritesCubit>().removeFromFavorites(product.id);
+      await context.read<FavoritesCubit>().removeFromFavorites(product.id!);
     } else {
       await context.read<FavoritesCubit>().addToFavorites(product);
     }
@@ -59,7 +60,7 @@ class FavoriteButtonWidget extends StatelessWidget {
             return current is AddToFavoritesSuccess ||
                 current is RemoveFromFavoritesSuccess;
           },
-          buildWhen: (previous, current) => current is FavoritesLoaded,
+          // buildWhen: (previous, current) => current is FavoritesLoaded,
           listener: (context, state) {
             if (state is AddToFavoritesSuccess) {
               context.successSnackBar("Product Added to your Favorites");
@@ -70,7 +71,7 @@ class FavoriteButtonWidget extends StatelessWidget {
           builder: (context, state) {
             if (state is FavoritesLoaded) {
               isFavorite =
-                  context.read<FavoritesCubit>().isFavorite(product.id);
+                  context.read<FavoritesCubit>().isFavorite(product.id!);
             }
             return SvgPicture.asset(
               isFavorite

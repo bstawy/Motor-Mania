@@ -14,7 +14,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
   final AddToFavoritesUseCase _addToFavoritesUseCase;
   final RemoveFromFavoritesUseCase _removeFromFavoritesUseCase;
 
-  List<ProductEntity> favorites = [];
+  Set<int?> favoriteIds = {};
 
   FavoritesCubit(
     this._getAllFavoritesUseCase,
@@ -34,10 +34,12 @@ class FavoritesCubit extends Cubit<FavoritesState> {
       },
       (success) {
         if (success.data?.isEmpty ?? true) {
+          favoriteIds.clear();
           emit(FavoritesEmpty());
         } else {
-          favorites = success.data!;
-          emit(FavoritesLoaded(success.data));
+          final favorites = success.data!;
+          favoriteIds = favorites.map((product) => product.id).toSet();
+          emit(FavoritesLoaded(favorites));
         }
       },
     );
@@ -77,7 +79,5 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     );
   }
 
-  bool isFavorite(int id) {
-    return favorites.map((product) => product.id).toList().contains(id);
-  }
+  bool isFavorite(int id) => favoriteIds.contains(id);
 }

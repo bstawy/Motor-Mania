@@ -73,7 +73,21 @@ class CartRepoImpl implements CartRepo {
     final token = await TokensManager.getAccessToken() ?? "";
 
     if (token.isEmpty) {
-      await _localDataSource.cacheItem(cartProduct);
+      List<CartProductEntity> cachedCart =
+          await _localDataSource.getCachedList();
+
+      bool isProductInCart = cachedCart.any(
+        (cartProduct) => cartProduct.product == product,
+      );
+
+      if (isProductInCart) {
+        await _localDataSource.updateProductQuantity(
+          product.id ?? 0,
+          quantity,
+        );
+      } else {
+        await _localDataSource.cacheItem(cartProduct);
+      }
       return Success(null);
     } else {
       final response =

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../features/product_details/domain/entities/product_entity.dart';
 import 'product_item_widget.dart';
 
 class ProductsGridWidget extends StatelessWidget {
-  final List<dynamic> products;
+  final List<ProductEntity> products;
 
   const ProductsGridWidget({super.key, required this.products});
 

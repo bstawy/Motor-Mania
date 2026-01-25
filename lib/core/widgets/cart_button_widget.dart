@@ -6,7 +6,7 @@ import 'package:gap/gap.dart';
 
 import '../../features/cart/presentation/logic/cart_cubit.dart';
 import '../../features/product_details/domain/entities/product_entity.dart';
-import '../config/text/text_styles.dart';
+import '../config/theme/texts/text_styles.dart';
 import '../helpers/assets_manager.dart';
 import '../helpers/extensions/snackbar_ext.dart';
 import 'custom_material_button.dart';

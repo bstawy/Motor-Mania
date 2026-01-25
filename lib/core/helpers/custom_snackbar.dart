@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
 
-import '../config/text/text_styles.dart';
+import '../config/theme/texts/text_styles.dart';
 import 'assets_manager.dart';
 import 'enums/status_enum.dart';
 

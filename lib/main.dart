@@ -58,7 +58,7 @@ void main() async {
           create: (context) => LayoutCubit(),
         ),
         BlocProvider(
-          create: (context) => getIt<FavoritesCubit>(),
+          create: (context) => getIt<FavoritesCubit>()..getAllFavorites(),
         ),
         BlocProvider(
           create: (context) => getIt<CartCubit>(),

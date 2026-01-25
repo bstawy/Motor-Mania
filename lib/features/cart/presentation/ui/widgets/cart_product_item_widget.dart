@@ -12,13 +12,13 @@ import '../../../../../core/helpers/extensions/theme_ext.dart';
 import '../../../../../core/helpers/open_product_bottom_sheet.dart';
 import '../../../../../core/widgets/custom_elevated_button.dart';
 import '../../../../../core/widgets/custom_network_image_widget.dart';
-import '../../../../../core/widgets/product_name_and_type_widget.dart';
 import '../../../../../core/widgets/product_price_widget.dart';
 import '../../../../../core/widgets/product_property_widget.dart';
 import '../../../../../core/widgets/quantity_pop_up_widget.dart';
 import '../../../../favorites/presentation/logic/favorites_cubit.dart';
 import '../../../domain/entities/cart_product_entity.dart';
 import '../../logic/cart_cubit.dart';
+import 'cart_product_name_and_type_widget.dart';
 
 class CartProductItemWidget extends StatelessWidget {
   final CartProductEntity cartProduct;
@@ -60,10 +60,13 @@ class CartProductItemWidget extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ProductNameAndTypeWidget(
+                    CartItemProductNameAndTypeWidget(
                       name: cartProduct.product.name ?? "",
-                      type:
-                          cartProduct.product.compatibleCars?.first.brand ?? "",
+                      type: cartProduct.product.compatibleCars?.isNotEmpty ??
+                              false
+                          ? cartProduct.product.compatibleCars?.first.brand ??
+                              ''
+                          : "Generic",
                     ),
                     Gap(10.h),
                     ProductPriceWidget(

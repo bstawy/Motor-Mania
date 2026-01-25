@@ -36,18 +36,15 @@ class FavoritesRepoImpl extends FavoritesRepo {
               .map((product) => ProductModel.fromJson(product) as ProductEntity)
               .toList();
 
-      // Merge remote favorites with cached favorites
-      List<ProductEntity> allFavorites =
+      // Merge remote favorites with cached favorites, avoiding duplicates
+      final Set<int?> remoteIds = remoteFavorites.map((e) => e.id).toSet();
+      final List<ProductEntity> allFavorites =
           List<ProductEntity>.from(remoteFavorites);
+      final missingFavorites =
+          cachedFavorites.where((e) => !remoteIds.contains(e.id)).toList();
 
-      if (remoteFavorites != cachedFavorites) {
-        for (final fav in cachedFavorites) {
-          if (!remoteFavorites.any((product) => product.id == fav.id)) {
-            await addToFavorites(fav);
-            allFavorites.add(fav);
-          }
-        }
-      }
+      await Future.wait(missingFavorites.map(addToFavorites));
+
       // Clear the local cache and store the merged favorites
       await _localDataSource.clearFavorites();
       await _localDataSource.cacheFavoritesList(allFavorites);

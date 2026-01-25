@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:motor_mania/features/product_details/presentation/logic/product_cubit.dart';
 
 import '../../features/layout/logic/layout_cubit.dart';
 import '../../features/product_details/domain/entities/product_entity.dart';
@@ -14,12 +15,17 @@ void openProductBottomSheet({
   required ProductEntity product,
 }) {
   context.read<LayoutCubit>().openBottomSheet();
+
   final Completer<void> completer = Completer<void>();
 
   showModalBottomSheet(
     context: context,
-    builder: (context) {
-      return ProductDetailsScreen(product: product);
+    builder: (ctx) {
+      context.read<LayoutCubit>().productDetailsBottomSheetContext = ctx;
+      return BlocProvider(
+        create: (context) => ProductCubit()..product = product,
+        child: ProductDetailsScreen(product: product),
+      );
     },
     isScrollControlled: true,
     useSafeArea: true,
@@ -28,7 +34,10 @@ void openProductBottomSheet({
     () {
       completer.complete();
       if (context.mounted) {
-        context.read<LayoutCubit>().closeBottomSheet();
+        final layoutCubit = context.read<LayoutCubit>();
+        if (layoutCubit.isProductDetailsBottomSheetOpen) {
+          layoutCubit.closeBottomSheet();
+        }
       }
     },
   );

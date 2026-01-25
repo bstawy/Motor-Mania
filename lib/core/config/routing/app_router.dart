@@ -21,7 +21,7 @@ import '../../../features/search/presentation/logic/search_cubit.dart';
 import '../../../features/search/presentation/search_screen.dart';
 import '../../../features/track_order/presentation/ui/track_order_screen.dart';
 import '../../di/dependency_injection.dart';
-import 'no_route_defined_widget.dart';
+import '../../widgets/no_route_defined_widget.dart';
 import 'routes.dart';
 
 class AppRouter {
